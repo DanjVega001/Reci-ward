@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClasificacionTable extends Migration
+class CreateMaterialHasEntregaTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateClasificacionTable extends Migration
      */
     public function up()
     {
-        Schema::create('clasificacion', function (Blueprint $table) {
+        Schema::create('material_has_entregas', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateClasificacionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clasificacion');
+        Schema::dropIfExists('material_has_entrega');
     }
 }
