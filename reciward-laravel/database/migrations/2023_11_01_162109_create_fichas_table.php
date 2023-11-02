@@ -15,7 +15,13 @@ class CreateFichasTable extends Migration
     {
         Schema::create('fichas', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('nombreFicha');
+            $table->integer('codigoFicha');
+            $table->date('fechaFin');
+            $table->date('fechaCreación');
+            $table->foreignId('administrador_id');
+            $table->foreign('administrador_id')->references('id')->on('administradores');
+            //$table->timestamps();
         });
     }
 
