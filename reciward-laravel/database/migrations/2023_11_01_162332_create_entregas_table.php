@@ -15,7 +15,13 @@ class CreateEntregaTable extends Migration
     {
         Schema::create('entregas', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('cantidadMaterial');
+            $table->boolean('canjeada');
+            $table->integer('puntosAcumulados');
+            $table->foreignId('cafeteria_id');
+            $table->foreign('cafeteria_id')->references('id')->on('cafeterias');
+            $table->foreignId('aprendiz_id');
+            $table->foreign('aprendiz_id')->references('id')->on('aprendices');
         });
     }
 
