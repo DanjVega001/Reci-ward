@@ -14,8 +14,14 @@ class CreateTipsTable extends Migration
     public function up()
     {
         Schema::create('tips', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('id_tips');
+            $table->string('nombre_tips');
+            $table->text('descripcion');
+            $table->foreignId('administrador_id');
+            $table->foreign('administrador_id')->references('id')->on('administradores');
+            $table->foreignId('aprendiz_id');
+            $table->foreign('aprendiz_id')->references('id')->on('aprendices');
+            //$table->timestamps();
         });
     }
 
