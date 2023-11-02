@@ -15,7 +15,12 @@ class CreateAprendicesTable extends Migration
     {
         Schema::create('aprendices', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('tipoDocumento');
+            $table->integer('numeroDocumento');
+            $table->string('contraseña');
+            $table->string('corrreo');
+            $table->foreignId('ficha_id');
+            $table->foreign('ficha_id')->references('id')->on('fichas');
         });
     }
 
