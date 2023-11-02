@@ -14,8 +14,14 @@ class CreateEntregaTable extends Migration
     public function up()
     {
         Schema::create('entregas', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+            $table->id('id_perfil');
+            $table->string('nombre');
+            $table->string('apellido');
+            $table->text('descripcion');
+            $table->text('avatar');
+            $table->foreignId('aprendiz_id');
+            $table->foreign('aprendiz_id')->references('id')->on('aprendices');
+            //$table->timestamps();
         });
     }
 
