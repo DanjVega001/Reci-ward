@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Bono;
 
 class BonoController extends Controller
 {
@@ -14,18 +14,22 @@ class BonoController extends Controller
      */
     public function index()
     {
-        //
+        $bonos = Bono::all();
+        return response()->json($bonos, 200);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
+     * Show the form for creating a new resource.
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $bonos = Bono::create([
+            'valorBono' => $request->valorBono,
+            'puntosRequeridos' => $request->puntosRequeridos,
+        ]);
+        return response()->json($bonos, 201);
     }
 
     /**
@@ -36,7 +40,11 @@ class BonoController extends Controller
      */
     public function show($id)
     {
-        //
+        $bonos = Bono::find($id);
+        if ($bonos) {
+            return response()->json($bonos, 200);
+        }
+        return response()->json(["error"=>"Bono no encontrado"], 404);
     }
 
     /**
@@ -48,7 +56,16 @@ class BonoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $bonos = Bono::find($id);
+        if (!$bonos) {
+            return response()->json(["error"=>"Bono no encontrado"], 404);
+        } else {
+                $bonos->valorBono = $request->valorBono;
+                $bonos->puntosRequeridos = $request->puntosRequeridos;
+                $bonos->update();
+                return response()->json($bonos, 200);
+        } 
+          
     }
 
     /**
@@ -59,6 +76,13 @@ class BonoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $bonos = Bono::find($id);
+        if ($bonos) {
+            $bonos->delete();
+            return response()->json("Bono con id: ". $id . " eliminado" , 200);
+        }
+        return response()->json(["error"=>"Bono no encontrado"], 404);
     }
 }
+
+
