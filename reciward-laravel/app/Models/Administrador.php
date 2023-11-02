@@ -11,4 +11,8 @@ class Administrador extends Model
     protected $table = 'administradores';
     public $timestamps = false;
     use HasFactory;
+
+    public function fichas(){
+        return $this->hasMany(Ficha::class,'admin_id','id');
+    }
 }

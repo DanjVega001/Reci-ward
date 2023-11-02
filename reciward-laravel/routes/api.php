@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ClasificacionController;
 use App\Http\Controllers\API\AdministradorController;
 use App\Http\Controllers\API\BonoController;
+use App\Http\Controllers\API\FichaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +25,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('clasificacion', ClasificacionController::class);
 Route::apiResource('admin', AdministradorController::class);
 Route::apiResource('bono', BonoController::class);
+Route::apiResource('ficha', FichaController::class);
