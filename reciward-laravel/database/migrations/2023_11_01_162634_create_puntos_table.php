@@ -15,7 +15,10 @@ class CreatePuntosTable extends Migration
     {
         Schema::create('puntos', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('cantidadAcumulada');
+            $table->integer('puntosUtilizados');            
+            $table->foreignId('aprendiz_id');
+            $table->foreign('aprendiz_id')->references('id')->on('aprendices');
         });
     }
 
