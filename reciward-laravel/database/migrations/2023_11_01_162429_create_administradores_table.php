@@ -15,7 +15,10 @@ class CreateAdministradorTable extends Migration
     {
         Schema::create('administradores', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('nombreAdmin');
+            $table->string('correoAdmin');
+            $table->string('contrasenaAdmin');
+            //$table->timestamps();
         });
     }
 

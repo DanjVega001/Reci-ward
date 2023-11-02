@@ -15,7 +15,9 @@ class CreateBonosTable extends Migration
     {
         Schema::create('bonos', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->integer('valorBono');
+            $table->integer('puntosRequeridos');
+            //$table->timestamps();
         });
     }
 
