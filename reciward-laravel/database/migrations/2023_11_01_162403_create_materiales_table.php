@@ -15,7 +15,10 @@ class CreateMaterialTable extends Migration
     {
         Schema::create('materiales', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('nombreMaterial');
+            $table->integer('numeroPuntos');
+            $table->foreignId('clasificacion_id');
+            $table->foreign('clasificacion_id')->references('id')->on('clasificaciones');
         });
     }
 
