@@ -22,6 +22,7 @@ class CreateEntregaTable extends Migration
             $table->foreign('cafeteria_id')->references('id')->on('cafeterias');
             $table->foreignId('aprendiz_id');
             $table->foreign('aprendiz_id')->references('id')->on('aprendices');
+            //$table->timestamps();
         });
     }
 
