@@ -9,6 +9,10 @@ use App\Http\Controllers\API\FichaController;
 
 use App\Http\Controllers\API\CafeteriaController;
 
+use App\Http\Controllers\API\CafeteriaController;
+
+use App\Http\Controllers\API\PerfilController;
+
 use App\Http\Controllers\API\AprendizController;
 
 use App\Http\Controllers\API\MaterialController;
@@ -49,5 +53,7 @@ Route::apiResource('aprendiz', AprendizController::class);
 Route::apiResource('material', MaterialController::class);
 
 Route::apiResource('entrega', EntregaController::class);
+
+Route::apiResource('perfil', PerfilController::class);
 
 
