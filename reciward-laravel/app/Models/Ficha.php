@@ -15,5 +15,9 @@ class Ficha extends Model
     public function admin(){
         return $this->belongsTo(Administrador::class,'admin_id','id');
     }
+
+    public function aprendices(){
+        return $this->hasMany(Aprendiz::class,'ficha_id','id');
+    }
     
 }

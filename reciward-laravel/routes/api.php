@@ -8,6 +8,10 @@ use App\Http\Controllers\API\BonoController;
 use App\Http\Controllers\API\FichaController;
 use App\Http\Controllers\API\CafeteriaController;
 
+use App\Http\Controllers\API\AprendizController;
+
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +31,7 @@ Route::apiResource('clasificacion', ClasificacionController::class);
 Route::apiResource('admin', AdministradorController::class);
 Route::apiResource('bono', BonoController::class);
 Route::apiResource('ficha', FichaController::class);
+
+Route::apiResource('aprendiz', AprendizController::class);
+
 Route::apiResource('cafeteria', CafeteriaController::class);
