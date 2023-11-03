@@ -6,18 +6,14 @@ use App\Http\Controllers\API\ClasificacionController;
 use App\Http\Controllers\API\AdministradorController;
 use App\Http\Controllers\API\BonoController;
 use App\Http\Controllers\API\FichaController;
-
 use App\Http\Controllers\API\CafeteriaController;
-
 use App\Http\Controllers\API\PerfilController;
-
 use App\Http\Controllers\API\AprendizController;
-
 use App\Http\Controllers\API\MaterialController;
-
 use App\Http\Controllers\API\EntregaController;
-
-
+use App\Http\Controllers\API\TipController;
+use App\Http\Controllers\API\Aprendiz_has_bonoController;
+use App\Http\Controllers\API\PuntoController;
 
 
 
@@ -54,4 +50,9 @@ Route::apiResource('entrega', EntregaController::class);
 
 Route::apiResource('perfil', PerfilController::class);
 
+Route::apiResource('tip', TipController::class);
+
+Route::apiResource('aprendiz_has_bono', Aprendiz_has_bonoController::class);
+
+Route::apiResource('punto', PuntoController::class);
 
