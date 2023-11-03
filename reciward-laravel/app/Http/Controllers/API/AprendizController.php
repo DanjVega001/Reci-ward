@@ -18,7 +18,18 @@ class AprendizController extends Controller
     public function index()
     {   
         $aprendices = Aprendiz::all();
-        return response()->json($aprendices, 200);
+        $data_aprendices = array();
+        foreach ($aprendices as $ap) {
+            array_push($data_aprendices, array(
+                'tipoDocumento' => $ap->tipoDocumento,
+                'numeroDocumento' => $ap->numeroDocumento,
+                'contrasena' => $ap->contrasena,
+                'correo' =>  $ap->correo,
+                'numeroFicha' => $ap->ficha->codigoFicha,
+                'nombreFicha' =>  $ap->ficha->nombreFicha
+            ));
+        }
+        return response()->json($data_aprendices, 200);
     }
 
     /**
@@ -49,11 +60,20 @@ class AprendizController extends Controller
      */
     public function show($id)
     {
-        $aprendiz = Aprendiz::find($id);
-        if ($aprendiz) {
-            return response()->json($aprendiz, 200);
+        $ap = Aprendiz::find($id);
+        if (!$ap) {       
+            return response()->json(["error"=>"Aprendiz no encontrado"], 404);
         }
-        return response()->json(["error"=>"Aprendiz no encontrado"], 404);
+        $aprendiz = array(
+            'tipoDocumento' => $ap->tipoDocumento,
+            'numeroDocumento' => $ap->numeroDocumento,
+            'contrasena' => $ap->contrasena,
+            'correo' =>  $ap->correo,
+            'numeroFicha' => $ap->ficha->codigoFicha,
+            'nombreFicha' =>  $ap->ficha->nombreFicha
+        );
+        
+        return response()->json($aprendiz, 200);
     }
 
     /**
