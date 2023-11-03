@@ -18,6 +18,8 @@ use App\Http\Controllers\API\PuntoController;
 
 
 
+
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -55,4 +57,7 @@ Route::apiResource('tip', TipController::class);
 Route::apiResource('aprendiz_has_bono', Aprendiz_has_bonoController::class);
 
 Route::apiResource('punto', PuntoController::class);
+
+
+
 
