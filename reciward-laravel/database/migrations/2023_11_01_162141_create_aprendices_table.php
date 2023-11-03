@@ -17,8 +17,8 @@ class CreateAprendicesTable extends Migration
             $table->id();
             $table->string('tipoDocumento');
             $table->integer('numeroDocumento');
-            $table->string('contraseña');
-            $table->string('corrreo');
+            $table->string('contrasena');
+            $table->string('correo');
             $table->foreignId('ficha_id');
             $table->foreign('ficha_id')->references('id')->on('fichas');
         });
