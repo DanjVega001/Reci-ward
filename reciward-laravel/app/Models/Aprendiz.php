@@ -15,4 +15,8 @@ class Aprendiz extends Model
     public function ficha(){
         return $this->belongsTo(Ficha::class,'ficha_id','id');
     }
+
+    public function entregas(){
+        return $this->hasMany(Entrega::class, 'aprendiz_id', 'id');
+    }
 }

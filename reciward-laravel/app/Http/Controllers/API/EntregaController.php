@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Entrega;
 
 class EntregaController extends Controller
 {
@@ -14,7 +15,8 @@ class EntregaController extends Controller
      */
     public function index()
     {
-        //
+        $entregas = Entrega::all();
+        return response()->json($entregas, 200); 
     }
 
     /**
@@ -25,7 +27,8 @@ class EntregaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $entrega = Entrega::create($request->all());
+        return response()->json($entrega, 201);
     }
 
     /**
@@ -36,7 +39,11 @@ class EntregaController extends Controller
      */
     public function show($id)
     {
-        //
+        $entrega = Entrega::find($id);
+        if (!$entrega) {
+            return response()->json(['error' => 'Entrega no encontrada'], 404);
+        }
+        return response()->json($entrega, 200);
     }
 
     /**
@@ -48,7 +55,16 @@ class EntregaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $entrega = Entrega::find($id);
+        if (!$entrega) {
+            return response()->json(['error' => 'Entrega no encontrada'], 404);
+        }
+        $entrega->update([
+            'cantidadMaterial' => $request->cantidadMaterial,
+            'canjeada' => $request->canjeada,
+            'puntosAcumulados' => $request->puntosAcumulados
+        ]);
+        return response()->json($entrega, 200);
     }
 
     /**
@@ -59,6 +75,11 @@ class EntregaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $entrega = Entrega::find($id);
+        if (!$entrega) {
+            return response()->json(['error' => 'Entrega no encontrada'], 404);
+        }
+        $entrega->delete();
+        return response()->json("Entrega con id " . $id . " eliminado", 204);
     }
 }
