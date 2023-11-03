@@ -21,6 +21,7 @@ class MaterialController extends Controller
         $request->validate([
             'nombreMaterial' => 'required|string',
             'numeroPuntos' => 'required|integer',
+            'clasificacion_id' => 'required|integer',
         ]);
 
         $material = Material::create($request->all());
@@ -46,6 +47,7 @@ class MaterialController extends Controller
         $request->validate([
             'nombreMaterial' => 'string',
             'numeroPuntos' => 'integer',
+            'clasificacion_id' => 'required|integer',
         ]);
 
         $material->update($request->all());
