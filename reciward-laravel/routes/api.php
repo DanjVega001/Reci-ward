@@ -54,3 +54,5 @@ Route::apiResource('tip', TipController::class);
 
 Route::apiResource('aprendiz_has_bono', Aprendiz_has_bonoController::class);
 
+
+
