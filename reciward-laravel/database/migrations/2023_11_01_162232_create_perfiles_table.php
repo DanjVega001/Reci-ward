@@ -14,12 +14,11 @@ class CreatePerfilesTable extends Migration
     public function up()
     {
         Schema::create('perfiles', function (Blueprint $table) {
-            $table->id('id_entrega');
-            $table->integer('cantidad_material');
-            $table->boolean('canjeada');
-            $table->integer('puntos_acumulados');
-            $table->foreignId('cafeteria_id');
-            $table->foreign('cafeteria_id')->references('id')->on('cafeterias');
+            $table->id();
+            $table->string('apellido');
+            $table->string('nombre');
+            $table->text('descripcionPerfil');
+            $table->text('avatar');
             $table->foreignId('aprendiz_id');
             $table->foreign('aprendiz_id')->references('id')->on('aprendices');
             //$table->timestamps();
