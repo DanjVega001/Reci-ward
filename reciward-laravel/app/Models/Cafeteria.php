@@ -10,4 +10,8 @@ class Cafeteria extends Model
     protected $fillable =["claveAcceso", "correoCafeteria", "contrasenaCafeteria"];
     public $timestamps = false;
     use HasFactory;
+
+    public function entrega(){
+        return $this->hasMany(Entrega::class, 'cafeteria_id', 'id');
+    }
 }
