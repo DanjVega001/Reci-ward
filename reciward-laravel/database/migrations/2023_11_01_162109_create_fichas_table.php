@@ -18,9 +18,9 @@ class CreateFichasTable extends Migration
             $table->string('nombreFicha');
             $table->integer('codigoFicha');
             $table->date('fechaFin');
-            $table->date('fechaCreación');
-            $table->foreignId('administrador_id');
-            $table->foreign('administrador_id')->references('id')->on('administradores');
+            $table->date('fechaCreacion');
+            $table->foreignId('admin_id');
+            $table->foreign('admin_id')->references('id')->on('administradores');
             //$table->timestamps();
         });
     }

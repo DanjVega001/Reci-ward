@@ -16,6 +16,7 @@ class PuntoController extends Controller
         $puntos = Punto::all();
         return response()->json($puntos, 200);
     }
+    
     public function store(Request $request)
     {
         $request->validate([
@@ -27,13 +28,16 @@ class PuntoController extends Controller
         $punto = Punto::create($request->all());
         return response()->json($punto, 201);
     }
-    public function show($id)
+
+    public function show($idAprendiz)
     {
-        $punto = Punto::create($id);
+        $punto = Aprendiz::find($idAprendiz)->puntos;
+        return $punto;
         if (!$punto) {
             return response()->json(['message' => 'Punto no encontrado'], 404);
         }response()->json($punto, 200);
     }
+
     public function update(Request $request, $id)
     {
         $punto = Punto::find($id);
@@ -50,6 +54,7 @@ class PuntoController extends Controller
         $punto->update($request->all());
         return response()->json($punto, 200);
     }
+
     public function destroy($id)
     {
         $punto = Punto::find($id);

@@ -16,7 +16,7 @@ class CreateCafeteriasTable extends Migration
         Schema::create('cafeterias', function (Blueprint $table) {
             $table->id();
             $table->integer('claveAcceso');
-            $table->string('correoCafetria');
+            $table->string('correoCafeteria');
             $table->string('contrasenaCafeteria');
             //$table->timestamps();
         });

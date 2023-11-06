@@ -13,7 +13,16 @@ class MaterialController extends Controller
     public function index()
     {
         $materiales = Material::all();
-        return response()->json($materiales, 200);
+        $materiales_data = array();
+        foreach ($materiales as $material) {
+            array_push($materiales_data, [
+                "nombreMaterial" => $material->nombreMaterial,
+                "numeroPuntos" => $material->numeroPuntos,
+                "clasificacion" => $material->clasificacion->nombreClasificacion,
+                "id" => $material->id
+            ]);
+        }
+        return response()->json($materiales_data, 200);
     }
 
     public function store(Request $request)
@@ -34,7 +43,14 @@ class MaterialController extends Controller
         if (!$material) {
             return response()->json(['message' => 'Material no encontrado'], 404);
         }
-        return response()->json($material, 200);
+        $materiales_data = array();
+        array_push($materiales_data, [
+            "nombreMaterial" => $material->nombreMaterial,
+            "numeroPuntos" => $material->numeroPuntos,
+            "clasificacion" => $material->clasificacion->nombreClasificacion,
+            "id" => $material->id
+        ]);
+        return response()->json($materiales_data, 200);
     }
 
     public function update(Request $request, $id)
@@ -43,7 +59,6 @@ class MaterialController extends Controller
         if (!$material) {
             return response()->json(['message' => 'Material no encontrado'], 404);
         }
-
         $request->validate([
             'nombreMaterial' => 'string',
             'numeroPuntos' => 'integer',
