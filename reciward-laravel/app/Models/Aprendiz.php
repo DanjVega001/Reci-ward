@@ -19,4 +19,12 @@ class Aprendiz extends Model
     public function entregas(){
         return $this->hasMany(Entrega::class, 'aprendiz_id', 'id');
     }
+
+    public function perfil(){
+        return $this->hasOne(Perfil::class, 'aprendiz_id', 'id');
+    }
+
+    public function puntos(){
+        return $this->hasOne(Punto::class, 'aprendiz_id', 'id');
+    }
 }

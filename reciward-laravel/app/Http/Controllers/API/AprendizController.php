@@ -42,6 +42,9 @@ class AprendizController extends Controller
     {
         $ficha_id = Ficha::where('codigoFicha', $request->codigo_ficha)->first()->id;
 
+        if (!$ficha_id) {
+            return response()->json(['error' => 'Ficha no encontrada'], 404);
+        }
         $aprendices = Aprendiz::create([
             'tipoDocumento' => $request->tipoDocumento,
             'numeroDocumento' => $request->numeroDocumento,

@@ -13,7 +13,7 @@ class Perfil extends Model
     use HasFactory;
 
     
-    public function aprendices(){
+    public function aprendiz(){
         return $this->belongsTo(Aprendiz::class,'aprendiz_id','id');
     }
     

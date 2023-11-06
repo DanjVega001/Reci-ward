@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ficha extends Model
 {
-    protected $fillable =["nombreFicha", "codigo", "fechaCreacion", "fechaFin", "admin_id"];
+    protected $fillable =["nombreFicha", "codigoFicha", "fechaCreacion", "fechaFin", "admin_id"];
     public $timestamps = false;
     use HasFactory;
 

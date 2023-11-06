@@ -15,6 +15,6 @@ class Punto extends Model
 
     public function aprendiz()
     {
-        return $this->hasOne(Aprendiz::class, 'aprendiz_id', 'id');
+        return $this->belongsTo(Aprendiz::class, 'aprendiz_id', 'id');
     }
 }

@@ -17,7 +17,7 @@ class CafeteriaController extends Controller
      */
     public function index()
     {
-        $cafeteria = Caeteria::all();
+        $cafeteria = Cafeteria::all();
         return response()->json($cafeteria, 200);
     }
 
@@ -31,9 +31,8 @@ class CafeteriaController extends Controller
     {
         $cafeteria = Cafeteria::create([
             'claveAcceso' => $request->claveAcceso,
-            'correoCafetria' => $request->correoCafetria,
+            'correoCafeteria' => $request->correoCafeteria,
             'contrasenaCafeteria' => Hash::make($request->contrasenaCafeteria)        
-
         ]);
         return response()->json($cafeteria, 201);
     }

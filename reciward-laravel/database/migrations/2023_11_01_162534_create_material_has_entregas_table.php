@@ -15,7 +15,7 @@ class CreateMaterialHasEntregasTable extends Migration
     {
         Schema::create('material_has_entregas', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            //$table->timestamps();
             $table->foreignId('material_id');
             $table->foreign('material_id')->references('id')->on('materiales');
             $table->foreignId('entrega_id');

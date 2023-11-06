@@ -29,10 +29,8 @@ class FichaController extends Controller
             'nombreFicha' => $request->nombreFicha,
             'fechaCreacion' => $request->fechaCreacion,
             'fechaFin' => $request->fechaFin,
-            'codigo' => $request->codigo,
+            'codigoFicha' => $request->codigoFicha,
             'admin_id' =>$request->admin_id
-
-
         ]);
         return response()->json($fichas, 201);
     }

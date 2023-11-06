@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use APP\Models\Aprendiz;
-use APP\Models\Bono;
+use App\Models\Aprendiz;
+use App\Models\Bono;
 
 class Aprendiz_has_bono extends Model
 {
     use HasFactory;
-    protected $fillable = ["codigoValidante", "estadoBono","fechaCreacion", "fechaVencimiento"];
+    protected $fillable = ["codigoValidante", "estadoBono","fechaCreacion", "fechaVencimiento", 
+        "aprendiz_id", "bono_id"];
     protected $table = "aprendices_has_bonos";
     public $timestamps = false;
 
