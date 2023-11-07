@@ -32,7 +32,7 @@ use App\Http\Middleware\CheckUserType;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::apiResource('clasificacion', ClasificacionController::class);
+
 
 Route::apiResource('admin', AdministradorController::class);
 
@@ -90,6 +90,7 @@ Route::group([
     Route::middleware(['auth:api', 'role:admin'])->group(function () {
         // Rutas protegidas para usuarios con el rol "admin".
         Route::apiResource('ficha', FichaController::class);
+        Route::apiResource('clasificacion', ClasificacionController::class);
     });
 });
 
