@@ -15,7 +15,8 @@ use App\Http\Controllers\API\TipController;
 use App\Http\Controllers\API\Aprendiz_has_bonoController;
 use App\Http\Controllers\API\Material_has_entregaController;
 use App\Http\Controllers\API\PuntoController;
-use App\Models\Aprendiz_has_bono;
+use App\Http\Controllers\API\AuthController;
+use App\Http\Middleware\CheckUserType;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,3 +71,28 @@ Route::get("/entrega/validada/{idEntrega}", [EntregaController::class, 'validada
 
 /** Api que devuelve los bonos de un apreindiz que no han sido redimidos */
 Route::get("/aprendiz-bono/bonos/{idAprendiz}", [Aprendiz_has_bonoController::class, 'bonosPorAprendiz']);
+
+
+/** RUTAS PRINCIPALES PARA PASSPORT */
+Route::group([
+    'prefix' => 'auth'
+], function () {
+    Route::post('login', [AuthController::class, "login"]);
+    Route::post('signup', [AuthController::class, "signup"]);
+  
+    Route::group([
+      'middleware' => 'auth:api'
+    ], function() {
+        Route::get('logout', [AuthController::class, "logout"]);
+        Route::get('user', [AuthController::class, "user"]);
+    });
+
+    Route::group([
+        'middleware' => ['auth:api', 'checkUserType:admin'],
+    ], function () {
+        Route::post('bono', [BonoController::class, "store"]);
+    });
+});
+
+
+

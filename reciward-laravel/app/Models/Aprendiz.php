@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Aprendiz extends Model
 {
     use HasFactory;
-    protected $fillable =["tipoDocumento", "numeroDocumento", "contrasena", "correo", "ficha_id"];
+    protected $fillable =["tipoDocumento", "numeroDocumento", "contrasena", "correo", "ficha_id", "user_id"];
     protected $table = 'aprendices';
     public $timestamps = false;
 
@@ -26,5 +26,9 @@ class Aprendiz extends Model
 
     public function puntos(){
         return $this->hasOne(Punto::class, 'aprendiz_id', 'id');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
