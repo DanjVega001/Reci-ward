@@ -17,8 +17,8 @@ class CreatePerfilesTable extends Migration
             $table->id();
             $table->string('apellido');
             $table->string('nombre');
-            $table->text('descripcionPerfil');
-            $table->text('avatar');
+            $table->text('descripcionPerfil')->nullable();
+            $table->text('avatar')->nullable();
             $table->foreignId('aprendiz_id');
             $table->foreign('aprendiz_id')->references('id')->on('aprendices');
             //$table->timestamps();

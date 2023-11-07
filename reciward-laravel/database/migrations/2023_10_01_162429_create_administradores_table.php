@@ -18,6 +18,8 @@ class CreateAdministradoresTable extends Migration
             $table->string('nombreAdmin');
             $table->string('correoAdmin');
             $table->string('contrasenaAdmin');
+            $table->foreignId('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             //$table->timestamps();
         });
     }

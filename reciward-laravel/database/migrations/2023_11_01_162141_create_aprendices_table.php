@@ -21,6 +21,8 @@ class CreateAprendicesTable extends Migration
             $table->string('correo');
             $table->foreignId('ficha_id');
             $table->foreign('ficha_id')->references('id')->on('fichas');
+            $table->foreignId('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

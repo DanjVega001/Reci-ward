@@ -23,6 +23,8 @@ class CreateAprendicesHasBonosTable extends Migration
             $table->foreign('aprendiz_id')->references('id')->on('aprendices');
             $table->foreignId('bono_id');
             $table->foreign('bono_id')->references('id')->on('bonos');
+            $table->foreignId('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
