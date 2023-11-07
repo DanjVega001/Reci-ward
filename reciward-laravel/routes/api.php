@@ -38,7 +38,7 @@ Route::apiResource('admin', AdministradorController::class);
 
 Route::apiResource('bono', BonoController::class);
 
-Route::apiResource('ficha', FichaController::class);
+
 
 Route::apiResource('cafeteria', CafeteriaController::class);
 
@@ -87,10 +87,9 @@ Route::group([
         Route::get('user', [AuthController::class, "user"]);
     });
 
-    Route::group([
-        'middleware' => ['auth:api', 'checkUserType:admin'],
-    ], function () {
-        Route::post('bono', [BonoController::class, "store"]);
+    Route::middleware(['auth:api', 'role:admin'])->group(function () {
+        // Rutas protegidas para usuarios con el rol "admin".
+        Route::apiResource('ficha', FichaController::class);
     });
 });
 

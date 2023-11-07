@@ -20,7 +20,6 @@ class AuthController extends Controller
      */
     public function signUp(Request $request)
     {
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -34,6 +33,7 @@ class AuthController extends Controller
                 'contrasenaCafeteria' => Hash::make($request->password),
                 'user_id' => $user->id
             ]);   
+            $user->assignRole('cafeteria');
         } else if (!$request->ficha_id && $request->user_admin) {
             Administrador::create([
                 'nombreAdmin' => $request->name,
@@ -41,19 +41,22 @@ class AuthController extends Controller
                 'contrasenaAdmin' => Hash::make($request->password),
                 'user_id' => $user->id
             ]);
+            $user->assignRole('admin');
         } else {
             $aprendiz = Aprendiz::create([
                 'tipoDocumento' => $request->tipoDocumento,
                 'numeroDocumento' => $request->numeroDocumento,
                 'correo' => $request->email,
                 'contrasena' => Hash::make($request->password),
-                'user_id' => $user->id
+                'user_id' => $user->id,
+                'ficha_id' => $request->ficha_id
             ]);
             Perfil::create([
                 'apellido' => $request->apellido,
                 'nombre' => $request->name,
                 'aprendiz_id' => $aprendiz->id
             ]);
+            $user->assignRole('aprendiz');
         }
 
         return response()->json([
