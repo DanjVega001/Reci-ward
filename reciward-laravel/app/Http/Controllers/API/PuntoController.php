@@ -6,11 +6,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Aprendiz;
 use App\Models\Punto;
-use Illuminate\Support\Facades\Hash;
+use App\Service\FuncionesService;
 
 class PuntoController extends Controller
 {
    
+    private $service;
+    public function __construct(FuncionesService $service){
+        $this->service = $service;
+    }
+
     public function index()
     {
         $puntos = Punto::all();
@@ -29,13 +34,16 @@ class PuntoController extends Controller
         return response()->json($punto, 201);
     }
 
-    public function show($idAprendiz)
+    public function show()
     {
+        $idAprendiz = $this->service->obtenerIdAprendizAutenticado();
+        if (!$idAprendiz) {
+            return response()->json(["error" => "Usuario no autorizado"],403);
+        }
         $punto = Aprendiz::find($idAprendiz)->puntos;
-        return $punto;
         if (!$punto) {
             return response()->json(['message' => 'Punto no encontrado'], 404);
-        }response()->json($punto, 200);
+        }return response()->json($punto, 200);
     }
 
     public function update(Request $request, $id)

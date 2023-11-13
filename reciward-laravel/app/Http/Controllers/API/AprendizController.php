@@ -6,10 +6,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Aprendiz;
 use App\Models\Ficha;
+use App\Service\FuncionesService;
 use Illuminate\Support\Facades\Hash;
 
 class AprendizController extends Controller
 {
+
+    private $service;
+    public function __construct(FuncionesService $service){
+        $this->service = $service;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -86,9 +92,13 @@ class AprendizController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $aprendiz = Aprendiz::find($id);
+        $idAprendiz = $this->service->obtenerIdAprendizAutenticado();
+        if (!$idAprendiz) {
+            return response()->json(["error" => "Usuario no autorizado"],403);
+        }
+        $aprendiz = Aprendiz::find($idAprendiz);
         if (!$aprendiz) {
             return response()->json(["error"=>"Aprendiz no encontrado"], 404);
         } 

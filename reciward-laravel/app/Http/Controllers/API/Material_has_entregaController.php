@@ -34,9 +34,9 @@ class Material_has_entregaController extends Controller
      * Este metodo retorna los materiales de la entrega del aprendiz que selecciono el del
      * perfil de cafeteria -- este metodo es el sucesor al show del EntregaController.
      */
-    public function show($id)
+    public function show($idEntrega)
     {
-        $materialEntregas = Material_has_entrega::where('entrega_id', $id)
+        $materialEntregas = Material_has_entrega::where('entrega_id', $idEntrega)
         ->get();
 
         $materiales = array();
