@@ -114,6 +114,19 @@ class AuthController extends Controller
      */
     public function user(Request $request)
     {
-        return response()->json($request->user());
+        $user = Auth::user();
+
+        $rol = null;
+        if ($user->aprendiz) {
+            $rol = "aprendiz";
+        } elseif ($user->administrador) {
+            $rol = "admin";
+        } else {
+            $rol = "cafeteria";
+        }
+        return response()->json([
+            "user" => $request->user(),
+            "rol" => $rol
+        ]);
     }
 }

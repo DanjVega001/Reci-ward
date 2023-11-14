@@ -2,20 +2,16 @@
 
 namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
+use App\Models\Aprendiz;
 use Illuminate\Http\Request;
 use App\Models\Perfil;
+use App\Service\FuncionesService;
 
 class PerfilController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $perfiles = Perfil::all();
-        return response()->json($perfiles, 200);
+    private $service;
+    public function __construct(FuncionesService $service){
+        $this->service = $service;
     }
 
     /**
@@ -30,8 +26,6 @@ class PerfilController extends Controller
             'nombre' => $request->nombre,
             'descripcionPerfil' => $request->descripcionPerfil,
             'avatar' =>$request->avatar
-
-
         ]);
         return response()->json($perfiles, 201);
     }
@@ -42,9 +36,13 @@ class PerfilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function verPerfil()
     {
-        $perfiles = Perfil::find($id);
+        $idAprendiz = $this->service->obtenerIdAprendizAutenticado();
+        if (!$idAprendiz) {
+            return response()->json(["error" => "Usuario no autorizado"],403);
+        }
+        $perfiles = Aprendiz::find($idAprendiz)->perfil;
         if ($perfiles) {
             return response()->json($perfiles, 200);
         }
@@ -58,22 +56,24 @@ class PerfilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $perfiles = Perfil::find($id);
+        $idAprendiz = $this->service->obtenerIdAprendizAutenticado();
+        if (!$idAprendiz) {
+            return response()->json(["error" => "Usuario no autorizado"],403);
+        }
+        $perfiles = Aprendiz::find($idAprendiz)->perfil;
         if (!$perfiles) {
             return response()->json(["error"=>"Perfil no encontrado"], 404);
         } else {
                 $perfiles->apellido = $request->apellido;
                 $perfiles->nombre = $request->nombre;
-                $perfiles->descripcionPerfil = $request->descripcionPerfil;
+                $perfiles->descripcionPerfil = $request->descripcion;
                 $perfiles->avatar = $request->avatar;
-                $perfiles->aprendiz_id = $request->aprendiz_id;
 
                 $perfiles->update();
                 return response()->json($perfiles, 200);
         } 
-          
     }
 
     /**

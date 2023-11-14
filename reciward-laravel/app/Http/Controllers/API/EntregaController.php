@@ -7,10 +7,15 @@ use App\Models\Aprendiz;
 use Illuminate\Http\Request;
 use App\Models\Entrega;
 use App\Models\Punto;
-use Exception;
+use App\Service\FuncionesService;
 
 class EntregaController extends Controller
 {
+
+    private $service;
+    public function __construct(FuncionesService $service){
+        $this->service = $service;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +35,17 @@ class EntregaController extends Controller
      */
     public function store(Request $request)
     {
-        $entrega = Entrega::create($request->all());
+        $idAprendiz = $this->service->obtenerIdAprendizAutenticado();
+        if (!$idAprendiz) {
+            return response()->json(["error" => "Usuario no autorizado"],403);
+        } 
+        $entrega = Entrega::create([
+            'aprendiz_id' => $idAprendiz,
+            'cafeteria_id' => $request->cafeteria_id,
+            'canjeada' => false,
+            'puntosAcumulados' => $request->puntosAcumulados,
+            'cantidadMaterial' => $request->cantidadMaterial
+        ]);
         return response()->json($entrega, 201);
     }
 
@@ -115,12 +130,26 @@ class EntregaController extends Controller
      * de las entregas por parte del aprendiz como del admnistrador
      */
 
-    public function historial($documento)
+    public function historialPorApz($id)
     {
+        $idAprendiz =  $this->service->obtenerIdAprendizAutenticado();
+        if (!$idAprendiz) {
+            return response()->json(["error" => "Usuario no autorizado"],403);
+        } 
+        $aprendiz = Aprendiz::find($idAprendiz);
+        return $this->historial($aprendiz);   
+    }
+
+    public function historialPorAdmin($documento) {
         $aprendiz = Aprendiz::where('numeroDocumento', $documento)->first();
+        return $this->historial($aprendiz);
+    }
+
+    private function historial ($aprendiz) {    
         if (!$aprendiz) {
             return response()->json(["error" => "Aprendiz no encontrado"], 404);
         }
+        $documento = $aprendiz->numeroDocumento;
         $nombre = $aprendiz->perfil->nombre;
         $apellido = $aprendiz->perfil->apellido;
         $entregas = Entrega::select('cantidadMaterial', 'canjeada', 'puntosAcumulados')
@@ -138,7 +167,7 @@ class EntregaController extends Controller
 
     /**
      * 
-     * @param int $idAprendiz
+     * @param int $idEntrega
      * @return Illuminate\Http\Response
      *
      * Esta funcion se encarga de asignar los puntos de la entrega a los puntos 

@@ -4,9 +4,16 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Ficha;
+use App\Service\FuncionesService;
 
 class FichaController extends Controller
 {
+
+    private $service;
+    public function __construct(FuncionesService $service){
+        $this->service = $service;
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -25,12 +32,16 @@ class FichaController extends Controller
      */
     public function store(Request $request)
     {
+        $id_admin = $this->service->obtenerIdAdminAutenticado();
+        if (!$id_admin) {
+            return response()->json(["error" => "Usuario no autorizado"],403);
+        }
         $fichas = Ficha::create([
             'nombreFicha' => $request->nombreFicha,
             'fechaCreacion' => $request->fechaCreacion,
             'fechaFin' => $request->fechaFin,
             'codigoFicha' => $request->codigoFicha,
-            'admin_id' =>$request->admin_id
+            'admin_id' =>$id_admin
         ]);
         return response()->json($fichas, 201);
     }

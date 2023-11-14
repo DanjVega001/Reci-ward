@@ -9,17 +9,26 @@ use App\Models\Bono;
 use Illuminate\Support\Str;
 use App\Models\Aprendiz;
 use App\Models\Punto;
+use App\Service\FuncionesService;
 use DateTime;
 
 class Aprendiz_has_bonoController extends Controller
 {
+    private $service;
+    public function __construct(FuncionesService $service){
+        $this->service = $service;
+    }
     /**
      * @param $idAprendiz
      * @return Response 
      * 
      */
-    public function bonosPorAprendiz($idAprendiz)
+    public function bonosPorAprendiz()
     {
+        $idAprendiz = $this->service->obtenerIdAprendizAutenticado();
+        if (!$idAprendiz) {
+            return response()->json(["error" => "Usuario no autorizado"],403);
+        }
         $aprendiz_has_bono = Aprendiz_has_bono::where('aprendiz_id', $idAprendiz)
             ->where('estadoBono', false)->get();
 
@@ -60,17 +69,19 @@ class Aprendiz_has_bonoController extends Controller
 
     public function store(Request $request)
     {
+        $idAprendiz = $this->service->obtenerIdAprendizAutenticado();
+        if (!$idAprendiz) {
+            return response()->json(["error" => "Usuario no autorizado"],403);
+        }
         $request->validate([
-            'aprendiz_id' => 'required|integer',
             'bono_id' => 'required|integer'
         ]);
         $bono = Bono::find($request->bono_id);
-        $aprendiz = Aprendiz::find($request->aprendiz_id);
-        
+        $aprendiz = Aprendiz::find($idAprendiz);
         $codigoValidante = null;
         $unico = false;
-        $puntos = null;;
-        if ($aprendiz->puntos===null) {
+        $puntos = null;
+        if (!$aprendiz->puntos) {
             $puntos = Punto::create([
                 'cantidadAcumulada' => 0,
                 'puntosUtilizados' => 0,
@@ -96,8 +107,9 @@ class Aprendiz_has_bonoController extends Controller
             'fechaCreacion' => $fechaHoy->format('Y-m-d'),
             'fechaVencimiento' => $fechaHoy->modify('+2 weeks')
                 ->format('Y-m-d'), 
-            'aprendiz_id' => $request->aprendiz_id,
-            'bono_id' => $request->bono_id
+            'aprendiz_id' => $aprendiz->id,
+            'bono_id' => $request->bono_id,
+            'user_id' => $aprendiz->user->id
         ]);
         $puntos->update([
             'cantidadAcumulada' => $puntos->cantidadAcumulada - $bono->puntosRequeridos,
@@ -126,6 +138,7 @@ class Aprendiz_has_bonoController extends Controller
         $perfil = $aprendiz->perfil;
 
         return response()->json([
+            'id' => $aprendiz_has_bono->id,
             'nombreAprendiz' => $perfil->nombre,
             'apellidoAprendiz' => $perfil->apellido,
             'documento' => $aprendiz->numeroDocumento,
@@ -141,16 +154,9 @@ class Aprendiz_has_bonoController extends Controller
             return response()->json(['message' => 'Aprendiz_has_bono no encontrado'], 404);
         }
 
-        $request->validate([
-            'codigoValidante' => 'required|integer',
-            'estadoBono' => 'required',
-            'fechaCreacion' => 'required|datetime',
-            'fechaVencimiento' => 'required|datetime',
-            'aprendiz_id' => 'required|integer',
-            'bono_id' => 'required|integer',
+        $aprendiz_has_bono->update([
+            'estadoBono' => $request->estadoBono	
         ]);
-
-        $aprendiz_has_bono->update($request->all());
         return response()->json($aprendiz_has_bono, 200);
     }
 

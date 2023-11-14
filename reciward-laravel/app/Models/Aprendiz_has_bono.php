@@ -11,7 +11,7 @@ class Aprendiz_has_bono extends Model
 {
     use HasFactory;
     protected $fillable = ["codigoValidante", "estadoBono","fechaCreacion", "fechaVencimiento", 
-        "aprendiz_id", "bono_id"];
+        "aprendiz_id", "bono_id", "user_id"];
     protected $table = "aprendices_has_bonos";
     public $timestamps = false;
 
