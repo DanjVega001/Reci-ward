@@ -25,7 +25,6 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
-        
         if (!$request->ficha_id && !$request->user_admin) {
             Cafeteria::create([
                 'nombreCafeteria' => $request->name,
