@@ -58,7 +58,7 @@ Route::group([
         //Route::apiResource('clasificacion', ClasificacionController::class);
         Route::apiResource('bono-admin', BonoController::class);
         //Route::apiResource('cafeteria', CafeteriaController::class);
-        //Route::apiResource('aprendiz', AprendizController::class);
+        Route::apiResource('aprendiz', AprendizController::class);
         Route::apiResource('material', MaterialController::class);
         Route::apiResource('tip', TipController::class);
 
@@ -71,7 +71,7 @@ Route::group([
         /** Perfil */
         Route::delete("/perfil/{id}", [PerfilController::class, 'destroy']);
         /** Aprendiz */
-        Route::delete("/aprendiz/{id}", [AprendizController::class, 'destroy']);
+        //Route::delete("/aprendiz/{id}", [AprendizController::class, 'destroy']);
 
         
     });
