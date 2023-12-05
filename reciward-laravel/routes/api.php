@@ -18,6 +18,8 @@ use App\Http\Controllers\API\PuntoController;
 use App\Http\Controllers\API\AuthController;
 use App\Models\Aprendiz;
 
+use Laravel\Socialite\Facades\Socialite;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -148,3 +150,5 @@ Route::group([
         Route::get("/punto/ver", [PuntoController::class, 'show']);
     });
 });
+
+
