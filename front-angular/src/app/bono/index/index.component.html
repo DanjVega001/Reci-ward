@@ -1,1 +1,28 @@
-<p>index works!</p>
+<button class="btn btn-light"><a href="/bono/create">Agregar bono</a></button>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Valor del Bono</td>
+                <td>Fecha Creacion</td>
+                <td>Fecha Fin</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ap of listaBonos">
+                <td>{{ ap.id }}</td>
+                <td>{{ ap.valorBono }}</td>
+                <td>{{ ap.fechaCreacion }}</td>
+                <td>{{ ap.fechaFin }}</td>
+                <td>
+                    <button type="button" (click)="eliminarBono(ap.id)">Eliminar</button>           
+                </td>
+                <td>
+                    <button type="button" (click)="editarBono(ap.id)">Editar</button>           
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
