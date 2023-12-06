@@ -1,9 +1,12 @@
+import { Admin } from "./admin.model";
+
 export class Login {
-    user : User;
-    access_token : string
+    admin : Admin;
+    access_token : string;
     
-    constructor(user :User, access_token : string){
-        this.user = user;
+    constructor(admin :Admin, access_token : string){
+        this.admin = admin;
         this.access_token = access_token;
     }
+
 }
