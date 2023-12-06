@@ -27,12 +27,14 @@ class AprendizController extends Controller
         $data_aprendices = array();
         foreach ($aprendices as $ap) {
             array_push($data_aprendices, array(
+                'id' => $ap->id,
                 'tipoDocumento' => $ap->tipoDocumento,
                 'numeroDocumento' => $ap->numeroDocumento,
                 'contrasena' => $ap->contrasena,
                 'correo' =>  $ap->correo,
                 'numeroFicha' => $ap->ficha->codigoFicha,
-                'nombreFicha' =>  $ap->ficha->nombreFicha
+                //'apellido' => $ap->perfil->apellido,
+                //'nombre' => $ap->perfil->nombre
             ));
         }
         return response()->json($data_aprendices, 200);
@@ -46,17 +48,13 @@ class AprendizController extends Controller
      */
     public function store(Request $request)
     {
-        $ficha_id = Ficha::where('codigoFicha', $request->codigo_ficha)->first()->id;
-
-        if (!$ficha_id) {
-            return response()->json(['error' => 'Ficha no encontrada'], 404);
-        }
         $aprendices = Aprendiz::create([
             'tipoDocumento' => $request->tipoDocumento,
             'numeroDocumento' => $request->numeroDocumento,
             'correo' => $request->correo,
             'contrasena' => Hash::make($request->contrasena),
-            'ficha_id' => $ficha_id,
+            'ficha_id' => $request->ficha_id,
+            'user_id' => $request->user_id
         ]);
         return response()->json($aprendices, 201);
     }
@@ -76,10 +74,11 @@ class AprendizController extends Controller
         $aprendiz = array(
             'tipoDocumento' => $ap->tipoDocumento,
             'numeroDocumento' => $ap->numeroDocumento,
-            'contrasena' => $ap->contrasena,
-            'correo' =>  $ap->correo,
+            'password' => $ap->contrasena,
+            'email' =>  $ap->correo,
             'numeroFicha' => $ap->ficha->codigoFicha,
-            'nombreFicha' =>  $ap->ficha->nombreFicha
+            'apellido' => $ap->perfil->apellido,
+            'name' => $ap->perfil->nombre
         );
         
         return response()->json($aprendiz, 200);

@@ -52,7 +52,7 @@ class AuthController extends Controller
             ]);
             Perfil::create([
                 'apellido' => $request->apellido,
-                'nombre' => $request->name,
+                'name' => $request->name,
                 'aprendiz_id' => $aprendiz->id
             ]);
             $user->assignRole('aprendiz');
@@ -90,6 +90,7 @@ class AuthController extends Controller
         $token->save();
 
         return response()->json([
+            'user_id' => $user->id,
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString()

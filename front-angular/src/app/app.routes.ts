@@ -24,6 +24,7 @@ export const routes: Routes = [
 
     { path: 'aprendiz/index', component: IndexAprendiz},
     { path: 'aprendiz/create', component: CreateAprendiz},
+    { path: 'aprendiz/edit/:id', component: CreateAprendiz },
 
     { path: 'bono/index', component: IndexBono},
     { path: 'bono/create', component: CreateBono},

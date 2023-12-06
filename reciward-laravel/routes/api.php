@@ -135,7 +135,7 @@ Route::group([
         /** Aprendiz 
          * Actualizar algunos datos, como la contraseña y el correo
         */
-        Route::put("/aprendiz/{id}", [AprendizController::class, 'update']);
+        Route::put("/aprendiz-actualizar/{id}", [AprendizController::class, 'update']);
 
         /** Bonos 
          * Muestra los bonos no redmidos del aprendiz
