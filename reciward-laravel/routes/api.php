@@ -17,7 +17,8 @@ use App\Http\Controllers\API\Material_has_entregaController;
 use App\Http\Controllers\API\PuntoController;
 use App\Http\Controllers\API\AuthController;
 use App\Models\Aprendiz;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 
 /*
@@ -151,4 +152,28 @@ Route::group([
     });
 });
 
+/** IMPLEMENTACIO AUTENTICACION CON GOOGLE */
 
+Route::get('/login-google', function () {
+    return Socialite::driver('google')->redirect();
+});
+ 
+Route::get('/google-callback', function () {
+    $user = Socialite::driver('google')->user();
+
+    $userExiste = User::where('auth_id', $user->id)->where('auth_name',
+        'google')->first();
+    if ($userExiste) {
+        Auth::login($userExiste);
+    } else {
+        $nuevoUsuario = User::create([
+            'name' => $user->name,
+            'email' => $user->email,
+            'password' => null,
+            'auth_id' => $user->id,
+            'auth_name' => 'google'
+        ]);
+        Auth::login($nuevoUsuario);
+    }
+    // $user->token
+});
