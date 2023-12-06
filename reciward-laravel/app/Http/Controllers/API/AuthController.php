@@ -52,7 +52,7 @@ class AuthController extends Controller
             ]);
             Perfil::create([
                 'apellido' => $request->apellido,
-                'name' => $request->name,
+                'nombre' => $request->name,
                 'aprendiz_id' => $aprendiz->id
             ]);
             $user->assignRole('aprendiz');

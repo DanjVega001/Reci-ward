@@ -16,6 +16,7 @@ use App\Http\Controllers\API\Aprendiz_has_bonoController;
 use App\Http\Controllers\API\Material_has_entregaController;
 use App\Http\Controllers\API\PuntoController;
 use App\Http\Controllers\API\AuthController;
+use App\Models\Administrador;
 use App\Models\Aprendiz;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -69,11 +70,11 @@ Route::group([
          *  Muestra el historial de entregas que ha tenido el aprendiz
          */
         Route::get("/entrega/historial-admin/{documento}", [EntregaController::class, 'historialPorAdmin']);
-        /** Perfil */
-        Route::delete("/perfil/{id}", [PerfilController::class, 'destroy']);
+        
         /** Aprendiz */
-        //Route::delete("/aprendiz/{id}", [AprendizController::class, 'destroy']);
-
+        /** Muestra el historial de bonos dela prendiz por su documento */
+        Route::get("/aprendiz-bono/admin/{documento}", [Administrador::class, 'bonosPorAprendiz']);
+        Route::get("/material-entrega/admin/{idEntrega}", [Material_has_entregaController::class, 'show']);
         
     });
 

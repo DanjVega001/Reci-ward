@@ -152,7 +152,7 @@ class EntregaController extends Controller
         $documento = $aprendiz->numeroDocumento;
         $nombre = $aprendiz->perfil->nombre;
         $apellido = $aprendiz->perfil->apellido;
-        $entregas = Entrega::select('cantidadMaterial', 'canjeada', 'puntosAcumulados')
+        $entregas = Entrega::select('id','cantidadMaterial', 'canjeada', 'puntosAcumulados')
             ->where('aprendiz_id', $aprendiz->id)->get();
         if (!$entregas) {
             return response()->json(["mensaje" => "El aprendiz no tiene entregas por hacer"], 200);
@@ -160,7 +160,7 @@ class EntregaController extends Controller
         return response()->json([
             'documento' => $documento,
             'nombre' => $nombre,
-            'aprellido' => $apellido,
+            'apellido' => $apellido,
             'entregas' => $entregas
         ], 200);
     }

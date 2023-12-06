@@ -41,7 +41,8 @@ class Material_has_entregaController extends Controller
 
         $materiales = array();
         $entrega = [
-            'idEntrega' => $materialEntregas[0]->entrega->id,   
+            'id' => $materialEntregas[0]->entrega->id,   
+            'canjeada' => $materialEntregas[0]->entrega->canjeada,
             'cantidadMaterial' => $materialEntregas[0]->entrega->cantidadMaterial,
             'puntosAcumulados' => $materialEntregas[0]->entrega->puntosAcumulados
         ];

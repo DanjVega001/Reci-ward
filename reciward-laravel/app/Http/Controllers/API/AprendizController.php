@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Aprendiz;
 use App\Models\Ficha;
+use App\Models\Perfil;
 use App\Service\FuncionesService;
 use Illuminate\Support\Facades\Hash;
 
@@ -33,8 +34,8 @@ class AprendizController extends Controller
                 'contrasena' => $ap->contrasena,
                 'correo' =>  $ap->correo,
                 'numeroFicha' => $ap->ficha->codigoFicha,
-                //'apellido' => $ap->perfil->apellido,
-                //'nombre' => $ap->perfil->nombre
+                'apellido' => $ap->perfil->apellido,
+                'nombre' => $ap->perfil->nombre
             ));
         }
         return response()->json($data_aprendices, 200);
@@ -130,6 +131,7 @@ class AprendizController extends Controller
     public function destroy($id)
     {
         $aprendiz = Aprendiz::find($id);
+        Perfil::where('aprendiz_id', $id)->first()->delete();
         if ($aprendiz) {
             $aprendiz->delete();
             return response()->json("Aprendiz con id: ". $id. " eliminado", 200);
