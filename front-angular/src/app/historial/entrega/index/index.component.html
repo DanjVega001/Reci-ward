@@ -1,1 +1,43 @@
-<p>index works!</p>
+<div class="container">
+    <form [formGroup]="busqueda" (ngSubmit)="cargarEntregas()" class="form-inline my-2 my-lg-0">
+        <input formControlName="documento" class="form-control mr-sm-2" type="search" placeholder="Buscar por docmento del aprendiz" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+    <div *ngIf="entregasMostradas">
+        <h3>Datos Aprendiz</h3>
+        <div>Nombre del aprendiz: {{datosAprendiz.nombre}}</div>
+        <div>Apellido del aprendiz: {{datosAprendiz.apellido}}</div>
+        <div>Documento del aprendiz: {{datosAprendiz.documento}}</div>
+    
+        <table class="table">
+            <thead>
+              <tr>
+                <td>ID</td>
+                <td>Cantidad del material</td>
+                <td>Canjeado</td>
+                <td>Puntos Acumulados</td> 
+                <td>Accion</td>
+              </tr>
+                   
+            </thead>
+            <tbody>
+              <tr *ngFor="let en of listaEntregas">
+                <td>{{ en.id }}</td>
+                <td>{{ en.cantidadMaterial }}</td>
+                <td>{{ en.canjeada }}</td>
+                <td>{{ en.puntosAcumulados }}</td>
+                <td>
+                    <button (click)="verMas(en.id)" class="btn btn-outline-success">Ver mas</button>
+                </td>
+            </tr>
+            </tbody>
+            
+          </table>
+    
+    </div>
+    
+
+    
+      
+</div>

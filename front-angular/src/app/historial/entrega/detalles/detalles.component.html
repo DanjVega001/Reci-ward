@@ -1,0 +1,34 @@
+<div class="container">
+
+    <h3>Datos Aprendiz</h3>
+    <div>Nombre del aprendiz: {{datosAprendiz.nombre}}</div>
+    <div>Apellido del aprendiz: {{datosAprendiz.apellido}}</div>
+    <div>Documento del aprendiz: {{datosAprendiz.documentoAprendiz}}</div>
+
+    <h3>Datos Entrega</h3>
+    <div>Canjeada: {{datosEntrega.canjeada}}</div>
+    <div>Cantidad del material: {{datosEntrega.cantidadMaterial}}</div>
+    <div>Puntos Acumulados: {{datosEntrega.puntosAcumulados}}</div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Nombre del material</td>
+                <td>Numero de puntos</td>
+                <td>Clasificacion</td>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr *ngFor="let ma of listaMateriales">
+                <td>{{ ma.id }}</td>
+                <td>{{ ma.nombreMaterial }}</td>
+                <td>{{ ma.numeroPuntos }}</td>
+                <td>{{ ma.clasificacion }}</td>
+            </tr>
+        </tbody>
+
+    </table>
+
+</div>

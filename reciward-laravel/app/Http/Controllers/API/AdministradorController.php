@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Administrador;
+use App\Models\Aprendiz;
+use App\Models\Aprendiz_has_bono;
 use Illuminate\Support\Facades\Hash;
 
 class AdministradorController extends Controller
@@ -98,5 +100,38 @@ class AdministradorController extends Controller
             return response()->json("Administrador con id: ". $id . " eliminado" , 200);
         }
         return response()->json(["error"=>"Administrador no encontrado"], 404);
+    }
+
+    public function bonosPorAprendiz($documento)
+    {
+        $idAprendiz = Aprendiz::where('numeroDocumento', $documento)
+            ->pluck('id');
+        $aprendiz_has_bono = Aprendiz_has_bono::where('aprendiz_id', $idAprendiz)
+            ->where('estadoBono', false)->get();
+
+        if ($aprendiz_has_bono===null) {
+            return response()->json(['message' => 'El aprendiz no tiene bonos para redimir'], 404);
+        }
+        $dataBonos = array();
+        foreach ($aprendiz_has_bono as $apBono) {
+            array_push($dataBonos, [
+                'id' => $apBono->id,
+                'fechaCreacion' => $apBono->fechaCreacion,
+                'fechaVencimiento' => $apBono->fechaVencimiento,
+                'codigoValidante' => $apBono->codigoValidante,
+                'valorBono' => $apBono->bono->valorBono
+            ]);
+        }
+        $aprendiz = $aprendiz_has_bono[0]->aprendiz;
+        $perfil = $aprendiz->perfil;
+
+        return response()->json([
+            'nombreAprendiz' => $perfil->nombre,
+            'apellidoAprendiz' => $perfil->apellido,
+            'documento' => $aprendiz->numeroDocumento,
+            'bonos' => $dataBonos
+        ], 200);
+    
+        return response()->json($aprendiz_has_bono, 200);
     }
 }

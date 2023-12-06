@@ -30,6 +30,9 @@
               <li><a class="dropdown-item" href="/historial/bonos/index">Historial bonos</a></li>
             </ul>
           </li>
+          <li class="nav-item">
+            <button *ngIf="access_token" class="btn btn-dark" (click)="logout()">Logout</button>
+          </li>
         </ul>
       </div>
     </div>

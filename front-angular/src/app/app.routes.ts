@@ -12,6 +12,7 @@ import { IndexComponent as IndexTip} from './tip/index/index.component';
 import { CreateComponent as CreateTip } from './tip/create/create.component';
 import { IndexComponent as IndexHistorialEntrega } from './historial/entrega/index/index.component';
 import { IndexComponent as IndexHistorialBono } from './historial/bonos/index/index.component';
+import { DetallesComponent } from './historial/entrega/detalles/detalles.component';
 
 
 
@@ -38,5 +39,6 @@ export const routes: Routes = [
     { path: 'historial/entrega/index', component: IndexHistorialEntrega},
     { path: 'historial/bonos/index', component: IndexHistorialBono},
    
+    { path: 'historial/entrega/detalles/:id', component: DetallesComponent},
 
 ];
