@@ -29,6 +29,7 @@ export const routes: Routes = [
 
     { path: 'bono/index', component: IndexBono},
     { path: 'bono/create', component: CreateBono},
+    { path: 'bono/edit/:id', component: CreateBono },
 
     { path: 'material/index', component: IndexMaterial},
     { path: 'material/create', component: CreateMaterial},

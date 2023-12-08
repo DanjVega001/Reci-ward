@@ -6,16 +6,14 @@
             <tr>
                 <td>ID</td>
                 <td>Valor del Bono</td>
-                <td>Fecha Creacion</td>
-                <td>Fecha Fin</td>
+                <td>Puntos requridos</td>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let ap of listaBonos">
                 <td>{{ ap.id }}</td>
                 <td>{{ ap.valorBono }}</td>
-                <td>{{ ap.fechaCreacion }}</td>
-                <td>{{ ap.fechaFin }}</td>
+                <td>{{ ap.puntosRequeridos }}</td>
                 <td>
                     <button type="button" (click)="eliminarBono(ap.id)">Eliminar</button>           
                 </td>

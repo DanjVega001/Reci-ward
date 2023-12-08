@@ -7,7 +7,7 @@ import { Bono } from '../modelos/bono.model';
     providedIn: 'root'
   })
   export class BonoService {
-    url = 'http://127.0.0.1:8000/api/auth/bono/';
+    url = 'http://127.0.0.1:8000/api/auth/bono-admin/';
     
     obtenerOptions(access_token:any):Object{
       const headers = new HttpHeaders({

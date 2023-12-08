@@ -14,15 +14,26 @@ import { BonoService } from '../../servicios/bono.service';
 })
 export class IndexComponent {
   listaBonos: Bono[] = [];
+  clave: string | null = null;
 
   constructor(private _router: Router, private bonoService: BonoService){}
 
   ngOnInit(): void {
+    this.validarToken();
     this.cargarBonos();
   }
 
+  validarToken(): void {
+    if (this.clave==null) {
+      this.clave = localStorage.getItem('access_token');
+    } 
+    if (!this.clave) {      
+      this._router.navigate(['/inicio/body']);
+    }
+  }
+
   cargarBonos(): void {
-    this.bonoService.getBonos(localStorage.getItem('access_token')).subscribe(
+    this.bonoService.getBonos(this.clave).subscribe(
       data => {
         this.listaBonos = data;
       }, 
@@ -36,7 +47,7 @@ export class IndexComponent {
   }
 
   eliminarBono(id: any): void {
-    this.bonoService.deleteBono(id, localStorage.getItem('access_token')).subscribe(
+    this.bonoService.deleteBono(id, this.clave).subscribe(
       data => {
         this.cargarBonos();
       }, 

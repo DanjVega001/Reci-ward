@@ -2,16 +2,13 @@
     <form [formGroup]="bonoForm" (ngSubmit)="agregarBono()">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Valor del Bono</label>
-            <input formControlName="email" type="email" class="form-control" aria-describedby="emailHelp">
+            <input formControlName="valorBono" type="number" class="form-control" aria-describedby="emailHelp">
           </div>
           <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Fecha Creacion</label>
-            <input formControlName="password" type="password" class="form-control">
+            <label for="exampleInputPassword1" class="form-label">Puntos requeridos</label>
+            <input formControlName="puntosRequeridos" type="number" class="form-control">
           </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Fecha Fin</label>
-            <input formControlName="password" type="password" class="form-control">
-          </div>
+
 
           <button type="submit" class="btn btn-primary">Crear Bono</button>
     </form>

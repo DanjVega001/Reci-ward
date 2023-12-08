@@ -19,8 +19,7 @@ export class CreateComponent {
 
   bonoForm = this.fb.group({
     valorBono : '',
-    fechaCreacion: '',
-    fechaFin: '',
+    puntosRequeridos: '',
   });
 
   constructor(private fb: FormBuilder, private aRouter: ActivatedRoute,private BonoService: BonoService, private _router:Router ){
@@ -47,8 +46,7 @@ export class CreateComponent {
         
         this.bonoForm.setValue({
           valorBono: data.valorBono,
-          fechaCreacion: data.fechaCreacion,
-          fechaFin: data.fechaFin,
+          puntosRequeridos: data.puntosRequeridos,
         }); 
         
       }, err => { console.log(err) });   
@@ -60,8 +58,7 @@ export class CreateComponent {
   agregarBono(): void {
     const bono: Bono = {
       valorBono: Number (this.bonoForm.get('valorBono')?.value),
-      fechaCreacion: new Date(this.bonoForm.get('fechaCreacion')?.value),
-      fechaFin: new Date(this.bonoForm.get('fechaFin')?.value)
+      puntosRequeridos: Number(this.bonoForm.get('puntosRequeridos')?.value),
     };
     console.log(bono);
   
