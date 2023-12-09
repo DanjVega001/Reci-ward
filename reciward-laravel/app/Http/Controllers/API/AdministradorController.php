@@ -107,7 +107,7 @@ class AdministradorController extends Controller
         $idAprendiz = Aprendiz::where('numeroDocumento', $documento)
             ->pluck('id');
         $aprendiz_has_bono = Aprendiz_has_bono::where('aprendiz_id', $idAprendiz)
-            ->where('estadoBono', false)->get();
+            ->get();
 
         if ($aprendiz_has_bono===null) {
             return response()->json(['message' => 'El aprendiz no tiene bonos para redimir'], 404);
@@ -116,6 +116,7 @@ class AdministradorController extends Controller
         foreach ($aprendiz_has_bono as $apBono) {
             array_push($dataBonos, [
                 'id' => $apBono->id,
+                'estadoBono' => $apBono->estadoBono,
                 'fechaCreacion' => $apBono->fechaCreacion,
                 'fechaVencimiento' => $apBono->fechaVencimiento,
                 'codigoValidante' => $apBono->codigoValidante,
@@ -129,6 +130,7 @@ class AdministradorController extends Controller
             'nombreAprendiz' => $perfil->nombre,
             'apellidoAprendiz' => $perfil->apellido,
             'documento' => $aprendiz->numeroDocumento,
+            'codigoFicha' => $aprendiz->ficha->codigoFicha,
             'bonos' => $dataBonos
         ], 200);
     
