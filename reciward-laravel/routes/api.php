@@ -73,7 +73,7 @@ Route::group([
         
         /** Aprendiz */
         /** Muestra el historial de bonos dela prendiz por su documento */
-        Route::get("/aprendiz-bono/admin/{documento}", [Administrador::class, 'bonosPorAprendiz']);
+        Route::get("/aprendiz-bono/admin/{documento}", [AdministradorController::class, 'bonosPorAprendiz']);
         Route::get("/material-entrega/admin/{idEntrega}", [Material_has_entregaController::class, 'show']);
         
     });

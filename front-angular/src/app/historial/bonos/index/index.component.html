@@ -1,1 +1,44 @@
-<p>index works!</p>
+<div class="container">
+    <form [formGroup]="busqueda" (ngSubmit)="cargarBonos()" class="form-inline my-2 my-lg-0">
+        <input formControlName="documento" class="form-control mr-sm-2" type="search" placeholder="Buscar por docmento del aprendiz" aria-label="Search">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+
+    <div *ngIf="bonosMostrados">
+        <h3>Datos Aprendiz</h3>
+        <div>Nombre del aprendiz: {{dataAprendiz.nombreAprendiz}}</div>
+        <div>Apellido del aprendiz: {{dataAprendiz.apellidoAprendiz}}</div>
+        <div>Documento del aprendiz: {{dataAprendiz.documento}}</div>
+        <div>Numero de la ficha: {{dataAprendiz.codigoFicha}}</div>
+    
+        <table class="table">
+            <thead>
+              <tr>
+                <td>ID</td>
+                <td>Estado del bono</td>
+                <td>Fecha de creación</td>
+                <td>Fecha de vencimiento</td> 
+                <td>Código validante</td>
+                <td>Valor del bono</td>
+              </tr>
+                   
+            </thead>
+            <tbody>
+              <tr *ngFor="let bAp of bonosAprendiz">
+                <td>{{ bAp.id }}</td>
+                <td>{{ bAp.estadoBono }}</td>
+                <td>{{ bAp.fechaCreacion }}</td>
+                <td>{{ bAp.fechaVencimiento }}</td>
+                <td>{{ bAp.codigoValidante }}</td>
+                <td>{{ bAp.valorBono }}</td>
+            </tr>
+            </tbody>
+            
+          </table>
+    
+    </div>
+    
+
+    
+      
+</div>

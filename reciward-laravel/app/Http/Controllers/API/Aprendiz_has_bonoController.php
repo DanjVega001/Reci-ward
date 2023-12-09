@@ -109,7 +109,6 @@ class Aprendiz_has_bonoController extends Controller
                 ->format('Y-m-d'), 
             'aprendiz_id' => $aprendiz->id,
             'bono_id' => $request->bono_id,
-            'user_id' => $aprendiz->user->id
         ]);
         $puntos->update([
             'cantidadAcumulada' => $puntos->cantidadAcumulada - $bono->puntosRequeridos,

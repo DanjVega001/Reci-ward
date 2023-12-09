@@ -21,8 +21,7 @@ class Aprendiz_has_BonoSeeder extends Seeder
             "fechaCreacion" => '2023-12-06', 
             "fechaVencimiento" => '2023-12-15', 
             "aprendiz_id" => 1, 
-            "bono_id" => 1, 
-            "user_id" => 2
+            "bono_id" => 1
         ]);
     }
 }
