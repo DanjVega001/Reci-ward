@@ -1,1 +1,31 @@
-<p>index works!</p>
+<button class="btn btn-light"><a href="/material/create">Agregar material</a></button>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>id</td>
+                <td>Nombre de Material</td>
+                <td>Numero de Puntos</td>
+                <td>Clasificacion</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ap of listaMaterial">
+                <td>{{ ap.id }}</td>
+                <td>{{ ap.nombreMaterial }}</td>
+                <td>{{ ap.numeroPuntos }}</td>
+                <td>{{ ap.clasificacion }}</td>  
+                <td>
+                    <button type="button" (click)="eliminarMaterial(ap.id)">Eliminar</button>           
+                </td>
+                <td>
+                    <button type="button" (click)="editarMaterial(ap.id)">Editar</button>           
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+
+            

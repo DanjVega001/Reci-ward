@@ -57,7 +57,7 @@ Route::group([
         // Rutas protegidas para usuarios con el rol "admin".
         Route::apiResource('admin', AdministradorController::class);
         Route::apiResource('ficha', FichaController::class);
-        //Route::apiResource('clasificacion', ClasificacionController::class);
+        Route::apiResource('clasificacion', ClasificacionController::class);
         Route::apiResource('bono-admin', BonoController::class);
         //Route::apiResource('cafeteria', CafeteriaController::class);
         Route::apiResource('aprendiz', AprendizController::class);
@@ -119,7 +119,7 @@ Route::group([
         /** Material
          * Obtener los materiales de reciclaje
          */
-        Route::get("/material", [MaterialController::class, 'index']);
+        Route::get("/material-aprendiz", [MaterialController::class, 'index']);
 
         /** Entrega 
          *  Muestra el historial de entregas que ha tenido el aprendiz

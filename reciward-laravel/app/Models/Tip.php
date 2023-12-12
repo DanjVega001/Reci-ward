@@ -7,15 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tip extends Model
 {
-    protected $fillable =["nombreTips", "descripcionTips", "tip_id", "admin_id", "aprendiz_id"];
+    protected $fillable =["nombre_tips", "descripcion", "administrador_id",];
     public $timestamps = false;
     protected $table = "tips";
     use HasFactory;
     
     public function administradores(){
-        return $this->belongsTo(Admin::class,'admin_id','id');
+        return $this->belongsTo(Admin::class,'administrador_id','id');
     }
-    public function aprendices(){
-        return $this->belongsTo(Aprendiz::class,'aprendiz_id','id');
-    }  
+ 
 }

@@ -1,13 +1,13 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FichaService {
-  url = 'http://127.0.0.1:8000/api/auth/ficha/';
-  
+export class MaterialService {
+  url = 'http://127.0.0.1:8000/api/auth/material/';
+
   obtenerOptions(access_token:any):Object{
     const headers = new HttpHeaders({
       'Content-type' : 'application/json',
@@ -17,26 +17,25 @@ export class FichaService {
       'headers': headers
     }
   }
-
   constructor(private http: HttpClient) { }
-
-  getFichas(access_token: any): Observable<any>{ 
+  getMateriales(access_token: any): Observable<any>{ 
     return this.http.get(this.url, this.obtenerOptions(access_token));
   }
   
-  addFicha(ficha: any, access_token: any): Observable<any>{
-    return this.http.post(this.url, ficha, this.obtenerOptions(access_token));
+  addMaterial(material: any, access_token: any): Observable<any>{
+    return this.http.post(this.url, material, this.obtenerOptions(access_token));
   }
   
-  getFicha(id: any, access_token: any): Observable<any>{
+  getMaterial(id: any, access_token: any): Observable<any>{
     return this.http.get(this.url + id, this.obtenerOptions(access_token));
   }
   
-  updateFicha(ficha: any, id: string, access_token: any): Observable<any>{
-    return this.http.put(this.url + id, ficha, this.obtenerOptions(access_token));
+  updateMaterial(material: any, id: string, access_token: any): Observable<any>{
+    return this.http.put(this.url + id, material, this.obtenerOptions(access_token));
   }
   
-  deleteFicha(id: string, access_token: any): Observable<any>{
+  deleteMaterial(id: string, access_token: any): Observable<any>{
     return this.http.delete(this.url + id, this.obtenerOptions(access_token));
   }
+  
 }

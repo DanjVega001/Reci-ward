@@ -1,1 +1,30 @@
-<p>index works!</p>
+<button class="btn btn-light"><a href="/ficha/create">Agregar Ficha</a></button>
+
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>id</td>
+                <td>Nombre de la ficha</td>
+                <td>Fecha de Creacion</td>
+                <td>Fecha Fin</td>
+                <td></td>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr *ngFor="let ap of listaFicha">
+                <td>{{ap.id}} </td>
+                <td>{{ap.nombreFicha}}</td>
+                <td>{{ap.fechaCreacion}}</td>
+                <td>{{ap.fechaFin}}</td>
+                <td>
+                    <button type="button" (click)="eliminarFicha(ap.id)">Eliminar</button>
+                </td>
+                <td>
+                    <button type="button" (click)="editarFicha(ap.id)">Editar</button> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -26,10 +26,10 @@ class TipController extends Controller
     public function store(Request $request)
     {
         $tips = Tip::create([
-            'nombreTip' => $request->nombreTip,
-            'descripcionTip' => $request->descripcionTip,
-            'admin_id' => $request->admin_id,
-            'aprendiz_id' =>$request->aprendiz_id
+            'nombre_tips' => $request->nombre_tips,
+            'descripcion' => $request->descripcion,
+            'administrador_id' => $request->admin_id,
+            
 
 
         ]);
@@ -64,10 +64,10 @@ class TipController extends Controller
         if (!$tips) {
             return response()->json(["error"=>"Tip no encontrado"], 404);
         } else {
-                $tips->nombreTip = $request->nombreTip;
-                $tips->descripcionTip = $request->descripcionTip;
-                $tips->admin_id = $request->admin_id;
-                $tips->aprendiz_id = $request->aprendiz_id;
+                $tips->nombre_tips = $request->nombre_tips;
+                $tips->descripcion = $request->descripcion;
+                $tips->administrador_id = $request->admin_id;
+                
 
                 $tips->update();
                 return response()->json($tips, 200);

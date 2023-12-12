@@ -22,6 +22,8 @@ export const routes: Routes = [
 
     { path: 'ficha/index', component: IndexFicha},
     { path: 'ficha/create', component: CreateFicha},
+    { path: 'ficha/edit/:id', component: CreateFicha},
+
 
     { path: 'aprendiz/index', component: IndexAprendiz},
     { path: 'aprendiz/create', component: CreateAprendiz},
@@ -33,9 +35,12 @@ export const routes: Routes = [
 
     { path: 'material/index', component: IndexMaterial},
     { path: 'material/create', component: CreateMaterial},
+    {path: 'material/edit/:id', component: CreateMaterial},
+
 
     { path: 'tip/index', component: IndexTip},
     { path: 'tip/create', component: CreateTip},
+    {path: 'tip/edit/:id', component: CreateTip},
 
     { path: 'historial/entrega/index', component: IndexHistorialEntrega},
     { path: 'historial/bonos/index', component: IndexHistorialBono},

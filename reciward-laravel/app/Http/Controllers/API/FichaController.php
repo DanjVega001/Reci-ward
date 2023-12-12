@@ -74,10 +74,10 @@ class FichaController extends Controller
         if (!$fichas) {
             return response()->json(["error"=>"Ficha no encontrada"], 404);
         } else {
-                $fichas->nombreFicha = $request->nombraFicha;
+                $fichas->nombreFicha = $request->nombreFicha;
                 $fichas->fechaCreacion = $request->fechaCreacion;
                 $fichas->fechaFin = $request->fechaFin;
-                $fichas->codigo = $request->codigo;
+                $fichas->codigoFicha = $request->codigoFicha;
                 $fichas->admin_id = $request->admin_id;
                 $fichas->update();
                 return response()->json($fichas, 200);
