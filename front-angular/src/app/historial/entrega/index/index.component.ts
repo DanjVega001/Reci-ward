@@ -22,6 +22,8 @@ export class IndexComponent {
     apellido: ''
   };
   entregasMostradas:boolean | null = false;
+  error = false;
+  infoErro = '';
 
   busqueda = this.fb.group({
     documento : ''
@@ -56,7 +58,12 @@ export class IndexComponent {
           this.datosAprendiz.nombre = data.nombre;
           this.listaEntregas = data.entregas
           this.entregasMostradas = true;
-        }, err => { console.log(err); });
+          this.error = false;
+        }, err => {           
+          console.log(err);
+          this.infoErro = err.error.error;
+          this.error = true;
+        });
   }
 
   verMas(id:any):void{

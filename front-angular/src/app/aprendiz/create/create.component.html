@@ -1,13 +1,10 @@
 <div class="container">
-    <form [formGroup]="aprendizForm" (ngSubmit)="agregarAprendiz()">
+    <form [formGroup]="aprendizForm" (ngSubmit)="editarAprendiz()">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">Email</label>
           <input formControlName="email" type="email" class="form-control" aria-describedby="emailHelp">
         </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input formControlName="password" type="password" class="form-control">
-        </div>
+
         <div class="mb-3">
           <label for="exampleInputPassword1" class="form-label">Nombre</label>
           <input formControlName="nombre" type="text" class="form-control" >
@@ -34,7 +31,7 @@
           </select>
         </div>
         
-        <button type="submit" class="btn btn-primary">Crear Aprendiz</button>
+        <button type="submit" class="btn btn-primary">Editar Aprendiz</button>
     </form>
 </div>
     

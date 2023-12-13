@@ -92,16 +92,23 @@ class AprendizController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $idAprendiz = $this->service->obtenerIdAprendizAutenticado();
-        if (!$idAprendiz) {
+        $idAdmin = $this->service->obtenerIdAdminAutenticado();
+        if (!$idAprendiz && !$idAdmin) {
             return response()->json(["error" => "Usuario no autorizado"],403);
+        } else if ($id) {
+            $idAprendiz = $id;
         }
+
         $aprendiz = Aprendiz::find($idAprendiz);
         if (!$aprendiz) {
             return response()->json(["error"=>"Aprendiz no encontrado"], 404);
         } 
+
+        $perfil = Perfil::where('aprendiz_id', $idAprendiz)->first(); 
+
         if ($request->contrasenaAntigua && $request->contrasena) {
             if (Hash::check($request->contrasenaAntigua, $aprendiz->contrasena)) {
                 $aprendiz->tipoDocumento = $request->tipoDocumento;
@@ -117,6 +124,10 @@ class AprendizController extends Controller
             $aprendiz->tipoDocumento = $request->tipoDocumento;
             $aprendiz->correo = $request->correo;
             $aprendiz->numeroDocumento = $request->numeroDocumento;
+            $aprendiz->ficha_id = $request->ficha_id;
+            $perfil->nombre = $request->nombre;
+            $perfil->apellido = $request->apellido;
+            $perfil->update();
             $aprendiz->update();
             return response()->json($aprendiz, 200);
         }

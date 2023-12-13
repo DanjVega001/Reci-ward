@@ -24,5 +24,15 @@ class Material_has_entregaSeeder extends Seeder
             "material_id" => 1,
             "entrega_id" => 1
         ]);
+
+        Material_has_entrega::create([
+            "material_id" => 2,
+            "entrega_id" => 2
+        ]);
+
+        Material_has_entrega::create([
+            "material_id" => 1,
+            "entrega_id" => 2
+        ]);
     }
 }

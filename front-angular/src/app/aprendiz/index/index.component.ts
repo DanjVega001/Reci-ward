@@ -24,6 +24,7 @@ export class IndexComponent {
   }
 
   validarToken(): void {
+    
     if (this.clave==null) {
       this.clave = localStorage.getItem('access_token');
     } 
