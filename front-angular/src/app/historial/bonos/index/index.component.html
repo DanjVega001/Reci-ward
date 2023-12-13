@@ -4,6 +4,10 @@
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
 
+    <div *ngIf="error">
+      <h3>{{ infoErro }}</h3>
+    </div>
+
     <div *ngIf="bonosMostrados">
         <h3>Datos Aprendiz</h3>
         <div>Nombre del aprendiz: {{dataAprendiz.nombreAprendiz}}</div>

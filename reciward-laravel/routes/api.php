@@ -75,7 +75,8 @@ Route::group([
         /** Muestra el historial de bonos dela prendiz por su documento */
         Route::get("/aprendiz-bono/admin/{documento}", [AdministradorController::class, 'bonosPorAprendiz']);
         Route::get("/material-entrega/admin/{idEntrega}", [Material_has_entregaController::class, 'show']);
-        
+        Route::put("/aprendiz/{id}", [AprendizController::class, 'update']);
+
     });
 
     Route::middleware(['auth:api', 'role:cafeteria'])->group(function () {
@@ -136,7 +137,7 @@ Route::group([
         /** Aprendiz 
          * Actualizar algunos datos, como la contraseña y el correo
         */
-        Route::put("/aprendiz-actualizar/{id}", [AprendizController::class, 'update']);
+        Route::put("/aprendiz-actualizar", [AprendizController::class, 'update']);
 
         /** Bonos 
          * Muestra los bonos no redmidos del aprendiz

@@ -4,7 +4,7 @@ export class Aprendiz {
     nombre:string | null | undefined;
     apellido:string | null | undefined;
     numeroDocumento?:number;
-    contrasena:string | null | undefined;
+    contrasena?:string | null | undefined;
     correo:string | null | undefined;
     user_id?: number;
     ficha_id?: number;

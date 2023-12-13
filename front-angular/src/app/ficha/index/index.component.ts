@@ -17,6 +17,7 @@ export class IndexComponent {
 
   listaFicha : Ficha[] = [];
   clave: string | null = null;
+  err500 = false;
 
   constructor(private _router: Router, private fichaService: FichaService){}
 
@@ -35,6 +36,7 @@ export class IndexComponent {
   }
   
   cargarFichas(): void {
+    this.err500 = false
     this.fichaService.getFichas(this.clave).subscribe(
       data => {
         this.listaFicha = data;
@@ -56,6 +58,7 @@ export class IndexComponent {
       },
       err => {
         console.log(err);
+        this.err500 = true;
       }
     );
   }

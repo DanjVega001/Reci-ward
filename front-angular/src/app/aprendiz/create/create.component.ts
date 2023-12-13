@@ -82,16 +82,14 @@ export class CreateComponent {
    
   }
 
-  agregarAprendiz(): void{
+  editarAprendiz(): void{
     const aprendiz: Aprendiz = {
       numeroDocumento : Number(this.aprendizForm.get('numeroDocumento')?.value!),
       tipoDocumento : this.aprendizForm.get('tipoDocumento')?.value,
-      contrasena : this.aprendizForm.get('password')?.value,
       correo: this.aprendizForm.get('email')?.value,
       ficha_id: Number(this.aprendizForm.get('ficha')?.value),
       nombre: this.aprendizForm.get('nombre')?.value,
       apellido: this.aprendizForm.get('apellido')?.value,
-      user_id: Number(localStorage.getItem('user_id')),
     };
     console.log(aprendiz);
     
@@ -105,16 +103,6 @@ export class CreateComponent {
           this._router.navigate(['/aprendiz/index']);
         }
       );
-    } else {
-      this.aprendizService.addAprendiz(aprendiz, this.clave).subscribe(data => {
-        console.log(data);
-        this._router.navigate(['/aprendiz/index']);
-      },
-        err => {
-          console.log(err);
-          this._router.navigate(['/aprendiz/index']);
-        }
-      );
-    }
+    } 
   }
 }

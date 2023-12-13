@@ -15,7 +15,8 @@
                   <option *ngFor="let clasificacion of listarClasificacion" [value]="clasificacion.id">{{ clasificacion.nombreClasificacion }}</option>
                 </select>
               </div>
-          <button type="submit" class="btn btn-primary">Crear Material</button>
+              <button *ngIf="!id" type="submit" class="btn btn-primary">Crear Material</button>
+              <button *ngIf="id" type="submit" class="btn btn-primary">Editar Material</button>
 
     </form>
 

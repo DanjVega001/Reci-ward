@@ -104,8 +104,13 @@ class AdministradorController extends Controller
 
     public function bonosPorAprendiz($documento)
     {
-        $idAprendiz = Aprendiz::where('numeroDocumento', $documento)
-            ->pluck('id');
+        
+        $aprendiz = Aprendiz::where('numeroDocumento', $documento)->first();
+        if (!$aprendiz) {
+            return response()->json(['message' => 'Aprendiz no encontrado'], 404);
+        }
+        $idAprendiz = $aprendiz->id;
+        
         $aprendiz_has_bono = Aprendiz_has_bono::where('aprendiz_id', $idAprendiz)
             ->get();
 
@@ -123,7 +128,7 @@ class AdministradorController extends Controller
                 'valorBono' => $apBono->bono->valorBono
             ]);
         }
-        $aprendiz = $aprendiz_has_bono[0]->aprendiz;
+
         $perfil = $aprendiz->perfil;
 
         return response()->json([

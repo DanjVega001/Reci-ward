@@ -14,6 +14,8 @@ import { Aprendiz_Bono } from '../../../modelos/aprendiz_bono.model';
   styleUrl: './index.component.scss'
 })
 export class IndexComponent {
+  error = false;
+  infoErro = '';
   bonosAprendiz : Aprendiz_Bono[] = [];
   bonosMostrados : boolean = false;
   clave: string | null = null;
@@ -54,7 +56,13 @@ export class IndexComponent {
         this.dataAprendiz.codigoFicha = data.codigoFicha;
         this.bonosAprendiz = data.bonos;
         this.bonosMostrados = true;
-      }, err => { console.log(err); }
+        this.error = false;
+      }, err => {         
+        this.infoErro = err.error.message;
+        this.error = true;
+        console.log(err);
+        
+      }
     )
   }
 

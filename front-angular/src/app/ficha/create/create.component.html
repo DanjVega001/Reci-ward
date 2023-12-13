@@ -17,7 +17,8 @@
             <input formControlName="fechaFin" type="date" class="form-control" >
           </div>
 
-          <button type="submit" class="btn btn-primary">Crear Ficha</button>
+          <button *ngIf="!id" type="submit" class="btn btn-primary">Crear Ficha</button>
+          <button *ngIf="id" type="submit" class="btn btn-primary">Editar Ficha</button>
 
     </form>
 

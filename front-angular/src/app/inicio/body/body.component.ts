@@ -24,7 +24,6 @@ export class BodyComponent {
   constructor(private fb: FormBuilder, private loginService:LoginService, 
     private _router:Router){}
 
-
   login(){
     this.loginService.login(this.loginForm.get('email')?.value, 
       this.loginForm.get('password')?.value).subscribe( 
