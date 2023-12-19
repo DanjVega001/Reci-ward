@@ -25,44 +25,27 @@ class AuthController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password)
         ]);
-        if (!$request->ficha_id && !$request->user_admin) {
-            Cafeteria::create([
-                'nombreCafeteria' => $request->name,
-                'correoCafeteria' => $request->email,
-                'contrasenaCafeteria' => Hash::make($request->password),
-                'user_id' => $user->id
-            ]);   
-            $user->assignRole('cafeteria');
-        } else if (!$request->ficha_id && $request->user_admin) {
-            Administrador::create([
-                'nombreAdmin' => $request->name,
-                'correoAdmin' => $request->email,
-                'contrasenaAdmin' => Hash::make($request->password),
-                'user_id' => $user->id
-            ]);
-            $user->assignRole('admin');
-        } else {
-            $aprendiz = Aprendiz::create([
-                'tipoDocumento' => $request->tipoDocumento,
-                'numeroDocumento' => $request->numeroDocumento,
-                'correo' => $request->email,
-                'contrasena' => Hash::make($request->password),
-                'user_id' => $user->id,
-                'ficha_id' => $request->ficha_id
-            ]);
-            Perfil::create([
-                'apellido' => $request->apellido,
-                'nombre' => $request->name,
-                'aprendiz_id' => $aprendiz->id
-            ]);
-            $user->assignRole('aprendiz');
-        }
+
+        $aprendiz = Aprendiz::create([
+            'tipoDocumento' => $request->tipoDocumento,
+            'numeroDocumento' => $request->numeroDocumento,
+            'correo' => $request->email,
+            'contrasena' => Hash::make($request->password),
+            'user_id' => $user->id,
+            'ficha_id' => $request->ficha_id
+        ]);
+        Perfil::create([
+            'apellido' => $request->apellido,
+            'nombre' => $request->name,
+            'aprendiz_id' => $aprendiz->id
+        ]);
+        $user->assignRole('aprendiz');
 
         return response()->json([
             'message' => 'Successfully created user!'
         ], 201);
     }
-  
+
     /**
      * Inicio de sesión y creación de token
      */
@@ -96,7 +79,7 @@ class AuthController extends Controller
             'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString()
         ]);
     }
-  
+
     /**
      * Cierre de sesión (anular el token)
      */
@@ -108,7 +91,7 @@ class AuthController extends Controller
             'message' => 'Successfully logged out'
         ]);
     }
-  
+
     /**
      * Obtener el objeto User como json
      */

@@ -59,7 +59,7 @@ Route::group([
         Route::apiResource('ficha', FichaController::class);
         Route::apiResource('clasificacion', ClasificacionController::class);
         Route::apiResource('bono-admin', BonoController::class);
-        //Route::apiResource('cafeteria', CafeteriaController::class);
+        Route::apiResource('cafeteria', CafeteriaController::class);
         Route::apiResource('aprendiz', AprendizController::class);
         Route::apiResource('material', MaterialController::class);
         Route::apiResource('tip', TipController::class);
