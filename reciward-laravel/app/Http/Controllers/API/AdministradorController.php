@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Administrador;
 use App\Models\Aprendiz;
 use App\Models\Aprendiz_has_bono;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 class AdministradorController extends Controller
@@ -30,10 +31,17 @@ class AdministradorController extends Controller
      */
     public function store(Request $request)
     {
+        $user = User::create([
+            'name' => $request->nombreAdmin,
+            'email' => $request->correoAdmin,
+            'password' => Hash::make($request->contrasenaAdmin)
+        ]);
+
         $administrador = Administrador::create([
             'nombreAdmin' => $request->nombreAdmin,
             'correoAdmin' => $request->correoAdmin,
-            'contrasenaAdmin' => Hash::make($request->contrasenaAdmin)
+            'contrasenaAdmin' => $user->password,
+            'user_id' => $user->id
         ]);
         return response()->json($administrador, 201);
     }
@@ -63,6 +71,7 @@ class AdministradorController extends Controller
     public function update(Request $request, $id)
     {
         $administrador = Administrador::find($id);
+        $user = User::find($administrador->user_id)->first();
         if (!$administrador) {
             return response()->json(["error"=>"Administrador no encontrado"], 404);
         }
@@ -71,15 +80,23 @@ class AdministradorController extends Controller
                 $administrador->nombreAdmin = $request->nombreAdmin;
                 $administrador->correoAdmin = $request->correoAdmin;
                 $administrador->contrasenaAdmin = Hash::make($request->contrasenaAdmin);
+                $user->email = $request->correoAdmin;
+                $user->name = $request->nombreAdmin;
+                $user->password = $administrador->contrasenaAdmin;
                 $administrador->update();
+                $user->update();
                 return response()->json($administrador, 200);
             } else {
-                return response()->json(["error"=>"Las contraseñas no coinciden"], 400);
+                return response()->json(["error"=>"Contraseña antigua incorrecta!"], 400);
             }
         } else {
             $administrador->nombreAdmin = $request->nombreAdmin;
             $administrador->correoAdmin = $request->correoAdmin;
+            $user->email = $request->correoAdmin;
+            $user->name = $request->nombreAdmin;
+            
             $administrador->update();
+            $user->update();
             return response()->json($administrador, 200);
         }
         
@@ -97,6 +114,7 @@ class AdministradorController extends Controller
         $administrador = Administrador::find($id);
         if ($administrador) {
             $administrador->delete();
+            User::find($administrador->user_id)->delete();
             return response()->json("Administrador con id: ". $id . " eliminado" , 200);
         }
         return response()->json(["error"=>"Administrador no encontrado"], 404);

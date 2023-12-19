@@ -1,0 +1,48 @@
+<div class="container">
+    <form [formGroup]="cafeteriaForm" (ngSubmit)="agregarAdmin()">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Nombre del perfil de cafeteria</label>
+            <input formControlName="nombreCafeteria" type="text" class="form-control" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Correo del perfil de cafeteria</label>
+            <input formControlName="correoCafeteria" type="text" class="form-control" aria-describedby="emailHelp">
+        </div>
+
+        <div *ngIf="id" class="mb-3">
+            <div class="form-check">
+                <input formControlName="isChecked" class="form-check-input" type="checkbox" name="editarPassword"
+                    id="flexRadioDefault1">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Editar Password
+                </label>
+            </div>
+
+            <div *ngIf="cafeteriaForm.get('isChecked')?.value">
+                <label for="exampleInputEmail1" class="form-label">Password antiguo del Administrador</label>
+                <input formControlName="contrasenaAntigua" type="password" class="form-control">
+
+                <label for="exampleInputEmail1" class="form-label">Password del Administrador</label>
+                <input formControlName="contrasenaCafeteria" type="password" class="form-control">
+
+                
+            </div>
+        </div>
+
+
+        <div *ngIf="!id">
+            <label for="exampleInputEmail1" class="form-label">Password del perfil de Cafeteria</label>
+            <input formControlName="contrasenaCafeteria2" type="password" class="form-control">
+
+            
+        </div>
+
+        <button *ngIf="!id" type="submit" class="btn btn-primary">Crear perfil de Cafeteria</button>
+        <button *ngIf="id" type="submit" class="btn btn-primary">Editar perfil de Cafeteria</button>
+    </form>
+
+
+    <div *ngIf="msjError">
+        {{msjError}}
+    </div>
+</div>
