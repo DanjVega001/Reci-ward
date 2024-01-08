@@ -1,0 +1,16 @@
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:reciward_flutter_app/features/auth/domain/entities/ficha_entity.dart';
+import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.dart';
+
+abstract class AuthRepository {
+  
+  Future<Either<DioException, String>> signup(UserEntity aprendiz);
+
+  Future<Either<DioException, UserEntity>> login(UserEntity user);
+
+  Future<Either<DioException, String>> logout(String accessToken);
+
+  Future<Either<DioException, List<FichaEntity>>> getFichas();
+
+}
