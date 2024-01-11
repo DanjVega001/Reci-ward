@@ -47,6 +47,11 @@ Route::group([
     Route::post('signup', [AuthController::class, "signup"]);
     Route::get('/all/fichas', [FichaController::class, 'index']);
 
+    /** Maneja el envio del correo para restablecer la contraseña */
+    Route::post('/send-reset-password', [AuthController::class, "enviarRecuperarContrasena"]);
+    /** Restablece la contraseña */
+    Route::post('/reset-password', [AuthController::class, "resetPassword"]);
+
 
     Route::group([
         'middleware' => 'auth:api'
@@ -77,7 +82,7 @@ Route::group([
         /** Muestra el historial de bonos dela prendiz por su documento */
         Route::get("/aprendiz-bono/admin/{documento}", [AdministradorController::class, 'bonosPorAprendiz']);
         Route::get("/material-entrega/admin/{idEntrega}", [Material_has_entregaController::class, 'show']);
-        Route::put("/aprendiz/{id}", [AprendizController::class, 'update']);
+        Route::put("/aprendiz/{id}", [AprendizController::class, 'updateAprendizByAdmin']);
 
     });
 
@@ -115,7 +120,7 @@ Route::group([
         /** Perfil 
          * Este metodo devuelve el perfil del aprendiz autenticado */
         Route::get("/perfil/ver", [PerfilController::class,'verPerfil']);
-        Route::put("/perfil", [PerfilController::class,'update']);
+        //Route::put("/perfil", [PerfilController::class,'update']);
 
 
         /** RUTAS PERSONALIZADAS */

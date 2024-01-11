@@ -32,4 +32,17 @@ final class AuthErrorState extends AuthState {
 
 final class AuthLoadingState extends AuthState {}
 
+final class UpdateUserFailed extends AuthState {
+  final String error;
+
+  const UpdateUserFailed({required this.error});
+}
+
+final class UpdateUserSuccess extends AuthState {
+  final String message;
+
+  const UpdateUserSuccess({required this.message});
+}
+
+
 
