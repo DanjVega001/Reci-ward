@@ -10,15 +10,18 @@ class AuthFormField extends StatelessWidget {
   this.isPassword});
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      keyboardType: type,
-      obscureText: isPassword==null ? false : true,
-      decoration: InputDecoration(
-        labelText: label,
-        border: const OutlineInputBorder(),
-        labelStyle: const TextStyle(color: Colors.white)
-      ),
-      controller: controller,
+    return 
+       TextFormField(
+        keyboardType: type,
+        obscureText: isPassword==null ? false : true,
+        decoration: InputDecoration(
+          labelText: label,
+          focusColor: Colors.white,
+          border: const OutlineInputBorder( ),
+          labelStyle: const TextStyle(color: Colors.white)
+        ),
+        controller: controller,
+      
     );
   }
 }

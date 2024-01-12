@@ -13,7 +13,7 @@ class Tip extends Model
     use HasFactory;
     
     public function administradores(){
-        return $this->belongsTo(Admin::class,'administrador_id','id');
+        return $this->belongsTo(Administrador::class,'administrador_id','id');
     }
  
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Aprendiz;
 use App\Models\Ficha;
 use App\Models\Perfil;
+use App\Models\User;
 use App\Service\FuncionesService;
 use Illuminate\Support\Facades\Hash;
 
@@ -14,7 +15,8 @@ class AprendizController extends Controller
 {
 
     private $service;
-    public function __construct(FuncionesService $service){
+    public function __construct(FuncionesService $service)
+    {
         $this->service = $service;
     }
     /**
@@ -23,7 +25,7 @@ class AprendizController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $aprendices = Aprendiz::all();
         $data_aprendices = array();
         foreach ($aprendices as $ap) {
@@ -69,8 +71,8 @@ class AprendizController extends Controller
     public function show($id)
     {
         $ap = Aprendiz::find($id);
-        if (!$ap) {       
-            return response()->json(["error"=>"Aprendiz no encontrado"], 404);
+        if (!$ap) {
+            return response()->json(["error" => "Aprendiz no encontrado"], 404);
         }
         $aprendiz = array(
             'tipoDocumento' => $ap->tipoDocumento,
@@ -81,7 +83,7 @@ class AprendizController extends Controller
             'apellido' => $ap->perfil->apellido,
             'name' => $ap->perfil->nombre
         );
-        
+
         return response()->json($aprendiz, 200);
     }
 
@@ -92,45 +94,78 @@ class AprendizController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $idAprendiz = $this->service->obtenerIdAprendizAutenticado();
-        $idAdmin = $this->service->obtenerIdAdminAutenticado();
-        if (!$idAprendiz && !$idAdmin) {
-            return response()->json(["error" => "Usuario no autorizado"],403);
-        } else if ($id) {
-            $idAprendiz = $id;
+        if (!$idAprendiz) {
+            return response()->json(["error" => "Usuario no autorizado"], 403);
         }
 
         $aprendiz = Aprendiz::find($idAprendiz);
         if (!$aprendiz) {
-            return response()->json(["error"=>"Aprendiz no encontrado"], 404);
-        } 
+            return response()->json(["error" => "Aprendiz no encontrado"], 404);
+        }
 
-        $perfil = Perfil::where('aprendiz_id', $idAprendiz)->first(); 
+        $perfil = Perfil::where('aprendiz_id', $idAprendiz)->first();
+        $user = User::where('user_id', $aprendiz->user_id);
 
         if ($request->contrasenaAntigua && $request->contrasena) {
             if (Hash::check($request->contrasenaAntigua, $aprendiz->contrasena)) {
-                $aprendiz->tipoDocumento = $request->tipoDocumento;
-                $aprendiz->numeroDocumento = $request->numeroDocumento;
-                $aprendiz->correo = $request->correo;
+               
+                $user->name = $request->name;
+                $user->email = $request->correo;
+                $user->password = Hash::make($request->contrasena);
                 $aprendiz->contrasena = Hash::make($request->contrasena);
+                $aprendiz->correo = $request->correo;
+                $perfil->avatar = $request->avatar;
+                $perfil->apellido = $request->apellido;
+                $perfil->nombre = $request->name;
+                $perfil->descripcionPerfil = $request->descripcionPerfil;
+                $user->update();
+                $perfil->update();
                 $aprendiz->update();
-                return response()->json($aprendiz, 200);
+                return response()->json(['message' => 'User updated!'], 200);
             } else {
-                return response()->json(["error"=>"Las contraseñas no coinciden"], 400);
+                return response()->json(["error" => "Las contraseñas no coinciden"], 400);
             }
         } else {
-            $aprendiz->tipoDocumento = $request->tipoDocumento;
+            $user->name = $request->name;
+            $user->email = $request->correo;
             $aprendiz->correo = $request->correo;
-            $aprendiz->numeroDocumento = $request->numeroDocumento;
-            $aprendiz->ficha_id = $request->ficha_id;
-            $perfil->nombre = $request->nombre;
+            $perfil->avatar = $request->avatar;
             $perfil->apellido = $request->apellido;
+            $perfil->nombre = $request->name;
+            $perfil->descripcionPerfil = $request->descripcionPerfil;
+            $user->update();
             $perfil->update();
             $aprendiz->update();
-            return response()->json($aprendiz, 200);
+            return response()->json(['message' => 'User updated!'], 200);        
         }
+    }
+
+    /**
+     * 
+     * Actualizar el aprendiz por parte del aprendiz
+     */
+    public function updateAprendizByAdmin(Request $request, $id)
+    {
+        $idAdmin = $this->service->obtenerIdAdminAutenticado();
+
+        if (!$idAdmin) {
+            return response()->json(["error" => "Usuario no autorizado"], 403);
+        }
+
+        $aprendiz = Aprendiz::find($id);
+        if (!$aprendiz) {
+            return response()->json(["error" => "Aprendiz no encontrado"], 404);
+        }
+
+        $aprendiz->ficha_id = $request->ficha_id;
+        $aprendiz->tipoDocumento = $request->tipoDocumento;
+        $aprendiz->numeroDocumento = $request->numeroDocumento;
+        $aprendiz->update();
+        return response()->json(["message" => "Aprendiz actualizado"], 200);
+
     }
 
     /**
@@ -145,8 +180,8 @@ class AprendizController extends Controller
         Perfil::where('aprendiz_id', $id)->first()->delete();
         if ($aprendiz) {
             $aprendiz->delete();
-            return response()->json("Aprendiz con id: ". $id. " eliminado", 200);
+            return response()->json("Aprendiz con id: " . $id . " eliminado", 200);
         }
-        return response()->json(["error"=>"Aprendiz no encontrado"], 404);
+        return response()->json(["error" => "Aprendiz no encontrado"], 404);
     }
 }

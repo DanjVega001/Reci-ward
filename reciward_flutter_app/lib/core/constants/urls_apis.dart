@@ -9,5 +9,8 @@ const String urlApiAuthSignup = "${urlApi}signup";
 //URLS API FICHAS
 const String urlApiGetFichas = "${urlApi}all/fichas";
 
+//URLS API APRENDIZ/USER
+const String urlApiUpdateUser = "${urlApi}aprendiz-actualizar";
+
 
 

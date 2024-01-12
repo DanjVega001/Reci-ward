@@ -13,10 +13,10 @@ class AuthFormButton extends StatelessWidget {
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
-            //Pallete.color1,
-            Pallete.color2,
-            Pallete.color3,
             Pallete.color4,
+            //Pallete.color1,
+            Pallete.colorGradient,
+            Pallete.colorWhite
           ],
           begin: Alignment.bottomLeft,
           end: Alignment.topRight,
@@ -34,8 +34,8 @@ class AuthFormButton extends StatelessWidget {
           text,
           style: const TextStyle(
             fontWeight: FontWeight.w700,
-            fontSize: 19,
-            color: Colors.white
+            fontSize: 20,
+            color: Pallete.color1
           ),
         ),
       ),

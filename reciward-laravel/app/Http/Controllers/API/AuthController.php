@@ -3,15 +3,17 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Administrador;
+use App\Mail\PasswordReset;
 use App\Models\Aprendiz;
-use App\Models\Cafeteria;
 use App\Models\Perfil;
+use Illuminate\Support\Str;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -116,5 +118,75 @@ class AuthController extends Controller
             "user" => $request->user(),
             "rol" => $rol
         ]);
+    }
+
+    /**
+     * Metodo que maneja el envio del correo para restablecer la contraseña
+     */
+    public function enviarRecuperarContrasena(Request $request) {
+        $request->validate([
+            'email' => 'required',
+        ]);
+        $email = $request->email;
+        if (!$email) return response()->json(['error' => 'Proporcion un email valido']);
+
+        $cuentaExiste = User::where('email', $email)->exists();
+
+        if (!$cuentaExiste) return response()->json(['error' => 'Cuenta no existe']);
+        
+        $token = null;
+        $unico = false;
+        while (!$unico) {
+            $token = Str::random(6);
+            $existeToken = DB::table('password_resets')->where('token',
+                $token)->exists();
+            if (!$existeToken) {
+                $unico = true;
+            }
+        }
+        
+        // Eliminamos la anterior reseteo de contraseña sin terminar
+        DB::table('password_resets')->where(['email' => $email])->delete();
+
+        // Creamos la solicitud de reseteo de contraseña
+        DB::table('password_resets')->insert([
+            'email' => $email,
+            'token' => $token,
+            'created_at' => Carbon::now()
+        ]);
+
+        // Se envia el correo electrónico
+        Mail::to($email)->send(new PasswordReset($token));
+
+        return response()->json(['message' => 'Te hemos enviado un email con las instrucciones para que recuperes tu contraseña']);
+    }
+
+    /**
+     * Metodo para restablecer la contraseña
+     */
+
+    public function resetPassword(Request $request) {
+        $request->validate([
+            'password' => 'required',
+            'token' => 'required',
+        ]);
+
+        try {
+            $email = DB::table('password_resets')->where(['token' => $request->token])->first()->email;
+            $user = User::where('email', $email)->first();
+    
+            $aprendiz = $user->aprendiz;
+    
+            $user->password = Hash::make($request->password);
+            $aprendiz->contrasena = $user->password;
+            $user->update();
+            $aprendiz->update();
+    
+            return response()->json(['message' => 'contraseña restablecida correctamente']);       
+        } catch (\Throwable $th) {
+            return response()->json(['error' => 'Error al restablecer la contraseña']);       
+        }
+     
+
     }
 }

@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:reciward_flutter_app/features/auth/domain/entities/ficha_entity.dart';
+import 'package:reciward_flutter_app/features/auth/domain/entities/update_user_data_dto.dart';
 import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.dart';
 
 abstract class AuthRepository {
@@ -12,5 +13,8 @@ abstract class AuthRepository {
   Future<Either<DioException, String>> logout(String accessToken);
 
   Future<Either<DioException, List<FichaEntity>>> getFichas();
+
+  Future<Either<DioException, String>> updateUser(String accessToken, UpdatedUserData userData);
+  
 
 }

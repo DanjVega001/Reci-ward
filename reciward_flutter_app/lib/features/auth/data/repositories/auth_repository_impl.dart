@@ -4,6 +4,7 @@ import 'package:dio/src/dio_exception.dart';
 import 'package:reciward_flutter_app/features/auth/data/datasources/auth_service.dart';
 import 'package:reciward_flutter_app/features/auth/data/models/user_model.dart';
 import 'package:reciward_flutter_app/features/auth/domain/entities/ficha_entity.dart';
+import 'package:reciward_flutter_app/features/auth/domain/entities/update_user_data_dto.dart';
 import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.dart';
 import 'package:reciward_flutter_app/features/auth/domain/repositories/auth_repository.dart';
 
@@ -55,6 +56,11 @@ class AuthRepositoryImpl extends AuthRepository {
     } catch (e) {
       rethrow;
     }
+  }
+
+  @override
+  Future<Either<DioException, String>> updateUser(String accessToken, UpdatedUserData userData) {
+    return service.updateUser(accessToken, userData);
   }
 
   

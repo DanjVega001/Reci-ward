@@ -5,6 +5,7 @@ import 'package:reciward_flutter_app/features/auth/domain/usecases/get_fichas_us
 import 'package:reciward_flutter_app/features/auth/domain/usecases/login_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/logout_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/signup_usecase.dart';
+import 'package:reciward_flutter_app/features/auth/domain/usecases/update_user_usecase.dart';
 
 class SetupAuthDependencies {
   static void setupAuthDependencies(GetIt getIt) {
@@ -22,5 +23,7 @@ class SetupAuthDependencies {
         () => SignupUseCase(userRepository: getIt<AuthRepositoryImpl>()));
     getIt.registerLazySingleton<GetFichasUseCase>(
       () => GetFichasUseCase(userRepository: getIt<AuthRepositoryImpl>()));
+    getIt.registerLazySingleton<UpdatedUserUsecase>(
+      () => UpdatedUserUsecase(userRepository: getIt<AuthRepositoryImpl>()));
   }
 }
