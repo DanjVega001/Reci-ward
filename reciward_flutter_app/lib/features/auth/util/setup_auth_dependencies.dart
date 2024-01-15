@@ -4,6 +4,8 @@ import 'package:reciward_flutter_app/features/auth/data/repositories/auth_reposi
 import 'package:reciward_flutter_app/features/auth/domain/usecases/get_fichas_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/login_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/logout_usecase.dart';
+import 'package:reciward_flutter_app/features/auth/domain/usecases/reset_password_usecase.dart';
+import 'package:reciward_flutter_app/features/auth/domain/usecases/send_mail_reset_password_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/signup_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/update_user_usecase.dart';
 
@@ -25,5 +27,9 @@ class SetupAuthDependencies {
       () => GetFichasUseCase(userRepository: getIt<AuthRepositoryImpl>()));
     getIt.registerLazySingleton<UpdatedUserUsecase>(
       () => UpdatedUserUsecase(userRepository: getIt<AuthRepositoryImpl>()));
+    getIt.registerLazySingleton<SendMailResetPasswordUseCase>(
+      () => SendMailResetPasswordUseCase(userRepository: getIt<AuthRepositoryImpl>()));
+    getIt.registerLazySingleton<ResetPasswordUsecase>(
+      () => ResetPasswordUsecase(userRepository: getIt<AuthRepositoryImpl>()));
   }
 }

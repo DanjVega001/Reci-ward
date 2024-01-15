@@ -12,5 +12,7 @@ const String urlApiGetFichas = "${urlApi}all/fichas";
 //URLS API APRENDIZ/USER
 const String urlApiUpdateUser = "${urlApi}aprendiz-actualizar";
 
-
+//URLS APU RESET PASSWORD
+const String urlApiSendMailResetPassword = "${urlApi}send-reset-password";
+const String urlApiResetPassword = "${urlApi}reset-password";
 
