@@ -79,3 +79,51 @@ class UpdatedUser extends AuthEvent {
     return null;
   }
 }
+
+
+class SendMailRequested extends AuthEvent {
+  final String email;
+
+  const SendMailRequested({required this.email});
+
+  
+  AuthException? validate() {
+
+    if (email.isEmpty) {
+      return AuthException(errorMessage: "Email is empty");
+    }
+
+    return null;
+  }
+}
+
+class ResetPasswordRequested extends AuthEvent {
+  final String password;
+  final String confirmPassword;
+  final String token;
+  
+  const ResetPasswordRequested({
+    required this.password,
+    required this.confirmPassword,
+    required this.token,
+  });
+
+
+  AuthException ? validate(){
+    
+    if (password!=confirmPassword) {
+      return AuthException(errorMessage: "Passwords dont match");
+    }
+
+    if (password.length < 6) {
+      return AuthException(errorMessage: "Passwords cannot be less than 6 characters");
+    }
+
+    if (token.trim().isEmpty) {
+      return AuthException(errorMessage: "Server error");
+    }
+
+    return null;
+  }
+
+}

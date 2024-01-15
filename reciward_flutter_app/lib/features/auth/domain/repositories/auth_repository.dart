@@ -16,5 +16,9 @@ abstract class AuthRepository {
 
   Future<Either<DioException, String>> updateUser(String accessToken, UpdatedUserData userData);
   
+  Future<Either<DioException, String>> sendMailResetPassword(String email);
+
+  Future<Either<DioException, String>> resetPassword(String password, String token);
+
 
 }

@@ -158,7 +158,7 @@ class AuthController extends Controller
         // Se envia el correo electrónico
         Mail::to($email)->send(new PasswordReset($token));
 
-        return response()->json(['message' => 'Te hemos enviado un email con las instrucciones para que recuperes tu contraseña']);
+        return response()->json(['message' => 'Te hemos enviado un email con las instrucciones para que recuperes tu contraseña'], 200);
     }
 
     /**
@@ -184,7 +184,7 @@ class AuthController extends Controller
     
             return response()->json(['message' => 'contraseña restablecida correctamente']);       
         } catch (\Throwable $th) {
-            return response()->json(['error' => 'Error al restablecer la contraseña']);       
+            return response()->json(['error' => 'Error al restablecer la contraseña'], 200);       
         }
      
 

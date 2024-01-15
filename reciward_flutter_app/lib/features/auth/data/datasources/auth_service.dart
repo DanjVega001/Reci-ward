@@ -127,4 +127,50 @@ class AuthService {
     }
   }
 
+  Future<Either<DioException, String>> sendMailResetPassword(String email)async {
+    try {
+      Options options = Options(
+        contentType: 'application/json',
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      );
+      Map<String, dynamic> data = {
+        "email" : email
+      };
+      final response = await dio.post(urlApiSendMailResetPassword, data: data, options: options);
+      if (response.statusCode == 200) return right(response.data["message"]);
+      return left(DioException(
+        requestOptions: response.requestOptions,
+        message: response.statusMessage
+      ));
+
+    } on DioException catch (e) {
+      return left(e);
+    }
+  }
+
+  Future<Either<DioException, String>> resetPassword (String password, String token) async {
+    try {
+      Options options = Options(
+        contentType: 'application/json',
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      );
+      Map<String, dynamic> data = {
+        "password" : password,
+        "token" : token
+      };
+      final response = await dio.post(urlApiResetPassword, data: data, options:  options);
+      if (response.statusCode == 200) return right(response.data["message"]);
+      return left(DioException(
+        requestOptions: response.requestOptions,
+        message: response.statusMessage
+      ));
+    } on DioException catch (e) {
+      return left(e);
+    }
+  }
+
 }

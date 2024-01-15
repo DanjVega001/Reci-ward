@@ -62,6 +62,16 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Either<DioException, String>> updateUser(String accessToken, UpdatedUserData userData) {
     return service.updateUser(accessToken, userData);
   }
+  
+  @override
+  Future<Either<DioException, String>> sendMailResetPassword(String email) {
+    return service.sendMailResetPassword(email);
+  }
+  
+  @override
+  Future<Either<DioException, String>> resetPassword(String password, String token) {
+    return service.resetPassword(password, token);
+  }
 
   
 

@@ -11,8 +11,9 @@ final class AuthInitial extends AuthState {}
 
 final class AuthInitialLogin extends AuthState {
   final UserEntity ? user;
+  final String ? message;
 
-  const AuthInitialLogin({this.user});
+  const AuthInitialLogin({this.user, this.message});
 
 }
 
@@ -43,6 +44,20 @@ final class UpdateUserSuccess extends AuthState {
 
   const UpdateUserSuccess({required this.message});
 }
+
+final class SendMailSuccess extends AuthState {
+  final String message;
+
+  const SendMailSuccess({required this.message});
+}
+
+final class SendMailFailed extends AuthState {
+  final String error;
+
+  const SendMailFailed({required this.error});
+}
+
+final class SendMailInitialized extends AuthState {}
 
 
 
