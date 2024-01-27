@@ -21,17 +21,18 @@ export class BodyComponent {
     password:''
   });
 
-  constructor(private fb: FormBuilder, private loginService:LoginService, 
+  constructor(private fb: FormBuilder, private loginService:LoginService,
     private _router:Router){}
 
   login(){
-    this.loginService.login(this.loginForm.get('email')?.value, 
-      this.loginForm.get('password')?.value).subscribe( 
+    this.loginService.login(this.loginForm.get('email')?.value,
+      this.loginForm.get('password')?.value).subscribe(
         data => {
           if (data!==null) {
             localStorage.setItem('access_token', data?.access_token);
             localStorage.setItem('user_id', data?.user_id);
-            this._router.navigate(['/aprendiz/index']);
+            this._router.navigate(['/aprendiz/index'], {replaceUrl : true});
+
           }
         }, err => {
           console.log(err);

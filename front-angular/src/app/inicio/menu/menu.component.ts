@@ -15,10 +15,12 @@ export class MenuComponent {
 
   access_token: string | null = null;
 
-  constructor(private authService: LoginService, private router: Router) {}
+  constructor(private authService: LoginService, private router: Router) {
+  }
 
   ngOnInit(){
     this.getAccess_token();
+    console.log("Acces_token = " + this.access_token);
   }
 
   getAccess_token(): void {
@@ -28,6 +30,7 @@ export class MenuComponent {
   logout() {
     this.authService.logout(localStorage.getItem('access_token')).subscribe(
       () => {
+        this.access_token = null;
         this.router.navigate(['/']);
       },
       (error) => {

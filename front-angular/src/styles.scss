@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+.btn-light {
+  background-color: #f5f5f5;
+  margin: 30px 0;
+  border: 2px solid black;
+}
+
+.btn-light > a {
+  text-decoration: none;
+  color: black;
+  font-weight: 800;
+}
