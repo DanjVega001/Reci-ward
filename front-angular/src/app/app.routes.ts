@@ -3,7 +3,6 @@ import { BodyComponent } from './inicio/body/body.component';
 import { IndexComponent as IndexFicha } from './ficha/index/index.component';
 import { CreateComponent as CreateFicha } from './ficha/create/create.component';
 import { IndexComponent as IndexAprendiz } from './aprendiz/index/index.component';
-import { CreateComponent as CreateAprendiz} from './aprendiz/create/create.component';
 import { IndexComponent as IndexBono } from './bono/index/index.component';
 import { CreateComponent as CreateBono } from './bono/create/create.component';
 import { IndexComponent as IndexMaterial } from './material/index/index.component';
@@ -28,7 +27,6 @@ export const routes: Routes = [
 
 
     { path: 'aprendiz/index', component: IndexAprendiz},
-    { path: 'aprendiz/edit/:id', component: CreateAprendiz },
 
     { path: 'bono/index', component: IndexBono},
     { path: 'bono/create', component: CreateBono},
@@ -44,14 +42,14 @@ export const routes: Routes = [
 
     { path: 'historial/entrega/index', component: IndexHistorialEntrega},
     { path: 'historial/bonos/index', component: IndexHistorialBono},
-   
+
     { path: 'historial/entrega/detalles/:id', component: DetallesComponent},
 
     { path: 'usuario/index', component: IndexUsuario },
-    
+
     { path: 'usuario/admin/create', component: CreateAdminComponent },
     { path: 'usuario/admin/edit/:id', component: CreateAdminComponent },
 
     { path: 'usuario/cafeteria/create', component: CreateCafeteriaComponent },
-    { path: 'usuario/cafeteria/edit/:id', component: CreateCafeteriaComponent },    
+    { path: 'usuario/cafeteria/edit/:id', component: CreateCafeteriaComponent },
 ];

@@ -5,10 +5,15 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Aprendiz;
+use App\Models\Aprendiz_has_bono;
+use App\Models\Entrega;
 use App\Models\Ficha;
+use App\Models\Material_has_entrega;
 use App\Models\Perfil;
+use App\Models\Punto;
 use App\Models\User;
 use App\Service\FuncionesService;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AprendizController extends Controller
@@ -111,7 +116,7 @@ class AprendizController extends Controller
 
         if ($request->contrasenaAntigua && $request->contrasena) {
             if (Hash::check($request->contrasenaAntigua, $aprendiz->contrasena)) {
-               
+
                 $user->name = $request->name;
                 $user->email = $request->correo;
                 $user->password = Hash::make($request->contrasena);
@@ -139,12 +144,12 @@ class AprendizController extends Controller
             $user->update();
             $perfil->update();
             $aprendiz->update();
-            return response()->json(['message' => 'User updated!'], 200);        
+            return response()->json(['message' => 'User updated!'], 200);
         }
     }
 
     /**
-     * 
+     *
      * Actualizar el aprendiz por parte del aprendiz
      */
     public function updateAprendizByAdmin(Request $request, $id)
@@ -178,8 +183,23 @@ class AprendizController extends Controller
     {
         $aprendiz = Aprendiz::find($id);
         Perfil::where('aprendiz_id', $id)->first()->delete();
+        if (Aprendiz_has_bono::where('aprendiz_id', $id)->exists()) {
+            DB::table("aprendices_has_bonos")->where("aprendiz_id", "=", $id)->delete();
+        }
+        if (Entrega::where('aprendiz_id', $id)->exists()) {
+            $entrega = Entrega::where('aprendiz_id', $id)->get();
+
+            foreach ($entrega as $value) {
+                DB::table("material_has_entregas")->where("entrega_id", "=", $value->id)->delete();
+                DB::table('entregas')->where("id", "=", $value->id)->delete();
+            }
+        }
+        if (Punto::where('aprendiz_id', $id)->exists()) {
+            Punto::where('aprendiz_id', $id)->first()->delete();
+        }
         if ($aprendiz) {
             $aprendiz->delete();
+            User::where('id', $aprendiz->user_id)->first()->delete();
             return response()->json("Aprendiz con id: " . $id . " eliminado", 200);
         }
         return response()->json(["error" => "Aprendiz no encontrado"], 404);

@@ -24,11 +24,11 @@ export class IndexComponent {
   }
 
   validarToken(): void {
-    
+
     if (this.clave==null) {
       this.clave = localStorage.getItem('access_token');
-    } 
-    if (!this.clave) {      
+    }
+    if (!this.clave) {
       this._router.navigate(['/inicio/body']);
     }
   }
@@ -37,22 +37,17 @@ export class IndexComponent {
     this.aprendizService.getAprendices(this.clave).subscribe(
       data => {
         this.listaAprendices = data;
-      }, 
+      },
       err => {
         console.log(err);
       });
   }
-
-  editarAprendiz(id:any):void{
-    this._router.navigateByUrl('/aprendiz/edit/'+id);
-  }
-
   eliminarAprendiz(id:any):void{
     this.aprendizService.deleteAprendiz(id, this.clave).subscribe(
       data => {
         this.cargarAprendices();
       }, err => {
-        console.log(err);   
+        console.log(err);
       }
     );
   }

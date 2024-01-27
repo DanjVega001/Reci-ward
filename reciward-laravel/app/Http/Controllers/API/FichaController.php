@@ -13,7 +13,7 @@ class FichaController extends Controller
     public function __construct(FuncionesService $service){
         $this->service = $service;
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -70,6 +70,10 @@ class FichaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $id_admin = $this->service->obtenerIdAdminAutenticado();
+        if (!$id_admin) {
+            return response()->json(["error" => "Usuario no autorizado"],403);
+        }
         $fichas = Ficha::find($id);
         if (!$fichas) {
             return response()->json(["error"=>"Ficha no encontrada"], 404);
@@ -78,11 +82,11 @@ class FichaController extends Controller
                 $fichas->fechaCreacion = $request->fechaCreacion;
                 $fichas->fechaFin = $request->fechaFin;
                 $fichas->codigoFicha = $request->codigoFicha;
-                $fichas->admin_id = $request->admin_id;
+                $fichas->admin_id = $id_admin;
                 $fichas->update();
                 return response()->json($fichas, 200);
-        } 
-          
+        }
+
     }
 
     /**

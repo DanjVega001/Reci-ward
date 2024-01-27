@@ -1,12 +1,20 @@
 <?php
 
 namespace App\Http\Controllers\API;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Tip;
+use App\Service\FuncionesService;
 
 class TipController extends Controller
 {
+
+    private $service;
+    public function __construct(FuncionesService $service)
+    {
+        $this->service = $service;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -25,11 +33,15 @@ class TipController extends Controller
      */
     public function store(Request $request)
     {
+        $id_admin = $this->service->obtenerIdAdminAutenticado();
+        if (!$id_admin) {
+            return response()->json(["error" => "Usuario no autorizado"], 403);
+        }
         $tips = Tip::create([
             'nombre_tips' => $request->nombre_tips,
             'descripcion' => $request->descripcion,
-            'administrador_id' => $request->admin_id,
-            
+            'administrador_id' => $id_admin,
+
 
 
         ]);
@@ -48,7 +60,7 @@ class TipController extends Controller
         if ($tips) {
             return response()->json($tips, 200);
         }
-        return response()->json(["error"=>"Tip no encontrado"], 404);
+        return response()->json(["error" => "Tip no encontrado"], 404);
     }
 
     /**
@@ -60,19 +72,22 @@ class TipController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $id_admin = $this->service->obtenerIdAdminAutenticado();
+        if (!$id_admin) {
+            return response()->json(["error" => "Usuario no autorizado"], 403);
+        }
         $tips = Tip::find($id);
         if (!$tips) {
-            return response()->json(["error"=>"Tip no encontrado"], 404);
+            return response()->json(["error" => "Tip no encontrado"], 404);
         } else {
-                $tips->nombre_tips = $request->nombre_tips;
-                $tips->descripcion = $request->descripcion;
-                $tips->administrador_id = $request->admin_id;
-                
+            $tips->nombre_tips = $request->nombre_tips;
+            $tips->descripcion = $request->descripcion;
+            $tips->administrador_id = $id_admin;
 
-                $tips->update();
-                return response()->json($tips, 200);
-        } 
-          
+
+            $tips->update();
+            return response()->json($tips, 200);
+        }
     }
 
     /**
@@ -86,10 +101,8 @@ class TipController extends Controller
         $tips = Tip::find($id);
         if ($tips) {
             $tips->delete();
-            return response()->json("Tip con id: ". $id . " eliminado" , 200);
+            return response()->json("Tip con id: " . $id . " eliminado", 200);
         }
-        return response()->json(["error"=>"Tip no encontrado"], 404);
+        return response()->json(["error" => "Tip no encontrado"], 404);
     }
 }
-
-
