@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.dart';
@@ -25,7 +26,6 @@ class _LoginPageState extends State<LoginPage> {
   String deepLink = "No se ha recibido ningún enlace profundo.";
   StreamController<String> deepLinkController = StreamController<String>();
   bool isResetPassword = false;
-
 
   @override
   void initState() {
@@ -55,14 +55,13 @@ class _LoginPageState extends State<LoginPage> {
   void handleLink(String? link) {
     deepLinkController.add(link ?? "No se ha recibido ningún enlace profundo.");
     if (link != null) {
-      final argument =
-        ModalRoute.of(context)?.settings.arguments;
+      final argument = ModalRoute.of(context)?.settings.arguments;
       if (argument == null) {
-        isResetPassword=true;
+        isResetPassword = true;
       } else {
-        isResetPassword=false;
+        isResetPassword = false;
       }
-      
+
       Uri uri = Uri.parse(link);
       String? token = uri.queryParameters['token'];
       if (uri.path == '/password-reset/' && token != null && isResetPassword) {
@@ -92,10 +91,12 @@ class _LoginPageState extends State<LoginPage> {
                 .showSnackBar(SnackBar(content: Text(state.error)));
           }
           if (state is AuthenticatedState) {
+            BlocProvider.of<ProfileBloc>(context)
+                .add(RecoverUserProfile(user: state.user));
             Navigator.pushNamed(context, '/home');
           }
-          if (state is AuthInitialLogin && state.message!=null) {
-             ScaffoldMessenger.of(context)
+          if (state is AuthInitialLogin && state.message != null) {
+            ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.message!)));
           }
         },
@@ -146,9 +147,10 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     Navigator.pushNamed(context, '/send-mail');
                   },
-                  style: const ButtonStyle(foregroundColor: MaterialStatePropertyAll(Colors.white)),
+                  style: const ButtonStyle(
+                      foregroundColor: MaterialStatePropertyAll(Colors.white)),
                   child: const Text(
-                    "¿Olvidaste tu contraseña?",   
+                    "¿Olvidaste tu contraseña?",
                   ),
                 )
               ],

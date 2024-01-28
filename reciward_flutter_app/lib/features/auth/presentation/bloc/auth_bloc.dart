@@ -4,14 +4,12 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:reciward_flutter_app/core/exceptions/exceptions.dart';
-import 'package:reciward_flutter_app/features/auth/domain/entities/update_user_data_dto.dart';
 import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/login_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/logout_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/reset_password_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/send_mail_reset_password_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/signup_usecase.dart';
-import 'package:reciward_flutter_app/features/auth/domain/usecases/update_user_usecase.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -20,12 +18,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignupUseCase signupUseCase = GetIt.instance<SignupUseCase>();
   final LoginUseCase loginUseCase = GetIt.instance<LoginUseCase>();
   final LogoutUseCase logoutUseCase = GetIt.instance<LogoutUseCase>();
-  final UpdatedUserUsecase updatedUserUsecase =
-    GetIt.instance<UpdatedUserUsecase>();
+
   final SendMailResetPasswordUseCase sendMailResetPasswordUseCase =
-    GetIt.instance<SendMailResetPasswordUseCase>();
+      GetIt.instance<SendMailResetPasswordUseCase>();
   final ResetPasswordUsecase resetPasswordUsecase =
-    GetIt.instance<ResetPasswordUsecase>();
+      GetIt.instance<ResetPasswordUsecase>();
 
   AuthBloc() : super(AuthInitial()) {
     on<AuthSignupRequested>(onAuthSignupRequested);
@@ -34,69 +31,47 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<AuthLogoutRequested>(onAuthLogoutRequested);
 
-    on<UpdatedUser>(onUpdateUser);
-
     on<SendMailRequested>(onSendEmail);
 
     on<ResetPasswordRequested>(onResetPassword);
-
   }
 
-  void onResetPassword(ResetPasswordRequested event, Emitter<AuthState> emit) async{
+  void onResetPassword(
+      ResetPasswordRequested event, Emitter<AuthState> emit) async {
     try {
       final validate = event.validate();
-      if (validate!=null) return emit(AuthErrorState(error: validate.errorMessage));
-    
-      Either<DioException, String> either = await resetPasswordUsecase.call(
-        event.password, event.token   
-      );
-      either.fold(
-        (dioException) {return emit(AuthErrorState(error: dioException.message!));}, 
-        (message) {
-          return emit(AuthInitialLogin(message: message));
-        }
-        
-      );
+      if (validate != null) {
+        return emit(AuthErrorState(error: validate.errorMessage));
+      }
+
+      Either<DioException, String> either =
+          await resetPasswordUsecase.call(event.password, event.token);
+      either.fold((dioException) {
+        return emit(AuthErrorState(error: dioException.message!));
+      }, (message) {
+        return emit(AuthInitialLogin(message: message));
+      });
     } catch (e) {
-      
       emit(AuthErrorState(error: e.toString()));
     }
   }
 
-  void onSendEmail(SendMailRequested event, Emitter<AuthState> emit)async {
+  void onSendEmail(SendMailRequested event, Emitter<AuthState> emit) async {
     try {
       emit(SendMailInitialized());
 
       final validate = event.validate();
-      if (validate!=null) return emit(SendMailFailed(error: validate.errorMessage));
-
-      Either<DioException, String> either = await sendMailResetPasswordUseCase.call(event.email);
-      either.fold(
-        (dioException) => emit(SendMailFailed(error: dioException.message!)), 
-        (message) => emit(SendMailSuccess(message: message))
-      );
-    } catch (e) {
-      emit(SendMailFailed(error: e.toString()));
-    }
-
-  }
-
-  void onUpdateUser(UpdatedUser event, Emitter<AuthState> emit) async {
-    try {
-      AuthException? updateUserValidator = event.validate();
-      if (updateUserValidator != null) {
-        emit(UpdateUserFailed(error: updateUserValidator.errorMessage));
-        return;
+      if (validate != null) {
+        return emit(SendMailFailed(error: validate.errorMessage));
       }
 
-      Either<DioException, String> either = await updatedUserUsecase.updateUser(
-          event.accessToken, event.userData);
+      Either<DioException, String> either =
+          await sendMailResetPasswordUseCase.call(event.email);
       either.fold(
-          (dioException) =>
-              emit(UpdateUserFailed(error: dioException.message!)),
-          (message) => emit(UpdateUserSuccess(message: message)));
+          (dioException) => emit(SendMailFailed(error: dioException.message!)),
+          (message) => emit(SendMailSuccess(message: message)));
     } catch (e) {
-      emit(UpdateUserFailed(error: e.toString()));
+      emit(SendMailFailed(error: e.toString()));
     }
   }
 

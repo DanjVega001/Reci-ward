@@ -1,15 +1,13 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first,, implementation_imports 
+// ignore_for_file: public_member_api_docs, sort_constructors_first,, implementation_imports
 import 'package:dartz/dartz.dart';
 import 'package:dio/src/dio_exception.dart';
 import 'package:reciward_flutter_app/features/auth/data/datasources/auth_service.dart';
 import 'package:reciward_flutter_app/features/auth/data/models/user_model.dart';
 import 'package:reciward_flutter_app/features/auth/domain/entities/ficha_entity.dart';
-import 'package:reciward_flutter_app/features/auth/domain/entities/update_user_data_dto.dart';
 import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.dart';
 import 'package:reciward_flutter_app/features/auth/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
-
   late AuthService service;
 
   AuthRepositoryImpl({
@@ -21,7 +19,7 @@ class AuthRepositoryImpl extends AuthRepository {
     try {
       UserModel userModel = UserModel.fromUserEntity(user);
       final either = await service.login(userModel);
-      
+
       return either.fold(
         (dioException) => left(dioException),
         (userModel) => right(userModel.toEntity()),
@@ -38,8 +36,8 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<DioException, String>> signup(UserEntity aprendiz) async {    
-    UserModel aprendizModel=  UserModel.fromUserEntity(aprendiz);
+  Future<Either<DioException, String>> signup(UserEntity aprendiz) async {
+    UserModel aprendizModel = UserModel.fromUserEntity(aprendiz);
     return await service.signup(aprendizModel);
   }
 
@@ -48,31 +46,21 @@ class AuthRepositoryImpl extends AuthRepository {
     try {
       final fichasModels = await service.getFichas();
 
-      return fichasModels.fold(
-        (dioException) => left(dioException), 
-        (fichas) => right(fichas.map((e) => e.toEntity()).toList()) 
-      );
-
+      return fichasModels.fold((dioException) => left(dioException),
+          (fichas) => right(fichas.map((e) => e.toEntity()).toList()));
     } catch (e) {
       rethrow;
     }
   }
 
   @override
-  Future<Either<DioException, String>> updateUser(String accessToken, UpdatedUserData userData) {
-    return service.updateUser(accessToken, userData);
-  }
-  
-  @override
   Future<Either<DioException, String>> sendMailResetPassword(String email) {
     return service.sendMailResetPassword(email);
   }
-  
+
   @override
-  Future<Either<DioException, String>> resetPassword(String password, String token) {
+  Future<Either<DioException, String>> resetPassword(
+      String password, String token) {
     return service.resetPassword(password, token);
   }
-
-  
-
 }
