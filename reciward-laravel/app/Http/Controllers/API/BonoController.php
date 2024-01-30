@@ -76,12 +76,18 @@ class BonoController extends Controller
      */
     public function destroy($id)
     {
-        $bonos = Bono::find($id);
-        if ($bonos) {
-            $bonos->delete();
-            return response()->json("Bono con id: ". $id . " eliminado" , 200);
+        try {
+            $bonos = Bono::find($id);
+            if ($bonos) {
+                $bonos->delete();
+                return response()->json("Bono con id: ". $id . " eliminado" , 200);
+            }
+            return response()->json(["error"=>"Bono no encontrado"], 404);
+        } catch (\Throwable $th) {
+            return response()->json(["error"=>$th->getMessage()], 400);
+
         }
-        return response()->json(["error"=>"Bono no encontrado"], 404);
+        
     }
 }
 

@@ -1,5 +1,6 @@
-<button class="btn btn-light"><a href="/material/create">Agregar material</a></button>
 <div class="container">
+    <button class="btn btn-light"><a href="/material/create">Agregar material</a></button>
+
     <table class="table">
         <thead>
             <tr>
@@ -24,6 +25,10 @@
             </tr>
         </tbody>
     </table>
+
+    <div *ngIf="noEliminar">
+        <h5>El material selecccionado no se puede eliminar</h5>
+    </div>
 </div>
 
 

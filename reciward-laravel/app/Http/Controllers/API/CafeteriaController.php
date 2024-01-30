@@ -94,12 +94,17 @@ class CafeteriaController extends Controller
      */
     public function destroy($id)
     {
-        $cafeteria = Cafeteria::find($id);
-        if ($cafeteria) {
-            $cafeteria->delete();
-            User::find($cafeteria->user_id)->delete();
-            return response()->json("cafeteria con Id " . $id . " eliminado", 200);
+        try {
+            $cafeteria = Cafeteria::find($id);
+            if ($cafeteria) {
+                $cafeteria->delete();
+                User::find($cafeteria->user_id)->delete();
+                return response()->json("cafeteria con Id " . $id . " eliminado", 200);
+            }
+            return response()->json(["error" => "cafeteria no encontrada"], 404);
+        } catch (\Throwable $th) {
+            return response()->json(["error" => $th->getMessage()], 400);
         }
-        return response()->json(["error" => "cafeteria no encontrada"], 404);
+       
     }
 }

@@ -1,6 +1,7 @@
-<button class="btn btn-light"><a href="/bono/create">Agregar bono</a></button>
 
 <div class="container">
+    <button class="btn btn-light"><a href="/bono/create">Agregar bono</a></button>
+
     <table class="table">
         <thead>
             <tr>
@@ -23,4 +24,9 @@
             </tr>
         </tbody>
     </table>
+
+
+    <div *ngIf="noEliminar">
+        <h5>El bono selecccionado no se puede eliminar</h5>
+    </div>
 </div>

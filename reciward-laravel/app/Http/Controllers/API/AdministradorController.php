@@ -8,6 +8,7 @@ use App\Models\Administrador;
 use App\Models\Aprendiz;
 use App\Models\Aprendiz_has_bono;
 use App\Models\User;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
 class AdministradorController extends Controller
@@ -31,19 +32,35 @@ class AdministradorController extends Controller
      */
     public function store(Request $request)
     {
-        $user = User::create([
-            'name' => $request->nombreAdmin,
-            'email' => $request->correoAdmin,
-            'password' => Hash::make($request->contrasenaAdmin)
-        ]);
+        try {
+            $user = User::create([
+                'name' => $request->nombreAdmin,
+                'email' => $request->correoAdmin,
+                'password' => Hash::make($request->contrasenaAdmin)
+            ]);
+    
+            $administrador = Administrador::create([
+                'nombreAdmin' => $request->nombreAdmin,
+                'correoAdmin' => $request->correoAdmin,
+                'contrasenaAdmin' => $user->password,
+                'user_id' => $user->id
+            ]);
 
-        $administrador = Administrador::create([
-            'nombreAdmin' => $request->nombreAdmin,
-            'correoAdmin' => $request->correoAdmin,
-            'contrasenaAdmin' => $user->password,
-            'user_id' => $user->id
-        ]);
-        return response()->json($administrador, 201);
+
+            if (!Role::where('name', 'admin')->exists()) {
+                //return  response()->json("NO EXISTE EL ROL", 201);
+                Role::create(['name' => 'admin']); 
+            }
+            //return response()->json("EXISTE EL ROL", 201);
+
+            $user->assignRole('admin');
+
+            return response()->json($administrador, 201);
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage(), 400);
+            
+        }
+       
     }
 
     /**

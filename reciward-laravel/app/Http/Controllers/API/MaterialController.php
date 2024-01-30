@@ -71,12 +71,17 @@ class MaterialController extends Controller
 
     public function destroy($id)
     {
-        $material = Material::find($id);
-        if (!$material) {
-            return response()->json(['message' => 'Material no encontrada'], 404);
-        }
+        try {
+            $material = Material::find($id);
+            if (!$material) {
+                return response()->json(['message' => 'Material no encontrada'], 404);
+            }
 
-        $material->delete();
-        return response()->json(['message' => 'Material eliminado'], 200);
+            $material->delete();
+            return response()->json(['message' => 'Material eliminado'], 200);
+        } catch (\Throwable $th) {
+            return response()->json(["error"=>$th->getMessage()], 400);
+        }
+        
     }
 }

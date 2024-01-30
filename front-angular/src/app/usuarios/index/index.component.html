@@ -25,7 +25,7 @@
             </tr>
         </tbody>
     </table>
-
+    <div *ngIf="noEliminarCafeteria"><h5>No se puede eliminar la cafetria seleccionada</h5></div>
 
     <h3>Usuarios administradores</h3>
     <button class="btn btn-light"><a href="/usuario/admin/create">Agregar Usuario Administrador</a></button>
@@ -52,6 +52,6 @@
             </tr>
         </tbody>
     </table>
-
+    <div *ngIf="noEliminarAdmin"><h5>No se puede eliminar el admin seleccionada</h5></div>
 
 </div>

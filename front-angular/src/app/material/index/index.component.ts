@@ -17,6 +17,8 @@ export class IndexComponent {
   listaMaterial : Material[] = [];
   listaClasificacion : Clasificacion[] = [];
   clave: string | null = null;
+  noEliminar : boolean = false;
+
 
   constructor(private _router: Router, private MaterialService: MaterialService, private clasificacionService:ClasificacionService){}
   ngOnInit(): void {
@@ -53,9 +55,14 @@ export class IndexComponent {
   eliminarMaterial(id: any): void {
     this.MaterialService.deleteMaterial(id, this.clave).subscribe(
       data => {
+        this.noEliminar = false;
         this.cargarMateriales();
       },
       err => {
+        if (err.status == 400) {
+          this.noEliminar = true;
+        }
+
         console.log(err);
       }
     );

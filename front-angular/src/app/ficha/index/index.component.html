@@ -1,6 +1,7 @@
-<button class="btn btn-light"><a href="/ficha/create">Agregar Ficha</a></button>
 
 <div class="container">
+    <button class="btn btn-light"><a href="/ficha/create">Agregar Ficha</a></button>
+
     <table class="table">
         <thead>
             <tr>
@@ -27,6 +28,7 @@
             </tr>
         </tbody>
     </table>
+    <div *ngIf="err500"><h4>NO ES POSIBLE ELIMINAR LA FICHA</h4></div>
+
 </div>
 
-<div *ngIf="err500"><h4>NO ES POSIBLE ELIMINAR LA FICHA, FALLA EN LA LLAVE FORANEA</h4></div>

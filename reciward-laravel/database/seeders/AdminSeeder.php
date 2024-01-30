@@ -28,6 +28,21 @@ class AdminSeeder extends Seeder
             'contrasenaAdmin' => $user->password,
             'user_id' => $user->id
         ]);
+        
         $user->assignRole('admin');
+
+        $user1 = User::create([
+            'name' => 'Anderson',
+            'email' => 'anderson@gmail.com',
+            'password' => Hash::make('123456')
+        ]);
+
+        Administrador::create([
+            'nombreAdmin' => $user1->name,
+            'correoAdmin' => $user1->email,
+            'contrasenaAdmin' => $user1->password,
+            'user_id' => $user1->id
+        ]);
+        $user1->assignRole('admin');
     }
 }

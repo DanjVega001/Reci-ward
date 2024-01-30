@@ -16,6 +16,7 @@ export class IndexComponent {
   listaBonos: Bono[] = [];
   clave: string | null = null;
 
+  noEliminar : boolean = false;
   constructor(private _router: Router, private bonoService: BonoService){}
 
   ngOnInit(): void {
@@ -48,10 +49,14 @@ export class IndexComponent {
 
   eliminarBono(id: any): void {
     this.bonoService.deleteBono(id, this.clave).subscribe(
-      data => {
+      data => {     
+        this.noEliminar = false;
         this.cargarBonos();
       }, 
       err => {
+        if (err.status == 400) {
+          this.noEliminar = true;
+        }
         console.log(err);   
       }
     );

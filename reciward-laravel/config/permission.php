@@ -2,6 +2,13 @@
 
 return [
 
+    'default_guard_name' => 'web',
+    'guards' => [
+        'web',
+        // Otros guards si los tienes
+    ],
+
+
     'models' => [
 
         /*
