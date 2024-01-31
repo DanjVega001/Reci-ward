@@ -7,7 +7,7 @@ class LogoutUseCase {
 
   LogoutUseCase({required this.userRepository});
 
-  Future<Either<DioException, String>> call(String accessToken){
+  Future<Either<DioException, String>> call(String accessToken) {
     return userRepository.logout(accessToken);
   }
 }

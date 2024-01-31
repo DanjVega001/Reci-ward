@@ -10,6 +10,7 @@ import 'package:reciward_flutter_app/features/auth/domain/usecases/logout_usecas
 import 'package:reciward_flutter_app/features/auth/domain/usecases/reset_password_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/send_mail_reset_password_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/signup_usecase.dart';
+import 'package:reciward_flutter_app/features/auth/presentation/providers/auth_manager.dart';
 
 part 'auth_event.dart';
 part 'auth_state.dart';
@@ -80,11 +81,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       Either<DioException, String> logout =
           await logoutUseCase.call(event.accessToken);
+      await AuthManager.clearAuthenticationInfo();
       logout.fold(
           (dioException) => emit(AuthErrorState(error: dioException.message!)),
-          (userEntity) => emit(const AuthInitialLogin()));
+          (message) => emit(AuthInitialLogin(message: message)));
     } catch (e) {
-      //print('Error en onAuthLoginRequested: $e');
+      print('Error en onAuthLoginRequested: $e');
       emit(AuthErrorState(error: e.toString()));
     }
   }

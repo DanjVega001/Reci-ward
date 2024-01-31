@@ -61,10 +61,17 @@ class AuthService {
   }
 
   Future<Either<DioException, String>> logout(String accessToken) async {
-    Options options =
-        Options(headers: {'Authorization': 'Bearer $accessToken'});
+    Options options = Options(
+      headers: {'Authorization': 'Bearer $accessToken'},
+      contentType: 'application/json',
+      validateStatus: (status) {
+        return status! < 500;
+      },
+    );
+    //print(accessToken);
+
     try {
-      final response = await dio.post(urlApiAuthLogout, options: options);
+      final response = await dio.get(urlApiAuthLogout, options: options);
       if (response.statusCode == 200) {
         return right(response.data['message']);
       } else {
