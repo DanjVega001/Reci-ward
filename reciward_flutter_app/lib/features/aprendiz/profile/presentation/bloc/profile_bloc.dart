@@ -19,6 +19,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<RecoverUserProfile>(onRecoverUserProfile);
 
     on<UpdatedUser>(onUpdateUser);
+
+    on<EndSession>(onEndSession);
+  }
+
+  void onEndSession(EndSession event, Emitter<ProfileState> emit) {
+    emit(SessionEndedState(accessToken: event.accessToken));
   }
 
   void onRecoverUserProfile(
