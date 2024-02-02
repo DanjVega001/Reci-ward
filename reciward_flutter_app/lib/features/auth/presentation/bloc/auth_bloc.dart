@@ -124,7 +124,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       either.fold(
           (dioException) => emit(AuthErrorState(error: dioException.message!)),
           (message) {
-        emit(AuthInitialLogin(user: user));
+        emit(AuthInitialLogin(user: user, message: message));
       });
     } catch (e) {
       print('Error en onAuthSignupRequested: $e');

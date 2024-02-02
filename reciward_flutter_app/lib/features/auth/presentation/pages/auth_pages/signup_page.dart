@@ -51,7 +51,10 @@ class _SignupPageState extends State<SignupPage> {
                 .showSnackBar(SnackBar(content: Text(state.error)));
           }
           if (state is AuthInitialLogin) {
+            print(state.message);
             Navigator.popAndPushNamed(context, '/');
+             ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(state.message!)));
           }
         },
         child: SingleChildScrollView(
@@ -80,6 +83,16 @@ class _SignupPageState extends State<SignupPage> {
                 const SizedBox(
                   height: 10.0,
                 ),
+                 AuthFormField(
+                  label: 'Password',
+                  controller: passwordController,
+                  type: TextInputType.text,
+                  isPassword: true,
+                ),
+                
+                const SizedBox(
+                  height: 10.0,
+                ),
                 AuthFormField(
                     label: 'Numero de documento del aprendiz',
                     controller: numeroDocumentoController,
@@ -87,15 +100,7 @@ class _SignupPageState extends State<SignupPage> {
                 const SizedBox(
                   height: 10.0,
                 ),
-                AuthFormField(
-                  label: 'Password',
-                  controller: passwordController,
-                  type: TextInputType.text,
-                  isPassword: true,
-                ),
-                const SizedBox(
-                  height: 10.0,
-                ),
+               
                 Container(
                   padding: const EdgeInsets.all(16.0),
                   decoration: BoxDecoration(

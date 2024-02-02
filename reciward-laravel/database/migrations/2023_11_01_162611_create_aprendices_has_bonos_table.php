@@ -15,7 +15,7 @@ class CreateAprendicesHasBonosTable extends Migration
     {
         Schema::create('aprendices_has_bonos', function (Blueprint $table) {
             $table->id();
-            $table->string('codigoValidante', 15);
+            $table->string('codigoValidante', 15)->unique();
             $table->boolean('estadoBono');
             $table->Date('fechaCreacion');
             $table->Date('fechaVencimiento');

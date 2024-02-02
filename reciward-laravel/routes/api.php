@@ -125,6 +125,7 @@ Route::group([
 
         /** RUTAS PERSONALIZADAS */
         /** Material
+         * 
          * Obtener los materiales de reciclaje
          */
         Route::get("/material-aprendiz", [MaterialController::class, 'index']);
