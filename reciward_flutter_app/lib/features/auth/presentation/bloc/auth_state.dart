@@ -1,20 +1,22 @@
+// ignore_for_file: must_be_immutable
+
 part of 'auth_bloc.dart';
 
 sealed class AuthState extends Equatable {
   const AuthState();
-  
+
   @override
   List<Object> get props => [];
 }
 
 final class AuthInitial extends AuthState {}
 
+@immutable
 final class AuthInitialLogin extends AuthState {
-  final UserEntity ? user;
-  final String ? message;
+  UserEntity? user;
+  String? message;
 
-  const AuthInitialLogin({this.user, this.message});
-
+  AuthInitialLogin({this.user, this.message});
 }
 
 final class AuthenticatedState extends AuthState {
@@ -58,6 +60,3 @@ final class SendMailFailed extends AuthState {
 }
 
 final class SendMailInitialized extends AuthState {}
-
-
-

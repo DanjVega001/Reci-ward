@@ -49,3 +49,11 @@ class UpdatedUser extends ProfileEvent {
     return null;
   }
 }
+
+class KillUser extends ProfileEvent {}
+
+class EndSession extends ProfileEvent {
+  final String accessToken;
+
+  const EndSession({required this.accessToken});
+}

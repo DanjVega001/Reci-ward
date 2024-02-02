@@ -30,21 +30,22 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    initUniLinks();
+    //initUniLinks();
   }
 
   Future<void> initUniLinks() async {
     String? initialLink;
     try {
-      initialLink = await getInitialLink();
+      //initialLink = await getInitialLink();
     } on PlatformException {
       // Manejar errores de plataforma
     }
 
-    handleLink(initialLink);
-    listenToLinks();
+    //handleLink(initialLink);
+    //listenToLinks();
   }
 
+/*
   void listenToLinks() {
     // Escuchar eventos de enlaces profundos
     linkStream.listen((link) {
@@ -70,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
   }
-
+*/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -127,10 +128,11 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 AuthFormButton(
                   onPressed: () {
-                    BlocProvider.of<AuthBloc>(context).add(AuthLoginRequested(
-                        userEntity: UserEntity(
-                            email: emailController.text.trim(),
-                            password: passwordController.text.trim())));
+                    UserEntity user = UserEntity(
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim());
+                    BlocProvider.of<AuthBloc>(context)
+                        .add(AuthLoginRequested(userEntity: user));
                   },
                   text: 'Login',
                 ),

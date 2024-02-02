@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:reciward_flutter_app/core/exceptions/exceptions.dart';
@@ -82,9 +83,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           await logoutUseCase.call(event.accessToken);
       logout.fold(
           (dioException) => emit(AuthErrorState(error: dioException.message!)),
-          (userEntity) => emit(const AuthInitialLogin()));
+          (message) {
+        emit(AuthInitialLogin(message: message));
+      });
     } catch (e) {
-      //print('Error en onAuthLoginRequested: $e');
+      print('Error en onAuthLoginRequested: $e');
       emit(AuthErrorState(error: e.toString()));
     }
   }
@@ -93,6 +96,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       AuthLoginRequested event, Emitter<AuthState> emit) async {
     try {
       emit(AuthLoadingState());
+
       Either<DioException, UserEntity> eitherUserEntity =
           await loginUseCase.call(event.userEntity);
       eitherUserEntity.fold((dioException) {

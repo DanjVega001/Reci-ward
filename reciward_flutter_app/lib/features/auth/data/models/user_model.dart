@@ -5,13 +5,12 @@ import 'package:reciward_flutter_app/features/auth/data/models/aprendiz_model.da
 import 'package:reciward_flutter_app/features/auth/domain/entities/aprendiz_entity.dart';
 import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.dart';
 
-
 class UserModel extends Equatable {
-  final String ? id;
-  final String ? name;
+  final String? id;
+  final String? name;
   final String email;
-  final String ? password;
-  final String ? accces_token;
+  final String? password;
+  final String? accces_token;
   final AprendizModel? aprendizModel;
 
   const UserModel(
@@ -20,52 +19,48 @@ class UserModel extends Equatable {
       required this.email,
       required this.password,
       this.aprendizModel,
-      this.accces_token
-      });
+      this.accces_token});
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      email: json['email'],
-      id: json['id'].toString(),
-      name: json['name'],
-      password: json['password'],
-      accces_token: json['access_token'],
-      aprendizModel: AprendizModel.fromJson(json)
-    );
+        email: json['email'],
+        id: json['id'].toString(),
+        name: json['name'],
+        password: json['password'],
+        accces_token: json['access_token'],
+        aprendizModel: AprendizModel.fromJson(json));
   }
 
   factory UserModel.fromUserEntity(UserEntity entity) {
-    AprendizEntity ? aprendizEntity = entity.aprendizEntity;
+    AprendizEntity? aprendizEntity = entity.aprendizEntity;
     return UserModel(
-      email: entity.email,
-      id: entity.id,
-      name: entity.name,
-      password: entity.password,
-      aprendizModel: AprendizModel.fromAprendizEntity(aprendizEntity),
-      accces_token: entity.accces_token
-    );
+        email: entity.email,
+        id: entity.id,
+        name: entity.name,
+        password: entity.password,
+        aprendizModel: AprendizModel.fromAprendizEntity(aprendizEntity),
+        accces_token: entity.accces_token);
   }
 
   UserEntity toEntity() {
     return UserEntity(
-      email: email,
-      id: id,
-      name: name,
-      accces_token: accces_token,
-      password: password,
-      aprendizEntity: aprendizModel?.toEntity()
-    );
+        email: email,
+        id: id,
+        name: name,
+        accces_token: accces_token,
+        password: password,
+        aprendizEntity: aprendizModel?.toEntity());
   }
 
-  Map<String, dynamic> toJson(){
+  Map<String, dynamic> toJson() {
     return {
-      "name" : name,
-      "apellido" : aprendizModel!.apellido,
+      "name": name,
+      "apellido": aprendizModel!.apellido,
       "email": email,
-      "password":password,
+      "password": password,
       "numeroDocumento": aprendizModel!.numeroDocumento,
-      "tipoDocumento" : aprendizModel!.tipoDocumento,
-      "ficha_id" : aprendizModel!.ficha?.id
+      "tipoDocumento": aprendizModel!.tipoDocumento,
+      "ficha_id": aprendizModel!.ficha?.id
     };
   }
 
