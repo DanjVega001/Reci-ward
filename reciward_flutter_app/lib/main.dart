@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/presentation/pages/home_bono_page.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/presentation/pages/home_entrega_page.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
+import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/pages/profile_page.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/util/setup_profile_dependencies.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:reciward_flutter_app/core/pages/home_page.dart';
@@ -31,7 +32,8 @@ void main() {
         '/entrega': (context) => const HomeEntregaPage(),
         '/bono': (context) => const HomeBonoPage(),
         '/send-mail': (context) => const SendMailResetPasswordPage(),
-        '/reset-password': (context) => const ResetPasswordPage()
+        '/reset-password': (context) => const ResetPasswordPage(),
+        '/profile': (context) => const ProfilePage()
       },
       home: const LoginPage(),
     ),

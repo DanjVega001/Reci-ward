@@ -30,7 +30,7 @@ class ProfileService {
       } else {
         return left(DioException(
           requestOptions: response.requestOptions,
-          message: response.statusMessage,
+          message: response.data["error"],
         ));
       }
     } on DioException catch (e) {

@@ -36,18 +36,22 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     try {
       AuthException? updateUserValidator = event.validate();
       if (updateUserValidator != null) {
-        emit(UpdateUserFailed(error: updateUserValidator.errorMessage));
+        emit(UpdateUserFailed(
+            error: updateUserValidator.errorMessage, user: event.user));
         return;
       }
 
       Either<DioException, String> either = await updatedUserUsecase.updateUser(
           event.accessToken, event.userData);
       either.fold(
-          (dioException) =>
-              emit(UpdateUserFailed(error: dioException.message!)),
-          (message) => emit(UpdateUserSuccess(message: message)));
+          (dioException) => emit(
+              UpdateUserFailed(error: dioException.message!, user: event.user)),
+          (message) => emit(UpdateUserSuccess(
+              message: message,
+              userData: event.userData,
+              accessToken: event.accessToken)));
     } catch (e) {
-      emit(UpdateUserFailed(error: e.toString()));
+      emit(UpdateUserFailed(error: e.toString(), user: event.user));
     }
   }
 }
