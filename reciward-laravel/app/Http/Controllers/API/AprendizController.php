@@ -112,8 +112,7 @@ class AprendizController extends Controller
         }
 
         $perfil = Perfil::where('aprendiz_id', $idAprendiz)->first();
-        $user = User::where('user_id', $aprendiz->user_id);
-
+        $user = User::where('id', $aprendiz->user_id)->first();
         if ($request->contrasenaAntigua && $request->contrasena) {
             if (Hash::check($request->contrasenaAntigua, $aprendiz->contrasena)) {
 
@@ -131,7 +130,7 @@ class AprendizController extends Controller
                 $aprendiz->update();
                 return response()->json(['message' => 'User updated!'], 200);
             } else {
-                return response()->json(["error" => "Las contraseñas no coinciden"], 400);
+                return response()->json(["error" => "Old password does not match."], 400);
             }
         } else {
             $user->name = $request->name;

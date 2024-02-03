@@ -20,8 +20,7 @@ class FichaSeeder extends Seeder
             "fechaCreacion" =>  "2023-11-03",
             "fechaFin" => "2025-11-03",
             "codigoFicha" => 2557863,
-            "admin_id" => 1,
         ]);
-        
+
     }
 }
