@@ -9,8 +9,6 @@ use App\Http\Controllers\API\FichaController;
 
 use App\Http\Controllers\API\CafeteriaController;
 
-use App\Http\Controllers\API\CafeteriaController;
-
 use App\Http\Controllers\API\PerfilController;
 
 use App\Http\Controllers\API\AprendizController;
