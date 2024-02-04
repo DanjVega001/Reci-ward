@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/domain/entities/update_user_data_dto.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
@@ -45,12 +44,17 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void onChangePassword(String oldPassword, String newPassword,
       String confirmPassword, bool updatePassword) {
-    setState(() {
-      passwordController.text = newPassword;
-      oldPasswordController.text = oldPassword;
-      confirmPasswordController.text = confirmPassword;
-      updatePassword = updatePassword;
-    });
+    if (oldPassword.trim().isEmpty ||
+        newPassword.trim().isEmpty ||
+        confirmPassword.trim().isEmpty) {
+      return;
+    }
+    passwordController.text = newPassword;
+    oldPasswordController.text = oldPassword;
+    confirmPasswordController.text = confirmPassword;
+    this.updatePassword = updatePassword;
+
+    Navigator.of(context).pop();
   }
 
   @override
@@ -316,12 +320,12 @@ class ModalChangePassword extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              Navigator.of(context).pop();
               onChangePassword(
                   oldPasswordController.text.trim(),
                   passwordController.text.trim(),
                   confirmPasswordController.text.trim(),
                   updatePassword = true);
+              //Navigator.pop(context);
             },
             style: const ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(Pallete.color1)),
