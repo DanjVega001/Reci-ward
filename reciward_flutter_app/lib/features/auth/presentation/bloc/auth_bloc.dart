@@ -99,6 +99,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       Either<DioException, UserEntity> eitherUserEntity =
           await loginUseCase.call(event.userEntity);
+
       eitherUserEntity.fold((dioException) {
         emit(AuthErrorState(error: dioException.message!));
       }, (userEntity) {

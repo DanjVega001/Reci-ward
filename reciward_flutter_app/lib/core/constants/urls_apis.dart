@@ -14,3 +14,6 @@ const String urlApiUpdateUser = "${urlApi}aprendiz-actualizar";
 //URLS APU RESET PASSWORD
 const String urlApiSendMailResetPassword = "${urlApi}send-reset-password";
 const String urlApiResetPassword = "${urlApi}reset-password";
+
+//URL API TIPS
+const String urlApiGetTips = "${urlApi}get/tip-aprendiz";

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
+import 'package:reciward_flutter_app/features/aprendiz/tips/presentation/bloc/tip_bloc.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.dart';
@@ -30,22 +31,21 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    //initUniLinks();
+    initUniLinks();
   }
 
   Future<void> initUniLinks() async {
     String? initialLink;
     try {
-      //initialLink = await getInitialLink();
+      initialLink = await getInitialLink();
     } on PlatformException {
       // Manejar errores de plataforma
     }
 
-    //handleLink(initialLink);
-    //listenToLinks();
+    handleLink(initialLink);
+    listenToLinks();
   }
 
-/*
   void listenToLinks() {
     // Escuchar eventos de enlaces profundos
     linkStream.listen((link) {
@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
   }
-*/
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,6 +94,8 @@ class _LoginPageState extends State<LoginPage> {
           if (state is AuthenticatedState) {
             BlocProvider.of<ProfileBloc>(context)
                 .add(RecoverUserProfile(user: state.user));
+            BlocProvider.of<TipBloc>(context)
+                .add(GetTips(accessToken: state.user.accces_token!));
             Navigator.pushNamed(context, '/home');
           }
           if (state is AuthInitialLogin && state.message != null) {

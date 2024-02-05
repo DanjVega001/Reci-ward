@@ -1,73 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
+import 'package:reciward_flutter_app/features/aprendiz/tips/domain/entities/tip_entity.dart';
+import 'package:reciward_flutter_app/features/aprendiz/tips/presentation/bloc/tip_bloc.dart';
 
 import '../widgets/app_bar_reciward.dart';
 import '../widgets/nav_reciward.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({super.key});
 
-  final List<Widget> items = [
-    Card(
-      child: ListTile(
-        leading: const FlutterLogo(),
-        title: const Text(
-          'Tip 1: Este es el titulo',
-          style: TextStyle(fontWeight: FontWeight.w600),
-        ),
-        subtitle: const Text(
-          'Tip 1: Esta es la descripcion del tip...'
-        ),
-        trailing: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.arrow_forward_sharp),
-        ),
-      ),
-    ), 
-    Card(
-      child: ListTile(
-        leading: const FlutterLogo(),
-        title: const Text(
-          'Tip 2: Este es el titulo',
-          style: TextStyle(fontWeight: FontWeight.w600),
-        ),
-        subtitle: const Text(
-          'Tip 2: Esta es la descripcion del tip...'
-        ),
-        trailing: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.arrow_forward_sharp),
-        ),
-      ),
-    ),
-    Card(
-      child: ListTile(
-        leading: const FlutterLogo(),
-        title: const Text(
-          'Tip 3: Este es el titulo',
-          style: TextStyle(fontWeight: FontWeight.w600),
-        ),
-        subtitle: const Text(
-          'Tip 3: Esta es la descripcion del tip...'
-        ),
-        trailing: IconButton(
-          onPressed: () {},
-          icon: const Icon(Icons.arrow_forward_sharp),
-        ),
-      ),
-    )
-  ];
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
 
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Pallete.colorGrey2,
-      appBar: const  AppBarReciward(),
-      body:  Padding(
+      appBar: const AppBarReciward(),
+      body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           children: <Widget>[
-            Card( 
+            Card(
               color: Pallete.color1,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(25, 15, 25, 15),
@@ -76,34 +33,34 @@ class HomePage extends StatelessWidget {
                   children: <Widget>[
                     const Text(
                       'Instrucciones de uso',
-                      style: TextStyle(
-                        color: Pallete.colorWhite,
-                        fontSize: 21.0
-                      ),
+                      style:
+                          TextStyle(color: Pallete.colorWhite, fontSize: 21.0),
                     ),
-                    const SizedBox(height: 5,),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     const Text(
                       'Guía de uso y recomendaciones para la aplicación',
                       style: TextStyle(
                         color: Pallete.colorWhite,
-                        fontSize: 15, 
+                        fontSize: 15,
                       ),
                     ),
-                    const SizedBox(height: 5,),
+                    const SizedBox(
+                      height: 5,
+                    ),
                     TextButton(
                       style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(Pallete.colorGrey2),
+                        backgroundColor:
+                            MaterialStatePropertyAll(Pallete.colorGrey2),
                       ),
-                      onPressed: () {
-                            
-                      },
+                      onPressed: () {},
                       child: const Text(
                         'Explorar',
                         style: TextStyle(
-                          color: Pallete.color1,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w800
-                        ),
+                            color: Pallete.color1,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w800),
                       ),
                     )
                   ],
@@ -115,31 +72,53 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 15),
               child: const Text(
                 'Consejos ambientales: Sé parte de la solución',
-                style: TextStyle(
-                  fontSize: 19.0,
-                  fontWeight: FontWeight.w600
-                ),
+                style: TextStyle(fontSize: 19.0, fontWeight: FontWeight.w600),
               ),
             ),
-            
-               Expanded(
-                child: SizedBox(
-                  height: 200,
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                    itemCount: items.length,
-                    itemBuilder: (context, index) {
-                      return items[index];
-                    },
-                  ),
-                ),
-              ),
-            
+            BlocBuilder<TipBloc, TipState>(
+              builder: (context, state) {
+                if (state is TipLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                if (state is GetTipSuccess) {
+                  List<TipEntity> tips = state.datos;
+                  return Expanded(
+                    child: SizedBox(
+                      height: 200,
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: tips.length,
+                        itemBuilder: (context, index) {
+                          TipEntity tip = tips[index];
+                          return ListTile(
+                            leading: const FlutterLogo(),
+                            title: Text(
+                              tip.nombreTips ?? "No hay titulo",
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                            subtitle: Text(
+                              tip.descripcion ?? "No hay descripcion",
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  );
+                }
+
+                return const Text("Error en el servidor al cargar los tips");
+              },
+            ),
           ],
         ),
       ),
-      bottomNavigationBar: const NavReciward(currentIndex: 0,),
+      bottomNavigationBar: const NavReciward(
+        currentIndex: 0,
+      ),
     );
   }
 }
