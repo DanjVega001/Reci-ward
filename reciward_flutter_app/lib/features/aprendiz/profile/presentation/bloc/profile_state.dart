@@ -17,14 +17,20 @@ final class UserProfileState extends ProfileState {
 
 final class UpdateUserFailed extends ProfileState {
   final String error;
+  final UserEntity? user;
 
-  const UpdateUserFailed({required this.error});
+  const UpdateUserFailed({required this.error, required this.user});
 }
 
 final class UpdateUserSuccess extends ProfileState {
   final String message;
+  final UpdatedUserData userData;
+  final String accessToken;
 
-  const UpdateUserSuccess({required this.message});
+  const UpdateUserSuccess(
+      {required this.message,
+      required this.userData,
+      required this.accessToken});
 }
 
 final class SessionEndedState extends ProfileState {
