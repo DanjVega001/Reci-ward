@@ -4,8 +4,8 @@ class TipEntity {
   final String? descripcion;
 
   TipEntity({
-    this.id,
-    this.nombreTips,
-    this.descripcion,
+    required this.id,
+    required this.nombreTips,
+    required this.descripcion,
   });
 }
