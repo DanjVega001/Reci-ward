@@ -101,8 +101,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 apellidoController.text = user.aprendizEntity!.apellido!;
                 descripcionController.text =
                     user.aprendizEntity!.descripcionPerfil ?? "Sin descripción";
-                _imagePath = user.aprendizEntity?.avatar ??
-                    "${Directory.current.path}/assets/images/avatar_ninja.jpg";
+                _imagePath = user.aprendizEntity?.avatar;
                 return SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
@@ -114,7 +113,11 @@ class _ProfilePageState extends State<ProfilePage> {
                             CircleAvatar(
                               radius: 80,
                               backgroundImage: _image == null
-                                  ? FileImage(File(_imagePath!))
+                                  ? _imagePath == null
+                                      ? const AssetImage(
+                                          'assets/images/img_ambiente.jpg')
+                                      : FileImage(File(_imagePath!))
+                                          as ImageProvider<Object>
                                   : FileImage(File(_image!.path)),
                             ),
                             IconButton(

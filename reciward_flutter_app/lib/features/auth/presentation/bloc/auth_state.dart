@@ -37,7 +37,6 @@ final class AuthLoadingState extends AuthState {}
 
 final class UpdateUserFailed extends AuthState {
   final String error;
-
   const UpdateUserFailed({required this.error});
 }
 

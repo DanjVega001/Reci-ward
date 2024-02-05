@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:path_provider/path_provider.dart';
 
 class AppBarReciward extends StatelessWidget implements PreferredSizeWidget {
   const AppBarReciward({
@@ -27,8 +28,9 @@ class AppBarReciward extends StatelessWidget implements PreferredSizeWidget {
       builder: (context, state) {
         if (state is UserProfileState) {
           final user = state.user;
-          final imagePath = user?.aprendizEntity?.avatar ??
-              "${Directory.current.path}/assets/images/avatar_ninja.jpg";
+          final imagePath = user?.aprendizEntity?.avatar;
+          //print(Directory);
+
           return AppBar(
             backgroundColor: Pallete.colorGrey,
             automaticallyImplyLeading: false,
@@ -36,7 +38,11 @@ class AppBarReciward extends StatelessWidget implements PreferredSizeWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CircleAvatar(
-                    radius: 25, backgroundImage: FileImage(File(imagePath))),
+                  radius: 25,
+                  backgroundImage: imagePath == null
+                      ? const AssetImage('assets/images/img_ambiente.jpg')
+                      : FileImage(File(imagePath)) as ImageProvider<Object>,
+                ),
                 const SizedBox(
                   width: 10,
                 ),
