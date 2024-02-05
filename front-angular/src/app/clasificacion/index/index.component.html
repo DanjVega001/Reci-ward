@@ -1,1 +1,25 @@
-<p>index works!</p>
+<div class="container">
+    <button class="btn btn-light"><a href="/clasificacion/create">Agregar Clasificacion</a></button>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td>id</td>
+                <td>Nombre de clasificacion</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ap of listaClasificacion">
+                <td>{{ap.id}} </td>
+                <td>{{ap.nombre_clasificaciones}}</td>
+                <td>
+                    <button type="button" (click)="eliminarClasificacion(ap.id)">Eliminar</button>
+                </td>
+                <td>
+                    <button type="button" (click)="editarClasificacion(ap.id)">Editar</button> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
