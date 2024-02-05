@@ -1,0 +1,25 @@
+<div class="container">
+    <form [formGroup]="fichaForm" (ngSubmit)="agregarFicha()">
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Codigo Ficha</label>
+            <input formControlName="codigoFicha" type="number" class="form-control" aria-describedby="emailHelp">
+        </div> 
+           <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Nombre Ficha</label>
+            <input formControlName="nombreFicha" type="text" class="form-control" aria-describedby="emailHelp">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Fecha Creacion</label>
+            <input formControlName="fechaCreacion" type="date" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Fecha Fin</label>
+            <input formControlName="fechaFin" type="date" class="form-control" >
+          </div>
+
+          <button *ngIf="!id" type="submit" class="btn btn-primary">Crear Ficha</button>
+          <button *ngIf="id" type="submit" class="btn btn-primary">Editar Ficha</button>
+
+    </form>
+
+</div>

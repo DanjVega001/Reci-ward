@@ -1,0 +1,26 @@
+<div class="container">
+    <button class="btn btn-light"><a href="/tip/create">Agregar Tip</a></button>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <td>id</td>
+                <td>Nombre del tip</td>
+                <td>Descripcion Tip</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ap of listaTip">
+                <td>{{ap.id}} </td>
+                <td>{{ap.nombre_tips}}</td>
+                <td>{{ap.descripcion}}</td>
+                <td>
+                    <button type="button" (click)="eliminarTip(ap.id)">Eliminar</button>
+                </td>
+                <td>
+                    <button type="button" (click)="editarTip(ap.id)">Editar</button> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

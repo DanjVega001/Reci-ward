@@ -1,0 +1,57 @@
+<div class="container">
+    
+    <button class="btn btn-light"><a href="/usuario/cafeteria/create">Agregar Usuario Cafeteria</a></button>
+    <h3>Usuarios cafeteria</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let caf of listaCafeterias">
+                <td>{{ caf.id }}</td>
+                <td>{{ caf.nombreCafeteria }}</td>
+                <td>{{ caf.correoCafeteria }}</td>
+                <td>
+                    <button type="button" (click)="eliminarCafeteria(caf.id)">Eliminar</button>
+                </td>
+                <td>
+                    <button type="button" (click)="editarCafeteria(caf.id)">Editar</button> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="noEliminarCafeteria"><h5>No se puede eliminar la cafetria seleccionada</h5></div>
+
+    <h3>Usuarios administradores</h3>
+    <button class="btn btn-light"><a href="/usuario/admin/create">Agregar Usuario Administrador</a></button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let ad of listaAdmins">
+                <td>{{ ad.id }}</td>
+                <td>{{ ad.nombreAdmin }}</td>
+                <td>{{ ad.correoAdmin }}</td>
+                <td>
+                    <button type="button" (click)="eliminarAdmin(ad.id)">Eliminar</button>
+                </td>
+                <td>
+                    <button type="button" (click)="editarAdmin(ad.id)">Editar</button> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="noEliminarAdmin"><h5>No se puede eliminar el admin seleccionada</h5></div>
+
+</div>

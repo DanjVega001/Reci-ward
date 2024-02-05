@@ -1,0 +1,36 @@
+
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <td>ID</td>
+        <td>Nombre</td>
+        <td>Apellido</td>
+        <td>Numero de documento</td>
+        <td>Tipo de documento</td>
+        <td>email</td>
+        <td>Numero de ficha</td>
+        <td>Acciones</td>
+      </tr>
+
+    </thead>
+    <tbody>
+      <tr *ngFor="let ap of listaAprendices">
+        <td>{{ ap.id }}</td>
+        <td>{{ ap.nombre }}</td>
+        <td>{{ ap.apellido }}</td>
+        <td>{{ ap.numeroDocumento }}</td>
+        <td>{{ ap.tipoDocumento }}</td>
+        <td>{{ ap.correo }}</td>
+        <td>{{ ap.numeroFicha }}</td>
+        <td>
+            <button type="button" (click)="eliminarAprendiz(ap.id)">Eliminar</button>
+        </td>
+
+    </tr>
+    </tbody>
+
+  </table>
+
+
+</div>
