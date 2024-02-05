@@ -1,10 +1,9 @@
+<!-- create.component.html -->
 <div class="container">
     <form [formGroup]="ClasificacionForm" (ngSubmit)="agregarClasificacion()">
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Clasificacion</label>
-            <input formControlName="nombre_clasificacion" type="text" class="form-control" aria-describedby="emailHelp">
-        </div> 
-          <button *ngIf="!id" type="submit" class="btn btn-primary">Crear clasificacion</button>
-              <button *ngIf="id" type="submit" class="btn btn-primary">Editar Clasificacion</button>
-    </form>
-</div>
+            <select formControlName="nombreClasificacio" class="form-select" aria-label="Default select example">
+              <option *ngFor="let clasificacion of listaClasificaciones" [value]="clasificacion.id">{{ clasificacion.nombreClasificacion}}</option>
+            </select>
+          </div>

@@ -11,8 +11,7 @@
         <tbody>
             <tr *ngFor="let ap of listaClasificacion">
                 <td>{{ap.id}} </td>
-                <td>{{ap.nombre_clasificaciones}}</td>
-                <td>
+                <td>{{ap.nombreClasificacion}}</td>                <td>
                     <button type="button" (click)="eliminarClasificacion(ap.id)">Eliminar</button>
                 </td>
                 <td>
