@@ -41,6 +41,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         return;
       }
 
+
       Either<DioException, String> either = await updatedUserUsecase.updateUser(
           event.accessToken, event.userData);
       either.fold(
