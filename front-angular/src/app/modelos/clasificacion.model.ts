@@ -1,4 +1,4 @@
-// Cambiando de 'nombre_clasificacion' a 'nombreClasificacio'
+
 export class Clasificacion {
     id?: number;
     nombreClasificacion: string | undefined | null;

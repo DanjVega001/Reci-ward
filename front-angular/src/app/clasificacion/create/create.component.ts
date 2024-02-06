@@ -35,7 +35,7 @@ export class CreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.validarToken();
-    this.agregarClasificacion(); // Cambiando el nombre del método a 'cargarClasificaciones'
+    this.agregarClasificacion(); 
     this.verEditar();
   }
 
@@ -48,7 +48,7 @@ export class CreateComponent implements OnInit {
     }
   }
 
-  agregarClasificacion(): void { // Cambiando el nombre del método a 'cargarClasificaciones'
+  agregarClasificacion(): void { 
     this.clasificacionService.getClasificaciones(this.clave).subscribe(
       data => {
         this.listaClasificaciones = data;

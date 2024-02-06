@@ -1,27 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Clasificacion } from '../../modelos/clasificacion.model'; // Asumiendo que tienes un modelo llamado 'clasificacion.model'
-import { ClasificacionService } from '../../servicios/clasificacion.service'; // Asumiendo que tienes un servicio llamado 'clasificacion.service'
+import { Clasificacion } from '../../modelos/clasificacion.model'; 
+import { ClasificacionService } from '../../servicios/clasificacion.service'; 
 
 @Component({
   selector: 'app-index',
   standalone: true,
   imports: [CommonModule],
-  providers: [ClasificacionService], // Cambiando el proveedor a ClasificacionService
+  providers: [ClasificacionService], 
   templateUrl: './index.component.html',
-  styleUrls: ['./index.component.scss'] // Corrigiendo el nombre del atributo 'styleUrls'
+  styleUrls: ['./index.component.scss'] 
 })
 export class IndexComponent implements OnInit {
 
-  listaClasificacion: Clasificacion[] = []; // Cambiando el nombre de 'listaTip' a 'listaClasificacion'
+  listaClasificacion: Clasificacion[] = []; 
   clave: string | null = null;
 
   constructor(private _router: Router, private clasificacionService: ClasificacionService) { }
 
   ngOnInit(): void {
     this.validarToken();
-    this.cargarClasificacion(); // Cambiando el nombre del método a 'cargarClasificacion'
+    this.cargarClasificacion(); 
   }
 
   validarToken(): void {
@@ -33,11 +33,11 @@ export class IndexComponent implements OnInit {
     }
   }
 
-  cargarClasificacion(): void { // Cambiando el nombre del método a 'cargarClasificacion'
+  cargarClasificacion(): void {
     this.clasificacionService.getClasificaciones(this.clave).subscribe(
       data => {
         console.log(data);
-        this.listaClasificacion = data; // Cambiando la asignación de datos a 'listaClasificacion'
+        this.listaClasificacion = data; 
       },
       err => {
         console.log(err);
@@ -45,14 +45,14 @@ export class IndexComponent implements OnInit {
     );
   }
 
-  editarClasificacion(id: any): void { // Cambiando el nombre del método a 'editarClasificacion'
-    this._router.navigateByUrl('/clasificacion/edit/' + id); // Cambiando la ruta a '/clasificacion/edit/'
+  editarClasificacion(id: any): void { 
+    this._router.navigateByUrl('/clasificacion/edit/' + id); 
   }
 
-  eliminarClasificacion(id: any): void { // Cambiando el nombre del método a 'eliminarClasificacion'
+  eliminarClasificacion(id: any): void { 
     this.clasificacionService.deleteClasificacion(id, this.clave).subscribe(
       data => {
-        this.cargarClasificacion(); // Cambiando el nombre del método a 'cargarClasificacion'
+        this.cargarClasificacion(); 
       },
       err => {
         console.log(err);
