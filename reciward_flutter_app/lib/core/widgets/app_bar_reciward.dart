@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:path_provider/path_provider.dart';
 
 class AppBarReciward extends StatelessWidget implements PreferredSizeWidget {
   const AppBarReciward({
@@ -32,7 +31,7 @@ class AppBarReciward extends StatelessWidget implements PreferredSizeWidget {
           //print(Directory);
 
           return AppBar(
-            backgroundColor: Pallete.colorGrey,
+            backgroundColor: Pallete.colorWhite,
             automaticallyImplyLeading: false,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -48,6 +47,9 @@ class AppBarReciward extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 Text(
                   "${user?.name} ${user?.aprendizEntity?.apellido}",
+                  style: const TextStyle(
+                    fontFamily: 'Ubuntu'
+                  ),
                 ),
                 IconButton(
                   icon: const Icon(

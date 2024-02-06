@@ -75,16 +75,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Login Reciward',
-        ),
-        automaticallyImplyLeading: false,
-        foregroundColor: Colors.white,
-        centerTitle: true,
-        backgroundColor: Pallete.color1,
-      ),
-      backgroundColor: Pallete.color1,
+      backgroundColor: Pallete.colorWhite,
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthErrorState) {
@@ -107,10 +98,35 @@ class _LoginPageState extends State<LoginPage> {
           if (state is AuthLoadingState) {
             return const Center(child: CircularProgressIndicator());
           }
-          return Padding(
-            padding: const EdgeInsets.all(12.0),
+          return Container(
+            alignment: Alignment.center,           
+            padding: const EdgeInsets.all(15.0),
             child: ListView(
               children: <Widget>[
+                const Image(image: 
+                AssetImage("assets/images/logo_reciward.jpg")), 
+                const Text(
+                  "Login",
+                  style: TextStyle(
+                    color: Pallete.colorBlack,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600, 
+                    fontFamily:'Ubuntu',
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+                const SizedBox(height: 10,),
+                const Text(
+                  "Enter your email and password.",
+                  style: TextStyle(
+                    color: Pallete.colorGrey3,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    fontFamily:'Ubuntu',
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+                const SizedBox(height: 10,),
                 AuthFormField(
                   label: 'Email',
                   controller: emailController,
@@ -128,6 +144,22 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 10.0,
                 ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/send-mail');
+                  },               
+                  style: const ButtonStyle(
+                      foregroundColor: MaterialStatePropertyAll(Colors.white),
+                      alignment: Alignment.centerRight),
+                  child: const Text(
+                    "Forgot Password?",
+                    style: TextStyle(
+                      color: Pallete.colorBlack,
+                      fontSize: 13,
+                      fontFamily:'Ubuntu',
+                    ),
+                  ),
+                ),
                 AuthFormButton(
                   onPressed: () {
                     UserEntity user = UserEntity(
@@ -141,22 +173,37 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 10.0,
                 ),
-                AuthFormButton(
-                  onPressed: () {
-                    Navigator.popAndPushNamed(context, '/signup');
-                  },
-                  text: 'Sign up',
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Text(
+                      "Don't have an account?",
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: Pallete.colorBlack,
+                        fontFamily:'Ubuntu',
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                         Navigator.popAndPushNamed(context, '/signup');
+                      },
+                      style: const ButtonStyle(
+                        foregroundColor: MaterialStatePropertyAll(Pallete.color1)
+                      ),
+                      child: const Text(
+                        'Sign up',
+                        style: TextStyle(
+                          fontFamily:'Ubuntu',
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/send-mail');
-                  },
-                  style: const ButtonStyle(
-                      foregroundColor: MaterialStatePropertyAll(Colors.white)),
-                  child: const Text(
-                    "¿Olvidaste tu contraseña?",
-                  ),
-                )
+                
+                
               ],
             ),
           );

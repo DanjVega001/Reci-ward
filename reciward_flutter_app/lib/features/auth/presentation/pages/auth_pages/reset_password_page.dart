@@ -10,35 +10,48 @@ class ResetPasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    String token =
-        ModalRoute.of(context)?.settings.arguments as String;
-
+    String token = ModalRoute.of(context)?.settings.arguments as String;
 
     TextEditingController passwordController = TextEditingController();
     TextEditingController confirmPassword = TextEditingController();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Reset password'),
-        backgroundColor: Pallete.color1,
-        foregroundColor: Pallete.colorWhite,
-      ),
-      backgroundColor: Pallete.color1,
+      backgroundColor: Pallete.colorWhite,
       body: BlocListener<AuthBloc, AuthState>(
         listener: ((context, state) {
-            print("STATE $state");
-          
+          print("STATE $state");
+
           if (state is AuthErrorState) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.error)));
           } else if (state is AuthInitialLogin) {
-            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false, arguments: false);
+            Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false,
+                arguments: false);
           }
         }),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
             children: [
+              const Image(image: AssetImage("assets/images/logo_reciward.jpg")),
+              const Text(
+                "Reset Password",
+                style: TextStyle(
+                    color: Pallete.colorBlack,
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600),
+                textAlign: TextAlign.start,
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              const Text(
+                "Enter your new password.",
+                style: TextStyle(
+                    color: Pallete.colorGrey3,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400),
+                textAlign: TextAlign.start,
+              ),
               AuthFormField(
                 label: 'New password',
                 controller: passwordController,

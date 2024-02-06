@@ -9,36 +9,47 @@ class AuthFormButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [
-            Pallete.color4,
-            //Pallete.color1,
-            Pallete.colorGradient,
-            Pallete.colorWhite
-          ],
-          begin: Alignment.bottomLeft,
-          end: Alignment.topRight,
+    return GestureDetector(
+      onTap: onPressed,
+      child: Container(
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          color: Pallete.color1,
+          borderRadius: BorderRadius.circular(8)
         ),
-        borderRadius: BorderRadius.circular(7),
-      ),
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          fixedSize: const Size(395, 55),
-          backgroundColor: Colors.transparent,
-          shadowColor: Colors.transparent,
-        ),
-        child: Text(
-          text,
-          style: const TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 20,
-            color: Pallete.color1
+        child: Center(
+          child: Text(
+            text,
+            style: const TextStyle(
+              color: Pallete.colorWhite,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+              fontFamily:'Ubuntu',
+            ),
           ),
         ),
       ),
     );
+    /*ElevatedButton(
+      onPressed: onPressed,
+      style: ButtonStyle(
+        shape: MaterialStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        ),
+
+        backgroundColor: const MaterialStatePropertyAll(Pallete.color1),
+        
+      ),
+      child: Text(
+        text,
+        style: const TextStyle(
+          fontWeight: FontWeight.w700,
+          fontSize: 20,
+          color: Pallete.colorWhite
+        ),
+      ),
+    );*/
   }
 }

@@ -46,6 +46,7 @@ class AuthService {
               return status! < 500;
             },
           ));
+      print(response.data['rol'][0]);
       if (response.statusCode == 200) {
         UserModel userModel = UserModel.fromJson(response.data);
 
