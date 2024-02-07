@@ -13,7 +13,7 @@ class MaterialModel {
 
   factory MaterialModel.fromJson(Map<String, dynamic> json){
     return MaterialModel(
-      id: json['id'],
+      id: json['id'].toString(),
       nombreMaterial: json['nombreMaterial'],
       numeroPuntos: json['numeroPuntos'],
       clasificacion: json['clasificacion']

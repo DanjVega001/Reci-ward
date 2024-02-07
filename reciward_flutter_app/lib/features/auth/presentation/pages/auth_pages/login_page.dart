@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/tips/presentation/bloc/tip_bloc.dart';
+import 'package:reciward_flutter_app/features/material/presentation/bloc/material_bloc.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.dart';
@@ -87,6 +88,8 @@ class _LoginPageState extends State<LoginPage> {
                 .add(RecoverUserProfile(user: state.user));
             BlocProvider.of<TipBloc>(context)
                 .add(GetTips(accessToken: state.user.accces_token!));
+            BlocProvider.of<MaterialBloc>(context)
+                .add(GetMaterialesEvent(accessToken: state.user.accces_token!, rol: state.user.rol!));
             Navigator.pushNamed(context, '/home');
           }
           if (state is AuthInitialLogin && state.message != null) {

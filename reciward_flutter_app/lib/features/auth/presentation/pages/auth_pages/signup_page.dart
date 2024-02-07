@@ -123,11 +123,6 @@ class _SignupPageState extends State<SignupPage> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        color: const Color.fromARGB(212, 158, 158, 158)),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
                   child: DropdownButton<String>(
                     dropdownColor: Pallete.colorWhite,
                     isExpanded: true,
@@ -147,7 +142,6 @@ class _SignupPageState extends State<SignupPage> {
                         selectedValueTipoDoc = newValue!;
                       });
                     },
-                    underline: const SizedBox(),
                     style: const TextStyle(color: Pallete.colorBlack),
                   ),
                 ),
@@ -177,12 +171,7 @@ class _SignupPageState extends State<SignupPage> {
                           }
                           return Container(
                             padding: const EdgeInsets.all(16.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color:
-                                      const Color.fromARGB(212, 158, 158, 158)),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
+                            
                             child: DropdownButton<String>(
                               dropdownColor: Pallete.colorGrey2,
                               isExpanded: true,
@@ -198,7 +187,6 @@ class _SignupPageState extends State<SignupPage> {
                                   ),
                                 );
                               }).toList(),
-                              underline: const SizedBox(),
                               onChanged: (String? newValue) {
                                 if (newValue != selectedValueFicha) {
                                   setState(() {

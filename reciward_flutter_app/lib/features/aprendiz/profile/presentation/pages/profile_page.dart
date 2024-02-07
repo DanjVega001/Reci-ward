@@ -268,6 +268,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
+// ignore: must_be_immutable
 class ModalChangePassword extends StatelessWidget {
   Function(String, String, String, bool) onChangePassword;
   bool editar;
