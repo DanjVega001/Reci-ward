@@ -18,9 +18,9 @@ export class CreateComponent implements OnInit {
   clave: string | null = null;
   listaClasificaciones: Clasificacion[] = [];
 
-  ClasificacionForm: FormGroup = this.fb.group({
+  ClasificacionForm = this.fb.group({
     id: [''],
-    nombreClasificacion: ['', Validators.required],
+    nombreClasificacion: [''],
     descripcion: [''],
   });
 
@@ -35,7 +35,7 @@ export class CreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.validarToken();
-    this.agregarClasificacion(); 
+    this.cargarClasificacion(); 
     this.verEditar();
   }
 
@@ -48,34 +48,64 @@ export class CreateComponent implements OnInit {
     }
   }
 
-  agregarClasificacion(): void { 
+  cargarClasificacion(): void { 
     this.clasificacionService.getClasificaciones(this.clave).subscribe(
       data => {
         this.listaClasificaciones = data;
-      },
-      err => {
-        console.log(err);
+      },err => {console.log(err);
       }
     );
   }
 
   verEditar(): void {
-    if (this.id) {
-      this.clasificacionService.getClasificacion(this.id, localStorage.getItem('access_token'))
-        .subscribe(
-          data => {
-            this.ClasificacionForm.setValue({
-              id: data.id,
-              nombreClasificacion: data.nombreClasificacion,
-              descripcion: data.descripcion,
-            });
-          },
-          err => {
-            console.log(err);
-          }
-        );
-    } else {
-      console.log("id nulo");
-    }
+  if (this.id) {
+    this.clasificacionService.getClasificacion(this.id, localStorage.getItem('access_token'))
+      .subscribe(data => {
+        this.ClasificacionForm.patchValue({
+          id: data.id,
+          nombreClasificacion: data.nombreClasificacion,
+          descripcion: data.descripcion,
+        });
+      }, err => {
+        console.log(err);
+      });
+  } else {
+    console.log("id nulo");
   }
+}
+
+agregarClasificacion(): void{
+  const clasificacion: Clasificacion = {
+    nombreClasificacion: this.ClasificacionForm.get('nombreClasificacion')?.value,
+    descripcion: this.ClasificacionForm.get('descripcion')?.value,
+    admin_id: Number(localStorage.getItem('user_id')),
+  };
+  console.log(clasificacion);
+
+  if (this.id !== null) {
+    this.clasificacionService.updateClasificacion(clasificacion, this.id, this.clave).subscribe(
+      data => {
+        this._router.navigate(['/clasificacion/index']);
+      },
+      err => {
+        console.log(err);
+        this._router.navigate(['/clasificacion/index']);
+      }
+    );
+  } else {
+    console.log(clasificacion);
+
+    this.clasificacionService.addClasificacion(clasificacion, this.clave).subscribe(
+      data => {
+        console.log(data);
+        this._router.navigate(['/clasificacion/index']);
+      },
+      err => {
+        console.log(err);
+        this._router.navigate(['/clasificacion/index']);
+      }
+    );
+  }
+
+}
 }

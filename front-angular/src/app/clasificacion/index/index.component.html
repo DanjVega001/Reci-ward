@@ -11,14 +11,14 @@
         <tbody>
             <tr *ngFor="let ap of listaClasificacion">
                 <td>{{ap.id}} </td>
-                <td>{{ap.nombreClasificacion}}</td>                <td>
+                <td>{{ap.nombreClasificacion}}</td>
+                <td>
                     <button type="button" (click)="eliminarClasificacion(ap.id)">Eliminar</button>
                 </td>
                 <td>
-                    <button type="button" (click)="editarClasificacion(ap.id)">Editar</button> 
+                    <button type="button" (click)="editarClasificacion(ap.id)">Editar</button>
                 </td>
             </tr>
         </tbody>
     </table>
 </div>
-
