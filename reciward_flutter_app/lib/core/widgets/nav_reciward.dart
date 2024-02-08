@@ -28,30 +28,30 @@ class NavReciward extends StatelessWidget {
 
     return BottomNavigationBar(
       
-      backgroundColor: Pallete.colorGrey,
-      type: BottomNavigationBarType.shifting,
-      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w700),
-      selectedIconTheme: const IconThemeData(size: 35.0),
+      backgroundColor: Pallete.colorGrey2,
+      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14, fontFamily:'Ubuntu',),
+      unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14, fontFamily:'Ubuntu',),
+      type: BottomNavigationBarType.fixed,
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.home_outlined, color: Pallete.color1),
+          icon: Icon(Icons.home_outlined),
           label: 'Home',
           backgroundColor: Pallete.colorGrey
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.local_shipping_outlined, color: Pallete.color1),
+          icon: Icon(Icons.local_shipping_outlined,),
           backgroundColor: Pallete.colorGrey,
           label: 'Entregas',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.redeem,  color: Pallete.color1),
+          icon: Icon(Icons.redeem),
           label: 'Bonos',
           backgroundColor: Pallete.colorGrey
         ),
       ],
       currentIndex: currentIndex,
       selectedItemColor: Pallete.color1,
-      unselectedIconTheme: const IconThemeData(size: 30.0),
+      unselectedItemColor: Pallete.colorBlack,
       onTap: onItemTapped,
     );
   }

@@ -7,6 +7,8 @@ import 'package:reciward_flutter_app/features/aprendiz/entrega/presentation/page
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/pages/profile_page.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/util/setup_profile_dependencies.dart';
+import 'package:reciward_flutter_app/features/aprendiz/tips/presentation/bloc/tip_bloc.dart';
+import 'package:reciward_flutter_app/features/aprendiz/tips/util/setup_tip_dependencies.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:reciward_flutter_app/core/pages/home_page.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/pages/auth_pages/login_page.dart';
@@ -15,6 +17,8 @@ import 'package:reciward_flutter_app/features/auth/presentation/pages/auth_pages
 import 'package:reciward_flutter_app/features/auth/presentation/pages/auth_pages/signup_page.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/providers/ficha_provider.dart';
 import 'package:reciward_flutter_app/features/auth/util/setup_auth_dependencies.dart';
+import 'package:reciward_flutter_app/features/material/presentation/bloc/material_bloc.dart';
+import 'package:reciward_flutter_app/features/material/util/setup_material_dependencies.dart';
 
 void main() {
   configDependencies();
@@ -23,13 +27,15 @@ void main() {
     providers: [
       Provider(create: (context) => FichaProvider()),
       BlocProvider(create: (context) => AuthBloc()),
-      BlocProvider(create: (context) => ProfileBloc())
+      BlocProvider(create: (context) => ProfileBloc()),
+      BlocProvider(create: (context) => TipBloc()),
+      BlocProvider(create: (context) => MaterialBloc())
     ],
     child: MaterialApp(
       routes: {
         '/signup': (context) => const SignupPage(),
         '/home': (context) => HomePage(),
-        '/entrega': (context) => const HomeEntregaPage(),
+        '/entrega': (context) => HomeEntregaPage(),
         '/bono': (context) => const HomeBonoPage(),
         '/send-mail': (context) => const SendMailResetPasswordPage(),
         '/reset-password': (context) => const ResetPasswordPage(),
@@ -44,4 +50,6 @@ void configDependencies() {
   final getIt = GetIt.instance;
   SetupAuthDependencies.setupAuthDependencies(getIt);
   SetupProfileDependencies.setupProfileDependencies(getIt);
+  SetupTipDependencies.setupTipDependencies(getIt);
+  SetupMaterialDependencies.setupMaterialDependencies(getIt);
 }

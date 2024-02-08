@@ -159,6 +159,8 @@ Route::group([
          * Obtiene los puntos del aprendiz
         */
         Route::get("/punto/ver", [PuntoController::class, 'show']);
+
+        Route::get("/get/tip-aprendiz",[TipController::class, 'index']);
     });
 });
 

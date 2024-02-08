@@ -27,21 +27,29 @@ class AppBarReciward extends StatelessWidget implements PreferredSizeWidget {
       builder: (context, state) {
         if (state is UserProfileState) {
           final user = state.user;
-          final imagePath = user?.aprendizEntity?.avatar ??
-              "${Directory.current.path}/assets/images/avatar_ninja.jpg";
+          final imagePath = user?.aprendizEntity?.avatar;
+          //print(Directory);
+
           return AppBar(
-            backgroundColor: Pallete.colorGrey,
+            backgroundColor: Pallete.colorWhite,
             automaticallyImplyLeading: false,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CircleAvatar(
-                    radius: 25, backgroundImage: FileImage(File(imagePath))),
+                  radius: 25,
+                  backgroundImage: imagePath == null
+                      ? const AssetImage('assets/images/img_ambiente.jpg')
+                      : FileImage(File(imagePath)) as ImageProvider<Object>,
+                ),
                 const SizedBox(
                   width: 10,
                 ),
                 Text(
                   "${user?.name} ${user?.aprendizEntity?.apellido}",
+                  style: const TextStyle(
+                    fontFamily: 'Ubuntu'
+                  ),
                 ),
                 IconButton(
                   icon: const Icon(

@@ -37,13 +37,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Signup Reci-ward'),
-        centerTitle: true,
-        backgroundColor: Pallete.color1,
-        foregroundColor: Colors.white,
-      ),
-      backgroundColor: Pallete.color1,
+      backgroundColor: Pallete.colorWhite,
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthErrorState) {
@@ -53,15 +47,43 @@ class _SignupPageState extends State<SignupPage> {
           if (state is AuthInitialLogin) {
             print(state.message);
             Navigator.popAndPushNamed(context, '/');
-             ScaffoldMessenger.of(context)
+            ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.message!)));
           }
         },
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(18.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+                const Image(
+                    image: AssetImage("assets/images/logo_reciward.jpg")),
+                const Text(
+                  "Sign Up",
+                  style: TextStyle(
+                      color: Pallete.colorBlack,
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600,
+                      fontFamily:'Ubuntu',),
+                  textAlign: TextAlign.start,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                const Text(
+                  "Enter your data.",
+                  style: TextStyle(
+                    color: Pallete.colorGrey3,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    fontFamily:'Ubuntu',
+                  ),
+                  textAlign: TextAlign.start,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
                 AuthFormField(
                     label: 'Nombre del aprendiz',
                     controller: nameController,
@@ -83,13 +105,12 @@ class _SignupPageState extends State<SignupPage> {
                 const SizedBox(
                   height: 10.0,
                 ),
-                 AuthFormField(
+                AuthFormField(
                   label: 'Password',
                   controller: passwordController,
                   type: TextInputType.text,
                   isPassword: true,
                 ),
-                
                 const SizedBox(
                   height: 10.0,
                 ),
@@ -100,22 +121,20 @@ class _SignupPageState extends State<SignupPage> {
                 const SizedBox(
                   height: 10.0,
                 ),
-               
                 Container(
                   padding: const EdgeInsets.all(16.0),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        color: const Color.fromARGB(212, 158, 158, 158)),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
                   child: DropdownButton<String>(
-                    dropdownColor: Pallete.color2,
+                    dropdownColor: Pallete.colorWhite,
                     isExpanded: true,
                     value: selectedValueTipoDoc,
                     items: itemsTipoDoc.map<DropdownMenuItem<String>>((e) {
                       return DropdownMenuItem(
                         value: e,
-                        child: Text(e, style: const TextStyle(color: Colors.white, fontSize: 16),),
+                        child: Text(
+                          e,
+                          style: const TextStyle(
+                              color: Pallete.colorBlack, fontSize: 16, fontFamily:'Ubuntu'),
+                        ),
                       );
                     }).toList(),
                     onChanged: (String? newValue) {
@@ -123,14 +142,7 @@ class _SignupPageState extends State<SignupPage> {
                         selectedValueTipoDoc = newValue!;
                       });
                     },
-                    style: const TextStyle(color: Colors.white),
-                    underline: Container(
-                      height: 2,
-                      color:
-                          Pallete.color4, // Color de la línea debajo del botón
-                    ),
-                    // Icono a la derecha
-                    elevation: 4,
+                    style: const TextStyle(color: Pallete.colorBlack),
                   ),
                 ),
                 const SizedBox(
@@ -159,14 +171,9 @@ class _SignupPageState extends State<SignupPage> {
                           }
                           return Container(
                             padding: const EdgeInsets.all(16.0),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  color:
-                                      const Color.fromARGB(212, 158, 158, 158)),
-                              borderRadius: BorderRadius.circular(8.0),
-                            ),
+                            
                             child: DropdownButton<String>(
-                              dropdownColor: Pallete.color2,
+                              dropdownColor: Pallete.colorGrey2,
                               isExpanded: true,
                               value: selectedValueFicha,
                               items: fichas.map<DropdownMenuItem<String>>((e) {
@@ -174,15 +181,16 @@ class _SignupPageState extends State<SignupPage> {
                                   value:
                                       '${e.id}. ${e.numeroFicha} - ${e.nombreFicha}',
                                   child: Text(
-                                      '${e.numeroFicha} - ${e.nombreFicha}',
-                                      style: const TextStyle(color: Colors.white, fontSize: 16),
-                                      ),
+                                    '${e.numeroFicha} - ${e.nombreFicha}',
+                                    style: const TextStyle(
+                                        color: Pallete.colorBlack, fontSize: 16, fontFamily:'Ubuntu',),
+                                  ),
                                 );
                               }).toList(),
                               onChanged: (String? newValue) {
                                 if (newValue != selectedValueFicha) {
                                   setState(() {
-                                    selectedValueFicha = newValue!;                                    
+                                    selectedValueFicha = newValue!;
                                   });
                                 }
                               },
@@ -218,16 +226,34 @@ class _SignupPageState extends State<SignupPage> {
                         .add(AuthSignupRequested(userEntity: userEntity));
                   },
                 ),
-                const SizedBox(
-                  height: 10.0,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Text(
+                      "Already have an account?",
+                      style: TextStyle(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: Pallete.colorBlack
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                         Navigator.popAndPushNamed(context, '/');
+                      },
+                      style: const ButtonStyle(
+                        foregroundColor: MaterialStatePropertyAll(Pallete.color1)
+                      ),
+                      child: const Text(
+                        'Login',
+                        style: TextStyle(
+                          fontFamily:'Ubuntu',
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                const Text('Ya tienes cuenta?', style : TextStyle(color: Pallete.colorWhite)),
-                AuthFormButton(
-                  onPressed: () {
-                    Navigator.popAndPushNamed(context, "/");
-                  },
-                  text: "Login",
-                )
               ],
             ),
           ),
