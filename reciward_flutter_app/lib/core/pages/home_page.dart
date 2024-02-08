@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Pallete.colorGrey2,
+      backgroundColor: Pallete.colorWhite,
       appBar: const AppBarReciward(),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -34,7 +34,7 @@ class _HomePageState extends State<HomePage> {
                     const Text(
                       'Instrucciones de uso',
                       style:
-                          TextStyle(color: Pallete.colorWhite, fontSize: 21.0),
+                          TextStyle(color: Pallete.colorWhite, fontSize: 21.0, fontFamily:'Ubuntu'),
                     ),
                     const SizedBox(
                       height: 5,
@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(
                         color: Pallete.colorWhite,
                         fontSize: 15,
+                        fontFamily:'Ubuntu'
                       ),
                     ),
                     const SizedBox(
@@ -60,7 +61,8 @@ class _HomePageState extends State<HomePage> {
                         style: TextStyle(
                             color: Pallete.color1,
                             fontSize: 15,
-                            fontWeight: FontWeight.w800),
+                            fontWeight: FontWeight.w800,
+                            fontFamily:'Ubuntu'),
                       ),
                     )
                   ],
@@ -72,7 +74,7 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(left: 15),
               child: const Text(
                 'Consejos ambientales: Sé parte de la solución',
-                style: TextStyle(fontSize: 19.0, fontWeight: FontWeight.w600),
+                style: TextStyle(fontSize: 19.0, fontWeight: FontWeight.w600, fontFamily: 'Ubuntu'),
               ),
             ),
             BlocBuilder<TipBloc, TipState>(
