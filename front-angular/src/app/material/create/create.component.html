@@ -11,9 +11,9 @@
               </div>
               <div class="mb-3">
                 <label for="ficha" class="form-label">Clasificacion</label>
-                <select formControlName="clasificacion" class="form-control">
+                <!--<select formControlName="clasificacion" class="form-control">
                   <option *ngFor="let clasificacion of listarClasificacion" [value]="clasificacion.id">{{ clasificacion.nombreClasificacion }}</option>
-                </select>
+                </select>-->
               </div>
               <button *ngIf="!id" type="submit" class="btn btn-primary">Crear Material</button>
               <button *ngIf="id" type="submit" class="btn btn-primary">Editar Material</button>
