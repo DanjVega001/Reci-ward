@@ -22,9 +22,9 @@ export class CreateComponent {
   
 
   materialForm = this.fb.group({
-    nombreMaterial: ['', Validators.required], // Agregando Validators.required para hacer obligatorio el campo
-    numeroPuntos: ['', Validators.required], // También puedes añadir validadores para el campo de número si es necesario
-    clasificacion: ['', Validators.required], // Validador requerido para la clasificación
+    nombreMaterial: ['', Validators.required], 
+    numeroPuntos: ['', Validators.required], 
+    clasificacion: ['', Validators.required], 
   });
   
   constructor(private fb: FormBuilder, private aRouter: ActivatedRoute,

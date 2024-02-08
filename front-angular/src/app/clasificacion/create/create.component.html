@@ -1,0 +1,9 @@
+
+<div class="container">
+    <form [formGroup]="ClasificacionForm" (ngSubmit)="agregarClasificacion()">
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Clasificacion</label>
+            <input formControlName="nombreClasificacion" class="form-select" aria-label="Default select example">
+              <option *ngFor="let clasificacion of listaClasificaciones" [value]="clasificacion.id">{{ clasificacion.nombreClasificacion}}</option>
+              <button *ngIf="!id" type="submit" class="btn btn-primary">Crear clasificacion</button>
+          </div>
