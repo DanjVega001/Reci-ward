@@ -15,23 +15,23 @@ class MaterialDropdown extends StatefulWidget {
 }
 
 class _MaterialDropdownState extends State<MaterialDropdown> {
-  String ? selectedItem;
+  String? selectedItem;
 
   @override
   Widget build(BuildContext context) {
-
     return BlocBuilder<MaterialBloc, MaterialesState>(
       builder: (context, state) {
         if (state is GetMaterialSuccess) {
           final materiales = state.materiales;
           final primerMaterial = materiales.first;
+          selectedItem ??=
+              '${primerMaterial.id} - ${primerMaterial.nombreMaterial} - ${primerMaterial.numeroPuntos}';
           return Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               Expanded(
                 child: DropdownButton<String>(
-                  value: selectedItem  ?? '${primerMaterial.id} - ${primerMaterial.nombreMaterial} - ${primerMaterial.numeroPuntos}',
-                  focusColor: Pallete.colorBlack,
+                  value: selectedItem,
                   isExpanded: true,
                   dropdownColor: Pallete.colorWhite,
                   style: const TextStyle(color: Pallete.colorBlack),
@@ -57,7 +57,7 @@ class _MaterialDropdownState extends State<MaterialDropdown> {
                 ),
               ),
               TextButton(
-                onPressed: () {                  
+                onPressed: () {
                   widget.loadMaterial(selectedItem!);
                 },
                 child: Text("Agregar"),

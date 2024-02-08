@@ -32,7 +32,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    initUniLinks();
+    //initUniLinks();
   }
 
   Future<void> initUniLinks() async {
@@ -88,8 +88,8 @@ class _LoginPageState extends State<LoginPage> {
                 .add(RecoverUserProfile(user: state.user));
             BlocProvider.of<TipBloc>(context)
                 .add(GetTips(accessToken: state.user.accces_token!));
-            BlocProvider.of<MaterialBloc>(context)
-                .add(GetMaterialesEvent(accessToken: state.user.accces_token!, rol: state.user.rol!));
+            BlocProvider.of<MaterialBloc>(context).add(GetMaterialesEvent(
+                accessToken: state.user.accces_token!, rol: state.user.rol!));
             Navigator.pushNamed(context, '/home');
           }
           if (state is AuthInitialLogin && state.message != null) {
@@ -102,34 +102,38 @@ class _LoginPageState extends State<LoginPage> {
             return const Center(child: CircularProgressIndicator());
           }
           return Container(
-            alignment: Alignment.center,           
+            alignment: Alignment.center,
             padding: const EdgeInsets.all(15.0),
             child: ListView(
               children: <Widget>[
-                const Image(image: 
-                AssetImage("assets/images/logo_reciward.jpg")), 
+                const Image(
+                    image: AssetImage("assets/images/logo_reciward.jpg")),
                 const Text(
                   "Login",
                   style: TextStyle(
                     color: Pallete.colorBlack,
                     fontSize: 25,
-                    fontWeight: FontWeight.w600, 
-                    fontFamily:'Ubuntu',
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Ubuntu',
                   ),
                   textAlign: TextAlign.start,
                 ),
-                const SizedBox(height: 10,),
+                const SizedBox(
+                  height: 10,
+                ),
                 const Text(
                   "Enter your email and password.",
                   style: TextStyle(
                     color: Pallete.colorGrey3,
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
-                    fontFamily:'Ubuntu',
+                    fontFamily: 'Ubuntu',
                   ),
                   textAlign: TextAlign.start,
                 ),
-                const SizedBox(height: 10,),
+                const SizedBox(
+                  height: 10,
+                ),
                 AuthFormField(
                   label: 'Email',
                   controller: emailController,
@@ -150,7 +154,7 @@ class _LoginPageState extends State<LoginPage> {
                 TextButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/send-mail');
-                  },               
+                  },
                   style: const ButtonStyle(
                       foregroundColor: MaterialStatePropertyAll(Colors.white),
                       alignment: Alignment.centerRight),
@@ -159,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                       color: Pallete.colorBlack,
                       fontSize: 13,
-                      fontFamily:'Ubuntu',
+                      fontFamily: 'Ubuntu',
                     ),
                   ),
                 ),
@@ -185,28 +189,26 @@ class _LoginPageState extends State<LoginPage> {
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
                         color: Pallete.colorBlack,
-                        fontFamily:'Ubuntu',
+                        fontFamily: 'Ubuntu',
                       ),
                       textAlign: TextAlign.center,
                     ),
                     TextButton(
                       onPressed: () {
-                         Navigator.popAndPushNamed(context, '/signup');
+                        Navigator.popAndPushNamed(context, '/signup');
                       },
                       style: const ButtonStyle(
-                        foregroundColor: MaterialStatePropertyAll(Pallete.color1)
-                      ),
+                          foregroundColor:
+                              MaterialStatePropertyAll(Pallete.color1)),
                       child: const Text(
                         'Sign up',
                         style: TextStyle(
-                          fontFamily:'Ubuntu',
+                          fontFamily: 'Ubuntu',
                         ),
                       ),
                     ),
                   ],
                 ),
-                
-                
               ],
             ),
           );
