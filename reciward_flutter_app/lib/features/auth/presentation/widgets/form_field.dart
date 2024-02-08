@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 
 class AuthFormField extends StatelessWidget {
 
@@ -12,13 +13,18 @@ class AuthFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return 
        TextFormField(
+        style: const TextStyle(
+          color: Pallete.colorBlack,
+          fontWeight: FontWeight.w700,
+          fontFamily:'Ubuntu',
+        ),
         keyboardType: type,
         obscureText: isPassword==null ? false : true,
         decoration: InputDecoration(
           labelText: label,
           focusColor: Colors.white,
-          border: const OutlineInputBorder( ),
-          labelStyle: const TextStyle(color: Colors.white)
+          border: const UnderlineInputBorder(),
+          labelStyle: const TextStyle(color: Pallete.colorGrey3, fontFamily:'Ubuntu',)
         ),
         controller: controller,
       

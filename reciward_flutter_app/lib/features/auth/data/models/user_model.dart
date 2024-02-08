@@ -12,6 +12,7 @@ class UserModel extends Equatable {
   final String? password;
   final String? accces_token;
   final AprendizModel? aprendizModel;
+  final String? rol;
 
   const UserModel(
       {this.id,
@@ -19,7 +20,9 @@ class UserModel extends Equatable {
       required this.email,
       required this.password,
       this.aprendizModel,
-      this.accces_token});
+      this.accces_token,
+      this.rol
+    });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
@@ -28,6 +31,7 @@ class UserModel extends Equatable {
         name: json['name'],
         password: json['password'],
         accces_token: json['access_token'],
+        rol: json['rol'][0],
         aprendizModel: AprendizModel.fromJson(json));
   }
 
@@ -38,6 +42,7 @@ class UserModel extends Equatable {
         id: entity.id,
         name: entity.name,
         password: entity.password,
+        rol: entity.rol,
         aprendizModel: AprendizModel.fromAprendizEntity(aprendizEntity),
         accces_token: entity.accces_token);
   }
@@ -49,6 +54,7 @@ class UserModel extends Equatable {
         name: name,
         accces_token: accces_token,
         password: password,
+        rol: rol,
         aprendizEntity: aprendizModel?.toEntity());
   }
 
