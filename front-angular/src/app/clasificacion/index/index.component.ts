@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Clasificacion } from '../../modelos/clasificacion.model'; 
@@ -60,4 +60,4 @@ export class IndexComponent implements OnInit {
     );
   }
 
-}
+}*/
