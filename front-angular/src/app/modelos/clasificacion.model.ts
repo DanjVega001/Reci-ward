@@ -1,5 +1,5 @@
 
-export class Clasificacion {
+/*export class Clasificacion {
     id?: number;
     nombreClasificacion: string | undefined | null;
     descripcion: string | undefined | null;
@@ -11,6 +11,6 @@ export class Clasificacion {
       this.descripcion = descripcion;
       this.admin_id = admin_id;
     }
-  }
+  }*/
   
   
