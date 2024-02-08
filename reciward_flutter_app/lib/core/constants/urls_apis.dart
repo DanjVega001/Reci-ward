@@ -1,4 +1,4 @@
-const String urlApi = "http://127.0.0.1:8000/api/auth/";
+const String urlApi = "http://10.0.2.2:8000/api/auth/";
 
 /// URLS API AUTH
 const String urlApiAuthLogin = "${urlApi}login";

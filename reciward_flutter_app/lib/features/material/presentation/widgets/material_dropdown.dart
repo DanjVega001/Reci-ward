@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
+import 'package:reciward_flutter_app/features/aprendiz/entrega/presentation/widgets/modal_resumen_entrega.dart';
+import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_button.dart';
 import 'package:reciward_flutter_app/features/material/domain/entities/material_entity.dart';
 import 'package:reciward_flutter_app/features/material/presentation/bloc/material_bloc.dart';
 
 // ignore: must_be_immutable
 class MaterialDropdown extends StatefulWidget {
-  Function(String) loadMaterial;
 
-  MaterialDropdown({super.key, required this.loadMaterial});
+  MaterialDropdown({super.key});
 
   @override
   State<MaterialDropdown> createState() => _MaterialDropdownState();
 }
 
 class _MaterialDropdownState extends State<MaterialDropdown> {
-  String? selectedItem;
+  List<Map<String, String>> materialesList = [];
+  Map<String, int> contadores = {};
 
   @override
   Widget build(BuildContext context) {
@@ -23,45 +25,113 @@ class _MaterialDropdownState extends State<MaterialDropdown> {
       builder: (context, state) {
         if (state is GetMaterialSuccess) {
           final materiales = state.materiales;
-          final primerMaterial = materiales.first;
-          selectedItem ??=
-              '${primerMaterial.id} - ${primerMaterial.nombreMaterial} - ${primerMaterial.numeroPuntos}';
-          return Row(
+       
+          if (materialesList.length != materiales.length) {
+            for (var i = 0; i < materiales.length; i++) {
+              MaterialEntity material = materiales[i];
+              String id = material.id!;
+              contadores.putIfAbsent(id, () => 0);
+              Map<String, String> materialMap = {
+                "id": material.id!,
+                "nombre": material.nombreMaterial!,
+                "puntos": "${material.numeroPuntos!}",
+                "cantidad": "${contadores[material.id!]}"
+              };
+
+              materialesList.add(materialMap);
+            }
+          }
+
+          return Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: DropdownButton<String>(
-                  value: selectedItem,
-                  isExpanded: true,
-                  dropdownColor: Pallete.colorWhite,
-                  style: const TextStyle(color: Pallete.colorBlack),
-                  onChanged: (String? value) {
-                    setState(() {
-                      selectedItem = value!;
-                    });
-                  },
-                  items: materiales.map<DropdownMenuItem<String>>((e) {
-                    return DropdownMenuItem(
-                      value:
-                          '${e.id} - ${e.nombreMaterial} - ${e.numeroPuntos}',
-                      child: Text(
-                        ' Nombre: ${e.nombreMaterial} // Puntos: ${e.numeroPuntos}',
-                        style: const TextStyle(
-                          color: Pallete.colorBlack,
-                          fontSize: 16,
-                          fontFamily: 'Ubuntu',
-                        ),
-                      ),
-                    );
-                  }).toList(),
-                ),
+              const Text(
+                "Realizar una entrega",
+                style: TextStyle(
+                    fontFamily: 'Ubuntu',
+                    fontSize: 19,
+                    fontWeight: FontWeight.w700),
               ),
-              TextButton(
-                onPressed: () {
-                  widget.loadMaterial(selectedItem!);
+              const SizedBox(
+                height: 20,
+              ),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: materiales.length,
+                itemBuilder: (context, index) {
+                  MaterialEntity material = materiales[index];
+                  String id = material.id!;
+
+                  return Card(
+                    elevation: 3,
+                    margin:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                "${material.nombreMaterial} Puntos: ${material.numeroPuntos}",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    if (contadores[id]! > 0) {
+                                      contadores[id] = contadores[id]! - 1;
+                                    }
+                                  });
+                                },
+                                icon: const Icon(Icons.remove),
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    contadores[id] = contadores[id]! + 1;
+                                  });
+                                },
+                                icon: const Icon(Icons.add),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Cantidad: ${contadores[id]}',
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
                 },
-                child: Text("Agregar"),
-              )
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              AuthFormButton(
+                onPressed: () {
+                  setState(() {
+                    for (var i = 0; i < materialesList.length; i++) {
+                      Map<String, String> map = materialesList[i];
+                      map["cantidad"] = "${contadores[map["id"]]}";
+                    }
+                  });
+
+                  showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return ModalResumenEntrega(
+                          materiales: materialesList,
+                        );
+                      });
+                },
+                text: "Hacer entrega",
+              ),
             ],
           );
         }

@@ -38,87 +38,8 @@ class _HomeEntregaPageState extends State<HomeEntregaPage> {
       body: Padding(
         padding: const EdgeInsets.all(14),
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              const Text(
-                "Realizar una entrega",
-                style: TextStyle(
-                    fontFamily: 'Ubuntu',
-                    fontSize: 19,
-                    fontWeight: FontWeight.w700),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              MaterialDropdown(
-                loadMaterial: loadMaterial,
-              ),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: materiales.length,
-                itemBuilder: (context, index) {
-                  String material = materiales[index];
-                  String id = material.split(' - ')[0];
-                  int contador = contadores[id] ?? 0;
-                  return Card(
-                    elevation: 3,
-                    margin:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                material,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    if (contadores[id] != null &&
-                                        contadores[id]! > 0) {
-                                      contadores[id] = contadores[id]! - 1;
-                                    }
-                                  });
-                                },
-                                icon: const Icon(Icons.remove),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'Contador: $contador',
-                            style: const TextStyle(color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              AuthFormButton(
-                onPressed: () {
-                  /*showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return ModalResumenEntrega(
-                          materiales: materiales,
-                        );
-                      });*/
-                  print(materiales);
-                },
-                text: "Hacer entrega",
-              ),
-            ],
-          ),
+          child: MaterialDropdown()
+         
         ),
       ),
       bottomNavigationBar: const NavReciward(
