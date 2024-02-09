@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\PasswordReset;
 use App\Models\Aprendiz;
 use App\Models\Perfil;
+use App\Models\Punto;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Carbon\Carbon;
@@ -39,6 +40,11 @@ class AuthController extends Controller
         Perfil::create([
             'apellido' => $request->apellido,
             'nombre' => $request->name,
+            'aprendiz_id' => $aprendiz->id
+        ]);
+        Punto::create([
+            "cantidadAcumulada" => 0,
+            "puntosUtilizados" => 0,
             'aprendiz_id' => $aprendiz->id
         ]);
         $user->assignRole('aprendiz');

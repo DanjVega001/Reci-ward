@@ -27,3 +27,8 @@ const String urlApiMaterialesCafeteria = "${urlApi}material-cafeteria";
 
 //URL API ENTREGAS
 const String urlApiSaveEntrega = "${urlApi}entrega";
+
+
+
+//URL API PUNTOS
+const String urlApiGetPuntos = "${urlApi}punto/ver";
