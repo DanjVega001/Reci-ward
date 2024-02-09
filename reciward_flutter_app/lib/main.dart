@@ -9,6 +9,8 @@ import 'package:reciward_flutter_app/features/aprendiz/entrega/util/setup_entreg
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/pages/profile_page.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/util/setup_profile_dependencies.dart';
+import 'package:reciward_flutter_app/features/aprendiz/puntos/presentation/bloc/punto_bloc.dart';
+import 'package:reciward_flutter_app/features/aprendiz/puntos/util/setup_puntos_dependencies.dart';
 import 'package:reciward_flutter_app/features/aprendiz/tips/presentation/bloc/tip_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/tips/util/setup_tip_dependencies.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/bloc/auth_bloc.dart';
@@ -33,6 +35,7 @@ void main() {
       BlocProvider(create: (context) => TipBloc()),
       BlocProvider(create: (context) => MaterialBloc()),
       BlocProvider(create: (context) => EntregaBloc()),
+      BlocProvider(create: (context) => PuntoBloc())
     ],
     child: MaterialApp(
       routes: {
@@ -56,4 +59,5 @@ void configDependencies() {
   SetupTipDependencies.setupTipDependencies(getIt);
   SetupMaterialDependencies.setupMaterialDependencies(getIt);
   SetupEntregaDependencies.setupEntregaDependencies(getIt);
+  SetupPuntosDependencies.setupPuntosDependencies(getIt);
 }
