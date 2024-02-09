@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Entrega;
 use App\Models\Punto;
 use App\Service\FuncionesService;
+use App\Models\Material_has_entrega;
 
 class EntregaController extends Controller
 {
@@ -35,18 +36,31 @@ class EntregaController extends Controller
      */
     public function store(Request $request)
     {
-        $idAprendiz = $this->service->obtenerIdAprendizAutenticado();
-        if (!$idAprendiz) {
-            return response()->json(["error" => "Usuario no autorizado"],403);
-        } 
-        $entrega = Entrega::create([
-            'aprendiz_id' => $idAprendiz,
-            'cafeteria_id' => $request->cafeteria_id,
-            'canjeada' => false,
-            'puntosAcumulados' => $request->puntosAcumulados,
-            'cantidadMaterial' => $request->cantidadMaterial
-        ]);
-        return response()->json($entrega, 201);
+        try {
+            $idAprendiz = $this->service->obtenerIdAprendizAutenticado();
+            if (!$idAprendiz) {
+                return response()->json(["error" => "Usuario no autorizado"],403);
+            } 
+            
+            $entrega = Entrega::create([
+                'aprendiz_id' => $idAprendiz,
+                'cafeteria_id' => 1,
+                'canjeada' => false,
+                'puntosAcumulados' => $request->puntosAcumulados,
+                'cantidadMaterial' => $request->cantidadMaterial
+            ]);
+            $materiales =  $request->materiales;
+            foreach ($materiales as $material_id) {
+                $materialEntregas = Material_has_entrega::create([
+                    'entrega_id' => $entrega->id,
+                    'material_id' => $material_id
+                ]);
+            }
+            
+            return response()->json(["message" => "Entrega realizada"], 201);     
+        } catch (\Throwable $th) {
+            return response()->json(["error" => $th->getMessage()], 400);    
+        }
     }
 
     /**

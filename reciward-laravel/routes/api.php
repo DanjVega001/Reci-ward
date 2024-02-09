@@ -138,7 +138,7 @@ Route::group([
         /** Guarda la entrega del aprendiz */
         Route::post("/entrega", [EntregaController::class, 'store']);
         /** Gaurda los materiales dentro de la entrega */
-        Route::post("/material-entrega", [Material_has_entregaController::class, 'store']);
+        //Route::post("/material-entrega", [Material_has_entregaController::class, 'store']);
         /** Elimina la entrega del aprendiz */
         Route::delete("/entrega/{id}", [EntregaController::class, 'destroy']);
        
