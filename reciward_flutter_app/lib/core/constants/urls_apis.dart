@@ -23,3 +23,7 @@ const String urlApiGetMateriales = "${urlApi}material-aprendiz";
 
 //URL API MATERIAL (CAFETERIA)
 const String urlApiMaterialesCafeteria = "${urlApi}material-cafeteria";
+
+
+//URL API ENTREGAS
+const String urlApiSaveEntrega = "${urlApi}entrega";
