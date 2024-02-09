@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+/*import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -72,6 +72,7 @@ export class CreateComponent implements OnInit {
   } else {
     console.log("id nulo");
   }
+<<<<<<< HEAD
 }
 
 agregarClasificacion(): void{
@@ -109,3 +110,6 @@ agregarClasificacion(): void{
 
 }
 }
+=======
+}*/
+>>>>>>> 0946b573a5de5db8ebf17eb367e7d4cfc735b613

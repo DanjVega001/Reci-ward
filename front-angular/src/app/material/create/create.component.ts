@@ -5,13 +5,13 @@ import { CommonModule } from '@angular/common';
 import { Material } from '../../modelos/material.model';
 import { MaterialService } from '../../servicios/material.service';
 import { ClasificacionService } from '../../servicios/clasificacion.service';
-import { Clasificacion } from '../../modelos/clasificacion.model';
+/*import { Clasificacion } from '../../modelos/clasificacion.model';*/
 
 @Component({
   selector: 'app-create',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, FormsModule],
-  providers: [MaterialService,ClasificacionService],
+  providers: [MaterialService,/*ClasificacionService*/],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
@@ -24,14 +24,14 @@ export class CreateComponent {
   materialForm = this.fb.group({
     nombreMaterial: ['', Validators.required], 
     numeroPuntos: ['', Validators.required], 
-    clasificacion: ['', Validators.required], 
+    /*clasificacion: ['', Validators.required],*/ 
   });
   
   constructor(private fb: FormBuilder, private aRouter: ActivatedRoute,
-    private materialService: MaterialService, private _router: Router,private clasificacionService: ClasificacionService ) {
+    private materialService: MaterialService, private _router: Router,/*private clasificacionService: ClasificacionService*/ ) {
     this.id = this.aRouter.snapshot.paramMap.get('id');
   }
-  listarClasificacion:Clasificacion[]=[]
+  /*listarClasificacion:Clasificacion[]=[]
   cargarClasificacion (): void {
     this.clasificacionService.getClasificaciones(this.clave).subscribe(
       data => {
@@ -46,7 +46,7 @@ export class CreateComponent {
     this.validarToken();
     this.cargarClasificacion();
     this.verEditar();
-  }
+  }*/
 
   validarToken(): void {
     if (this.clave == null) {
@@ -66,7 +66,7 @@ export class CreateComponent {
           this.materialForm.setValue({
             nombreMaterial: data[0].nombreMaterial,
             numeroPuntos: data[0].numeroPuntos,
-            clasificacion: data[0].clasificacion,
+            /*clasificacion: data[0].clasificacion,*/
           });
           
 
@@ -79,7 +79,7 @@ export class CreateComponent {
     const material: Material = {
       nombreMaterial: this.materialForm.get('nombreMaterial')?.value,
       numeroPuntos: Number(this.materialForm.get('numeroPuntos')?.value),
-      clasificacion_id: Number(this.materialForm.get('clasificacion')?.value),
+      /*clasificacion_id: Number(this.materialForm.get('clasificacion')?.value),*/
     };
     console.log(material);
   

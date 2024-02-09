@@ -32,4 +32,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+  fonts:
+    - family: Ubuntu
+      fonts:
+        - asset: fonts/ubuntu/Ubuntu-Medium.ttf
 

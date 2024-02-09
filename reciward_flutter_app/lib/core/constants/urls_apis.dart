@@ -17,3 +17,9 @@ const String urlApiResetPassword = "${urlApi}reset-password";
 
 //URL API TIPS
 const String urlApiGetTips = "${urlApi}get/tip-aprendiz";
+
+//URL API MATERIAL (APRENDIZ)
+const String urlApiGetMateriales = "${urlApi}material-aprendiz";
+
+//URL API MATERIAL (CAFETERIA)
+const String urlApiMaterialesCafeteria = "${urlApi}material-cafeteria";
