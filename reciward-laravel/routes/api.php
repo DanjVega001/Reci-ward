@@ -2,7 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\ClasificacionController;
 use App\Http\Controllers\API\AdministradorController;
 use App\Http\Controllers\API\BonoController;
 use App\Http\Controllers\API\FichaController;
@@ -64,7 +63,6 @@ Route::group([
         // Rutas protegidas para usuarios con el rol "admin".
         Route::apiResource('admin', AdministradorController::class);
         Route::apiResource('ficha', FichaController::class);
-        Route::apiResource('clasificacion', ClasificacionController::class);
         Route::apiResource('bono-admin', BonoController::class);
         Route::apiResource('cafeteria', CafeteriaController::class);
         Route::apiResource('aprendiz', AprendizController::class);
