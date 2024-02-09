@@ -17,8 +17,6 @@ class CreateMaterialesTable extends Migration
             $table->id();
             $table->string('nombreMaterial');
             $table->integer('numeroPuntos');
-            $table->foreignId('clasificacion_id');
-            $table->foreign('clasificacion_id')->references('id')->on('clasificaciones');
         });
     }
 
