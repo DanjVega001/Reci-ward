@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense para saber los atributos posibles.
+    // Mantenga el puntero para ver las descripciones de los existentes atributos.
+    // Para más información, visite: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "reciward_flutter_app",
+            "cwd": "reciward_flutter_app",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "reciward_flutter_app (profile mode)",
+            "cwd": "reciward_flutter_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "reciward_flutter_app (release mode)",
+            "cwd": "reciward_flutter_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

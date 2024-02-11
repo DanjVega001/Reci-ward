@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/presentation/widgets/modal_resumen_entrega.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_button.dart';
 import 'package:reciward_flutter_app/features/material/domain/entities/material_entity.dart';
@@ -8,7 +7,6 @@ import 'package:reciward_flutter_app/features/material/presentation/bloc/materia
 
 // ignore: must_be_immutable
 class MaterialDropdown extends StatefulWidget {
-
   MaterialDropdown({super.key});
 
   @override
@@ -25,7 +23,7 @@ class _MaterialDropdownState extends State<MaterialDropdown> {
       builder: (context, state) {
         if (state is GetMaterialSuccess) {
           final materiales = state.materiales;
-       
+
           if (materialesList.length != materiales.length) {
             for (var i = 0; i < materiales.length; i++) {
               MaterialEntity material = materiales[i];
@@ -113,24 +111,27 @@ class _MaterialDropdownState extends State<MaterialDropdown> {
               const SizedBox(
                 height: 20,
               ),
-              AuthFormButton(
-                onPressed: () {
-                  setState(() {
-                    for (var i = 0; i < materialesList.length; i++) {
-                      Map<String, String> map = materialesList[i];
-                      map["cantidad"] = "${contadores[map["id"]]}";
-                    }
-                  });
+              Container(
+                padding: const EdgeInsets.only(left: 15, right: 15),
+                child: AuthFormButton(
+                  onPressed: () {
+                    setState(() {
+                      for (var i = 0; i < materialesList.length; i++) {
+                        Map<String, String> map = materialesList[i];
+                        map["cantidad"] = "${contadores[map["id"]]}";
+                      }
+                    });
 
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (context) {
-                        return ModalResumenEntrega(
-                          materiales: materialesList,
-                        );
-                      });
-                },
-                text: "Hacer entrega",
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return ModalResumenEntrega(
+                            materiales: materialesList,
+                          );
+                        });
+                  },
+                  text: "Hacer entrega",
+                ),
               ),
             ],
           );
