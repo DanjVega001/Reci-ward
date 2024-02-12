@@ -114,7 +114,7 @@ class Aprendiz_has_bonoController extends Controller
             'cantidadAcumulada' => $puntos->cantidadAcumulada - $bono->puntosRequeridos,
             'puntosUtilizados' => $puntos->puntosUtilizados + $bono->puntosRequeridos
         ]);
-        return response()->json($aprendiz_has_bono, 201);
+        return response()->json(["message" => "Bono creado"], 201);
     }
 
     /**
