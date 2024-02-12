@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Material;
-use App\Models\Clasificacion;
 use Illuminate\Support\Facades\Hash;
 
 class MaterialController extends Controller
@@ -18,7 +17,6 @@ class MaterialController extends Controller
             array_push($materiales_data, [
                 "nombreMaterial" => $material->nombreMaterial,
                 "numeroPuntos" => $material->numeroPuntos,
-                "clasificacion" => $material->clasificacion->nombreClasificacion,
                 "id" => $material->id
             ]);
         }
@@ -30,7 +28,6 @@ class MaterialController extends Controller
         $request->validate([
             'nombreMaterial' => 'required|string',
             'numeroPuntos' => 'required|integer',
-            'clasificacion_id' => 'required|integer',
         ]);
 
         $material = Material::create($request->all());
@@ -47,7 +44,6 @@ class MaterialController extends Controller
         array_push($materiales_data, [
             "nombreMaterial" => $material->nombreMaterial,
             "numeroPuntos" => $material->numeroPuntos,
-            "clasificacion" => $material->clasificacion->nombreClasificacion,
             "id" => $material->id
         ]);
         return response()->json($materiales_data, 200);
@@ -62,7 +58,6 @@ class MaterialController extends Controller
         $request->validate([
             'nombreMaterial' => 'string',
             'numeroPuntos' => 'integer',
-            'clasificacion_id' => 'required|integer',
         ]);
 
         $material->update($request->all());

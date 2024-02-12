@@ -16,15 +16,18 @@ class MaterialSeeder extends Seeder
     {
         //
         Material::create([
-            "nombreMaterial" => "botella 1.5L pepsi",
-            "numeroPuntos" => 500,
-            "clasificacion_id" => 1
+            "nombreMaterial" => "Plastico",
+            "numeroPuntos" => 50,
         ]);
 
         Material::create([
-            "nombreMaterial" => "botella aguila lite personal",
-            "numeroPuntos" => 1000,
-            "clasificacion_id" => 2
+            "nombreMaterial" => "Carton",
+            "numeroPuntos" => 30,
+        ]);
+
+        Material::create([
+            "nombreMaterial" => "Vidrio",
+            "numeroPuntos" => 25,
         ]);
     }
 }

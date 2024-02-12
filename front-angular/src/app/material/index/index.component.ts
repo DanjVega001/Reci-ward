@@ -3,24 +3,23 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Material } from '../../modelos/material.model';
 import { MaterialService } from '../../servicios/material.service';
-import { Clasificacion } from '../../modelos/clasificacion.model';
-import { ClasificacionService } from '../../servicios/clasificacion.service';
+
 @Component({
   selector: 'app-index',
   standalone: true,
   imports: [CommonModule],
-  providers: [MaterialService,ClasificacionService],
+  providers: [MaterialService],
   templateUrl: './index.component.html',
   styleUrl: './index.component.scss'
 })
 export class IndexComponent {
   listaMaterial : Material[] = [];
-  listaClasificacion : Clasificacion[] = [];
+ 
   clave: string | null = null;
   noEliminar : boolean = false;
 
 
-  constructor(private _router: Router, private MaterialService: MaterialService, private clasificacionService:ClasificacionService){}
+  constructor(private _router: Router, private MaterialService: MaterialService){}
   ngOnInit(): void {
     this.validarToken();
     this.cargarMateriales();

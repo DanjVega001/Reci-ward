@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Auth;
 class FuncionesService
 {
     public function obtenerIdAprendizAutenticado() {
+        
         $user = Auth::user();
-
         if ($user && $user->aprendiz) {
             return $user->aprendiz->id;
         }

@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Material extends Model
 {
-    protected $fillable =["clasificacion_id","nombreMaterial","numeroPuntos" ];
+    protected $fillable =["nombreMaterial","numeroPuntos" ];
     protected $table = "materiales";
     public $timestamps = false;
     use HasFactory;
     public function clasificacion()
     {
-        return $this->belongsTo(Clasificacion::class, 'clasificacion_id', 'id');
+        return $this->belongsTo(Clasificacion::class, 'id');
     }
 }

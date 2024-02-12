@@ -19,7 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminSeeder::class);
         $this->call(FichaSeeder::class);
         $this->call(AprendizSeeder::class);
-        $this->call(ClasificacionSeeder::class);
         $this->call(MaterialSeeder::class);
         $this->call(CafeteriaSeeder::class);
         $this->call(EntregaSeeder::class);

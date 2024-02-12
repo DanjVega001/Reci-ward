@@ -15,8 +15,7 @@ import { DetallesComponent } from './historial/entrega/detalles/detalles.compone
 import { IndexComponent as IndexUsuario } from './usuarios/index/index.component';
 import { CreateAdminComponent } from './usuarios/create-admin/create-admin.component';
 import { CreateCafeteriaComponent } from './usuarios/create-cafeteria/create-cafeteria.component';
-import { IndexComponent as IndexClasificacion } from './clasificacion/index/index.component'; 
-import { CreateComponent as CreateClasificacion } from './clasificacion/create/create.component'; 
+
 
 export const routes: Routes = [
     { path: '', redirectTo: 'inicio/body', pathMatch: 'full' },
@@ -53,7 +52,5 @@ export const routes: Routes = [
     { path: 'usuario/cafeteria/create', component: CreateCafeteriaComponent },
     { path: 'usuario/cafeteria/edit/:id', component: CreateCafeteriaComponent },
 
-    { path: 'clasificacion/index', component: IndexClasificacion },
-    { path: 'clasificacion/create', component: CreateClasificacion },
-    { path: 'clasificacion/edit/:id', component: CreateClasificacion },
+  
 ];
