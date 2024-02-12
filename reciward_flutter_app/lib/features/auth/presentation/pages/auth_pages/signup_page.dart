@@ -51,6 +51,8 @@ class _SignupPageState extends State<SignupPage> {
                 .showSnackBar(SnackBar(content: Text(state.message!)));
           }
         },
+
+        
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(18.0),
