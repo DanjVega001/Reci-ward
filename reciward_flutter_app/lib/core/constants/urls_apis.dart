@@ -29,3 +29,10 @@ const String urlApiSaveEntrega = "${urlApi}entrega";
 
 //URL API PUNTOS
 const String urlApiGetPuntos = "${urlApi}punto/ver";
+
+
+//URL APIS BONOS
+const String urlApiGetBonos = "${urlApi}bonos/ver";
+
+const String urlApiSaveBonoAp = "${urlApi}save-aprendiz-bono";
+

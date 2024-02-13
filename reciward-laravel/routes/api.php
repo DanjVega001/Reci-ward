@@ -150,7 +150,7 @@ Route::group([
         */
         Route::get("/aprendiz-bono", [Aprendiz_has_bonoController::class, 'bonosPorAprendiz']);
         /** Es cuando el aprendiz usa los puntos para obtener un bono */
-        Route::post("/aprendiz-bono", [Aprendiz_has_bonoController::class,'store']);
+        Route::post("/save-aprendiz-bono", [Aprendiz_has_bonoController::class,'store']);
         Route::delete("/aprendiz-bono/{id}", [Aprendiz_has_bonoController::class, 'destroy']);
 
         /** Puntos 
@@ -159,6 +159,8 @@ Route::group([
         Route::get("/punto/ver", [PuntoController::class, 'show']);
 
         Route::get("/get/tip-aprendiz",[TipController::class, 'index']);
+
+        Route::get("/bonos/ver", [BonoController::class, 'index']);
     });
 });
 
