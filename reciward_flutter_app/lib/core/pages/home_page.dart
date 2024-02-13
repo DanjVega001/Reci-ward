@@ -56,7 +56,9 @@ class _HomePageState extends State<HomePage> {
                         backgroundColor:
                             MaterialStatePropertyAll(Pallete.colorGrey2),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, "/manual");
+                      },
                       child: const Text(
                         'Explorar',
                         style: TextStyle(

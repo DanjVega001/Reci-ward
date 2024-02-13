@@ -24,14 +24,13 @@ class ManualUser extends StatelessWidget {
                   ),
                 ),
                 const Text(
-                  'Explicación de la instrucción 1.',
+                  'En el panel principal, vemos el menu inferior y las opciones HOME, ENTREGAS, BONOS. ',
                   style: TextStyle(fontSize: 16.0),
                 ),
                 const SizedBox(height: 10.0),
                 Image.asset(
-                  'assets/manual_images/instruccion1.png', // Ruta de la imagen
-                  height: 200.0, // Altura de la imagen
-                  width: double.infinity, // Ancho de la imagen
+                  'assets/manual_images/instruccion1.jpg', // Ruta de la imagen
+                  
                   fit: BoxFit.cover, // Ajuste de la imagen
                 ),
                 const SizedBox(height: 20.0),
@@ -43,14 +42,47 @@ class ManualUser extends StatelessWidget {
                   ),
                 ),
                 const Text(
-                  'Explicación de la instrucción 2.',
+                  'Aqui pondemos agregar o quitar la cantida de cada material que deseamos entregar y presionamos HACER ENTREGA.',
                   style: TextStyle(fontSize: 16.0),
                 ),
                 const SizedBox(height: 10.0),
                 Image.asset(
-                  'assets/manual_images/instruccion2.png', // Ruta de la imagen
-                  height: 200.0, // Altura de la imagen
-                  width: double.infinity, // Ancho de la imagen
+                  'assets/manual_images/instruccion2.jpg', // Ruta de la imagen
+                 
+                  fit: BoxFit.cover, // Ajuste de la imagen
+                ),
+                const Text(
+                  'Instrucción 3:',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                  ),
+                ),
+                const Text(
+                  'En esta ventana emergente se puede visualizar la cantidad total de material y los puntos totales que pondemos obtener.',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                const SizedBox(height: 10.0),
+                Image.asset(
+                  'assets/manual_images/instruccion3.jpg', // Ruta de la imagen
+                   
+                  fit: BoxFit.cover, // Ajuste de la imagen
+                ),
+                const Text(
+                  'Instrucción 4:',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                  ),
+                ),
+                const Text(
+                  'Aqui podemos ver  todos los puntos acumulados y la opcion de CANJEAR BONO, para redimir los puntos acumulados',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                const SizedBox(height: 10.0),
+                Image.asset(
+                  'assets/manual_images/instruccion4.jpg', // Ruta de la imagen
+                  
                   fit: BoxFit.cover, // Ajuste de la imagen
                 ),
                 // Agrega más instrucciones y sus explicaciones aquí si es necesario
