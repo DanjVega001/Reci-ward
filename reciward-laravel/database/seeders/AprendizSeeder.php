@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Aprendiz;
 use App\Models\Perfil;
 use App\Models\User;
+use App\Models\Punto;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -19,8 +20,8 @@ class AprendizSeeder extends Seeder
     {
 
         $user = User::create([
-            'name' => 'Eduardo',
-            'email' => 'eduado@gmail.com',
+            'name' => 'Usuario',
+            'email' => '123@gmail.com',
             'password' => Hash::make('123456')
         ]);
         
@@ -33,10 +34,16 @@ class AprendizSeeder extends Seeder
             'ficha_id' => 1
         ]);
         Perfil::create([
-            'apellido' => "Vega",
+            'apellido' => "1",
             'nombre' => $user->name,
             'aprendiz_id' => $aprendiz->id
         ]);
+        Punto::create([
+            'cantidadAcumulada' => 0,
+            'puntosUtilizados' => 0,
+            'aprendiz_id' => $aprendiz->id
+        ]);
+
         $user->assignRole('aprendiz');
     }
 }
