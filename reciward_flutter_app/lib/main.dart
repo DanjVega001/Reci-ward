@@ -44,11 +44,11 @@ void main() {
       routes: {
         '/signup': (context) => const SignupPage(),
         '/home': (context) => HomePage(),
-        '/entrega': (context) => HomeEntregaPage(),
+        '/entrega': (context) => const HomeEntregaPage(),
         '/bono': (context) => const HomeBonoPage(),
         '/send-mail': (context) => const SendMailResetPasswordPage(),
         '/reset-password': (context) => const ResetPasswordPage(),
-        '/profile': (context) => const ProfilePage()
+        '/profile': (context) => const ProfilePage(),
       },
       home: const LoginPage(),
     ),
