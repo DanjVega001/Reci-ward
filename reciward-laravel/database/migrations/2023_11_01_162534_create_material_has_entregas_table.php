@@ -21,7 +21,6 @@ class CreateMaterialHasEntregasTable extends Migration
             $table->foreignId('entrega_id');
             $table->foreign('entrega_id')->references('id')->on('entregas');
             $table->integer('numeroMaterial');
-            
         });
     }
 

@@ -9,7 +9,7 @@ class Material_has_entrega extends Model
 {
     use HasFactory;
 
-    protected $fillable =["material_id", "entrega_id"];
+    protected $fillable =["material_id", "entrega_id", "numeroMaterial"];
     protected $table = "material_has_entregas";
     public $timestamps = false;
 

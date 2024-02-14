@@ -11,7 +11,7 @@ class ModalResumenEntrega extends StatelessWidget {
   late List<int> puntosTotalesLista = [];
   late int puntosTotales;
   late List<int> cantidadTotal = [];
-  late List<String> materialesId = [];
+  late List<Map<String, int>> materialesId = [];
 
   ModalResumenEntrega({super.key, required this.materiales});
 
@@ -21,7 +21,10 @@ class ModalResumenEntrega extends StatelessWidget {
       int puntosTotales =
           int.parse(material['puntos']!) * int.parse(material['cantidad']!);
       cantidadTotal.add(int.parse(material['cantidad']!));
-      materialesId.add(material['id']!);
+      materialesId.add({
+        "id": int.parse(material['cantidad']!),
+        "numeroMaterial": int.parse(material['cantidad']!)
+      });
       puntosTotalesLista.add(puntosTotales);
     }
   }
@@ -118,7 +121,7 @@ class ModalResumenEntrega extends StatelessWidget {
                               .reduce((value, element) => value + element),
                           cantidadMaterial: cantidadTotal
                               .reduce((value, element) => value + element),
-                          materialesId: materialesId);
+                          materiales: materialesId);
 
                       BlocProvider.of<EntregaBloc>(context).add(
                           SaveEntregaEvent(
