@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/data/dataresources/bono_service.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/data/repositories/bono_repository_impl.dart';
+import 'package:reciward_flutter_app/features/aprendiz/bono/domain/usecases/get_bonos_historial.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/usecases/get_bonos_usecase.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/usecases/save_bono_aprendiz_usecase.dart';
 
@@ -16,5 +17,7 @@ class SetupBonoDependencies {
         () => GetBonosUsecase(repository: getIt<BonoRepositoryImpl>()));
     getIt.registerLazySingleton<SaveBonoAprendizUsecase>(
         () => SaveBonoAprendizUsecase(repository: getIt<BonoRepositoryImpl>()));
+    getIt.registerLazySingleton<GetBonosHistorialUsecase>(
+        () => GetBonosHistorialUsecase(repository: getIt<BonoRepositoryImpl>()));
   }
 }

@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/data/dataresources/bono_service.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/entities/bono_entity.dart';
+import 'package:reciward_flutter_app/features/aprendiz/bono/domain/entities/get_historial_bono.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/repositories/bono_repository.dart';
 
 class BonoRepositoryImpl extends BonoRepository {
@@ -31,6 +32,11 @@ class BonoRepositoryImpl extends BonoRepository {
   @override
   Future<Either<DioException, String>> saveBonoAprendiz(String accessToken, int bonoId) {
     return service.saveBonoAprendiz(accessToken, bonoId);
+  }
+
+  @override
+  Future<Either<DioException, List<GetHistorialBono>>> getHistorialBonos(String accessToken) {
+    return service.getHistorialBonos(accessToken);
   }
 
 }
