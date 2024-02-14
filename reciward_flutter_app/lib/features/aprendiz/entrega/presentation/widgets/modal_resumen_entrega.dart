@@ -34,16 +34,15 @@ class ModalResumenEntrega extends StatelessWidget {
         if (state is SaveEntregaFailed) {
           Navigator.pop(context);
           ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(state.error)));
+              .showSnackBar(SnackBar(content: Text(state.error)));
         }
         if (state is SaveEntregaSuccess) {
           Navigator.pop(context);
           ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(state.message)));
-        } 
+              .showSnackBar(SnackBar(content: Text(state.message)));
+        }
       },
       builder: (context, state) {
-
         if (state is SaveEntregaLoading) {
           return const Center(child: CircularProgressIndicator());
         }

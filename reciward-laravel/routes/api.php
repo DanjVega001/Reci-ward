@@ -131,8 +131,9 @@ Route::group([
         /** Entrega 
          *  Muestra el historial de entregas que ha tenido el aprendiz
          */
-        Route::get("/entregas/historial", [EntregaController::class, 'historialPorApz']);
-        
+
+        Route::get("/entrega/historial", [EntregaController::class, 'historialPorApz']);
+
         /** Guarda la entrega del aprendiz */
         Route::post("/entrega", [EntregaController::class, 'store']);
         /** Gaurda los materiales dentro de la entrega */

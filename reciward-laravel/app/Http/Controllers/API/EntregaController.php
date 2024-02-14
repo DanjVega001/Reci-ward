@@ -166,6 +166,23 @@ class EntregaController extends Controller
 
         $aprendiz = Aprendiz::find($idAprendiz);
 
+        $query = DB::table('entregas AS mhe')
+                    ->join('materiales_has_entregas AS mhe', 'e.id','=','mhe.entrega_id')
+                    ->join('materiales AS m','m.id','=','mhe.material_id')
+                    ->select('e.id', 'e.cantidadMaterial','e.canjeada','e.puntosAcumulados','m.nombreMaterial')
+                    ->where('e.aprendiz','=',$aprendiz->id)
+                    ->get();
+        
+        $entregas = [];
+
+        foreach ($query as $row){
+            $id = $row->id;
+
+            if (!isset($entregas[$id])){
+                $entregas[$id] = [
+                    'id' => $id,
+
+
         $query = DB::table('entregas AS e')
             ->join('material_has_entregas AS mhe', 'e.id', '=', 'mhe.entrega_id')
             ->join('materiales AS m', 'm.id', '=', 'mhe.material_id')
@@ -187,8 +204,14 @@ class EntregaController extends Controller
                     'nombreMaterial' => [$row->nombreMaterial]
                 ];
             } else {
-                $entregas[$id]['nombreMaterial'][] = $row->nombreMaterial;
+
+                $entregas[$id]['nombreMaterial'][]= $row->nombreMaterial;
+                
             }
+            $entregas = array_values($entregas);
+            
+          
+        
         }
 
         $entregas = array_values($entregas);
@@ -196,6 +219,10 @@ class EntregaController extends Controller
         return response()->json($entregas, 200);
     }
 
+
+    
+    
+    
     public function historialPorAdmin($documento) {
         $aprendiz = Aprendiz::where('numeroDocumento', $documento)->first();
         return $this->historial($aprendiz);
@@ -213,6 +240,7 @@ class EntregaController extends Controller
         if (!$entregas) {
             return response()->json(["mensaje" => "El aprendiz no tiene entregas por hacer"], 200);
         }
+
         return response()->json([
             'documento' => $documento,
             'nombre' => $nombre,
