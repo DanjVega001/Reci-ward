@@ -25,6 +25,7 @@ class UserModel extends Equatable {
     });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
+
     return UserModel(
         email: json['email'],
         id: json['id'].toString(),
@@ -32,7 +33,7 @@ class UserModel extends Equatable {
         password: json['password'],
         accces_token: json['access_token'],
         rol: json['rol'][0],
-        aprendizModel: AprendizModel.fromJson(json));
+        aprendizModel: json['rol'][0] == "aprendiz" ? AprendizModel.fromJson(json) : null);
   }
 
   factory UserModel.fromUserEntity(UserEntity entity) {

@@ -84,13 +84,19 @@ class _LoginPageState extends State<LoginPage> {
                 .showSnackBar(SnackBar(content: Text(state.error)));
           }
           if (state is AuthenticatedState) {
-            BlocProvider.of<ProfileBloc>(context)
-                .add(RecoverUserProfile(user: state.user));
-            BlocProvider.of<TipBloc>(context)
-                .add(GetTips(accessToken: state.user.accces_token!));
-            BlocProvider.of<MaterialBloc>(context).add(GetMaterialesEvent(
-                accessToken: state.user.accces_token!, rol: state.user.rol!));
-            Navigator.pushNamed(context, '/home');
+            if (state.user.rol == "aprendiz") {
+              BlocProvider.of<ProfileBloc>(context)
+                  .add(RecoverUserProfile(user: state.user));
+              BlocProvider.of<TipBloc>(context)
+                  .add(GetTips(accessToken: state.user.accces_token!));
+              BlocProvider.of<MaterialBloc>(context).add(GetMaterialesEvent(
+                  accessToken: state.user.accces_token!, rol: state.user.rol!));
+              Navigator.pushNamed(context, '/home');
+            } else if (state.user.rol == "cafeteria") {
+              BlocProvider.of<ProfileBloc>(context)
+                  .add(RecoverUserProfile(user: state.user));
+              Navigator.pushNamed(context, '/home-cafeteria');
+            }
           }
           if (state is AuthInitialLogin && state.message != null) {
             ScaffoldMessenger.of(context)

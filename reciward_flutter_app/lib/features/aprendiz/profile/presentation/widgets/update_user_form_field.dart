@@ -20,7 +20,7 @@ class UpdateUserFormField extends StatelessWidget {
       children: <Widget>[
         Text(
           "$label:",
-          style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
+          style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 16, fontFamily: 'Ubuntu'),
         ),
         const SizedBox(
           width: 10,
@@ -30,6 +30,9 @@ class UpdateUserFormField extends StatelessWidget {
             obscureText: isPassword == null ? false : true,
             enabled: !editar,
             controller: controller,
+            style: const TextStyle(
+              fontFamily: 'Ubuntu'
+            ),
             keyboardType: type,
           ),
         )

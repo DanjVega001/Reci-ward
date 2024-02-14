@@ -28,5 +28,7 @@ class CafeteriaSeeder extends Seeder
             "contrasenaCafeteria" => $user->password,
             "user_id" => $user->id
         ]);
+
+        $user->assignRole('cafeteria');        
     }
 }

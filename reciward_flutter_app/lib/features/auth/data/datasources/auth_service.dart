@@ -48,7 +48,6 @@ class AuthService {
           ));
       if (response.statusCode == 200) {
         UserModel userModel = UserModel.fromJson(response.data);
-
         return right(userModel);
       } else {
         return left(DioException(
