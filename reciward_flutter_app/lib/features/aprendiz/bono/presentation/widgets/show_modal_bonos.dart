@@ -8,12 +8,14 @@ import 'package:reciward_flutter_app/features/aprendiz/puntos/presentation/bloc/
 
 enum BonosEnum {bono_1, bono_2}
 
+
 class ShowModalBonos extends StatefulWidget {
   const ShowModalBonos({super.key});
 
   @override
   State<ShowModalBonos> createState() => _ShowModalBonosState();
 }
+
 
 class _ShowModalBonosState extends State<ShowModalBonos> {
   int selectedValueId = 1;
@@ -104,6 +106,7 @@ class _ShowModalBonosState extends State<ShowModalBonos> {
                           fontFamily: 'Ubuntu', color: Pallete.colorWhite),
                     ),
                   ),
+                  
                   const SizedBox(
                     width: 10,
                   ),
