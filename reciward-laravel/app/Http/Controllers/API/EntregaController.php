@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use App\Models\Aprendiz;
 use Illuminate\Http\Request;
 use App\Models\Entrega;
@@ -151,6 +152,41 @@ class EntregaController extends Controller
             return response()->json(["error" => "Usuario no autorizado"],403);
         } 
         $aprendiz = Aprendiz::find($idAprendiz);
+        $query = DB::table('entregas AS mhe')
+                    ->join('materiales_has_entregas AS mhe', 'e.id','=','mhe.entrega_id')
+                    ->join('materiales AS m','m.id','=','mhe.material_id')
+                    ->select('e.id', 'e.cantidadMaterial','e.canjeada','e.puntosAcumulados','m.nombreMaterial')
+                    ->where('e.aprendiz','=',$aprendiz->id)->get();
+        $entregas = array();
+        $entregas_id=array();
+        foreach ($query as $row){
+            $entrega = array(
+                'id' => null,
+                'cantidadMaterial' => null, 
+                'canjeada' => null,
+                'puntosAcumulados' => null,
+                'nombreMaterial' => array()
+            );
+
+            if (!in_array($row->id,$entregas_id)) {
+                array_push($entregas_id, $row->id);
+
+                $entrega['id'] = $row->id;
+                $entrega['cantidadMaterial'] = $row->cantidadMaterial;
+                $entrega['canjeada'] = $row->canjeada;
+                $entrega['puntosAcumulados'] = $row->puntosAcumulados;
+
+                array_push($entrega['nombreMaterial'], $row->nombreMaterial);
+            }else {
+                $ids = array_column($entregas, 'id');
+                if (in_array($row->id, $ids)) {
+                    array_push($entrega['nombreMaterial'],$row->nombreMaterial);
+                }
+            }
+
+            array_push($entregas,$entrega);
+        }
+        
         return $this->historial($aprendiz);   
     }
 
@@ -171,6 +207,7 @@ class EntregaController extends Controller
         if (!$entregas) {
             return response()->json(["mensaje" => "El aprendiz no tiene entregas por hacer"], 200);
         }
+
         return response()->json([
             'documento' => $documento,
             'nombre' => $nombre,
