@@ -77,25 +77,35 @@ class EntregaController extends Controller
      */
 
 
-    public function show($documento)
+    public function show($idEntrega)
     {
-        $aprendiz = Aprendiz::where('numeroDocumento', $documento)->first();
+        $entrega = Entrega::select('id', 'cantidadMaterial', 'canjeada', 'puntosAcumulados', 'aprendiz_id')
+            ->where('id', $idEntrega)
+            ->where('canjeada', 0)->first();
+
+        $aprendiz = Aprendiz::find($entrega->aprendiz_id);
+
         if (!$aprendiz) {
             return response()->json(["error" => "Aprendiz no encontrado"], 404);
         }
         $nombre = $aprendiz->perfil->nombre;
         $apellido = $aprendiz->perfil->apellido;
-        $entregas = Entrega::select('id', 'cantidadMaterial', 'canjeada', 'puntosAcumulados')
-            ->where('aprendiz_id', $aprendiz->id)
-            ->where('canjeada', 0)->get();
-        if (!$entregas) {
-            return response()->json(["mensaje" => "El aprendiz no tiene entregas por hacer"], 200);
+
+        $materiales = DB::table('materiales AS m')
+                        ->join('material_has_entregas AS mhe', 'm.id', '=', 'mhe.material_id')
+                        ->select('m.nombreMaterial', 'm.numeroPuntos')
+                        ->where('mhe.entrega_id', '=', $entrega->id)->get();
+            
+
+        if (!$entrega) {
+            return response()->json(["message" => "El aprendiz no tiene entregas por hacer"], 404);
         }
+        $entrega['materiales'] = $materiales;
         return response()->json([
-            'documento' => $documento,
+            'documento' => $aprendiz->numeroDocumento,
             'nombre' => $nombre,
-            'aprellido' => $apellido,
-            'entregas' => $entregas
+            'apellido' => $apellido,
+            'entrega' => $entrega
         ], 200);
     }
 

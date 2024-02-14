@@ -66,35 +66,42 @@ class Material_has_entregaController extends Controller
      */
     public function show($idEntrega)
     {
-        $materialEntregas = Material_has_entrega::where('entrega_id', $idEntrega)
-        ->get();
-
-        $materiales = array();
-        $entrega = [
-            'id' => $materialEntregas[0]->entrega->id,   
-            'canjeada' => $materialEntregas[0]->entrega->canjeada,
-            'cantidadMaterial' => $materialEntregas[0]->entrega->cantidadMaterial,
-            'puntosAcumulados' => $materialEntregas[0]->entrega->puntosAcumulados
-        ];
-        $aprendiz = [
-            'idAprendiz' => $materialEntregas[0]->entrega->aprendiz->id,
-            'documentoAprendiz' => $materialEntregas[0]->entrega->aprendiz->numeroDocumento,
-            'nombre' => $materialEntregas[0]->entrega->aprendiz->perfil->nombre,
-            'apellido' => $materialEntregas[0]->entrega->aprendiz->perfil->apellido
-        ];
-        foreach ($materialEntregas as $me) {
-            array_push($materiales, [
-                'id' => $me->material->id,
-                'nombreMaterial' => $me->material->nombreMaterial,
-                'numeroPuntos' => $me->material->numeroPuntos,
-                'clasificacion' => $me->material->clasificacion->nombreClasificacion
-            ]);           
+        try {
+            $materialEntregas = Material_has_entrega::where('entrega_id', $idEntrega)
+            ->get();
+    
+            $materiales = array();
+            $entrega = [
+                'id' => $materialEntregas[0]->entrega->id,   
+                'canjeada' => $materialEntregas[0]->entrega->canjeada,
+                'cantidadMaterial' => $materialEntregas[0]->entrega->cantidadMaterial,
+                'puntosAcumulados' => $materialEntregas[0]->entrega->puntosAcumulados
+            ];
+            $aprendiz = [
+                'idAprendiz' => $materialEntregas[0]->entrega->aprendiz->id,
+                'documentoAprendiz' => $materialEntregas[0]->entrega->aprendiz->numeroDocumento,
+                'nombre' => $materialEntregas[0]->entrega->aprendiz->perfil->nombre,
+                'apellido' => $materialEntregas[0]->entrega->aprendiz->perfil->apellido
+            ];
+            foreach ($materialEntregas as $me) {
+                array_push($materiales, [
+                    'id' => $me->material->id,
+                    'nombreMaterial' => $me->material->nombreMaterial,
+                    'numeroPuntos' => $me->material->numeroPuntos,
+                    'clasificacion' => $me->material->clasificacion->nombreClasificacion
+                ]);           
+            }
+            return response()->json([
+                "aprendiz" => $aprendiz,
+                "entrega" => $entrega,
+                "materiales" => $materiales
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                "error" => $th->getMessage()
+            ], 400);
         }
-        return response()->json([
-            "aprendiz" => $aprendiz,
-            "entrega" => $entrega,
-            "materiales" => $materiales
-        ], 200);
+        
     }
 
 
