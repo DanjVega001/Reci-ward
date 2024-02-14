@@ -19,3 +19,12 @@ class SaveBonoAprendizEvent extends BonoEvent {
     required this.accessToken
   });
 }
+
+class GetHistorialBonosEvent extends BonoEvent {
+  final String accessToken;
+
+  GetHistorialBonosEvent({
+    required this.accessToken
+  });
+    
+}

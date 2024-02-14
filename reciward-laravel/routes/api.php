@@ -97,7 +97,7 @@ Route::group([
          */
         Route::get("/entrega/validada/{idEntrega}", [EntregaController::class, 'validada']);
         /** Obtiene las entregas del aprendiz especificado */
-        Route::get("/entrega/{documento}", [EntregaController::class, 'show']);
+        Route::get("/entrega/{idEntrega}", [EntregaController::class, 'show']);
         /** Actualiza la entrega en caso de algun cambio */
         Route::put("/entrega/{id}", [EntregaController::class, 'update']);
 
@@ -109,7 +109,7 @@ Route::group([
 
         /** Materiales 
          * Muestra los materiales que tiene la entrega */
-        Route::get("/material-entrega/{idEntrega}", [Material_has_entregaController::class, 'show']);
+        Route::get("/entrega-materiales/{idEntrega}", [Material_has_entregaController::class, 'show']);
     });
 
     Route::middleware(['auth:api', 'role:aprendiz'])->group(function () {
@@ -131,8 +131,9 @@ Route::group([
         /** Entrega 
          *  Muestra el historial de entregas que ha tenido el aprendiz
          */
+
         Route::get("/entrega/historial", [EntregaController::class, 'historialPorApz']);
-        
+
         /** Guarda la entrega del aprendiz */
         Route::post("/entrega", [EntregaController::class, 'store']);
         /** Gaurda los materiales dentro de la entrega */

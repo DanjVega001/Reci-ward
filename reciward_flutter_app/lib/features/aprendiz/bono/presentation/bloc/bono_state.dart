@@ -39,3 +39,20 @@ final class SaveBonoAprendizFailed extends BonoState {
     required this.error
   });
 }
+
+final class GetHistorialBonosSuccess extends BonoState {
+  final List<GetHistorialBono> bonos;
+
+  GetHistorialBonosSuccess({
+    required this.bonos
+  });
+}   
+
+final class GetHistorialBonosFailed extends BonoState {
+  final String error;
+
+  GetHistorialBonosFailed({
+    required this.error
+  });
+}   
+

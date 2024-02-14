@@ -3,13 +3,18 @@ import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/widgets/update_user_form_field.dart';
 
 // ignore: must_be_immutable
-class ModalChangePassword extends StatelessWidget {
+class ModalChangePassword extends StatefulWidget {
   Function(String, String, String, bool) onChangePassword;
   bool editar;
 
   ModalChangePassword(
       {super.key, required this.onChangePassword, required this.editar});
 
+  @override
+  State<ModalChangePassword> createState() => _ModalChangePasswordState();
+}
+
+class _ModalChangePasswordState extends State<ModalChangePassword> {
   final TextEditingController passwordController = TextEditingController();
 
   final TextEditingController oldPasswordController = TextEditingController();
@@ -34,21 +39,21 @@ class ModalChangePassword extends StatelessWidget {
           ),
           UpdateUserFormField(
             controller: oldPasswordController,
-            editar: editar,
+            editar: widget.editar,
             label: "Old password",
             type: TextInputType.text,
             isPassword: true,
           ),
           UpdateUserFormField(
             controller: passwordController,
-            editar: editar,
+            editar: widget.editar,
             label: "New password",
             type: TextInputType.text,
             isPassword: true,
           ),
           UpdateUserFormField(
             controller: confirmPasswordController,
-            editar: editar,
+            editar: widget.editar,
             label: "Confirm password",
             type: TextInputType.text,
             isPassword: true,
@@ -58,7 +63,7 @@ class ModalChangePassword extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              onChangePassword(
+              widget.onChangePassword(
                   oldPasswordController.text.trim(),
                   passwordController.text.trim(),
                   confirmPasswordController.text.trim(),
@@ -66,7 +71,8 @@ class ModalChangePassword extends StatelessWidget {
               //Navigator.pop(context);
             },
             style: const ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(Pallete.color1)),
+                backgroundColor: MaterialStatePropertyAll(Pallete.color1),
+                textStyle: MaterialStatePropertyAll(TextStyle(fontFamily: 'Ubuntu'))),
             child: const Text(
               "Save Password",
               style: TextStyle(color: Pallete.colorWhite),

@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/entities/bono_entity.dart';
+import 'package:reciward_flutter_app/features/aprendiz/bono/domain/entities/get_historial_bono.dart';
+import 'package:reciward_flutter_app/features/aprendiz/bono/domain/usecases/get_bonos_historial.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/usecases/get_bonos_usecase.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/usecases/save_bono_aprendiz_usecase.dart';
 
@@ -14,12 +16,25 @@ class BonoBloc extends Bloc<BonoEvent, BonoState> {
 
   GetBonosUsecase usecase = GetIt.instance<GetBonosUsecase>();
   SaveBonoAprendizUsecase saveBonoAprendizUsecase = GetIt.instance<SaveBonoAprendizUsecase>();
+  GetBonosHistorialUsecase getBonosHistorialUsecase = GetIt.instance<GetBonosHistorialUsecase>();
 
 
   BonoBloc() : super(BonoInitial()) {
     on<GetBonosEvent>(onGetBonosEvent);
 
     on<SaveBonoAprendizEvent>(onSaveBonoAprendizEvent);
+
+    on<GetHistorialBonosEvent>(onGetHistorialBonosEvent);
+  }
+
+  void onGetHistorialBonosEvent (GetHistorialBonosEvent event, Emitter<BonoState> emit) async {
+    try {
+      Either<DioException, List<GetHistorialBono>> either = await getBonosHistorialUsecase.call(event.accessToken);
+      return either.fold((dio) => emit(GetHistorialBonosFailed(error: dio.message!)), (data) => emit(GetHistorialBonosSuccess(bonos: data)));
+    } catch (e) {
+      print("Error en onGetHistorialBonosEvent ${e.toString()}");
+      return emit(GetHistorialBonosFailed(error: e.toString()));
+    }
   }
 
   void onGetBonosEvent (GetBonosEvent event, Emitter<BonoState> emit) async{
