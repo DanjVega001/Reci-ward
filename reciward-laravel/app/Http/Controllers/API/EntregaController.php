@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use App\Models\Aprendiz;
 use Illuminate\Http\Request;
 use App\Models\Entrega;
@@ -144,14 +145,45 @@ class EntregaController extends Controller
      * de las entregas por parte del aprendiz como del admnistrador
      */
 
-    public function historialPorApz($id)
+    public function historialPorApz()
     {
-        $idAprendiz =  $this->service->obtenerIdAprendizAutenticado();
+
+        $idAprendiz = $this->service->obtenerIdAprendizAutenticado();
+
         if (!$idAprendiz) {
-            return response()->json(["error" => "Usuario no autorizado"],403);
-        } 
+            return response()->json(["error" => "Usuario no autorizado"], 403);
+        }
+
         $aprendiz = Aprendiz::find($idAprendiz);
-        return $this->historial($aprendiz);   
+
+        $query = DB::table('entregas AS e')
+            ->join('material_has_entregas AS mhe', 'e.id', '=', 'mhe.entrega_id')
+            ->join('materiales AS m', 'm.id', '=', 'mhe.material_id')
+            ->select('e.id', 'e.cantidadMaterial', 'e.canjeada', 'e.puntosAcumulados', 'm.nombreMaterial')
+            ->where('e.aprendiz_id', '=', $aprendiz->id)
+            ->get();
+
+        $entregas = [];
+
+        foreach ($query as $row) {
+            $id = $row->id;
+
+            if (!isset($entregas[$id])) {
+                $entregas[$id] = [
+                    'id' => $row->id,
+                    'cantidadMaterial' => $row->cantidadMaterial,
+                    'canjeada' => $row->canjeada,
+                    'puntosAcumulados' => $row->puntosAcumulados,
+                    'nombreMaterial' => [$row->nombreMaterial]
+                ];
+            } else {
+                $entregas[$id]['nombreMaterial'][] = $row->nombreMaterial;
+            }
+        }
+
+        $entregas = array_values($entregas);
+
+        return response()->json($entregas, 200);
     }
 
     public function historialPorAdmin($documento) {
@@ -175,7 +207,7 @@ class EntregaController extends Controller
             'documento' => $documento,
             'nombre' => $nombre,
             'apellido' => $apellido,
-            'entregas' => $entregas
+            'entregas' => $entregas,
         ], 200);
     }
 

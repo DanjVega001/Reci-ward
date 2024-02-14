@@ -53,7 +53,7 @@ class _ShowModalBonosState extends State<ShowModalBonos> {
           child: Column(
             children: <Widget>[
               const Text(
-                'Eliga el bono',
+                'Elija el bono',
                 style: TextStyle(
                     color: Pallete.colorBlack,
                     fontFamily: 'Ubuntu',

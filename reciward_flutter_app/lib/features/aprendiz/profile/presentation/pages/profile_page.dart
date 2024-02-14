@@ -64,6 +64,9 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         title: const Text(
           "Perfil del usuario",
+          style: TextStyle(
+            fontFamily: 'Ubuntu'
+          ),
         ),
         centerTitle: true,
       ),
@@ -140,7 +143,8 @@ class _ProfilePageState extends State<ProfilePage> {
                         TextButton.icon(
                           style: const ButtonStyle(
                               backgroundColor:
-                                  MaterialStatePropertyAll(Pallete.color1)),
+                                  MaterialStatePropertyAll(Pallete.color1),
+                              ),
                           onPressed: () {
                             setState(() {
                               editar = !editar;
@@ -148,7 +152,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           },
                           label: const Text(
                             "Editar datos",
-                            style: TextStyle(color: Pallete.colorWhite),
+                            style: TextStyle(color: Pallete.colorWhite, fontFamily: 'Ubuntu'),
                           ),
                           icon: const Icon(
                             Icons.edit,
@@ -201,7 +205,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             },
                             child: const Text(
                               "Cambiar contraseña",
-                              style: TextStyle(color: Pallete.colorWhite),
+                              style: TextStyle(color: Pallete.colorWhite, fontFamily: 'Ubuntu'),
                             ),
                           ),
                         ),
@@ -247,7 +251,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             },
                             label: const Text(
                               "Guardar cambios",
-                              style: TextStyle(color: Pallete.colorWhite),
+                              style: TextStyle(color: Pallete.colorWhite, fontFamily: 'Ubuntu'),
                             ),
                             icon: const Icon(
                               Icons.save,
