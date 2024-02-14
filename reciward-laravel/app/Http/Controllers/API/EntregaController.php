@@ -156,40 +156,34 @@ class EntregaController extends Controller
                     ->join('materiales_has_entregas AS mhe', 'e.id','=','mhe.entrega_id')
                     ->join('materiales AS m','m.id','=','mhe.material_id')
                     ->select('e.id', 'e.cantidadMaterial','e.canjeada','e.puntosAcumulados','m.nombreMaterial')
-                    ->where('e.aprendiz','=',$aprendiz->id)->get();
-        $entregas = array();
-        $entregas_id=array();
+                    ->where('e.aprendiz','=',$aprendiz->id)
+                    ->get();
+        
+        $entregas = [];
+
         foreach ($query as $row){
-            $entrega = array(
-                'id' => null,
-                'cantidadMaterial' => null, 
-                'canjeada' => null,
-                'puntosAcumulados' => null,
-                'nombreMaterial' => array()
-            );
+            $id = $row->id;
 
-            if (!in_array($row->id,$entregas_id)) {
-                array_push($entregas_id, $row->id);
-
-                $entrega['id'] = $row->id;
-                $entrega['cantidadMaterial'] = $row->cantidadMaterial;
-                $entrega['canjeada'] = $row->canjeada;
-                $entrega['puntosAcumulados'] = $row->puntosAcumulados;
-
-                array_push($entrega['nombreMaterial'], $row->nombreMaterial);
-            }else {
-                $ids = array_column($entregas, 'id');
-                if (in_array($row->id, $ids)) {
-                    array_push($entrega['nombreMaterial'],$row->nombreMaterial);
+            if (!isset($entregas[$id])){
+                $entregas[$id] = [
+                    'id' => $id,
+                    'cantidadMaterial' => $row->cantidadMaterial,
+                    'canjeada' => $row->canjeada,
+                    'puntosAcumulados' => $row->puntosAcumulados,
+                    'nombreMaterial' => [$row->nombreMaterial]
+                ];
+            } else {
+                $entregas[$id]['nombreMaterial'][]= $row->nombreMaterial;
                 }
             }
-
-            array_push($entregas,$entrega);
+            $entregas = array_values($entregas);
+            
+            return responde()->json($entregas, 200);  
         }
-        
-        return $this->historial($aprendiz);   
-    }
 
+    
+    
+    
     public function historialPorAdmin($documento) {
         $aprendiz = Aprendiz::where('numeroDocumento', $documento)->first();
         return $this->historial($aprendiz);
