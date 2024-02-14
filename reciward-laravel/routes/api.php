@@ -15,8 +15,6 @@ use App\Http\Controllers\API\Aprendiz_has_bonoController;
 use App\Http\Controllers\API\Material_has_entregaController;
 use App\Http\Controllers\API\PuntoController;
 use App\Http\Controllers\API\AuthController;
-use App\Models\Administrador;
-use App\Models\Aprendiz;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
@@ -71,11 +69,11 @@ Route::group([
 
 
         /** RUTAS PERSONALIZADAS */
-        /** Entrega 
+        /** Entrega
          *  Muestra el historial de entregas que ha tenido el aprendiz
          */
         Route::get("/entrega/historial-admin/{documento}", [EntregaController::class, 'historialPorAdmin']);
-        
+
         /** Aprendiz */
         /** Muestra el historial de bonos dela prendiz por su documento */
         Route::get("/aprendiz-bono/admin/{documento}", [AdministradorController::class, 'bonosPorAprendiz']);
@@ -89,7 +87,7 @@ Route::group([
 
         Route::apiResource('bono', BonoController::class);
 
-        
+
 
         /** RUTAS PERSONALIZADAS */
         /** Entrega
@@ -101,21 +99,21 @@ Route::group([
         /** Actualiza la entrega en caso de algun cambio */
         Route::put("/entrega/{id}", [EntregaController::class, 'update']);
 
-        /** Bonos 
+        /** Bonos
          * Muestra el bono creado por el aprendiz a traves del codigo validante del bono */
         Route::get("/aprendiz-bono/{codigoValidante}", [Aprendiz_has_bonoController::class, 'show']);
         /** Actualiza el estado del bono cuando el aprendiz lo haya redimido */
         Route::put("/aprendiz-bono/{id}", [Aprendiz_has_bonoController::class, 'update']);
 
-        /** Materiales 
+        /** Materiales
          * Muestra los materiales que tiene la entrega */
-        Route::get("/entrega-materiales/{idEntrega}", [Material_has_entregaController::class, 'show']);
+        //Route::get("/entrega-materiales/{idEntrega}", [Material_has_entregaController::class, 'show']);
     });
 
     Route::middleware(['auth:api', 'role:aprendiz'])->group(function () {
         // Rutas protegidas para usuarios con el rol "aprendiz".
         //Route::apiResource('perfil', PerfilController::class);
-        /** Perfil 
+        /** Perfil
          * Este metodo devuelve el perfil del aprendiz autenticado */
         Route::get("/perfil/ver", [PerfilController::class,'verPerfil']);
         //Route::put("/perfil", [PerfilController::class,'update']);
@@ -123,12 +121,12 @@ Route::group([
 
         /** RUTAS PERSONALIZADAS */
         /** Material
-         * 
+         *
          * Obtener los materiales de reciclaje
          */
         Route::get("/material-aprendiz", [MaterialController::class, 'index']);
 
-        /** Entrega 
+        /** Entrega
          *  Muestra el historial de entregas que ha tenido el aprendiz
          */
 
@@ -140,13 +138,13 @@ Route::group([
         //Route::post("/material-entrega", [Material_has_entregaController::class, 'store']);
         /** Elimina la entrega del aprendiz */
         Route::delete("/entrega/{id}", [EntregaController::class, 'destroy']);
-       
-        /** Aprendiz 
+
+        /** Aprendiz
          * Actualizar algunos datos, como la contraseña y el correo
         */
         Route::put("/aprendiz-actualizar", [AprendizController::class, 'update']);
 
-        /** Bonos 
+        /** Bonos
          * Muestra los bonos no redmidos del aprendiz
         */
         Route::get("/aprendiz-bono", [Aprendiz_has_bonoController::class, 'bonosPorAprendiz']);
@@ -154,7 +152,7 @@ Route::group([
         Route::post("/save-aprendiz-bono", [Aprendiz_has_bonoController::class,'store']);
         Route::delete("/aprendiz-bono/{id}", [Aprendiz_has_bonoController::class, 'destroy']);
 
-        /** Puntos 
+        /** Puntos
          * Obtiene los puntos del aprendiz
         */
         Route::get("/punto/ver", [PuntoController::class, 'show']);
@@ -170,7 +168,7 @@ Route::group([
 Route::get('/login-google', function () {
     return Socialite::driver('google')->redirect();
 });
- 
+
 Route::get('/google-callback', function () {
     $user = Socialite::driver('google')->user();
 

@@ -41,8 +41,8 @@ class EntregaController extends Controller
             $idAprendiz = $this->service->obtenerIdAprendizAutenticado();
             if (!$idAprendiz) {
                 return response()->json(["error" => "Usuario no autorizado"],403);
-            } 
-            
+            }
+
             $entrega = Entrega::create([
                 'aprendiz_id' => $idAprendiz,
                 'cafeteria_id' => 1,
@@ -51,16 +51,17 @@ class EntregaController extends Controller
                 'cantidadMaterial' => $request->cantidadMaterial
             ]);
             $materiales =  $request->materiales;
-            foreach ($materiales as $material_id) {
+            foreach ($materiales as $material) {
                 $materialEntregas = Material_has_entrega::create([
                     'entrega_id' => $entrega->id,
-                    'material_id' => $material_id
+                    'material_id' => $material["id"],
+                    'numeroMaterial' => $material["numeroMaterial"]
                 ]);
             }
-            
-            return response()->json(["message" => "Entrega realizada"], 201);     
+
+            return response()->json(["message" => "Entrega realizada"], 201);
         } catch (\Throwable $th) {
-            return response()->json(["error" => $th->getMessage()], 400);    
+            return response()->json(["error" => $th->getMessage()], 400);
         }
     }
 
@@ -69,8 +70,8 @@ class EntregaController extends Controller
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     * 
-     * 
+     *
+     *
      * Este metodo retorna las entregas no canjeadas de un aprendiz. El perfil de cafeteria
      * podra dirigirse a una entrega para consultar la informacion de los materiales a entrgar
      * por el aprendiz
@@ -93,9 +94,8 @@ class EntregaController extends Controller
 
         $materiales = DB::table('materiales AS m')
                         ->join('material_has_entregas AS mhe', 'm.id', '=', 'mhe.material_id')
-                        ->select('m.nombreMaterial', 'm.numeroPuntos')
+                        ->select('m.nombreMaterial', 'm.numeroPuntos', 'mhe.numeroMaterial')
                         ->where('mhe.entrega_id', '=', $entrega->id)->get();
-            
 
         if (!$entrega) {
             return response()->json(["message" => "El aprendiz no tiene entregas por hacer"], 404);
@@ -147,10 +147,10 @@ class EntregaController extends Controller
     }
 
     /**
-     * 
+     *
      * @param int $documento
      * @return Illuminate\Http\Response
-     * 
+     *
      * Muestra el historial de las entregas del aprendiz, para ser utilizado como seguimiento
      * de las entregas por parte del aprendiz como del admnistrador
      */
@@ -172,23 +172,7 @@ class EntregaController extends Controller
                     ->select('e.id', 'e.cantidadMaterial','e.canjeada','e.puntosAcumulados','m.nombreMaterial')
                     ->where('e.aprendiz','=',$aprendiz->id)
                     ->get();
-        
-        $entregas = [];
 
-        foreach ($query as $row){
-            $id = $row->id;
-
-            if (!isset($entregas[$id])){
-                $entregas[$id] = [
-                    'id' => $id,
-
-
-        $query = DB::table('entregas AS e')
-            ->join('material_has_entregas AS mhe', 'e.id', '=', 'mhe.entrega_id')
-            ->join('materiales AS m', 'm.id', '=', 'mhe.material_id')
-            ->select('e.id', 'e.cantidadMaterial', 'e.canjeada', 'e.puntosAcumulados', 'm.nombreMaterial')
-            ->where('e.aprendiz_id', '=', $aprendiz->id)
-            ->get();
 
         $entregas = [];
 
@@ -206,12 +190,12 @@ class EntregaController extends Controller
             } else {
 
                 $entregas[$id]['nombreMaterial'][]= $row->nombreMaterial;
-                
+
             }
             $entregas = array_values($entregas);
-            
-          
-        
+
+
+
         }
 
         $entregas = array_values($entregas);
@@ -220,15 +204,15 @@ class EntregaController extends Controller
     }
 
 
-    
-    
-    
+
+
+
     public function historialPorAdmin($documento) {
         $aprendiz = Aprendiz::where('numeroDocumento', $documento)->first();
         return $this->historial($aprendiz);
     }
 
-    private function historial ($aprendiz) {    
+    private function historial ($aprendiz) {
         if (!$aprendiz) {
             return response()->json(["error" => "Aprendiz no encontrado"], 404);
         }
@@ -250,14 +234,14 @@ class EntregaController extends Controller
     }
 
     /**
-     * 
+     *
      * @param int $idEntrega
      * @return Illuminate\Http\Response
      *
-     * Esta funcion se encarga de asignar los puntos de la entrega a los puntos 
-     * acumulados por el aprendiz, tambien cambiara el estado de la entrega a 
-     * canjeada. Todo esto despues de hacer valida la enrega por el perfil de 
-     * cafeteria. 
+     * Esta funcion se encarga de asignar los puntos de la entrega a los puntos
+     * acumulados por el aprendiz, tambien cambiara el estado de la entrega a
+     * canjeada. Todo esto despues de hacer valida la enrega por el perfil de
+     * cafeteria.
      */
     public function validada($idEntrega)
     {
@@ -271,18 +255,18 @@ class EntregaController extends Controller
         }
         $puntosEntrega = $entrega->puntosAcumulados;
         $puntos = Punto::where('aprendiz_id', $entrega->aprendiz_id)->first();
-       
+
         if (!$puntos) {
             $puntos = Punto::create([
                 'cantidadAcumulada' => $puntosEntrega,
                 'puntosUtilizados' => 0,
                 'aprendiz_id' => $entrega->aprendiz_id
-            ]);        
+            ]);
         } else {
             $puntos->update([
                 'cantidadAcumulada' => $puntos->cantidadAcumulada + $puntosEntrega
             ]);
-        }        
+        }
         $entrega->update([
             'canjeada' => 1
         ]);

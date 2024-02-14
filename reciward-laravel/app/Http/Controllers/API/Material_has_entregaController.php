@@ -8,6 +8,7 @@ use App\Models\Material;
 use Illuminate\Http\Request;
 use App\Models\Entrega;
 use App\Models\Material_has_entrega;
+use App\Service\FuncionesService;
 use Illuminate\Support\Facades\DB;
 
 class Material_has_entregaController extends Controller
@@ -17,7 +18,7 @@ class Material_has_entregaController extends Controller
         $this->service = $service;
     }
 
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -26,13 +27,13 @@ class Material_has_entregaController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         try {
             $idAprendiz = $this->service->obtenerIdAprendizAutenticado();
             if (!$idAprendiz) {
                 return response()->json(["error" => "Usuario no autorizado"],403);
-            } 
-            
+            }
+
             $entrega = Entrega::create([
                 'aprendiz_id' => $idAprendiz,
                 'cafeteria_id' => 1,
@@ -47,12 +48,12 @@ class Material_has_entregaController extends Controller
                     'material_id' => $material_id
                 ]);
             }
-            
-            return response()->json(["message" => "Entrega realizada"], 201);     
+
+            return response()->json(["message" => "Entrega realizada"], 201);
         } catch (\Throwable $th) {
-            return response()->json(["error" => $th->getMessage()], 400);    
+            return response()->json(["error" => $th->getMessage()], 400);
         }
-           
+
     }
 
     /**
@@ -60,7 +61,7 @@ class Material_has_entregaController extends Controller
      *
      * @param  int  $id = idEntrega
      * @return \Illuminate\Http\Response
-     * 
+     *
      * Este metodo retorna los materiales de la entrega del aprendiz que selecciono el del
      * perfil de cafeteria -- este metodo es el sucesor al show del EntregaController.
      */
@@ -69,10 +70,10 @@ class Material_has_entregaController extends Controller
         try {
             $materialEntregas = Material_has_entrega::where('entrega_id', $idEntrega)
             ->get();
-    
+
             $materiales = array();
             $entrega = [
-                'id' => $materialEntregas[0]->entrega->id,   
+                'id' => $materialEntregas[0]->entrega->id,
                 'canjeada' => $materialEntregas[0]->entrega->canjeada,
                 'cantidadMaterial' => $materialEntregas[0]->entrega->cantidadMaterial,
                 'puntosAcumulados' => $materialEntregas[0]->entrega->puntosAcumulados
@@ -89,7 +90,7 @@ class Material_has_entregaController extends Controller
                     'nombreMaterial' => $me->material->nombreMaterial,
                     'numeroPuntos' => $me->material->numeroPuntos,
                     'clasificacion' => $me->material->clasificacion->nombreClasificacion
-                ]);           
+                ]);
             }
             return response()->json([
                 "aprendiz" => $aprendiz,
@@ -101,7 +102,7 @@ class Material_has_entregaController extends Controller
                 "error" => $th->getMessage()
             ], 400);
         }
-        
+
     }
 
 
