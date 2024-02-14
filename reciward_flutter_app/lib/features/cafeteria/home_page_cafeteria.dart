@@ -53,6 +53,62 @@ class HomePageCafeteria extends StatelessWidget {
                 children: <Widget>[
                   const Image(
                       image: AssetImage("assets/images/logo_reciward.jpg")),
+                  Card(
+                    color: Pallete.color1,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(25, 15, 25, 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          const Text(
+                            'Instrucciones de uso',
+                            style: TextStyle(
+                                color: Pallete.colorWhite,
+                                fontSize: 21.0,
+                                fontFamily: 'Ubuntu'),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          const Text(
+                            'Guía de uso y recomendaciones para la aplicación',
+                            style: TextStyle(
+                                color: Pallete.colorWhite,
+                                fontSize: 15,
+                                fontFamily: 'Ubuntu'),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          TextButton(
+                            style: const ButtonStyle(
+                              backgroundColor:
+                                  MaterialStatePropertyAll(Pallete.colorGrey2),
+                            ),
+                            onPressed: () {
+                              Navigator.pushNamed(context, "/manual");
+                            },
+                            child: const Text(
+                              'Explorar',
+                              style: TextStyle(
+                                  color: Pallete.color1,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w800,
+                                  fontFamily: 'Ubuntu'),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 20,),
+                  const Text(
+                    "Menú",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'Ubuntu',    
+                    ),
+                  ),
                   Expanded(
                     child: CustomScrollView(
                       primary: false,
@@ -60,25 +116,32 @@ class HomePageCafeteria extends StatelessWidget {
                         SliverGrid.count(
                           crossAxisSpacing: 5,
                           mainAxisSpacing: 5,
-                          crossAxisCount: 2,
+                          crossAxisCount: 3,
                           children: <Widget>[
                             TextButton.icon(
                               onPressed: () {},
                               icon: const Icon(Icons.book_online_rounded),
                               label: const Text("Bonos"),
-                              
                               style: const ButtonStyle(
-                                alignment: Alignment.center,
-                                fixedSize: MaterialStatePropertyAll(Size(20, 20))
+                                alignment: Alignment.centerLeft,
+                                iconSize: MaterialStatePropertyAll(30),
+                                foregroundColor:
+                                    MaterialStatePropertyAll(Pallete.color1),
+                                textStyle: MaterialStatePropertyAll(TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w600)),
                               ),
-                              
                             ),
                             TextButton.icon(
                               onPressed: () {},
                               icon: const Icon(Icons.checklist_rounded),
                               label: const Text("Validar Bonos"),
                               style: const ButtonStyle(
-                                alignment: Alignment.center
+                                alignment: Alignment.center,
+                                iconSize: MaterialStatePropertyAll(30),
+                                textStyle: MaterialStatePropertyAll(TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w600)),
+                                foregroundColor:
+                                    MaterialStatePropertyAll(Pallete.color1),
                               ),
                             ),
                             TextButton.icon(
@@ -86,12 +149,13 @@ class HomePageCafeteria extends StatelessWidget {
                               icon: const Icon(Icons.delivery_dining_rounded),
                               label: const Text("Validar Entrega"),
                               style: const ButtonStyle(
-                                alignment: Alignment.center
+                                alignment: Alignment.centerRight,
+                                iconSize: MaterialStatePropertyAll(30),
+                                textStyle: MaterialStatePropertyAll(TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w600)),
+                                foregroundColor:
+                                    MaterialStatePropertyAll(Pallete.color1),
                               ),
-                            ),
-                            const Icon(
-                              Icons.blur_on
-                              
                             ),
                           ],
                         )
