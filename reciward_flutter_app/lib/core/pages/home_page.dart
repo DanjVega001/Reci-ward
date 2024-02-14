@@ -33,8 +33,10 @@ class _HomePageState extends State<HomePage> {
                   children: <Widget>[
                     const Text(
                       'Instrucciones de uso',
-                      style:
-                          TextStyle(color: Pallete.colorWhite, fontSize: 21.0, fontFamily:'Ubuntu'),
+                      style: TextStyle(
+                          color: Pallete.colorWhite,
+                          fontSize: 21.0,
+                          fontFamily: 'Ubuntu'),
                     ),
                     const SizedBox(
                       height: 5,
@@ -42,10 +44,9 @@ class _HomePageState extends State<HomePage> {
                     const Text(
                       'Guía de uso y recomendaciones para la aplicación',
                       style: TextStyle(
-                        color: Pallete.colorWhite,
-                        fontSize: 15,
-                        fontFamily:'Ubuntu'
-                      ),
+                          color: Pallete.colorWhite,
+                          fontSize: 15,
+                          fontFamily: 'Ubuntu'),
                     ),
                     const SizedBox(
                       height: 5,
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage> {
                             MaterialStatePropertyAll(Pallete.colorGrey2),
                       ),
                       onPressed: () {
-                        
+                        Navigator.pushNamed(context, "/manual");
                       },
                       child: const Text(
                         'Explorar',
@@ -64,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                             color: Pallete.color1,
                             fontSize: 15,
                             fontWeight: FontWeight.w800,
-                            fontFamily:'Ubuntu'),
+                            fontFamily: 'Ubuntu'),
                       ),
                     )
                   ],
@@ -76,7 +77,10 @@ class _HomePageState extends State<HomePage> {
               padding: const EdgeInsets.only(left: 15),
               child: const Text(
                 'Consejos ambientales: Sé parte de la solución',
-                style: TextStyle(fontSize: 19.0, fontWeight: FontWeight.w600, fontFamily: 'Ubuntu'),
+                style: TextStyle(
+                    fontSize: 19.0,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Ubuntu'),
               ),
             ),
             BlocBuilder<TipBloc, TipState>(
@@ -97,15 +101,16 @@ class _HomePageState extends State<HomePage> {
                         itemCount: tips.length,
                         itemBuilder: (context, index) {
                           TipEntity tip = tips[index];
-                          return ListTile(
-                            leading: const FlutterLogo(),
+                          return ExpansionTile(
+                            children: <Widget>[
+                              ListTile(title: Text(tip.descripcion!))
+                            ],
+                            leading: const Icon(Icons.recycling,
+                                color: Colors.green),
                             title: Text(
                               tip.nombreTips ?? "No hay titulo",
                               style:
                                   const TextStyle(fontWeight: FontWeight.w600),
-                            ),
-                            subtitle: Text(
-                              tip.descripcion ?? "No hay descripcion",
                             ),
                           );
                         },

@@ -8,6 +8,7 @@ import 'package:reciward_flutter_app/features/aprendiz/bono/util/setup_bono_depe
 import 'package:reciward_flutter_app/features/aprendiz/entrega/presentation/bloc/entrega_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/presentation/pages/home_entrega_page.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/util/setup_entrega_dependencies.dart';
+import 'package:reciward_flutter_app/features/aprendiz/manual/pages/manual.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/pages/profile_page.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/util/setup_profile_dependencies.dart';
@@ -49,6 +50,7 @@ void main() {
         '/send-mail': (context) => const SendMailResetPasswordPage(),
         '/reset-password': (context) => const ResetPasswordPage(),
         '/profile': (context) => const ProfilePage(),
+        '/manual': (context) => const ManualUser(),
       },
       home: const LoginPage(),
     ),
