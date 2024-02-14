@@ -24,6 +24,7 @@ import 'package:reciward_flutter_app/features/auth/presentation/pages/auth_pages
 import 'package:reciward_flutter_app/features/auth/presentation/pages/auth_pages/signup_page.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/providers/ficha_provider.dart';
 import 'package:reciward_flutter_app/features/auth/util/setup_auth_dependencies.dart';
+import 'package:reciward_flutter_app/features/cafeteria/home_page_cafeteria.dart';
 import 'package:reciward_flutter_app/features/material/presentation/bloc/material_bloc.dart';
 import 'package:reciward_flutter_app/features/material/util/setup_material_dependencies.dart';
 
@@ -51,6 +52,7 @@ void main() {
         '/reset-password': (context) => const ResetPasswordPage(),
         '/profile': (context) => const ProfilePage(),
         '/manual': (context) => const ManualUser(),
+        '/home-cafeteria':(context) => const HomePageCafeteria()
       },
       home: const LoginPage(),
     ),
