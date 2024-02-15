@@ -21,7 +21,8 @@ class EntregaService {
     );
 
     try {
-      final response = await dio.post(urlApiSaveEntrega, options: options, data: saveEntregaDto.toJson());
+      final response = await dio.post(urlApiSaveEntrega,
+          options: options, data: saveEntregaDto.toJson());
 
       if (response.statusCode == 201) {
         return right(response.data['message']);

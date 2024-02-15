@@ -7,8 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Aprendiz;
 use App\Models\Aprendiz_has_bono;
 use App\Models\Entrega;
-use App\Models\Ficha;
-use App\Models\Material_has_entrega;
 use App\Models\Perfil;
 use App\Models\Punto;
 use App\Models\User;
