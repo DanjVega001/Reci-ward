@@ -1,3 +1,5 @@
+import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/get_entrega_material_entity.dart';
+
 class EntregaEntity {
   final String ? id;
   final int ? cantidadMaterial;
@@ -5,6 +7,7 @@ class EntregaEntity {
   final int ? puntosAcumulados;
   final String ? cafeteriaId;
   final String ? aprendizId;
+  final List<GetEntregaMaterialEntity> ? materiales;
 
   const EntregaEntity({
     this.id,
@@ -12,6 +15,7 @@ class EntregaEntity {
     this.puntosAcumulados,
     this.canjeada,
     this.aprendizId,
-    this.cafeteriaId
+    this.cafeteriaId,
+    this.materiales
   });
 }
