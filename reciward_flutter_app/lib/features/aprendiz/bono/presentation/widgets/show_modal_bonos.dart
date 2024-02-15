@@ -95,6 +95,7 @@ class _ShowModalBonosState extends State<ShowModalBonos> {
                     onPressed: () {
                       String accessToken = (BlocProvider.of<ProfileBloc>(context).state as UserProfileState).user!.accces_token!;
                       BlocProvider.of<BonoBloc>(context).add(SaveBonoAprendizEvent(bonoId: selectedValueId, accessToken: accessToken));
+                      BlocProvider.of<BonoBloc>(context).add(GetHistorialBonosEvent(accessToken: accessToken));
                     },
                     icon: const Icon(Icons.check, color: Pallete.colorWhite),
                     style: const ButtonStyle(

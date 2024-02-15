@@ -81,7 +81,8 @@ class BonoService {
     try {
       final response = await dio.get(urlApiGetHistorialBono, options: options);
       if (response.statusCode == 200) {
-        final data = (response.data as List).map((e) => GetHistorialBono.fromJson(e)).toList();
+
+        final data = (response.data["bonos"] as List).map((e) => GetHistorialBono.fromJson(e)).toList();
         return right(data);
       }
 

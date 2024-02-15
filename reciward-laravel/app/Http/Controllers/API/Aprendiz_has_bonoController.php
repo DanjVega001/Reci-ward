@@ -42,7 +42,8 @@ class Aprendiz_has_bonoController extends Controller
                 'fechaCreacion' => $apBono->fechaCreacion,
                 'fechaVencimiento' => $apBono->fechaVencimiento,
                 'codigoValidante' => $apBono->codigoValidante,
-                'valorBono' => $apBono->bono->valorBono
+                'valorBono' => $apBono->bono->valorBono,
+                'estadoBono' => $apBono->estadoBono
             ]);
         }
         $aprendiz = $aprendiz_has_bono[0]->aprendiz;

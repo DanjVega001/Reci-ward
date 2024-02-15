@@ -30,6 +30,7 @@ class BonoBloc extends Bloc<BonoEvent, BonoState> {
   void onGetHistorialBonosEvent (GetHistorialBonosEvent event, Emitter<BonoState> emit) async {
     try {
       Either<DioException, List<GetHistorialBono>> either = await getBonosHistorialUsecase.call(event.accessToken);
+
       return either.fold((dio) => emit(GetHistorialBonosFailed(error: dio.message!)), (data) => emit(GetHistorialBonosSuccess(bonos: data)));
     } catch (e) {
       print("Error en onGetHistorialBonosEvent ${e.toString()}");

@@ -1,7 +1,12 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 import 'package:reciward_flutter_app/core/widgets/app_bar_reciward.dart';
 import 'package:reciward_flutter_app/core/widgets/nav_reciward.dart';
+import 'package:reciward_flutter_app/features/aprendiz/bono/domain/entities/get_historial_bono.dart';
+import 'package:reciward_flutter_app/features/aprendiz/bono/presentation/bloc/bono_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/puntos/presentation/widgets/get_puntos_banner.dart';
 
 class HomeBonoPage extends StatefulWidget {
@@ -13,26 +18,29 @@ class HomeBonoPage extends StatefulWidget {
 
 class _HomeBonoPageState extends State<HomeBonoPage> {
   bool _showTable = false;
-  List<List<String>> _tableData = []; 
+  List<List<String>> _tableData = [];
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Pallete.colorWhite,
       appBar: AppBarReciward(),
       body: Column(
         children: [
           GetPuntosBanner(),
-          SizedBox(height: 20), 
+          SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
               setState(() {
-                _showTable = !_showTable; 
+                _showTable = !_showTable;
               });
             },
-            child: Text(_showTable ? '  Ocultar historial de bonos  ' : '  Mostrar historial de bonos  '),
+            child: Text(_showTable
+                ? '  Ocultar historial de bonos  '
+                : '  Mostrar historial de bonos  '),
           ),
-          SizedBox(height: 10), 
+          SizedBox(height: 10),
           if (_showTable) ...[
             Text(
               'Historial',
@@ -43,48 +51,100 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
             ),
             SizedBox(height: 10),
             Container(
-              width: 350, 
+              width: 430,
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 214, 226, 201), 
-                border: Border.all(color: const Color.fromARGB(255, 89, 94, 83)),
-                borderRadius: BorderRadius.circular(10), 
+                color: Color.fromARGB(255, 221, 221, 220),
+                border:
+                    Border.all(color: Color.fromARGB(255, 84, 104, 59)),
+                borderRadius: BorderRadius.circular(10),
               ),
-              child: Table(
-                border: TableBorder.all(color: Colors.transparent), 
-                columnWidths: {
-                  0: FixedColumnWidth(50), 
+              child: BlocBuilder<BonoBloc, BonoState>(
+                builder: (context, state) {
+                  if (state is GetHistorialBonosSuccess) {
+                    final bonos = state.bonos;
+                    return Table(
+                      border: TableBorder.all(color: Colors.transparent),
+                      columnWidths: {
+                        0: FixedColumnWidth(50),
+                      },
+                      defaultColumnWidth: FixedColumnWidth(100),
+                      children: _buildTableRows(
+                          bonos), // Utiliza una función para construir las filas de la tabla
+                    );
+                  }
+                  return Center( 
+                    child: Text("Cargando..."));
                 },
-                defaultColumnWidth: FixedColumnWidth(100), 
-                children: _buildTableRows(), // Utiliza una función para construir las filas de la tabla
               ),
             ),
           ],
         ],
       ),
-      bottomNavigationBar: NavReciward(currentIndex: 2,),
+      bottomNavigationBar: NavReciward(
+        currentIndex: 2,
+      ),
     );
   }
 
-  List<TableRow> _buildTableRows() {
+  List<TableRow> _buildTableRows(List<GetHistorialBono> bonos) {
     List<TableRow> rows = [];
-
     // Agrega la fila de encabezado
     rows.add(
       TableRow(
         children: [
-          TableCell(child: Center(child: Text('Id', style: TextStyle(fontSize: 16)))),
-          TableCell(child: Center(child: Text('Codigo', style: TextStyle(fontSize: 16)))),
-          TableCell(child: Center(child: Text('Estado', style: TextStyle(fontSize: 16)))),
-          TableCell(child: Center(child: Text('Caduca', style: TextStyle(fontSize: 16)))),
+          TableCell(
+              child: Center(child: Text('Id', style: TextStyle(fontSize: 16)))),
+          TableCell(
+              child: Center(
+                  child: Text('Codigo', style: TextStyle(fontSize: 16)))),
+          TableCell(
+              child: Center(
+                  child: Text('Estado', style: TextStyle(fontSize: 16)))),
+          TableCell(
+              child: Center(
+                  child: Text('Caduca', style: TextStyle(fontSize: 16)))),
         ],
       ),
     );
 
     // Agrega las filas de datos
-    for (List<String> rowData in _tableData) {
+    for (GetHistorialBono bono in bonos) {
       rows.add(
         TableRow(
-          children: rowData.map((data) => TableCell(child: Center(child: Text(data, style: TextStyle(fontSize: 14))))).toList(),
+          children: [
+            TableCell(
+              child: Center(
+                child: Text(
+                  bono.id!,
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+            ),
+            TableCell(
+              child: Center(
+                child: Text(
+                  bono.codigoValidante!,
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+            ),
+            TableCell(
+              child: Center(
+                child: Text(
+                  bono.estadoBono! ? "Activo" : "Inactivo",
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+            ),
+            TableCell(
+              child: Center(
+                child: Text(
+                  bono.fechaVencimiento!,
+                  style: TextStyle(fontSize: 14),
+                ),
+              ),
+            ),
+          ],
         ),
       );
     }
