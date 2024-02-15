@@ -6,21 +6,18 @@ class SaveEntregaEvent extends EntregaEvent {
   final String accessToken;
   final SaveEntregaDto saveEntregaDto;
 
-  SaveEntregaEvent({
-    required this.accessToken,
-    required this.saveEntregaDto
-  }); 
+  SaveEntregaEvent({required this.accessToken, required this.saveEntregaDto});
 
-  GlobalException ? validate(){
-    
+  GlobalException? validate() {
     if (accessToken.trim().isEmpty) {
       return GlobalException(errorMessage: "User Unathenticated");
     }
 
-    if (saveEntregaDto.cantidadMaterial <= 0 || saveEntregaDto.cantidadMaterial <= 0) {
+    if (saveEntregaDto.cantidadMaterial <= 0 ||
+        saveEntregaDto.cantidadMaterial <= 0) {
       return GlobalException(errorMessage: "You must choose some material");
     }
-    
+
     return null;
   }
 }

@@ -1,4 +1,3 @@
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,29 +10,28 @@ part 'entrega_event.dart';
 part 'entrega_state.dart';
 
 class EntregaBloc extends Bloc<EntregaEvent, EntregaState> {
-
   SaveEntregaUsecase usecase = GetIt.instance<SaveEntregaUsecase>();
 
   EntregaBloc() : super(EntregaInitial()) {
     on<SaveEntregaEvent>(onSaveEntregaEvent);
   }
 
-  void onSaveEntregaEvent(SaveEntregaEvent event, Emitter<EntregaState> emit) async {
+  void onSaveEntregaEvent(
+      SaveEntregaEvent event, Emitter<EntregaState> emit) async {
     try {
-
       final validate = event.validate();
-      if (validate!=null) {
+      if (validate != null) {
         return emit(SaveEntregaFailed(error: validate.getErrorMessage()));
       }
 
       emit(SaveEntregaLoading());
 
-      Either<DioException, String> either = await usecase.call(event.accessToken, event.saveEntregaDto);
+      Either<DioException, String> either =
+          await usecase.call(event.accessToken, event.saveEntregaDto);
 
       return either.fold((dioException) {
         emit(SaveEntregaFailed(error: dioException.message!));
-      }, 
-      (message) {
+      }, (message) {
         emit(SaveEntregaSuccess(message: message));
       });
     } catch (e) {

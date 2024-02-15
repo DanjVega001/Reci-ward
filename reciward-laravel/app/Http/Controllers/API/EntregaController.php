@@ -166,11 +166,11 @@ class EntregaController extends Controller
 
         $aprendiz = Aprendiz::find($idAprendiz);
 
-        $query = DB::table('entregas AS mhe')
-                    ->join('materiales_has_entregas AS mhe', 'e.id','=','mhe.entrega_id')
+        $query = DB::table('entregas AS e')
+                    ->join('material_has_entregas AS mhe', 'e.id','=','mhe.entrega_id')
                     ->join('materiales AS m','m.id','=','mhe.material_id')
                     ->select('e.id', 'e.cantidadMaterial','e.canjeada','e.puntosAcumulados','m.nombreMaterial')
-                    ->where('e.aprendiz','=',$aprendiz->id)
+                    ->where('e.aprendiz_id','=',$aprendiz->id)
                     ->get();
 
 
