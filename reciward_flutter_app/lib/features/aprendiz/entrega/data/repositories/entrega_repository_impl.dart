@@ -30,6 +30,17 @@ class EntregaRepositoryImpl extends EntregaRepository {
   Future<Either<DioException, GetEntregaCafeteriaDto>> getEntregaCafeteria(String accessToken, int idEntrega) {
     return service.getEntregaCafeteria(accessToken, idEntrega);
   }
+  
+
+
+
+
+
+
+  @override
+  Future<Either<DioException, String>> validarEntrega(String accessToken, int idEntrega) {
+    return service.validarEntrega(accessToken, idEntrega);
+  }
 
 }
 

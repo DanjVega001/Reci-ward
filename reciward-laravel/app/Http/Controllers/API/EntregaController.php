@@ -273,6 +273,6 @@ class EntregaController extends Controller
         $entrega->update([
             'canjeada' => 1
         ]);
-        return response()->json("Cambios en postvalidacion hechos", 200);
+        return response()->json(["message" => "Entrega validada"], 200);
     }
 }
