@@ -47,3 +47,14 @@ class GetEntregaCafeteriaEvent extends EntregaEvent {
     return null;
   }
 }
+
+class ValidarEntregaEvent extends EntregaEvent {
+  final String accessToken;
+  final int idEntrega;
+
+  ValidarEntregaEvent({
+    required this.idEntrega,
+    required this.accessToken,
+  }); 
+
+}

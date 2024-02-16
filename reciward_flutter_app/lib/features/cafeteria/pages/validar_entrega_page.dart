@@ -1,15 +1,20 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/entrega_entity.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/get_entrega_material_entity.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/presentation/bloc/entrega_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
+import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_button.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_field.dart';
 
 class ValidarEntregaPage extends StatelessWidget {
   ValidarEntregaPage({super.key});
 
   final TextEditingController searchController = TextEditingController();
+  int idEntrega = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -51,44 +56,135 @@ class ValidarEntregaPage extends StatelessWidget {
             ),
             BlocConsumer<EntregaBloc, EntregaState>(
               listener: (context, state) {
-                
+                if (state is ValidarEntregaFailed) {
+                  ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(state.error)));
+                  Navigator.pop(context);
+                }
+                if (state is ValidarEntregaSuccess) {
+                  ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(state.message)));
+                  Navigator.pop(context);
+                  
+                }
               },
               builder: (context, state) {
                 if (state is GetEntregaCafeteriaSuccess) {
                   final data = state.data;
                   EntregaEntity entrega = data.entrega!;
-        
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text("Nombres:${data.nombre} ${data.apellido}"),
-                      Text("Documento:${data.documento}"),
-                      Text("Cod Entrega:${entrega.id}"),
-                      Text("Cantidad total:${entrega.cantidadMaterial}"),
-                      Text("Puntos totales:${entrega.puntosAcumulados}"),
-                      Expanded(
-                        child: SizedBox(
-                          height: 300,
-                          child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemCount: entrega.materiales!.length,
-                            itemBuilder: (context, index) {
-                              GetEntregaMaterialEntity material = data.entrega!.materiales![index];
-                              return ListTile(
-                                title: Text(material.nombreMaterial!),
-                                //subtitle: Text("${material.numeroPuntos}"),
-                                //trailing: Text("Cant:${material.numeroMaterial}"),
-                              );
-                            },
-                          ),
+                  idEntrega = int.parse(entrega.id!);
+                  return Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text("Cod Entrega: ${entrega.id}",
+                                style: const TextStyle(
+                                    fontFamily: 'Ubuntu',
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text(
+                              "Nombres: ${data.nombre} ${data.apellido}",
+                              style: const TextStyle(
+                                  fontFamily: 'Ubuntu',
+                                  fontWeight: FontWeight.w700),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text("Documento: ${data.documento}",
+                                style: const TextStyle(
+                                    fontFamily: 'Ubuntu',
+                                    fontWeight: FontWeight.w700)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text("Cantidad total: ${entrega.cantidadMaterial}",
+                                style: const TextStyle(
+                                    fontFamily: 'Ubuntu',
+                                    fontWeight: FontWeight.w700)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Text("Puntos totales: ${entrega.puntosAcumulados}",
+                                style: const TextStyle(
+                                    fontFamily: 'Ubuntu',
+                                    fontWeight: FontWeight.w700)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            const Text("Materiales",
+                                style: TextStyle(
+                                    fontFamily: 'Ubuntu',
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 20)),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            SizedBox(
+                              height: 160,
+                              child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                itemCount: entrega.materiales!.length,
+                                itemBuilder: (context, index) {
+                                  GetEntregaMaterialEntity material =
+                                      data.entrega!.materiales![index];
+                                  return Card(
+                                    color: Pallete.colorWhite,
+                                    elevation: 3,
+                                    child: ListTile(
+                                      title: Text(material.nombreMaterial!,
+                                          style: const TextStyle(
+                                              fontFamily: 'Ubuntu',
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 15,
+                                              color: Pallete.colorBlack)),
+                                      subtitle: Text(
+                                          "Puntos ${material.numeroPuntos}",
+                                          style: const TextStyle(
+                                              fontFamily: 'Ubuntu',
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 15,
+                                              color: Pallete.colorBlack)),
+                                      trailing: Text(
+                                          "Cant ${material.numeroMaterial}",
+                                          style: const TextStyle(
+                                              fontFamily: 'Ubuntu',
+                                              fontWeight: FontWeight.w700,
+                                              fontSize: 15,
+                                              color: Pallete.colorBlack)),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            AuthFormButton(
+                              onPressed: () {
+                                String accessToken = (BlocProvider.of<ProfileBloc>(context).state as UserProfileState).user!.accces_token!;
+                                BlocProvider.of<EntregaBloc>(context).add(ValidarEntregaEvent(accessToken: accessToken, idEntrega: idEntrega));
+                              },
+                              text: "Aceptar entrega",
+                            )
+                          ],
                         ),
                       ),
-                    ],
+                    ),
                   );
                 }
-
-                return Text("Sin datos");
+                return const Center(child: Text("Sin datos", style: TextStyle(fontFamily: 'Ubuntu', fontWeight: FontWeight.w600),));
               },
             )
           ],

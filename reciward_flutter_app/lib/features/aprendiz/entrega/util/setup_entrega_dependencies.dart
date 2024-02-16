@@ -3,6 +3,7 @@ import 'package:reciward_flutter_app/features/aprendiz/entrega/data/dataresource
 import 'package:reciward_flutter_app/features/aprendiz/entrega/data/repositories/entrega_repository_impl.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/usecases/get_entrega_cafeteria_usecase.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/usecases/save_entrega_usecase.dart';
+import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/usecases/validar_entrega_usecase.dart';
 
 class SetupEntregaDependencies {
 
@@ -15,7 +16,12 @@ class SetupEntregaDependencies {
     // Usecases
     getIt.registerLazySingleton<SaveEntregaUsecase>(
         () => SaveEntregaUsecase(repository: getIt<EntregaRepositoryImpl>()));
-     getIt.registerLazySingleton<GetEntregaCafeteriaUsecase>(
+    getIt.registerLazySingleton<GetEntregaCafeteriaUsecase>(
         () => GetEntregaCafeteriaUsecase(repository: getIt<EntregaRepositoryImpl>()));
+
+
+    getIt.registerLazySingleton<ValidarEntregaUsecase>(
+        () => ValidarEntregaUsecase(repository: getIt<EntregaRepositoryImpl>()));
+
   }
 }
