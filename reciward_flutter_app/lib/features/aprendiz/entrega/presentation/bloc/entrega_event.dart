@@ -33,3 +33,26 @@ class HistorialEntrega extends EntregaEvent {
     return null;
   }
 }
+
+
+class GetEntregaCafeteriaEvent extends EntregaEvent {
+  final String accessToken;
+  final int idEntrega;
+
+  GetEntregaCafeteriaEvent({
+    required this.accessToken,
+    required this.idEntrega
+  });
+
+  GlobalException ? validate(){
+    if (accessToken.trim().isEmpty) {
+      return GlobalException(errorMessage: "User Unathenticated");
+    }
+
+    if (idEntrega<=0) {
+      return GlobalException(errorMessage: "Busque una entrega por su codigo");
+    }
+
+    return null;
+  }
+}

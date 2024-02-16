@@ -145,7 +145,9 @@ class HomePageCafeteria extends StatelessWidget {
                               ),
                             ),
                             TextButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(context, "/validar-entrega");
+                              },
                               icon: const Icon(Icons.delivery_dining_rounded),
                               label: const Text("Validar Entrega"),
                               style: const ButtonStyle(
