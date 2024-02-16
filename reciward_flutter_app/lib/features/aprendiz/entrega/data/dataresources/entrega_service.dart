@@ -42,8 +42,8 @@ class EntregaService {
     }
   }
 
-  Future<Either<DioException, String>> historialEntrega(
-      String accessToken, HistorialEntity historialEntity) async {
+  Future<Either<DioException, List<HistorialEntity>>> historialEntrega(
+      String accessToken) async {
     Options options = Options(
       headers: {'Authorization': 'Bearer $accessToken'},
       contentType: 'application/json',
@@ -54,22 +54,24 @@ class EntregaService {
     try {
       final response =
           await dio.get(urlApiHistorialEntregasPage, options: options);
-
       if (response.statusCode == 200) {
-        return right(response.data['message']);
+        final data = (response.data["entregas"] as List)
+            .map((e) => HistorialEntity.fromJson(e))
+            .toList();
+        return right(data);
       }
       return left(DioException(
         requestOptions: response.requestOptions,
-        message: response.statusMessage,
+        message: response.data["error"],
       ));
     } on DioException catch (e) {
       print("Error en HistorialEntrega ${e.message}");
       return left(e);
     }
   }
-  
-  Future<Either<DioException, GetEntregaCafeteriaDto>> getEntregaCafeteria(String accessToken, int idEntrega) async {
-    
+
+  Future<Either<DioException, GetEntregaCafeteriaDto>> getEntregaCafeteria(
+      String accessToken, int idEntrega) async {
     Options options = Options(
       headers: {'Authorization': 'Bearer $accessToken'},
       contentType: 'application/json',
@@ -77,14 +79,15 @@ class EntregaService {
         return status! < 500;
       },
     );
-    
+
     try {
-      final response = await dio.get("$urlApiSaveEntrega/$idEntrega", options: options);
+      final response =
+          await dio.get("$urlApiSaveEntrega/$idEntrega", options: options);
       if (response.statusCode == 200) {
         return right(GetEntregaCafeteriaDto.fromJson(response.data));
       }
-        
-       return left(DioException(
+
+      return left(DioException(
         requestOptions: response.requestOptions,
         message: response.statusMessage,
       ));

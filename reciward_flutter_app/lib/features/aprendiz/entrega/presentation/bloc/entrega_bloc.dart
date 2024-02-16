@@ -22,12 +22,15 @@ class EntregaBloc extends Bloc<EntregaEvent, EntregaState> {
   SaveEntregaUsecase usecase = GetIt.instance<SaveEntregaUsecase>();
 
   HistorialEntregaUsecase usecase2 = GetIt.instance<HistorialEntregaUsecase>();
-  
-  GetEntregaCafeteriaUsecase getEntregaCafeteriaUsecase = GetIt.instance<GetEntregaCafeteriaUsecase>();
+
+
+  GetEntregaCafeteriaUsecase getEntregaCafeteriaUsecase =
+      GetIt.instance<GetEntregaCafeteriaUsecase>();
 
   
 
   ValidarEntregaUsecase validarEntregaUsecase = GetIt.instance<ValidarEntregaUsecase>();
+
 
   EntregaBloc() : super(EntregaInitial()) {
     on<SaveEntregaEvent>(onSaveEntregaEvent);
@@ -38,27 +41,28 @@ class EntregaBloc extends Bloc<EntregaEvent, EntregaState> {
     on<ValidarEntregaEvent>(onValidarEntregaEvent);
   }
 
-  void onGetEntregaCafeteriaEvent (GetEntregaCafeteriaEvent event, Emitter<EntregaState> emit) async {
+  void onGetEntregaCafeteriaEvent(
+      GetEntregaCafeteriaEvent event, Emitter<EntregaState> emit) async {
     try {
       final validate = event.validate();
-      if (validate!=null) {
-        return emit(GetEntregaCafeteriaFailed(error: validate.getErrorMessage()));
+      if (validate != null) {
+        return emit(
+            GetEntregaCafeteriaFailed(error: validate.getErrorMessage()));
       }
 
-      Either<DioException, GetEntregaCafeteriaDto> either = await getEntregaCafeteriaUsecase.call(event.accessToken, event.idEntrega);
+      Either<DioException, GetEntregaCafeteriaDto> either =
+          await getEntregaCafeteriaUsecase.call(
+              event.accessToken, event.idEntrega);
 
       return either.fold((dioException) {
         emit(GetEntregaCafeteriaFailed(error: dioException.message!));
-      }, 
-      (data) {
+      }, (data) {
         emit(GetEntregaCafeteriaSuccess(data: data));
       });
-
     } catch (e) {
       print("Error en onGetEntregaCafeteriaEvent ${e.toString()}");
       return emit(GetEntregaCafeteriaFailed(error: e.toString()));
     }
-
   }
 
   void onSaveEntregaEvent(
@@ -87,40 +91,6 @@ class EntregaBloc extends Bloc<EntregaEvent, EntregaState> {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   void onValidarEntregaEvent (ValidarEntregaEvent event, Emitter<EntregaState> emit) async {
     try {
       Either<DioException, String> either = await validarEntregaUsecase.call(event.accessToken, event.idEntrega);
@@ -146,13 +116,13 @@ class EntregaBloc extends Bloc<EntregaEvent, EntregaState> {
 
       emit(HistorialEntregaLoading());
 
-      Either<DioException, String> either =
-          await usecase2.call(event.accessToken, event.historialEntity);
+      Either<DioException, List<HistorialEntity>> either =
+          await usecase2.call(event.accessToken);
 
       return either.fold((dioException) {
         emit(HistorialEntregaFailed(error: dioException.message!));
-      }, (message) {
-        emit(HistorialEntregaSuccess(message: message));
+      }, (entregas) {
+        emit(HistorialEntregaSuccess(entregas: entregas));
       });
     } catch (e) {
       print("Error en onHistorialEntrega ${e.toString()}");

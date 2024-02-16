@@ -8,8 +8,11 @@ class HistorialEntregaUsecase {
 
   const HistorialEntregaUsecase({required this.repository});
 
-  Future<Either<DioException, String>> call(
-      String accessToken, HistorialEntity historialEntity) {
-    return repository.historialEntrega(accessToken, historialEntity);
+  Future<Either<DioException, List<HistorialEntity>>> call(
+    String accessToken,
+  ) {
+    return repository.historialEntrega(
+      accessToken,
+    );
   }
 }
