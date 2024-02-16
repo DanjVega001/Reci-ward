@@ -157,9 +157,8 @@ class EntregaController extends Controller
 
     public function historialPorApz()
     {
-
-        $idAprendiz = $this->service->obtenerIdAprendizAutenticado();
-
+        try {
+            $idAprendiz = $this->service->obtenerIdAprendizAutenticado();
         if (!$idAprendiz) {
             return response()->json(["error" => "Usuario no autorizado"], 403);
         }
@@ -172,8 +171,7 @@ class EntregaController extends Controller
                     ->select('e.id', 'e.cantidadMaterial','e.canjeada','e.puntosAcumulados','m.nombreMaterial')
                     ->where('e.aprendiz_id','=',$aprendiz->id)
                     ->get();
-
-
+        
         $entregas = [];
 
         foreach ($query as $row) {
@@ -201,6 +199,11 @@ class EntregaController extends Controller
         $entregas = array_values($entregas);
 
         return response()->json($entregas, 200);
+        } catch (\Throwable $th) {
+            return response()->json($th->getMessage(), 200);
+        }
+
+        
     }
 
 

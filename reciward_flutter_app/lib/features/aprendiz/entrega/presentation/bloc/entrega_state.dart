@@ -18,11 +18,7 @@ final class SaveEntregaFailed extends EntregaState {
 
 final class SaveEntregaLoading extends EntregaState {}
 
-/////////////////////////////
-///
-///
-///
-///
+
 final class HistorialInitial extends EntregaState {}
 
 final class HistorialEntregaLoading extends EntregaState {}
@@ -37,3 +33,21 @@ final class HistorialEntregaSuccess extends EntregaState {
 
   HistorialEntregaSuccess({required this.message});
 }
+
+final class GetEntregaCafeteriaSuccess extends EntregaState {
+  final GetEntregaCafeteriaDto data;
+
+  GetEntregaCafeteriaSuccess({
+    required this.data
+  });
+}
+
+
+final class GetEntregaCafeteriaFailed extends EntregaState {
+  final String error;
+
+  GetEntregaCafeteriaFailed({
+    required this.error
+  });
+}
+

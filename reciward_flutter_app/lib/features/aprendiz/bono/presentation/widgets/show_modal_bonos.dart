@@ -8,12 +8,14 @@ import 'package:reciward_flutter_app/features/aprendiz/puntos/presentation/bloc/
 
 enum BonosEnum {bono_1, bono_2}
 
+
 class ShowModalBonos extends StatefulWidget {
   const ShowModalBonos({super.key});
 
   @override
   State<ShowModalBonos> createState() => _ShowModalBonosState();
 }
+
 
 class _ShowModalBonosState extends State<ShowModalBonos> {
   int selectedValueId = 1;
@@ -93,6 +95,7 @@ class _ShowModalBonosState extends State<ShowModalBonos> {
                     onPressed: () {
                       String accessToken = (BlocProvider.of<ProfileBloc>(context).state as UserProfileState).user!.accces_token!;
                       BlocProvider.of<BonoBloc>(context).add(SaveBonoAprendizEvent(bonoId: selectedValueId, accessToken: accessToken));
+                      BlocProvider.of<BonoBloc>(context).add(GetHistorialBonosEvent(accessToken: accessToken));
                     },
                     icon: const Icon(Icons.check, color: Pallete.colorWhite),
                     style: const ButtonStyle(
@@ -104,6 +107,7 @@ class _ShowModalBonosState extends State<ShowModalBonos> {
                           fontFamily: 'Ubuntu', color: Pallete.colorWhite),
                     ),
                   ),
+                  
                   const SizedBox(
                     width: 10,
                   ),
