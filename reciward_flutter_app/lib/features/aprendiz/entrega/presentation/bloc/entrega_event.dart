@@ -12,12 +12,24 @@ class SaveEntregaEvent extends EntregaEvent {
     if (accessToken.trim().isEmpty) {
       return GlobalException(errorMessage: "User Unathenticated");
     }
-
     if (saveEntregaDto.cantidadMaterial <= 0 ||
         saveEntregaDto.cantidadMaterial <= 0) {
       return GlobalException(errorMessage: "You must choose some material");
     }
+    return null;
+  }
+}
 
+class HistorialEntrega extends EntregaEvent {
+  final String accessToken;
+  final HistorialEntity historialEntity;
+
+  HistorialEntrega({required this.accessToken, required this.historialEntity});
+
+  GlobalException? validate() {
+    if (accessToken.trim().isEmpty) {
+      return GlobalException(errorMessage: "User Unathenticated");
+    }
     return null;
   }
 }

@@ -17,3 +17,23 @@ final class SaveEntregaFailed extends EntregaState {
 }
 
 final class SaveEntregaLoading extends EntregaState {}
+
+/////////////////////////////
+///
+///
+///
+///
+final class HistorialInitial extends EntregaState {}
+
+final class HistorialEntregaLoading extends EntregaState {}
+
+final class HistorialEntregaFailed extends EntregaState {
+  final String error;
+  HistorialEntregaFailed({required this.error});
+}
+
+final class HistorialEntregaSuccess extends EntregaState {
+  final String message;
+
+  HistorialEntregaSuccess({required this.message});
+}
