@@ -21,7 +21,6 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Pallete.colorWhite,
       appBar: const AppBarReciward(),
@@ -52,9 +51,11 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
             Container(
               width: 430,
               decoration: BoxDecoration(
+
+                border: Border.all(color: Color.fromARGB(255, 84, 104, 59)),
+
                 color: const Color.fromARGB(255, 221, 221, 220),
-                border:
-                    Border.all(color: const Color.fromARGB(255, 84, 104, 59)),
+
                 borderRadius: BorderRadius.circular(10),
               ),
               child: BlocBuilder<BonoBloc, BonoState>(
@@ -71,8 +72,10 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                           bonos), // Utiliza una función para construir las filas de la tabla
                     );
                   }
+
                   return const Center( 
                     child: Text("Cargando..."));
+
                 },
               ),
             ),

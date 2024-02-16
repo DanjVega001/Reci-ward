@@ -21,15 +21,17 @@ class EntregaRepositoryImpl extends EntregaRepository {
   }
 
   @override
-  Future<Either<DioException, String>> historialEntrega(
-      String accessToken, HistorialEntity historialEntity) {
-    return service.historialEntrega(accessToken, historialEntity);
+  Future<Either<DioException, List<HistorialEntity>>> historialEntrega(
+      String accessToken) {
+    return service.historialEntrega(accessToken);
   }
-  
+
   @override
-  Future<Either<DioException, GetEntregaCafeteriaDto>> getEntregaCafeteria(String accessToken, int idEntrega) {
+  Future<Either<DioException, GetEntregaCafeteriaDto>> getEntregaCafeteria(
+      String accessToken, int idEntrega) {
     return service.getEntregaCafeteria(accessToken, idEntrega);
   }
+
   
 
 
@@ -43,4 +45,3 @@ class EntregaRepositoryImpl extends EntregaRepository {
   }
 
 }
-

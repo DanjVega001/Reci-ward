@@ -20,20 +20,19 @@ class SetupEntregaDependencies {
     getIt.registerLazySingleton<SaveEntregaUsecase>(
         () => SaveEntregaUsecase(repository: getIt<EntregaRepositoryImpl>()));
 
-    getIt.registerLazySingleton<GetEntregaCafeteriaUsecase>(
-        () => GetEntregaCafeteriaUsecase(repository: getIt<EntregaRepositoryImpl>()));
+
+    getIt.registerLazySingleton<HistorialEntregaUsecase>(() =>
+        HistorialEntregaUsecase(repository: getIt<EntregaRepositoryImpl>()));
+
+    getIt.registerLazySingleton<GetEntregaCafeteriaUsecase>(() =>
+        GetEntregaCafeteriaUsecase(repository: getIt<EntregaRepositoryImpl>()));
+
 
 
     getIt.registerLazySingleton<ValidarEntregaUsecase>(
         () => ValidarEntregaUsecase(repository: getIt<EntregaRepositoryImpl>()));
 
 
-
-    getIt.registerLazySingleton<HistorialEntregaUsecase>(() =>
-        HistorialEntregaUsecase(repository: getIt<EntregaRepositoryImpl>()));
-
-     getIt.registerLazySingleton<GetEntregaCafeteriaUsecase>(
-        () => GetEntregaCafeteriaUsecase(repository: getIt<EntregaRepositoryImpl>()));
 
 
   }

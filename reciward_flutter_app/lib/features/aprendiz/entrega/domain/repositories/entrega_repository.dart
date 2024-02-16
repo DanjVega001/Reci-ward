@@ -11,18 +11,19 @@ abstract class EntregaRepository {
   Future<Either<DioException, String>> saveEntrega(
       String accessToken, SaveEntregaDto saveEntregaDto);
 
-
-  Future<Either<DioException, String>> historialEntrega(
-      String accessToken, HistorialEntity historialEntity);
-
-  Future<Either<DioException, GetEntregaCafeteriaDto>> getEntregaCafeteria(String accessToken, int idEntrega);
+  Future<Either<DioException, List<HistorialEntity>>> historialEntrega(
+    String accessToken,
+  );
 
 
+  Future<Either<DioException, GetEntregaCafeteriaDto>> getEntregaCafeteria(
+      String accessToken, int idEntrega);
 
 
 
 
   Future<Either<DioException, String>> validarEntrega(String accessToken, int idEntrega);
+
 
 
 }

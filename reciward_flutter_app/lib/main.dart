@@ -53,8 +53,8 @@ void main() {
         '/reset-password': (context) => const ResetPasswordPage(),
         '/profile': (context) => const ProfilePage(),
         '/manual': (context) => const ManualUser(),
-        '/home-cafeteria':(context) => const HomePageCafeteria(),
-        '/validar-entrega':(context) => ValidarEntregaPage()
+        '/home-cafeteria': (context) => const HomePageCafeteria(),
+        '/validar-entrega': (context) => ValidarEntregaPage()
       },
       home: const LoginPage(),
     ),
