@@ -22,9 +22,10 @@ class SaveEntregaEvent extends EntregaEvent {
 
 class HistorialEntrega extends EntregaEvent {
   final String accessToken;
-  final HistorialEntity historialEntity;
 
-  HistorialEntrega({required this.accessToken, required this.historialEntity});
+  HistorialEntrega({
+    required this.accessToken,
+  });
 
   GlobalException? validate() {
     if (accessToken.trim().isEmpty) {
@@ -34,22 +35,19 @@ class HistorialEntrega extends EntregaEvent {
   }
 }
 
-
 class GetEntregaCafeteriaEvent extends EntregaEvent {
   final String accessToken;
   final int idEntrega;
 
-  GetEntregaCafeteriaEvent({
-    required this.accessToken,
-    required this.idEntrega
-  });
+  GetEntregaCafeteriaEvent(
+      {required this.accessToken, required this.idEntrega});
 
-  GlobalException ? validate(){
+  GlobalException? validate() {
     if (accessToken.trim().isEmpty) {
       return GlobalException(errorMessage: "User Unathenticated");
     }
 
-    if (idEntrega<=0) {
+    if (idEntrega <= 0) {
       return GlobalException(errorMessage: "Busque una entrega por su codigo");
     }
 

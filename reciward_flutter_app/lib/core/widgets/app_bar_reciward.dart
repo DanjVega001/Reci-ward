@@ -47,9 +47,7 @@ class AppBarReciward extends StatelessWidget implements PreferredSizeWidget {
                 ),
                 Text(
                   "${user?.name} ${user?.aprendizEntity?.apellido}",
-                  style: const TextStyle(
-                    fontFamily: 'Ubuntu'
-                  ),
+                  style: const TextStyle(fontFamily: 'Ubuntu'),
                 ),
                 IconButton(
                   icon: const Icon(

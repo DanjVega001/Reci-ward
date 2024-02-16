@@ -18,6 +18,7 @@ final class SaveEntregaFailed extends EntregaState {
 
 final class SaveEntregaLoading extends EntregaState {}
 
+///historial entregas
 final class HistorialInitial extends EntregaState {}
 
 final class HistorialEntregaLoading extends EntregaState {}
@@ -28,10 +29,12 @@ final class HistorialEntregaFailed extends EntregaState {
 }
 
 final class HistorialEntregaSuccess extends EntregaState {
-  final String message;
+  final List<HistorialEntity> entregas;
 
-  HistorialEntregaSuccess({required this.message});
+  HistorialEntregaSuccess({required this.entregas});
 }
+
+//cafeteria
 
 final class GetEntregaCafeteriaSuccess extends EntregaState {
   final GetEntregaCafeteriaDto data;

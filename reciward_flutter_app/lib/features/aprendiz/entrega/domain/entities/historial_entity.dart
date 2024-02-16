@@ -11,4 +11,14 @@ class HistorialEntity {
       required this.canjeada,
       required this.puntosAcumulados,
       required this.nombreMaterial});
+
+  factory HistorialEntity.fromJson(Map<String, dynamic> json) {
+    return HistorialEntity(
+      cantidadMaterial: json['cantidadMaterial'],
+      canjeada: json['canjeada'] == 0 ? true : false,
+      puntosAcumulados: json['puntosAcumulados'],
+      nombreMaterial: json['nombreMaterial'],
+      id: json['id'].toString(),
+    );
+  }
 }

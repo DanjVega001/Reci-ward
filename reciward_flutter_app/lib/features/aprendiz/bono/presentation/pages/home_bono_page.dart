@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
@@ -22,7 +20,6 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       backgroundColor: Pallete.colorWhite,
       appBar: AppBarReciward(),
@@ -54,8 +51,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               width: 430,
               decoration: BoxDecoration(
                 color: Color.fromARGB(255, 221, 221, 220),
-                border:
-                    Border.all(color: Color.fromARGB(255, 84, 104, 59)),
+                border: Border.all(color: Color.fromARGB(255, 84, 104, 59)),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: BlocBuilder<BonoBloc, BonoState>(
@@ -72,8 +68,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                           bonos), // Utiliza una función para construir las filas de la tabla
                     );
                   }
-                  return Center( 
-                    child: Text("Cargando..."));
+                  return Center(child: Text("Cargando..."));
                 },
               ),
             ),
