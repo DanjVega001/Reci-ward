@@ -47,3 +47,24 @@ final class GetEntregaCafeteriaFailed extends EntregaState {
 
   GetEntregaCafeteriaFailed({required this.error});
 }
+
+
+
+final class ValidarEntregaSuccess extends EntregaState {
+  final String message;
+
+  ValidarEntregaSuccess({
+    required this.message
+  });
+}
+
+final class ValidarEntregaFailed extends EntregaState {
+  final String error;
+
+  ValidarEntregaFailed({
+    required this.error
+  });
+}
+
+
+

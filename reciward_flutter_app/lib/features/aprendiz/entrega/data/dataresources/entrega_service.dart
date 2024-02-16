@@ -96,4 +96,51 @@ class EntregaService {
       return left(e);
     }
   }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  Future<Either<DioException, String>> validarEntrega(String accessToken, int idEntrega)async{
+
+    Options options = Options(
+      headers: {'Authorization': 'Bearer $accessToken'},
+      contentType: 'application/json',
+      validateStatus: (status) {
+        return status! < 500;
+      },
+    );
+
+
+    try {
+      final response = await dio.get("$urlApiSaveEntrega/validada/$idEntrega", options: options);
+      if (response.statusCode == 200) {
+        return right(response.data["message"]);
+      }
+        
+      return left(DioException(
+        requestOptions: response.requestOptions,
+        message: response.statusMessage,
+      ));
+    } on DioException catch (e) {
+      print("Error en validarEntrega Service class ${e.message}");
+      return left(e);
+    }
+  }
 }
