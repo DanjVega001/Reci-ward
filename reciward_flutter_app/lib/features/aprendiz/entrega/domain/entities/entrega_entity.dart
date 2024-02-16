@@ -1,6 +1,7 @@
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/get_entrega_material_entity.dart';
 
 class EntregaEntity {
+
   final String ? id;
   final int ? cantidadMaterial;
   final bool ? canjeada;
