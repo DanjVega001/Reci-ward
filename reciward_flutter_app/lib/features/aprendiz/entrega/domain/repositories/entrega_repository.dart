@@ -15,6 +15,16 @@ abstract class EntregaRepository {
     String accessToken,
   );
 
+
   Future<Either<DioException, GetEntregaCafeteriaDto>> getEntregaCafeteria(
       String accessToken, int idEntrega);
+
+
+
+
+  Future<Either<DioException, String>> validarEntrega(String accessToken, int idEntrega);
+
+
+
 }
+

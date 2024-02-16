@@ -242,7 +242,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   .isEmpty
                                               ? null
                                               : passwordController.text.trim(),
-                                          avatar: _image?.path),
+                                          avatar: _image?.path ?? _imagePath),
                                       confirmPassword:
                                           confirmPasswordController.text.trim(),
                                       updatePassword: updatePassword,
