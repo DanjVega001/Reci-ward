@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,11 +24,11 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
 
     return Scaffold(
       backgroundColor: Pallete.colorWhite,
-      appBar: AppBarReciward(),
+      appBar: const AppBarReciward(),
       body: Column(
         children: [
-          GetPuntosBanner(),
-          SizedBox(height: 20),
+          const GetPuntosBanner(),
+          const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () {
               setState(() {
@@ -40,39 +39,39 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                 ? '  Ocultar historial de bonos  '
                 : '  Mostrar historial de bonos  '),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
           if (_showTable) ...[
-            Text(
+            const Text(
               'Historial',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Container(
               width: 430,
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 221, 221, 220),
+                color: const Color.fromARGB(255, 221, 221, 220),
                 border:
-                    Border.all(color: Color.fromARGB(255, 84, 104, 59)),
+                    Border.all(color: const Color.fromARGB(255, 84, 104, 59)),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: BlocBuilder<BonoBloc, BonoState>(
                 builder: (context, state) {
                   if (state is GetHistorialBonosSuccess) {
                     final bonos = state.bonos;
-                    return Table(
+                    return  Table(
                       border: TableBorder.all(color: Colors.transparent),
-                      columnWidths: {
-                        0: FixedColumnWidth(50),
+                      columnWidths: const {
+                         0:  FixedColumnWidth(50),
                       },
-                      defaultColumnWidth: FixedColumnWidth(100),
+                      defaultColumnWidth: const FixedColumnWidth(100),
                       children: _buildTableRows(
                           bonos), // Utiliza una función para construir las filas de la tabla
                     );
                   }
-                  return Center( 
+                  return const Center( 
                     child: Text("Cargando..."));
                 },
               ),
@@ -80,7 +79,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
           ],
         ],
       ),
-      bottomNavigationBar: NavReciward(
+      bottomNavigationBar: const NavReciward(
         currentIndex: 2,
       ),
     );
@@ -90,7 +89,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
     List<TableRow> rows = [];
     // Agrega la fila de encabezado
     rows.add(
-      TableRow(
+      const TableRow(
         children: [
           TableCell(
               child: Center(child: Text('Id', style: TextStyle(fontSize: 16)))),

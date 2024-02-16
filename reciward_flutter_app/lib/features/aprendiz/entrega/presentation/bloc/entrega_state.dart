@@ -51,3 +51,41 @@ final class GetEntregaCafeteriaFailed extends EntregaState {
   });
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+final class ValidarEntregaSuccess extends EntregaState {
+  final String message;
+
+  ValidarEntregaSuccess({
+    required this.message
+  });
+}
+
+final class ValidarEntregaFailed extends EntregaState {
+  final String error;
+
+  ValidarEntregaFailed({
+    required this.error
+  });
+}
+
+

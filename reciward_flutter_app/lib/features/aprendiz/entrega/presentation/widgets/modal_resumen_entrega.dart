@@ -21,11 +21,14 @@ class ModalResumenEntrega extends StatelessWidget {
       int puntosTotales =
           int.parse(material['puntos']!) * int.parse(material['cantidad']!);
       cantidadTotal.add(int.parse(material['cantidad']!));
-      materialesId.add({
+      if (int.parse(material['cantidad']!)>0) {
+          materialesId.add({
         "id": int.parse(material['id']!),
         "numeroMaterial": int.parse(material['cantidad']!)
       });
       puntosTotalesLista.add(puntosTotales);
+      }
+    
     }
   }
 

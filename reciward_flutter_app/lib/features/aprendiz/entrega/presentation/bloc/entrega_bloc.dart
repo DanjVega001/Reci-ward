@@ -13,6 +13,7 @@ import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/s
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/usecases/get_entrega_cafeteria_usecase.dart';
 
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/usecases/save_entrega_usecase.dart';
+import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/usecases/validar_entrega_usecase.dart';
 
 part 'entrega_event.dart';
 part 'entrega_state.dart';
@@ -24,11 +25,17 @@ class EntregaBloc extends Bloc<EntregaEvent, EntregaState> {
   
   GetEntregaCafeteriaUsecase getEntregaCafeteriaUsecase = GetIt.instance<GetEntregaCafeteriaUsecase>();
 
+  
+
+  ValidarEntregaUsecase validarEntregaUsecase = GetIt.instance<ValidarEntregaUsecase>();
 
   EntregaBloc() : super(EntregaInitial()) {
     on<SaveEntregaEvent>(onSaveEntregaEvent);
     on<HistorialEntrega>(onHistorialEntrega);
     on<GetEntregaCafeteriaEvent>(onGetEntregaCafeteriaEvent);
+
+
+    on<ValidarEntregaEvent>(onValidarEntregaEvent);
   }
 
   void onGetEntregaCafeteriaEvent (GetEntregaCafeteriaEvent event, Emitter<EntregaState> emit) async {
@@ -78,6 +85,57 @@ class EntregaBloc extends Bloc<EntregaEvent, EntregaState> {
     }
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  void onValidarEntregaEvent (ValidarEntregaEvent event, Emitter<EntregaState> emit) async {
+    try {
+      Either<DioException, String> either = await validarEntregaUsecase.call(event.accessToken, event.idEntrega);
+
+      return either.fold(
+      (dio) => emit(ValidarEntregaFailed(error: dio.message!)), 
+      (message) => emit(ValidarEntregaSuccess(message: message)));
+    } catch (e) {
+      print("Error en onValidarEntregaUsecase ${e.toString()}");
+      return emit(ValidarEntregaFailed(error: e.toString()));
+    }
+  }
+
+
+
   void onHistorialEntrega(
       HistorialEntrega event, Emitter<EntregaState> emit) async {
     try {
@@ -101,4 +159,5 @@ class EntregaBloc extends Bloc<EntregaEvent, EntregaState> {
       return emit(HistorialEntregaFailed(error: e.toString()));
     }
   }
+
 }
