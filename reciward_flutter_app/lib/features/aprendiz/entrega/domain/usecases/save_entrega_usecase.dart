@@ -4,15 +4,14 @@ import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/s
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/repositories/entrega_repository.dart';
 
 class SaveEntregaUsecase {
-
-
   final EntregaRepository repository;
 
-  const SaveEntregaUsecase({
-    required this.repository
-  });
+  const SaveEntregaUsecase({required this.repository});
 
-  Future<Either<DioException, String>> call(String accessToken, SaveEntregaDto saveEntregaDto){
+  Future<Either<DioException, String>> call(
+      String accessToken, SaveEntregaDto saveEntregaDto) {
     return repository.saveEntrega(accessToken, saveEntregaDto);
   }
+
+  getHistorial(String accessToken) {}
 }
