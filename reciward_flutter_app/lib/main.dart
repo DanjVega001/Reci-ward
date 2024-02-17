@@ -25,7 +25,8 @@ import 'package:reciward_flutter_app/features/auth/presentation/pages/auth_pages
 import 'package:reciward_flutter_app/features/auth/presentation/pages/auth_pages/verification_email_page.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/providers/ficha_provider.dart';
 import 'package:reciward_flutter_app/features/auth/util/setup_auth_dependencies.dart';
-import 'package:reciward_flutter_app/features/cafeteria/home_page_cafeteria.dart';
+import 'package:reciward_flutter_app/features/cafeteria/pages/home_page_cafeteria.dart';
+import 'package:reciward_flutter_app/features/cafeteria/pages/validar_entrega_page.dart';
 import 'package:reciward_flutter_app/features/material/presentation/bloc/material_bloc.dart';
 import 'package:reciward_flutter_app/features/material/util/setup_material_dependencies.dart';
 
@@ -41,7 +42,7 @@ void main() {
       BlocProvider(create: (context) => MaterialBloc()),
       BlocProvider(create: (context) => EntregaBloc()),
       BlocProvider(create: (context) => PuntoBloc()),
-      BlocProvider(create: (context) => BonoBloc())
+      BlocProvider(create: (context) => BonoBloc()),
     ],
     child: MaterialApp(
       routes: {
@@ -55,6 +56,7 @@ void main() {
         '/manual': (context) => const ManualUser(),
         '/home-cafeteria':(context) => const HomePageCafeteria(),
         '/verify-email':(context) => VerificationEmailPage(),
+        '/validar-entrega': (context) => ValidarEntregaPage()
       },
       home: const LoginPage(),
     ),

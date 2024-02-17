@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 import 'package:reciward_flutter_app/core/widgets/app_bar_reciward.dart';
 import 'package:reciward_flutter_app/core/widgets/nav_reciward.dart';
+import 'package:reciward_flutter_app/features/aprendiz/entrega/presentation/bloc/entrega_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/presentation/pages/HistorialEntregasPage.dart';
+import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_button.dart';
 import 'package:reciward_flutter_app/features/material/presentation/widgets/material_dropdown.dart';
 
@@ -31,10 +34,17 @@ class _HomeEntregaPageState extends State<HomeEntregaPage> {
                     left: 15, right: 15, top: 15, bottom: 15),
                 child: AuthFormButton(
                     onPressed: () {
+                      String accessToken =
+                          (BlocProvider.of<ProfileBloc>(context).state
+                                  as UserProfileState)
+                              .user!
+                              .accces_token!;
+                      BlocProvider.of<EntregaBloc>(context)
+                          .add(HistorialEntrega(accessToken: accessToken));
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => HistorialEntregasPage()));
+                              builder: (context) => const HistorialEntregasPage()));
                     },
                     text: "Historial de Entregas"))
           ],

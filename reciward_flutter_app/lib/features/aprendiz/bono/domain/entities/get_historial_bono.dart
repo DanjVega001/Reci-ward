@@ -1,6 +1,6 @@
 class GetHistorialBono {
   final String ? id;
-  final int ? codigoValidante;
+  final String ? codigoValidante;
   final bool ? estadoBono;
   final String ? fechaVencimiento;
 
@@ -14,7 +14,7 @@ class GetHistorialBono {
   factory GetHistorialBono.fromJson(Map<String, dynamic> json) {
     return GetHistorialBono(
       codigoValidante: json['codigoValidante'],
-      estadoBono: json['estadoBono'],
+      estadoBono: json['estadoBono'] == 0 ? true : false,
       fechaVencimiento: "${json['fechaVencimiento']}",
       id: json['id'].toString(),
     );
