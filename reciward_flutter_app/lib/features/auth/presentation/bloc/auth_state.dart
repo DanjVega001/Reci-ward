@@ -59,3 +59,23 @@ final class SendMailFailed extends AuthState {
 }
 
 final class SendMailInitialized extends AuthState {}
+
+final class SendVerificationEmailSuccess extends AuthState {
+  final UserEntity userEntity;
+  final int code;
+  final String message;
+
+  const SendVerificationEmailSuccess({
+    required this.code,
+    required this.userEntity,
+    required this.message
+  });
+}
+
+final class SendVerificationEmailFailed extends AuthState {
+  final String error;
+
+  const SendVerificationEmailFailed({
+    required this.error
+  });
+}

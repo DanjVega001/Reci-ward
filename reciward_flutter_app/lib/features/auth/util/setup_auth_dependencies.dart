@@ -6,6 +6,7 @@ import 'package:reciward_flutter_app/features/auth/domain/usecases/login_usecase
 import 'package:reciward_flutter_app/features/auth/domain/usecases/logout_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/reset_password_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/send_mail_reset_password_usecase.dart';
+import 'package:reciward_flutter_app/features/auth/domain/usecases/send_verification_email_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/signup_usecase.dart';
 
 class SetupAuthDependencies {
@@ -30,5 +31,8 @@ class SetupAuthDependencies {
             userRepository: getIt<AuthRepositoryImpl>()));
     getIt.registerLazySingleton<ResetPasswordUsecase>(() =>
         ResetPasswordUsecase(userRepository: getIt<AuthRepositoryImpl>()));
+
+    getIt.registerLazySingleton<SendVerificationEmailUsecase>(
+        () => SendVerificationEmailUsecase(repository: getIt<AuthRepositoryImpl>()));
   }
 }
