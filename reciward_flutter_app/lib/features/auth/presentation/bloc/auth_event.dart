@@ -115,12 +115,3 @@ class SendVerificationEmailRequested extends AuthEvent{
 }
 
 
-class RecoverCodeEvent extends AuthEvent{
-  final UserEntity userEntity;
-  final int code;
-
-  const RecoverCodeEvent({
-    required this.code,
-    required this.userEntity
-  });
-}
