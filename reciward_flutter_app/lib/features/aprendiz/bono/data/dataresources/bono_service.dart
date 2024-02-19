@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:reciward_flutter_app/core/constants/urls_apis.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/data/models/bono_model.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/entities/get_historial_bono.dart';
+import 'package:reciward_flutter_app/features/cafeteria/models/get_bono_cafeteria_dto.dart';
 
 class BonoService {
   late Dio dio;
@@ -77,12 +78,12 @@ class BonoService {
       },
     );
 
-
     try {
       final response = await dio.get(urlApiGetHistorialBono, options: options);
       if (response.statusCode == 200) {
-
-        final data = (response.data["bonos"] as List).map((e) => GetHistorialBono.fromJson(e)).toList();
+        final data = (response.data["bonos"] as List)
+            .map((e) => GetHistorialBono.fromJson(e))
+            .toList();
         return right(data);
       }
 
@@ -92,6 +93,62 @@ class BonoService {
       ));
     } on DioException catch (e) {
       print("Error en get historialBonos service ${e.message}");
+      return left(e);
+    }
+  }
+
+  Future<Either<DioException, GetBonoCafeteriaDto>> getBonoCafeteria(
+      String accessToken, String code) async {
+    Options options = Options(
+      headers: {'Authorization': 'Bearer $accessToken'},
+      contentType: 'application/json',
+      validateStatus: (status) {
+        return status! < 500;
+      },
+    );
+
+    try {
+      final response =
+          await dio.get("$urlApiGetHistorialBono/$code", options: options);
+      if (response.statusCode == 200) {
+        final data = GetBonoCafeteriaDto.fromJson(response.data);
+        return right(data);
+      }
+
+      return left(DioException(
+        requestOptions: response.requestOptions,
+        message: response.data["error"],
+      ));
+    } on DioException catch (e) {
+      print("Error en getBonoCafeteria $e");
+      return left(e);
+    }
+  }
+
+  Future<Either<DioException, String>> validarBono(
+      String accessToken, int idBono) async {
+    Options options = Options(
+      headers: {'Authorization': 'Bearer $accessToken'},
+      contentType: 'application/json',
+      validateStatus: (status) {
+        return status! < 500;
+      },
+    );
+
+    try {
+      final response =
+          await dio.put("$urlApiGetHistorialBono/$idBono", options: options);
+      print(response);
+      if (response.statusCode == 200) {;
+        return right(response.data["message"]);
+      }
+
+      return left(DioException(
+        requestOptions: response.requestOptions,
+        message: response.data["error"],
+      ));
+    } on DioException catch (e) {
+      print("Error en validarBono $e");
       return left(e);
     }
   }
