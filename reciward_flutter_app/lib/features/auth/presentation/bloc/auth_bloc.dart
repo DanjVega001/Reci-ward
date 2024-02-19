@@ -40,6 +40,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<ResetPasswordRequested>(onResetPassword);
 
     on<SendVerificationEmailRequested>(onSendVerificationEmailRequested);
+
+
   }
 
   void onResetPassword(
@@ -161,12 +163,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  void onRecoverCodeEvent(RecoverCodeEvent event, Emitter<AuthState> emit) {
-    return emit(SendVerificationEmailSuccess(
-        code: event.code,
-        userEntity: event.userEntity,
-        message: "Vuelve a digitar el código"));
-  }
 
   @override
   void onChange(Change<AuthState> change) {

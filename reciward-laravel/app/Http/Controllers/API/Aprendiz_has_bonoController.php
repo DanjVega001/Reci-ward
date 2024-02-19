@@ -31,10 +31,10 @@ class Aprendiz_has_bonoController extends Controller
         }
         $aprendiz_has_bono = Aprendiz_has_bono::where('aprendiz_id', $idAprendiz)
             ->where('estadoBono', false)->get();
-
-        if ($aprendiz_has_bono===null) {
+        if (count($aprendiz_has_bono)<1) {
             return response()->json(['message' => 'El aprendiz no tiene bonos para redimir'], 404);
         }
+
         $dataBonos = array();
         foreach ($aprendiz_has_bono as $apBono) {
             array_push($dataBonos, [

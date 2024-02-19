@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
-import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_button.dart';
 
@@ -11,8 +10,6 @@ class VerificationEmailPage extends StatelessWidget {
   VerificationEmailPage({super.key});
 
   final TextEditingController codeController = TextEditingController();
-  late UserEntity userEntityGlobal;
-  late int codeGlobal;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +32,6 @@ class VerificationEmailPage extends StatelessWidget {
           if (state is AuthErrorState) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.error)));
-            BlocProvider.of<AuthBloc>(context).add(RecoverCodeEvent(code: codeGlobal, userEntity: userEntityGlobal));
           }
           if (state is AuthInitialLogin) {
             Navigator.popAndPushNamed(context, '/');
@@ -45,8 +41,6 @@ class VerificationEmailPage extends StatelessWidget {
         },
         builder: (context, state) {
           if (state is SendVerificationEmailSuccess) {
-            userEntityGlobal = state.userEntity;
-            codeGlobal = state.code;
             return Container(
               padding: const EdgeInsets.all(15),
               child: Column(
