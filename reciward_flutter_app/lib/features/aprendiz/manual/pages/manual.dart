@@ -24,7 +24,7 @@ class ManualUser extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
-                    color:Color.fromARGB(255, 60, 109, 61), // Agrega el color verde aquí
+                    color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
                   ),
                 ),
                 const Text(
@@ -45,7 +45,7 @@ class ManualUser extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
-                    color:Color.fromARGB(255, 60, 109, 61), // Agrega el color verde aquí
+                    color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
                   ),
                 ),
                 const Text(
@@ -65,7 +65,7 @@ class ManualUser extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
-                    color:Color.fromARGB(255, 60, 109, 61), // Agrega el color verde aquí
+                    color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
                   ),
                 ),
                 const Text(
@@ -85,7 +85,7 @@ class ManualUser extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
-                    color:Color.fromARGB(255, 60, 109, 61), // Agrega el color verde aquí
+                    color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
                   ),
                 ),
                 const Text(
@@ -105,7 +105,7 @@ class ManualUser extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
-                    color:Color.fromARGB(255, 60, 109, 61), // Agrega el color verde aquí
+                    color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
                   ),
                 ),
                 const Text(
@@ -125,7 +125,7 @@ class ManualUser extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
-                    color:Color.fromARGB(255, 60, 109, 61), // Agrega el color verde aquí
+                    color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
                   ),
                 ),
                 const Text(

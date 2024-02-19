@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
 Container(
   padding: const EdgeInsets.only(left: 15),
   child: const Text(
-    'Consejos Ambientales: Sé parte de la solución',
+    'CONSEJOS AMBIENTALES',
     style: TextStyle(
       fontSize: 19.0,
       fontWeight: FontWeight.w600,
