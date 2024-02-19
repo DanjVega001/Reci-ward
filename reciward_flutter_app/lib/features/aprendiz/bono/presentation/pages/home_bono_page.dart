@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,7 +50,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
             ),
             SizedBox(height: 10),
             Container(
-              width: 430,
+              width: 360,
               decoration: BoxDecoration(
                 color: Color.fromARGB(255, 221, 221, 220),
                 border:
