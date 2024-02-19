@@ -136,7 +136,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               child: Center(
                 child: Text(
                   bono.estadoBono! ? "Activo" : "Inactivo",
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 14, color: bono.estadoBono! ?Colors.green[800] : Pallete.colorBlack),
                 ),
               ),
             ),

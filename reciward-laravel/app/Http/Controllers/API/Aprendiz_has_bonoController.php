@@ -30,7 +30,7 @@ class Aprendiz_has_bonoController extends Controller
             return response()->json(["error" => "Usuario no autorizado"],403);
         }
         $aprendiz_has_bono = Aprendiz_has_bono::where('aprendiz_id', $idAprendiz)
-            ->where('estadoBono', false)->get();
+            ->get();
         if (count($aprendiz_has_bono)<1) {
             return response()->json(['message' => 'El aprendiz no tiene bonos para redimir'], 404);
         }
