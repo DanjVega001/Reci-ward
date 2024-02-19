@@ -33,7 +33,7 @@ class HistorialDataTable extends StatelessWidget {
               DataColumn(
                 label: Expanded(
                   child: Text(
-                    'ID',
+                    'Codigo',
                     style: TextStyle(fontStyle: FontStyle.italic),
                   ),
                 ),
