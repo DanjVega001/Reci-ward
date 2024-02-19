@@ -72,15 +72,17 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-            const SizedBox(height: 15.0),
-            Container(
-              padding: const EdgeInsets.only(left: 15),
-              child: const Text(
-                'Consejos ambientales: Sé parte de la solución',
-                style: TextStyle(
-                    fontSize: 19.0,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: 'Ubuntu'),
+           const SizedBox(height: 15.0),
+Container(
+  padding: const EdgeInsets.only(left: 15),
+  child: const Text(
+    'Consejos Ambientales: Sé parte de la solución',
+    style: TextStyle(
+      fontSize: 19.0,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Ubuntu',
+      color: Color.fromARGB(255, 34, 116, 37), // Aquí estableces el color verde
+    )
               ),
             ),
             BlocBuilder<TipBloc, TipState>(
