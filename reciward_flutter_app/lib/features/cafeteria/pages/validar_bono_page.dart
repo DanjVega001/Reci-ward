@@ -1,28 +1,24 @@
-
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
-import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/entrega_entity.dart';
-import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/get_entrega_material_entity.dart';
-import 'package:reciward_flutter_app/features/aprendiz/entrega/presentation/bloc/entrega_bloc.dart';
+import 'package:reciward_flutter_app/features/aprendiz/bono/presentation/bloc/bono_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_button.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_field.dart';
 
-class ValidarEntregaPage extends StatelessWidget {
-  ValidarEntregaPage({super.key});
+// ignore: must_be_immutable
+class ValidarBonoPage extends StatelessWidget {
+  ValidarBonoPage({super.key});
 
   final TextEditingController searchController = TextEditingController();
-  int idEntrega = 0;
+  int idBono = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Validar entrega',
+          'Validar bono',
           style: TextStyle(fontFamily: 'Ubuntu', fontSize: 22),
         ),
         centerTitle: true,
@@ -36,8 +32,8 @@ class ValidarEntregaPage extends StatelessWidget {
                 Expanded(
                     child: AuthFormField(
                   controller: searchController,
-                  label: "Busque por codigo de entrega",
-                  type: TextInputType.number,
+                  label: "Busque por el codigo del bono",
+                  type: TextInputType.text,
                 )),
                 IconButton(
                   onPressed: () {
@@ -45,35 +41,31 @@ class ValidarEntregaPage extends StatelessWidget {
                             .state as UserProfileState)
                         .user!
                         .accces_token!;
-                    BlocProvider.of<EntregaBloc>(context).add(
-                        GetEntregaCafeteriaEvent(
+                    BlocProvider.of<BonoBloc>(context).add(
+                        GetBonoCafeteriaEvent(
                             accessToken: accessToken,
-                            idEntrega:
-                                int.parse(searchController.text.trim())));
+                            code: searchController.text.trim()));
                   },
                   icon: const Icon(Icons.search),
                 )
               ],
             ),
-            BlocConsumer<EntregaBloc, EntregaState>(
+            BlocConsumer<BonoBloc, BonoState>(
               listener: (context, state) {
-                if (state is ValidarEntregaFailed) {
+                if (state is ValidarBonoSuccess) {
                   ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text(state.error)));
+                      .showSnackBar(SnackBar(content: Text(state.message)));
                   Navigator.pop(context);
                 }
-                if (state is ValidarEntregaSuccess) {
+                if (state is ValidarBonoFailed) {
                   ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text(state.message)));
+                      .showSnackBar(SnackBar(content: Text(state.error)));
                   Navigator.pop(context);
-                  
                 }
               },
               builder: (context, state) {
-                if (state is GetEntregaCafeteriaSuccess) {
-                  final data = state.data;
-                  EntregaEntity entrega = data.entrega!;
-                  idEntrega = int.parse(entrega.id!);
+                if (state is GetBonoCafeteriaSuccess) {
+                  final bono = state.data;
                   return Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -85,16 +77,8 @@ class ValidarEntregaPage extends StatelessWidget {
                             const SizedBox(
                               height: 10,
                             ),
-                            Text("Cod Entrega: ${entrega.id}",
-                                style: const TextStyle(
-                                    fontFamily: 'Ubuntu',
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 18)),
-                            const SizedBox(
-                              height: 10,
-                            ),
                             Text(
-                              "Nombres: ${data.nombre} ${data.apellido}",
+                              "Nombres: ${bono.nombreAprendiz} ${bono.apellidoAprendiz}",
                               style: const TextStyle(
                                   fontFamily: 'Ubuntu',
                                   fontWeight: FontWeight.w700),
@@ -102,28 +86,14 @@ class ValidarEntregaPage extends StatelessWidget {
                             const SizedBox(
                               height: 10,
                             ),
-                            Text("Documento: ${data.documento}",
+                            Text("Documento: ${bono.documento}",
                                 style: const TextStyle(
                                     fontFamily: 'Ubuntu',
                                     fontWeight: FontWeight.w700)),
                             const SizedBox(
                               height: 10,
                             ),
-                            Text("Cantidad total: ${entrega.cantidadMaterial}",
-                                style: const TextStyle(
-                                    fontFamily: 'Ubuntu',
-                                    fontWeight: FontWeight.w700)),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Text("Puntos totales: ${entrega.puntosAcumulados}",
-                                style: const TextStyle(
-                                    fontFamily: 'Ubuntu',
-                                    fontWeight: FontWeight.w700)),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            const Text("Materiales",
+                            const Text("Bono",
                                 style: TextStyle(
                                     fontFamily: 'Ubuntu',
                                     fontWeight: FontWeight.w700,
@@ -132,33 +102,32 @@ class ValidarEntregaPage extends StatelessWidget {
                               height: 10,
                             ),
                             SizedBox(
-                              height: 220,
+                              height: 100,
                               child: ListView.builder(
                                 scrollDirection: Axis.vertical,
                                 shrinkWrap: true,
-                                itemCount: entrega.materiales!.length,
+                                itemCount: 1,
                                 itemBuilder: (context, index) {
-                                  GetEntregaMaterialEntity material =
-                                      data.entrega!.materiales![index];
+                                  idBono = int.parse(state.data.id!);
                                   return Card(
                                     color: Pallete.colorWhite,
                                     elevation: 3,
                                     child: ListTile(
-                                      title: Text(material.nombreMaterial!,
+                                      title: Text(bono.id!,
                                           style: const TextStyle(
                                               fontFamily: 'Ubuntu',
                                               fontWeight: FontWeight.w700,
                                               fontSize: 15,
                                               color: Pallete.colorBlack)),
                                       subtitle: Text(
-                                          "Puntos ${material.numeroPuntos}",
+                                          "Vence ${bono.fechaVencimiento}",
                                           style: const TextStyle(
                                               fontFamily: 'Ubuntu',
                                               fontWeight: FontWeight.w700,
-                                              fontSize: 15,
+                                              fontSize: 14,
                                               color: Pallete.colorBlack)),
                                       trailing: Text(
-                                          "Cant ${material.numeroMaterial}",
+                                          "Valor bonos ${bono.valorBono}",
                                           style: const TextStyle(
                                               fontFamily: 'Ubuntu',
                                               fontWeight: FontWeight.w700,
@@ -174,10 +143,17 @@ class ValidarEntregaPage extends StatelessWidget {
                             ),
                             AuthFormButton(
                               onPressed: () {
-                                String accessToken = (BlocProvider.of<ProfileBloc>(context).state as UserProfileState).user!.accces_token!;
-                                BlocProvider.of<EntregaBloc>(context).add(ValidarEntregaEvent(accessToken: accessToken, idEntrega: idEntrega));
+                                String accessToken =
+                                    (BlocProvider.of<ProfileBloc>(context).state
+                                            as UserProfileState)
+                                        .user!
+                                        .accces_token!;
+                                BlocProvider.of<BonoBloc>(context).add(
+                                    ValidarBonoEvent(
+                                        accessToken: accessToken,
+                                        idBono: idBono));
                               },
-                              text: "Aceptar entrega",
+                              text: "Aceptar bono",
                             )
                           ],
                         ),
@@ -185,7 +161,9 @@ class ValidarEntregaPage extends StatelessWidget {
                     ),
                   );
                 }
-                return const Center(child: Text("Sin datos", style: TextStyle(fontFamily: 'Ubuntu', fontWeight: FontWeight.w600),));
+                return const Center(
+                  child: Text("Sin bonos"),
+                );
               },
             )
           ],
