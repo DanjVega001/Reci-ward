@@ -10,6 +10,7 @@ import 'package:reciward_flutter_app/features/auth/domain/usecases/login_usecase
 import 'package:reciward_flutter_app/features/auth/domain/usecases/logout_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/reset_password_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/send_mail_reset_password_usecase.dart';
+import 'package:reciward_flutter_app/features/auth/domain/usecases/send_verification_email_usecase.dart';
 import 'package:reciward_flutter_app/features/auth/domain/usecases/signup_usecase.dart';
 
 part 'auth_event.dart';
@@ -24,6 +25,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       GetIt.instance<SendMailResetPasswordUseCase>();
   final ResetPasswordUsecase resetPasswordUsecase =
       GetIt.instance<ResetPasswordUsecase>();
+  final SendVerificationEmailUsecase sendVerificationEmailUsecase =
+      GetIt.instance<SendVerificationEmailUsecase>();
 
   AuthBloc() : super(AuthInitial()) {
     on<AuthSignupRequested>(onAuthSignupRequested);
@@ -35,6 +38,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SendMailRequested>(onSendEmail);
 
     on<ResetPasswordRequested>(onResetPassword);
+
+    on<SendVerificationEmailRequested>(onSendVerificationEmailRequested);
+
+
   }
 
   void onResetPassword(
@@ -114,24 +121,48 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void onAuthSignupRequested(
       AuthSignupRequested event, Emitter<AuthState> emit) async {
     try {
-      AuthException? userEntityValidator = event.validate();
-      if (userEntityValidator != null) {
-        return emit(AuthErrorState(error: userEntityValidator.errorMessage));
+      final validate = event.validate();
+      if (validate != null) {
+        return emit(AuthErrorState(error: validate.errorMessage));
       }
       late UserEntity user = event.userEntity;
 
       Either<DioException, String> either = await signupUseCase.call(user);
 
-      either.fold(
+      return either.fold(
           (dioException) => emit(AuthErrorState(error: dioException.message!)),
           (message) {
         emit(AuthInitialLogin(user: user, message: message));
       });
     } catch (e) {
       print('Error en onAuthSignupRequested: $e');
-      emit(AuthErrorState(error: e.toString()));
+      return emit(AuthErrorState(error: e.toString()));
     }
   }
+
+  void onSendVerificationEmailRequested(
+      SendVerificationEmailRequested event, Emitter<AuthState> emit) async {
+    try {
+      emit(AuthLoadingState());
+      final validateUser = event.validate();
+      if (validateUser != null) {
+        return emit(
+            SendVerificationEmailFailed(error: validateUser.errorMessage));
+      }
+      Either<DioException, Map<String, dynamic>> either =
+          await sendVerificationEmailUsecase.call(event.userEntity.email);
+      return either.fold(
+          (dio) => emit(SendVerificationEmailFailed(error: dio.message!)),
+          (data) => emit(SendVerificationEmailSuccess(
+              code: data['code'],
+              userEntity: event.userEntity,
+              message: data['message'])));
+    } on DioException catch (e) {
+      print('Error en onSendVerificationEmailRequested: $e');
+      return emit(SendVerificationEmailFailed(error: e.message!));
+    }
+  }
+
 
   @override
   void onChange(Change<AuthState> change) {

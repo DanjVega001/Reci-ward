@@ -44,6 +44,9 @@ Route::group([
     Route::post('signup', [AuthController::class, "signup"]);
     Route::get('/all/fichas', [FichaController::class, 'index']);
 
+
+    /** Maneja la verificacion de correo electronico */
+    Route::post('/verify-email', [AuthController::class, "sendVerificationEmail"]);
     /** Maneja el envio del correo para restablecer la contraseña */
     Route::post('/send-reset-password', [AuthController::class, "enviarRecuperarContrasena"]);
     /** Restablece la contraseña */
@@ -130,7 +133,7 @@ Route::group([
          *  Muestra el historial de entregas que ha tenido el aprendiz
          */
 
-        Route::get("/entrega/historial", [EntregaController::class, 'historialPorApz']);
+        Route::get("/entrega/historial/aprendiz", [EntregaController::class, 'historialPorApz']);
 
         /** Guarda la entrega del aprendiz */
         Route::post("/entrega", [EntregaController::class, 'store']);

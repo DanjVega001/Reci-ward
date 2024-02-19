@@ -23,21 +23,20 @@ class AuthLogoutRequested extends AuthEvent {
 
 class AuthSignupRequested extends AuthEvent {
   final UserEntity userEntity;
+  final int code;
+  final int enterCode;
 
-  const AuthSignupRequested({required this.userEntity});
 
-  AuthException? validate() {
-    if (userEntity.aprendizEntity == null) {
-      return AuthException(errorMessage: 'Not a valid user');
-    }
+  const AuthSignupRequested({
+    required this.userEntity, 
+    required this.code,
+    required this.enterCode
+  });
 
-    if (userEntity.password!.length < 6) {
-      return AuthException(
-          errorMessage: 'Password cannot be less than 6 characters');
-    }
 
-    if (userEntity.name == null) {
-      return AuthException(errorMessage: 'Name required');
+   AuthException? validate() {
+    if (enterCode != code) {
+      return AuthException(errorMessage: "Incorrect code");
     }
 
     return null;
@@ -85,4 +84,34 @@ class ResetPasswordRequested extends AuthEvent {
 
     return null;
   }
+
+
 }
+
+class SendVerificationEmailRequested extends AuthEvent{
+  final UserEntity userEntity;
+
+  const SendVerificationEmailRequested ({
+    required this.userEntity
+  });
+
+
+  AuthException? validate() {
+    if (userEntity.aprendizEntity == null) {
+      return AuthException(errorMessage: 'Not a valid user');
+    }
+
+    if (userEntity.password!.length < 6) {
+      return AuthException(
+          errorMessage: 'Password cannot be less than 6 characters');
+    }
+
+    if (userEntity.name == null) {
+      return AuthException(errorMessage: 'Name required');
+    }
+
+    return null;
+  }
+}
+
+

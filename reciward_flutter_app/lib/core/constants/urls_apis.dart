@@ -1,9 +1,10 @@
-const String urlApi = "http://127.0.0.1:8000/api/auth/";
+const String urlApi = "http://10.0.2.2:8000/api/auth/";
 
 /// URLS API AUTH
 const String urlApiAuthLogin = "${urlApi}login";
 const String urlApiAuthLogout = "${urlApi}logout";
 const String urlApiAuthSignup = "${urlApi}signup";
+const String urlApiSendVerificationEmail = "${urlApi}verify-email";
 
 //URLS API FICHAS
 const String urlApiGetFichas = "${urlApi}all/fichas";
@@ -26,6 +27,8 @@ const String urlApiMaterialesCafeteria = "${urlApi}material-cafeteria";
 
 //URL API ENTREGAS
 const String urlApiSaveEntrega = "${urlApi}entrega";
+
+const String urlApiHistorialEntregasPage = "${urlApi}entrega/historial";
 
 //URL API PUNTOS
 const String urlApiGetPuntos = "${urlApi}punto/ver";

@@ -16,4 +16,6 @@ abstract class AuthRepository {
 
   Future<Either<DioException, String>> resetPassword(
       String password, String token);
+
+  Future<Either<DioException, Map<String, dynamic>>> sendVerificationEmail(String email);
 }
