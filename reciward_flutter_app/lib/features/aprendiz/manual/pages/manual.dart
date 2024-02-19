@@ -19,25 +19,30 @@ class ManualUser extends StatelessWidget {
               children: <Widget>[
 
 
-                const Text(
-                  'Inicio:',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                    color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
-                  ),
-                ),
-                const Text(
-                  'En el panel principal, observamos el menu inferior, tips de nuestra app y las opciones HOME, ENTREGAS, BONOS. ',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                const SizedBox(height: 10.0),
-                Image.asset(
-                  'assets/manual_images/instruccion1.jpg', // Ruta de la imagen
-                  
-                  fit: BoxFit.cover, // Ajuste de la imagen
-                ),
-                const SizedBox(height: 20.0),
+                Column(
+  children: [
+    const Text(
+      'Inicio:',
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 18.0,
+        color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
+      ),
+    ),
+    const Text(
+      'En el panel principal, observamos el menu inferior, tips de nuestra app y las opciones HOME, ENTREGAS, BONOS. ',
+      style: TextStyle(fontSize: 16.0),
+    ),
+    const SizedBox(height: 10.0),
+    Center(
+      child: Image.asset(
+        'reciward_flutter_app/assets/manual_images/inicioo.png', // Ruta de la imagen
+        fit: BoxFit.cover, // Ajuste de la imagen
+      ),
+    ),
+    const SizedBox(height: 20.0),
+  ],
+),
 
 
                 const Text(

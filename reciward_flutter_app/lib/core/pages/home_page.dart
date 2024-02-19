@@ -81,7 +81,7 @@ Container(
       fontSize: 19.0,
       fontWeight: FontWeight.w600,
       fontFamily: 'Ubuntu',
-      color: Color.fromARGB(255, 34, 116, 37), // Aquí estableces el color verde
+      color: Color.fromARGB(255, 47, 161, 51), // Aquí estableces el color verde
     )
               ),
             ),
