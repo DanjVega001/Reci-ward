@@ -3,7 +3,7 @@ class GetHistorialEntrega {
   final int? cantidadMaterial;
   final bool? canjeada;
   final int? puntosAcumulados;
-  final String? nombreMaterial;
+  final List<String>? nombreMaterial;
 
   GetHistorialEntrega({
     required this.cantidadMaterial,
@@ -14,11 +14,13 @@ class GetHistorialEntrega {
   });
 
   factory GetHistorialEntrega.fromJson(Map<String, dynamic> json) {
+    // print(json["nombreMaterial"]);
     return GetHistorialEntrega(
       cantidadMaterial: json['cantidadMaterial'],
       canjeada: json['canjeada'] == 0 ? true : false,
       puntosAcumulados: json['puntosAcumulados'],
-      nombreMaterial: json['nombreMaterial'],
+      nombreMaterial:
+          (json['nombreMaterial'] as List).map((e) => e.toString()).toList(),
       id: json['id'].toString(),
     );
   }

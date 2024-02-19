@@ -23,14 +23,10 @@ class _HistorialEntregaspage extends State<HistorialEntregasPage> {
             final entregas = state.entregas;
             return Table(
               border: TableBorder.all(color: Colors.transparent),
-              columnWidths: const {
-                0: FixedColumnWidth(50),
-              },
-              defaultColumnWidth: const FixedColumnWidth(100),
               children: _buildTableRows(entregas),
             );
           }
-          return Center(child: Text("Cargando..."));
+          return Center(child: CircularProgressIndicator());
         },
       ),
     );
@@ -39,11 +35,11 @@ class _HistorialEntregaspage extends State<HistorialEntregasPage> {
   List<TableRow> _buildTableRows(List<GetHistorialEntrega> entregas) {
     List<TableRow> rows = [];
     rows.add(const TableRow(children: [
-      TableCell(child: Center(child: Text('Id'))),
-      TableCell(child: Center(child: Text('cantidad Material'))),
-      TableCell(child: Center(child: Text('nombre Material'))),
-      TableCell(child: Center(child: Text('puntosAcumulados'))),
-      TableCell(child: Center(child: Text('canjeada'))),
+      TableCell(child: Center(child: Text('Codigo'))),
+      TableCell(child: Center(child: Text('Cantidad Material'))),
+      TableCell(child: Center(child: Text('Nombre Material'))),
+      TableCell(child: Center(child: Text('Puntos Acumulados'))),
+      TableCell(child: Center(child: Text('Canjeada'))),
     ]));
     for (GetHistorialEntrega entrega in entregas) {
       rows.add(TableRow(children: [
@@ -66,7 +62,7 @@ class _HistorialEntregaspage extends State<HistorialEntregasPage> {
         TableCell(
           child: Center(
             child: Text(
-              entrega.nombreMaterial!,
+              entrega.nombreMaterial![0],
               style: TextStyle(fontSize: 14),
             ),
           ),
@@ -82,7 +78,7 @@ class _HistorialEntregaspage extends State<HistorialEntregasPage> {
         TableCell(
           child: Center(
             child: Text(
-              entrega.canjeada.toString(),
+              entrega.canjeada! ? "Activo" : "Inactivo",
               style: TextStyle(fontSize: 14),
             ),
           ),

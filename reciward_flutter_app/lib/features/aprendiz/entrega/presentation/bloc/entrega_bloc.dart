@@ -106,6 +106,7 @@ class EntregaBloc extends Bloc<EntregaEvent, EntregaState> {
     try {
       Either<DioException, List<GetHistorialEntrega>> either =
           await usecase2.call(event.accessToken);
+      print(either);
       return either.fold(
           (dio) => emit(HistorialEntregaFailed(error: dio.message!)),
           (entrega) => emit(HistorialEntregaSuccess(entregas: entrega)));

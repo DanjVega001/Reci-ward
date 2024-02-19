@@ -19,4 +19,10 @@ class Entrega extends Model
     public function aprendiz(){
         return $this->belongsTo(Aprendiz::class, "aprendiz_id", "id");
     }
+    /*public function materiales()
+    {
+        return $this->hasMany(Material_has_entrega::class, 'entrega_id', 'id')
+            ->join('materiales', 'material_has_entregas.material_id', '=', 'materiales.id')
+            ->select(['materiales.nombreMaterial', 'materiales.numeroMaterial']);
+    }*/
 }
