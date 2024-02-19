@@ -28,3 +28,24 @@ class GetHistorialBonosEvent extends BonoEvent {
   });
     
 }
+
+
+class GetBonoCafeteriaEvent extends BonoEvent {
+  final String accessToken;
+  final String code;
+
+  GetBonoCafeteriaEvent({
+    required this.accessToken,
+    required this.code
+  });
+}
+
+class ValidarBonoEvent extends BonoEvent {
+  final String accessToken;
+  final int idBono;
+
+  ValidarBonoEvent({
+    required this.accessToken,
+    required this.idBono
+  });
+}

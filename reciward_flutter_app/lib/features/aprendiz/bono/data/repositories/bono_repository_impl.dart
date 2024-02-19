@@ -4,6 +4,7 @@ import 'package:reciward_flutter_app/features/aprendiz/bono/data/dataresources/b
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/entities/bono_entity.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/entities/get_historial_bono.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/repositories/bono_repository.dart';
+import 'package:reciward_flutter_app/features/cafeteria/models/get_bono_cafeteria_dto.dart';
 
 class BonoRepositoryImpl extends BonoRepository {
 
@@ -37,6 +38,16 @@ class BonoRepositoryImpl extends BonoRepository {
   @override
   Future<Either<DioException, List<GetHistorialBono>>> getHistorialBonos(String accessToken) {
     return service.getHistorialBonos(accessToken);
+  }
+
+  @override
+  Future<Either<DioException, GetBonoCafeteriaDto>> getBonoCafeteria(String accessToken, String code) {
+    return service.getBonoCafeteria(accessToken, code);
+  }
+  
+  @override
+  Future<Either<DioException, String>> validarBono(String accessToken, int idBono) {
+    return service.validarBono(accessToken, idBono);
   }
 
 }

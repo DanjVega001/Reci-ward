@@ -100,6 +100,7 @@ class EntregaService {
     }
   }
 
+
   Future<Either<DioException, String>> validarEntrega(
       String accessToken, int idEntrega) async {
     Options options = Options(
