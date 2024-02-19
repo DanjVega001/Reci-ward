@@ -29,7 +29,7 @@ final class HistorialEntregaFailed extends EntregaState {
 }
 
 final class HistorialEntregaSuccess extends EntregaState {
-  final List<HistorialEntity> entregas;
+  final List<GetHistorialEntrega> entregas;
 
   HistorialEntregaSuccess({required this.entregas});
 }
@@ -48,23 +48,14 @@ final class GetEntregaCafeteriaFailed extends EntregaState {
   GetEntregaCafeteriaFailed({required this.error});
 }
 
-
-
 final class ValidarEntregaSuccess extends EntregaState {
   final String message;
 
-  ValidarEntregaSuccess({
-    required this.message
-  });
+  ValidarEntregaSuccess({required this.message});
 }
 
 final class ValidarEntregaFailed extends EntregaState {
   final String error;
 
-  ValidarEntregaFailed({
-    required this.error
-  });
+  ValidarEntregaFailed({required this.error});
 }
-
-
-

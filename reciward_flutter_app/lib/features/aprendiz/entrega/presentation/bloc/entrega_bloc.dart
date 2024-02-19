@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:reciward_flutter_app/core/exceptions/exceptions.dart';
 
-import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/historial_entity.dart';
+import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/get_historial_entrega.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/save_entrega_dto.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/usecases/historial_entrega_usecase.dart';
 
@@ -22,20 +22,16 @@ class EntregaBloc extends Bloc<EntregaEvent, EntregaState> {
 
   HistorialEntregaUsecase usecase2 = GetIt.instance<HistorialEntregaUsecase>();
 
-
   GetEntregaCafeteriaUsecase getEntregaCafeteriaUsecase =
       GetIt.instance<GetEntregaCafeteriaUsecase>();
 
-  
-
-  ValidarEntregaUsecase validarEntregaUsecase = GetIt.instance<ValidarEntregaUsecase>();
-
+  ValidarEntregaUsecase validarEntregaUsecase =
+      GetIt.instance<ValidarEntregaUsecase>();
 
   EntregaBloc() : super(EntregaInitial()) {
     on<SaveEntregaEvent>(onSaveEntregaEvent);
     on<HistorialEntrega>(onHistorialEntrega);
     on<GetEntregaCafeteriaEvent>(onGetEntregaCafeteriaEvent);
-
 
     on<ValidarEntregaEvent>(onValidarEntregaEvent);
   }
@@ -88,45 +84,34 @@ class EntregaBloc extends Bloc<EntregaEvent, EntregaState> {
     }
   }
 
-
-
-  void onValidarEntregaEvent (ValidarEntregaEvent event, Emitter<EntregaState> emit) async {
+  void onValidarEntregaEvent(
+      ValidarEntregaEvent event, Emitter<EntregaState> emit) async {
     try {
-      Either<DioException, String> either = await validarEntregaUsecase.call(event.accessToken, event.idEntrega);
+      Either<DioException, String> either =
+          await validarEntregaUsecase.call(event.accessToken, event.idEntrega);
 
       return either.fold(
-      (dio) => emit(ValidarEntregaFailed(error: dio.message!)), 
-      (message) => emit(ValidarEntregaSuccess(message: message)));
+          (dio) => emit(ValidarEntregaFailed(error: dio.message!)),
+          (message) => emit(ValidarEntregaSuccess(message: message)));
     } catch (e) {
       print("Error en onValidarEntregaUsecase ${e.toString()}");
       return emit(ValidarEntregaFailed(error: e.toString()));
     }
   }
 
-
-
   void onHistorialEntrega(
       HistorialEntrega event, Emitter<EntregaState> emit) async {
+    print(event);
     try {
-      final validate = event.validate();
-      if (validate != null) {
-        return emit(HistorialEntregaFailed(error: validate.getErrorMessage()));
-      }
-
-      emit(HistorialEntregaLoading());
-
-      Either<DioException, List<HistorialEntity>> either =
+      Either<DioException, List<GetHistorialEntrega>> either =
           await usecase2.call(event.accessToken);
-
-      return either.fold((dioException) {
-        emit(HistorialEntregaFailed(error: dioException.message!));
-      }, (entregas) {
-        emit(HistorialEntregaSuccess(entregas: entregas));
-      });
+      print(either);
+      return either.fold(
+          (dio) => emit(HistorialEntregaFailed(error: dio.message!)),
+          (entrega) => emit(HistorialEntregaSuccess(entregas: entrega)));
     } catch (e) {
       print("Error en onHistorialEntrega ${e.toString()}");
       return emit(HistorialEntregaFailed(error: e.toString()));
     }
   }
-
 }
