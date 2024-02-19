@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:reciward_flutter_app/core/constants/urls_apis.dart';
 
-import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/historial_entity.dart';
+import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/get_historial_entrega.dart';
 
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/get_entrega_cafeteria_dto.dart';
 
@@ -42,7 +42,7 @@ class EntregaService {
     }
   }
 
-  Future<Either<DioException, List<HistorialEntity>>> historialEntrega(
+  Future<Either<DioException, List<GetHistorialEntrega>>> historialEntrega(
       String accessToken) async {
     Options options = Options(
       headers: {'Authorization': 'Bearer $accessToken'},
@@ -56,7 +56,7 @@ class EntregaService {
           await dio.get(urlApiHistorialEntregasPage, options: options);
       if (response.statusCode == 200) {
         final data = (response.data["entregas"] as List)
-            .map((e) => HistorialEntity.fromJson(e))
+            .map((e) => GetHistorialEntrega.fromJson(e))
             .toList();
         return right(data);
       }
@@ -96,29 +96,9 @@ class EntregaService {
       return left(e);
     }
   }
-  
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  Future<Either<DioException, String>> validarEntrega(String accessToken, int idEntrega)async{
-
+  Future<Either<DioException, String>> validarEntrega(
+      String accessToken, int idEntrega) async {
     Options options = Options(
       headers: {'Authorization': 'Bearer $accessToken'},
       contentType: 'application/json',
@@ -127,13 +107,13 @@ class EntregaService {
       },
     );
 
-
     try {
-      final response = await dio.get("$urlApiSaveEntrega/validada/$idEntrega", options: options);
+      final response = await dio.get("$urlApiSaveEntrega/validada/$idEntrega",
+          options: options);
       if (response.statusCode == 200) {
         return right(response.data["message"]);
       }
-        
+
       return left(DioException(
         requestOptions: response.requestOptions,
         message: response.statusMessage,

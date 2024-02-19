@@ -44,7 +44,8 @@ class _HomeEntregaPageState extends State<HomeEntregaPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const HistorialEntregasPage()));
+                              builder: (context) =>
+                                  const HistorialEntregasPage()));
                     },
                     text: "Historial de Entregas"))
           ],

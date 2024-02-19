@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/data/dataresources/entrega_service.dart';
 
-import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/historial_entity.dart';
+import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/get_historial_entrega.dart';
 
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/get_entrega_cafeteria_dto.dart';
 
@@ -21,7 +21,7 @@ class EntregaRepositoryImpl extends EntregaRepository {
   }
 
   @override
-  Future<Either<DioException, List<HistorialEntity>>> historialEntrega(
+  Future<Either<DioException, List<GetHistorialEntrega>>> historialEntrega(
       String accessToken) {
     return service.historialEntrega(accessToken);
   }
@@ -32,16 +32,9 @@ class EntregaRepositoryImpl extends EntregaRepository {
     return service.getEntregaCafeteria(accessToken, idEntrega);
   }
 
-  
-
-
-
-
-
-
   @override
-  Future<Either<DioException, String>> validarEntrega(String accessToken, int idEntrega) {
+  Future<Either<DioException, String>> validarEntrega(
+      String accessToken, int idEntrega) {
     return service.validarEntrega(accessToken, idEntrega);
   }
-
 }
