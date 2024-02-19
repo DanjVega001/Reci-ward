@@ -1,4 +1,5 @@
 
+
 // ignore_for_file: unused_field
 
 import 'package:flutter/material.dart';
@@ -53,21 +54,18 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
             Container(
               width: 430,
               decoration: BoxDecoration(
-
                 border: Border.all(color: Color.fromARGB(255, 84, 104, 59)),
-
                 color: const Color.fromARGB(255, 221, 221, 220),
-
                 borderRadius: BorderRadius.circular(10),
               ),
               child: BlocBuilder<BonoBloc, BonoState>(
                 builder: (context, state) {
                   if (state is GetHistorialBonosSuccess) {
                     final bonos = state.bonos;
-                    return  Table(
+                    return Table(
                       border: TableBorder.all(color: Colors.transparent),
                       columnWidths: const {
-                         0:  FixedColumnWidth(50),
+                        0: FixedColumnWidth(50),
                       },
                       defaultColumnWidth: const FixedColumnWidth(100),
                       children: _buildTableRows(
@@ -75,9 +73,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                     );
                   }
 
-                  return const Center( 
-                    child: Text("Cargando..."));
-
+                  return const Center(child: Text("Cargando..."));
                 },
               ),
             ),
