@@ -63,4 +63,9 @@ class AuthRepositoryImpl extends AuthRepository {
       String password, String token) {
     return service.resetPassword(password, token);
   }
+  
+  @override
+  Future<Either<DioException, Map<String, dynamic>>> sendVerificationEmail(String email) {
+    return service.sendVerificationEmail(email);
+  }
 }

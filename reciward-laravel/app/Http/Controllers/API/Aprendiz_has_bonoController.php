@@ -30,11 +30,11 @@ class Aprendiz_has_bonoController extends Controller
             return response()->json(["error" => "Usuario no autorizado"],403);
         }
         $aprendiz_has_bono = Aprendiz_has_bono::where('aprendiz_id', $idAprendiz)
-            ->where('estadoBono', false)->get();
-
-        if ($aprendiz_has_bono===null) {
+            ->get();
+        if (count($aprendiz_has_bono)<1) {
             return response()->json(['message' => 'El aprendiz no tiene bonos para redimir'], 404);
         }
+
         $dataBonos = array();
         foreach ($aprendiz_has_bono as $apBono) {
             array_push($dataBonos, [
@@ -147,17 +147,17 @@ class Aprendiz_has_bonoController extends Controller
         ], 200);
     }
 
-    public function update(Request $request, $id)
+    public function update($id)
     {
         $aprendiz_has_bono = Aprendiz_has_bono::find($id);
         if (!$aprendiz_has_bono) {
-            return response()->json(['message' => 'Aprendiz_has_bono no encontrado'], 404);
+            return response()->json(['error' => 'Aprendiz_has_bono no encontrado'], 404);
         }
 
         $aprendiz_has_bono->update([
-            'estadoBono' => $request->estadoBono	
+            'estadoBono' => 1	
         ]);
-        return response()->json($aprendiz_has_bono, 200);
+        return response()->json(['message' => 'Bono validado'], 200);
     }
 
     public function destroy($id)

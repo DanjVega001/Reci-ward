@@ -132,7 +132,9 @@ class HomePageCafeteria extends StatelessWidget {
                               ),
                             ),
                             TextButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(context, "/validar-bono");
+                              },
                               icon: const Icon(Icons.checklist_rounded),
                               label: const Text("Validar Bonos"),
                               style: const ButtonStyle(

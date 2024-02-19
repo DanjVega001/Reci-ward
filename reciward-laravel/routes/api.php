@@ -44,6 +44,9 @@ Route::group([
     Route::post('signup', [AuthController::class, "signup"]);
     Route::get('/all/fichas', [FichaController::class, 'index']);
 
+
+    /** Maneja la verificacion de correo electronico */
+    Route::post('/verify-email', [AuthController::class, "sendVerificationEmail"]);
     /** Maneja el envio del correo para restablecer la contraseña */
     Route::post('/send-reset-password', [AuthController::class, "enviarRecuperarContrasena"]);
     /** Restablece la contraseña */

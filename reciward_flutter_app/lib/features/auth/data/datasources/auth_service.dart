@@ -120,7 +120,7 @@ class AuthService {
       if (response.statusCode == 200) return right(response.data["message"]);
       return left(DioException(
           requestOptions: response.requestOptions,
-          message: response.statusMessage));
+          message: response.data["error"]));
     } on DioException catch (e) {
       return left(e);
     }
@@ -141,8 +141,35 @@ class AuthService {
       if (response.statusCode == 200) return right(response.data["message"]);
       return left(DioException(
           requestOptions: response.requestOptions,
-          message: response.statusMessage));
+          message: response.data["error"]));
     } on DioException catch (e) {
+      return left(e);
+    }
+  }
+
+  Future<Either<DioException, Map<String, dynamic>>> sendVerificationEmail(String email) async {
+    Options options = Options(
+        contentType: 'application/json',
+        validateStatus: (status) {
+          return status! < 500;
+        },
+      );
+
+    try {
+      final response = await dio.post(urlApiSendVerificationEmail, data:  {'email' : email}, options: options);
+      if (response.statusCode == 200) {
+        return right({
+          "message" : response.data["message"],
+          "code" : response.data["code"]
+        });
+      }
+
+      return left(DioException(
+          requestOptions: response.requestOptions,
+          message: response.data["error"])); 
+    
+    } on DioException catch (e) {
+      print("Error en sendVerificatinEmail Service $e");
       return left(e);
     }
   }

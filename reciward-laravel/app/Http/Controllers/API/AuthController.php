@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Mail\PasswordReset;
+use App\Mail\VerificationEmail;
 use App\Models\Aprendiz;
 use App\Models\Perfil;
 use App\Models\Punto;
@@ -148,11 +149,11 @@ class AuthController extends Controller
             'email' => 'required',
         ]);
         $email = $request->email;
-        if (!$email) return response()->json(['error' => 'Proporcion un email valido']);
+        if (!$email) return response()->json(['error' => 'Proporcion un email valido'], 400);
 
         $cuentaExiste = User::where('email', $email)->exists();
 
-        if (!$cuentaExiste) return response()->json(['error' => 'Cuenta no existe']);
+        if (!$cuentaExiste) return response()->json(['error' => 'Cuenta no existe'], 400);
 
         $token = null;
         $unico = false;
@@ -207,7 +208,29 @@ class AuthController extends Controller
 
             return response()->json(['message' => 'contraseña restablecida correctamente']);
         } catch (\Throwable $th) {
-            return response()->json(['error' => 'Error al restablecer la contraseña'], 200);
+            return response()->json(['error' => 'Error al restablecer la contraseña'], 400);
         }
+    }
+
+    /**
+     * Metodo para enviar el correo de verificacion de la cuenta email
+     * 
+     */
+    public function sendVerificationEmail(Request $request){
+        $request->validate([
+            'email' => 'required',
+        ]);
+
+        if (User::where('email', $request->email)->exists()) {
+            return response()->json(['error' => 'Existing email'], 400);
+        }
+
+        $code = rand(000000, 999999);
+        Mail::to($request->email)->send(new VerificationEmail($code));
+
+        return response()->json([
+            'message' => 'Mail sent',
+            'code' => $code
+        ], 200);
     }
 }
