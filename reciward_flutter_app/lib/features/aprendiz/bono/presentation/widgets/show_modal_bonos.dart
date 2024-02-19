@@ -114,6 +114,8 @@ class _ShowModalBonosState extends State<ShowModalBonos> {
                   TextButton.icon(
                     onPressed: () {
                       Navigator.pop(context);
+                      String accessToken = (BlocProvider.of<ProfileBloc>(context).state as UserProfileState).user!.accces_token!;
+                      BlocProvider.of<BonoBloc>(context).add(GetHistorialBonosEvent(accessToken: accessToken));
                     },
                     icon: const Icon(Icons.close, color: Pallete.colorWhite),
                     style: const ButtonStyle(

@@ -52,7 +52,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
             ),
             const SizedBox(height: 10),
             Container(
-              width: 430,
+              width: 360,
               decoration: BoxDecoration(
                 border: Border.all(color: Color.fromARGB(255, 84, 104, 59)),
                 color: const Color.fromARGB(255, 221, 221, 220),

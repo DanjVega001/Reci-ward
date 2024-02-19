@@ -8,6 +8,7 @@ class ManualUser extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Manual de Instrucciones'),
+        
       ),
       body: ListView(
         children: <Widget>[
@@ -16,33 +17,44 @@ class ManualUser extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
+
+
+                Column(
+  children: [
+    const Text(
+      'Inicio:',
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 18.0,
+        color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
+      ),
+    ),
+    const Text(
+      'En el panel principal, observamos el menu inferior, tips de nuestra app y las opciones HOME, ENTREGAS, BONOS. ',
+      style: TextStyle(fontSize: 16.0),
+    ),
+    const SizedBox(height: 10.0),
+    Center(
+      child: Image.asset(
+        'reciward_flutter_app/assets/manual_images/inicioo.png', // Ruta de la imagen
+        fit: BoxFit.cover, // Ajuste de la imagen
+      ),
+    ),
+    const SizedBox(height: 20.0),
+  ],
+),
+
+
                 const Text(
-                  'Instrucción 1:',
+                  'Datos personales:',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
+                    color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
                   ),
                 ),
                 const Text(
-                  'En el panel principal, vemos el menu inferior y las opciones HOME, ENTREGAS, BONOS. ',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                const SizedBox(height: 10.0),
-                Image.asset(
-                  'assets/manual_images/instruccion1.jpg', // Ruta de la imagen
-                  
-                  fit: BoxFit.cover, // Ajuste de la imagen
-                ),
-                const SizedBox(height: 20.0),
-                const Text(
-                  'Instrucción 2:',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                  ),
-                ),
-                const Text(
-                  'Aqui pondemos agregar o quitar la cantida de cada material que deseamos entregar y presionamos HACER ENTREGA.',
+                  'Edita o actualiza tus datos personales.',
                   style: TextStyle(fontSize: 16.0),
                 ),
                 const SizedBox(height: 10.0),
@@ -51,15 +63,18 @@ class ManualUser extends StatelessWidget {
                  
                   fit: BoxFit.cover, // Ajuste de la imagen
                 ),
+
+
                 const Text(
-                  'Instrucción 3:',
+                  'Entrega:',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
+                    color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
                   ),
                 ),
                 const Text(
-                  'En esta ventana emergente se puede visualizar la cantidad total de material y los puntos totales que pondemos obtener.',
+                  'Suma tus puntos antes de cada entrega y acumulalos.',
                   style: TextStyle(fontSize: 16.0),
                 ),
                 const SizedBox(height: 10.0),
@@ -68,15 +83,58 @@ class ManualUser extends StatelessWidget {
                    
                   fit: BoxFit.cover, // Ajuste de la imagen
                 ),
+
+
                 const Text(
-                  'Instrucción 4:',
+                  'Historial de entrega:',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
+                    color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
                   ),
                 ),
                 const Text(
-                  'Aqui podemos ver  todos los puntos acumulados y la opcion de CANJEAR BONO, para redimir los puntos acumulados',
+                  'Observa el historial de tus entregas más detalladas.',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                const SizedBox(height: 10.0),
+                Image.asset(
+                  'assets/manual_images/instruccion4.jpg', // Ruta de la imagen
+                  
+                  fit: BoxFit.cover, // Ajuste de la imagen
+                ),
+
+
+                  const Text(
+                  'Canjear bonos:',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                    color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
+                  ),
+                ),
+                const Text(
+                  'Observa la cantidad de tus puntos, canjealos y reclama tu bono.',
+                  style: TextStyle(fontSize: 16.0),
+                ),
+                const SizedBox(height: 10.0),
+                Image.asset(
+                  'assets/manual_images/instruccion4.jpg', // Ruta de la imagen
+                  
+                  fit: BoxFit.cover, // Ajuste de la imagen
+                ),
+
+
+                  const Text(
+                  'Historial de bonos:',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                    color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
+                  ),
+                ),
+                const Text(
+                  'Obeserva el historial de tus bonos más detallados.',
                   style: TextStyle(fontSize: 16.0),
                 ),
                 const SizedBox(height: 10.0),
