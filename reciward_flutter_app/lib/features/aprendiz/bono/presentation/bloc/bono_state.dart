@@ -42,3 +42,34 @@ final class GetHistorialBonosFailed extends BonoState {
 
   GetHistorialBonosFailed({required this.error});
 }
+
+final class GetBonoCafeteriaSuccess extends BonoState {
+  final GetBonoCafeteriaDto data;
+
+  GetBonoCafeteriaSuccess({
+    required this.data
+  });
+}
+
+
+final class GetBonoCafeteriaFailed extends BonoState {
+  final String error;
+
+  GetBonoCafeteriaFailed({required this.error});
+}
+
+final class ValidarBonoSuccess extends BonoState {
+  final String message;
+
+  ValidarBonoSuccess({
+    required this.message
+  });
+}
+
+final class ValidarBonoFailed extends BonoState {
+  final String error;
+
+  ValidarBonoFailed({
+    required this.error
+  });
+}

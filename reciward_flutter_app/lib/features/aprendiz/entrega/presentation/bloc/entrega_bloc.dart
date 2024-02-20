@@ -9,7 +9,6 @@ import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/s
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/usecases/historial_entrega_usecase.dart';
 
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/get_entrega_cafeteria_dto.dart';
-import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/save_entrega_dto.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/usecases/get_entrega_cafeteria_usecase.dart';
 
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/usecases/save_entrega_usecase.dart';

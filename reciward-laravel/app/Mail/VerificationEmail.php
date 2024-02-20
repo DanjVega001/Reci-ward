@@ -30,7 +30,7 @@ class VerificationEmail extends Mailable
      */
     public function build()
     {
-        $content = "<html>Hola";
+        $content = "<html> Hola <br>";
         $content .= "Recibes este correo electrónico porque hemos recibido una solicitud de una creación de una cuenta en Reciward.<br>";
         $content .= "Debes digitar el siguiente codigo de 6 digitos para verificar tu cuenta. <br>";
         $content .= "Codigo: <b>".$this->code."</b> <br>";
