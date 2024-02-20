@@ -110,7 +110,7 @@ class ManualUser extends StatelessWidget {
                     Container(
                       alignment: Alignment.center,
                       child: Image.asset(
-                        'ruta_de_la_imagen.jpg',
+                        'assets/manual_images/historialentrega.png',
                         fit: BoxFit.cover,
                       ),
                     ),
