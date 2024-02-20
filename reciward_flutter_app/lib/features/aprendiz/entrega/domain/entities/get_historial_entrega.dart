@@ -19,8 +19,7 @@ class GetHistorialEntrega {
       cantidadMaterial: json['cantidadMaterial'],
       canjeada: json['canjeada'] == 0 ? true : false,
       puntosAcumulados: json['puntosAcumulados'],
-      nombreMaterial:
-          (json['nombreMaterial'] as List).map((e) => e.toString()).toList(),
+      nombreMaterial: (json['nombreMaterial'] as String).split(', '),
       id: json['id'].toString(),
     );
   }
