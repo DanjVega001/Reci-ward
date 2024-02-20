@@ -26,7 +26,7 @@ class ManualUser extends StatelessWidget {
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 18.0,
-        color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
+        color:Color.fromARGB(255, 60, 158, 62), 
       ),
     ),
     const Text(
@@ -36,8 +36,8 @@ class ManualUser extends StatelessWidget {
     const SizedBox(height: 10.0),
     Center(
       child: Image.asset(
-        'reciward_flutter_app/assets/manual_images/inicioo.png', // Ruta de la imagen
-        fit: BoxFit.cover, // Ajuste de la imagen
+        'assets/manual_images/inicio.png', 
+        fit: BoxFit.cover, 
       ),
     ),
     const SizedBox(height: 20.0),
@@ -45,44 +45,56 @@ class ManualUser extends StatelessWidget {
 ),
 
 
-                const Text(
-                  'Datos personales:',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                    color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
-                  ),
-                ),
-                const Text(
-                  'Edita o actualiza tus datos personales.',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                const SizedBox(height: 10.0),
-                Image.asset(
-                  'assets/manual_images/instruccion2.jpg', // Ruta de la imagen
-                 
-                  fit: BoxFit.cover, // Ajuste de la imagen
-                ),
+               Column(
+  crossAxisAlignment: CrossAxisAlignment.center,
+  children: [
+    Text(
+      'Datos personales:',
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 18.0,
+        color: Color.fromARGB(255, 60, 158, 62), 
+      ),
+    ),
+    Text(
+      'Edita o actualiza tus datos personales.',
+      style: TextStyle(fontSize: 16.0),
+    ),
+    SizedBox(height: 10.0),
+    Center(
+      child: Image.asset(
+        'assets/manual_images/datospersonales.png', 
+        fit: BoxFit.cover, 
+      ),
+    ),
+  ],
+),
 
 
-                const Text(
-                  'Entrega:',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                    color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
-                  ),
-                ),
-                const Text(
-                  'Suma tus puntos antes de cada entrega y acumulalos.',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                const SizedBox(height: 10.0),
-                Image.asset(
-                  'assets/manual_images/instruccion3.jpg', // Ruta de la imagen
-                   
-                  fit: BoxFit.cover, // Ajuste de la imagen
-                ),
+                Column(
+  crossAxisAlignment: CrossAxisAlignment.center,
+  children: [
+    Text(
+      'Entrega:',
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 18.0,
+        color: Color.fromARGB(255, 60, 158, 62), 
+      ),
+    ),
+    Text(
+      'Suma tus puntos antes de cada entrega y acumúlalos.',
+      style: TextStyle(fontSize: 16.0),
+    ),
+    SizedBox(height: 10.0),
+    Center(
+      child: Image.asset(
+        'assets/manual_images/entrega.png', 
+        fit: BoxFit.cover, 
+      ),
+    ),
+  ],
+),
 
 
                 const Text(
@@ -90,7 +102,7 @@ class ManualUser extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.0,
-                    color:Color.fromARGB(255, 60, 158, 62), // Agrega el color verde aquí
+                    color:Color.fromARGB(255, 60, 158, 62), 
                   ),
                 ),
                 const Text(
@@ -99,9 +111,9 @@ class ManualUser extends StatelessWidget {
                 ),
                 const SizedBox(height: 10.0),
                 Image.asset(
-                  'assets/manual_images/instruccion4.jpg', // Ruta de la imagen
+                  'assets/manual_images/instruccion4.jpg', 
                   
-                  fit: BoxFit.cover, // Ajuste de la imagen
+                  fit: BoxFit.cover, 
                 ),
 
 
