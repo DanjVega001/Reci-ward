@@ -69,7 +69,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                       },
                       defaultColumnWidth: const FixedColumnWidth(100),
                       children: _buildTableRows(
-                          bonos), // Utiliza una función para construir las filas de la tabla
+                          bonos), 
                     );
                   }
 
@@ -88,7 +88,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
 
   List<TableRow> _buildTableRows(List<GetHistorialBono> bonos) {
     List<TableRow> rows = [];
-    // Agrega la fila de encabezado
+    
     rows.add(
       const TableRow(
         children: [

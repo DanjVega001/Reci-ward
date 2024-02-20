@@ -61,7 +61,7 @@ void main() {
         '/validar-bono':(context) => ValidarBonoPage(),
       },
       home: const LoginPage(),
-    ),
+    )
   ));
 }
 
