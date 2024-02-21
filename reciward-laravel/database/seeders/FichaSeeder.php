@@ -16,7 +16,7 @@ class FichaSeeder extends Seeder
     {
         //
         Ficha::create([
-            "nombreFicha" => "sistmemas",
+            "nombreFicha" => "sistemas",
             "fechaCreacion" =>  "2023-11-03",
             "fechaFin" => "2025-11-03",
             "codigoFicha" => 2557863,

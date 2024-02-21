@@ -16,75 +16,161 @@ class ManualUser extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Text(
-                  'Instrucción 1:',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                  ),
+                Column(
+                  children: [
+                    const Text(
+                      'Inicio:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                        color: Color.fromARGB(255, 60, 158, 62),
+                      ),
+                    ),
+                    const Text(
+                      'En el panel principal, observamos el menu inferior, tips de nuestra app y las opciones HOME, ENTREGAS, BONOS. ',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                    const SizedBox(height: 10.0),
+                    Center(
+                      child: Image.asset(
+                        'assets/manual_images/inicio.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    const SizedBox(height: 20.0),
+                  ],
                 ),
-                const Text(
-                  'En el panel principal, vemos el menu inferior y las opciones HOME, ENTREGAS, BONOS. ',
-                  style: TextStyle(fontSize: 16.0),
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Datos personales:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                        color: Color.fromARGB(255, 60, 158, 62),
+                      ),
+                    ),
+                    const Text(
+                      'Edita o actualiza tus datos personales.',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                    const SizedBox(height: 10.0),
+                    Center(
+                      child: Image.asset(
+                        'assets/manual_images/datospersonales.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 10.0),
-                Image.asset(
-                  'assets/manual_images/instruccion1.jpg', // Ruta de la imagen
-                  
-                  fit: BoxFit.cover, // Ajuste de la imagen
+
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Entrega:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                        color: Color.fromARGB(255, 60, 158, 62),
+                      ),
+                    ),
+                    const Text(
+                      'Suma tus puntos antes de cada entrega y acumúlalos.',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                    const SizedBox(height: 10.0),
+                    Center(
+                      child: Image.asset(
+                        'assets/manual_images/entrega.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 20.0),
-                const Text(
-                  'Instrucción 2:',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                  ),
+
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Historial de entrega:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                        color: Color.fromARGB(255, 60, 158, 62),
+                      ),
+                    ),
+                    const Text(
+                      'Observa el historial de tus entregas más detalladas.',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                    const SizedBox(height: 10.0),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        'ruta_de_la_imagen.jpg',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
                 ),
-                const Text(
-                  'Aqui pondemos agregar o quitar la cantida de cada material que deseamos entregar y presionamos HACER ENTREGA.',
-                  style: TextStyle(fontSize: 16.0),
+
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Canjear bonos:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                        color: Color.fromARGB(
+                            255, 60, 158, 62), // Agrega el color verde aquí
+                      ),
+                    ),
+                    const Text(
+                      'Observa la cantidad de tus puntos, canjealos y reclama tu bono.',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                    const SizedBox(height: 10.0),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        'assets/manual_images/Canjear.png', // Ruta de la imagen
+                        fit: BoxFit.cover, // Ajuste de la imagen
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 10.0),
-                Image.asset(
-                  'assets/manual_images/instruccion2.jpg', // Ruta de la imagen
-                 
-                  fit: BoxFit.cover, // Ajuste de la imagen
+
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Text(
+                      'Historial de bonos:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18.0,
+                        color: Color.fromARGB(
+                            255, 60, 158, 62), // Agrega el color verde aquí
+                      ),
+                    ),
+                    const Text(
+                      'Observa el historial de tus bonos más detallados.',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                    const SizedBox(height: 10.0),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        'assets/manual_images/Entrega_N.png', // Ruta de la imagen
+                        fit: BoxFit.cover, // Ajuste de la imagen
+                      ),
+                    ),
+                  ],
                 ),
-                const Text(
-                  'Instrucción 3:',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                  ),
-                ),
-                const Text(
-                  'En esta ventana emergente se puede visualizar la cantidad total de material y los puntos totales que pondemos obtener.',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                const SizedBox(height: 10.0),
-                Image.asset(
-                  'assets/manual_images/instruccion3.jpg', // Ruta de la imagen
-                   
-                  fit: BoxFit.cover, // Ajuste de la imagen
-                ),
-                const Text(
-                  'Instrucción 4:',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.0,
-                  ),
-                ),
-                const Text(
-                  'Aqui podemos ver  todos los puntos acumulados y la opcion de CANJEAR BONO, para redimir los puntos acumulados',
-                  style: TextStyle(fontSize: 16.0),
-                ),
-                const SizedBox(height: 10.0),
-                Image.asset(
-                  'assets/manual_images/instruccion4.jpg', // Ruta de la imagen
-                  
-                  fit: BoxFit.cover, // Ajuste de la imagen
-                ),
+
                 // Agrega más instrucciones y sus explicaciones aquí si es necesario
               ],
             ),

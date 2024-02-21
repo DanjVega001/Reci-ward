@@ -86,7 +86,7 @@ class HomePageCafeteria extends StatelessWidget {
                                   MaterialStatePropertyAll(Pallete.colorGrey2),
                             ),
                             onPressed: () {
-                              Navigator.pushNamed(context, "/manual");
+                              Navigator.pushNamed(context, "/manualCafeteria");
                             },
                             child: const Text(
                               'Explorar',

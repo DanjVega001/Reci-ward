@@ -48,7 +48,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
             ),
             const SizedBox(height: 10),
             Container(
-              width: 430,
+              width: 360,
               decoration: BoxDecoration(
                 border: Border.all(color: Color.fromARGB(255, 84, 104, 59)),
                 color: const Color.fromARGB(255, 221, 221, 220),
@@ -65,7 +65,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                       },
                       defaultColumnWidth: const FixedColumnWidth(100),
                       children: _buildTableRows(
-                          bonos), // Utiliza una función para construir las filas de la tabla
+                          bonos), 
                     );
                   }
 
@@ -84,7 +84,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
 
   List<TableRow> _buildTableRows(List<GetHistorialBono> bonos) {
     List<TableRow> rows = [];
-    // Agrega la fila de encabezado
+    
     rows.add(
       const TableRow(
         children: [
