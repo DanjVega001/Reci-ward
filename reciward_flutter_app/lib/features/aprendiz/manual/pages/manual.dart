@@ -110,7 +110,7 @@ class ManualUser extends StatelessWidget {
                     Container(
                       alignment: Alignment.center,
                       child: Image.asset(
-                        'ruta_de_la_imagen.jpg',
+                        'assets/manual_images/historialentrega.png',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -164,7 +164,7 @@ class ManualUser extends StatelessWidget {
                     Container(
                       alignment: Alignment.center,
                       child: Image.asset(
-                        'assets/manual_images/Entrega_N.png', // Ruta de la imagen
+                        'assets/manual_images/Historialbono.png', // Ruta de la imagen
                         fit: BoxFit.cover, // Ajuste de la imagen
                       ),
                     ),
