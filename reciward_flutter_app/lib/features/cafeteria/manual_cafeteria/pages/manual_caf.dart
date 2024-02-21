@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class ManualCafe extends StatelessWidget {
   const ManualCafe({super.key});
-
   @override
   Widget build(BuildContext context) {
+  
     return Scaffold(
       appBar: AppBar(
         title: const Text('Manual de Instrucciones'),
@@ -51,6 +51,7 @@ class ManualCafe extends StatelessWidget {
     String description,
     String imagePath,
   ) {
+    
     return Column(
       children: <Widget>[
         Padding(
@@ -73,8 +74,7 @@ class ManualCafe extends StatelessWidget {
               Center(
                 child: Image.asset(
                   imagePath,
-                  height: 200.0,
-                  width: 200.0,
+                  height: 700.0,
                   fit: BoxFit.cover,
                 ),
               ),

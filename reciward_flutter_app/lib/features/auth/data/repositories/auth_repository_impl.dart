@@ -54,13 +54,13 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<DioException, String>> sendMailResetPassword(String email) {
+  Future<Either<DioException, Map<String, dynamic>>> sendMailResetPassword(String email) {
     return service.sendMailResetPassword(email);
   }
 
   @override
   Future<Either<DioException, String>> resetPassword(
-      String password, String token) {
+      String password, int token) {
     return service.resetPassword(password, token);
   }
   
