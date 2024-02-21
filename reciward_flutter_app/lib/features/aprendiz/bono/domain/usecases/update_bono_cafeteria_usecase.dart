@@ -3,14 +3,14 @@ import 'package:dio/dio.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/entities/bono_entity.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/repositories/bono_repository.dart';
 
-class GetBonosUsecase {
+class UpdateBonoCafeteriaUsecase {
   final BonoRepository repository;
 
-  const GetBonosUsecase({
+  const UpdateBonoCafeteriaUsecase({
     required this.repository
   });
 
-  Future<Either<DioException, List<BonoEntity>>> call(String accessToken, String rol){
-    return repository.getBonos(accessToken, rol);
+  Future<Either<DioException, String>> call(String accessToken, BonoEntity bono){
+    return repository.updateBono(accessToken, bono);
   }
 }

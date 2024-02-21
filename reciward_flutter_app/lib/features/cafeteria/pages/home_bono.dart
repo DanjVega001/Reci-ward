@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reciward_flutter_app/features/aprendiz/bono/presentation/bloc/bono_bloc.dart';
 
 class HomeBonoPageCafeteria extends StatefulWidget {
   @override
@@ -31,7 +33,8 @@ class _HomeBonoPageCafeteriaState extends State<HomeBonoPageCafeteria> {
                   columnWidths: {
                     0: FlexColumnWidth(1), // Ancho de la primera columna
                     1: FlexColumnWidth(2), // Ancho de la segunda columna
-                    2: FlexColumnWidth(2), // Ancho de la tercera columna (puntos requeridos)
+                    2: FlexColumnWidth(
+                        2), // Ancho de la tercera columna (puntos requeridos)
                   },
                   children: [
                     TableRow(
@@ -58,13 +61,46 @@ class _HomeBonoPageCafeteriaState extends State<HomeBonoPageCafeteria> {
                     TableRow(
                       children: [
                         TableCell(
-                          child: Center(child: Text('1')),
+                          child: Center(
+                            child: BlocBuilder<BonoBloc, BonoState>(
+                              builder: (context, state) {
+                                if (state is GetBonoSuccessState) {
+                                  for (var bono in state.bonos) {
+                                    return Text("${bono.id}");
+                                  }
+                                }
+                                return Text("No hay valor del bono");
+                              },
+                            ),
+                          ),
                         ),
                         TableCell(
-                          child: Center(child: Text(valorBono)),
+                          child: Center(
+                            child: BlocBuilder<BonoBloc, BonoState>(
+                              builder: (context, state) {
+                                if (state is GetBonoSuccessState) {
+                                  for (var bono in state.bonos) {
+                                    return Text("${bono.valorBono}");
+                                  }
+                                }
+                                return Text("No hay valor del bono");
+                              },
+                            ),
+                          ),
                         ),
                         TableCell(
-                          child: Center(child: Text(puntosRequeridos)),
+                          child: Center(
+                            child: BlocBuilder<BonoBloc, BonoState>(
+                              builder: (context, state) {
+                                if (state is GetBonoSuccessState) {
+                                  for (var bono in state.bonos) {
+                                    return Text("${bono.puntosRequeridos} "); 
+                                  }
+                                }
+                                return Text("No hay puntos requeridos del bono");
+                              },
+                            )
+                          ),
                         ),
                       ],
                     ),
@@ -75,14 +111,8 @@ class _HomeBonoPageCafeteriaState extends State<HomeBonoPageCafeteria> {
             SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: () async {
-                final result =
-                    await Navigator.pushNamed(context, "/editar-cafeteria");
-                if (result != null && result is Map<String, String>) {
-                  setState(() {
-                    valorBono = result['valorBono']!;
-                    puntosRequeridos = result['puntosRequeridos']!;
-                  });
-                }
+                Navigator.pushNamed(context, "/editar-cafeteria", arguments: 1);
+                
               },
               style: ElevatedButton.styleFrom(
                 primary: Color.fromARGB(255, 83, 177, 117),

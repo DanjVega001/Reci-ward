@@ -1,96 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reciward_flutter_app/features/aprendiz/bono/domain/entities/bono_entity.dart';
+import 'package:reciward_flutter_app/features/aprendiz/bono/presentation/bloc/bono_bloc.dart';
+import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
+import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.dart';
 
-class HomeBonoPageCafeteria extends StatefulWidget {
+class EditarBonoPageCafeteria extends StatefulWidget {
   @override
-  _HomeBonoPageCafeteriaState createState() => _HomeBonoPageCafeteriaState();
+  _BonoFormState createState() => _BonoFormState();
 }
 
-class _HomeBonoPageCafeteriaState extends State<HomeBonoPageCafeteria> {
-  String valorBono = '';
-  String puntosRequeridos = '';
+class _BonoFormState extends State<EditarBonoPageCafeteria> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController _valorBonoController = TextEditingController();
+  TextEditingController _puntosRequeridosController = TextEditingController();
+
+  @override
+  void dispose() {
+    _valorBonoController.dispose();
+    _puntosRequeridosController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tus Bonos'),
+        title: Text('Formulario de Bono'),
       ),
-      body: Container(
-        padding: EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            Card(
-              color: Color.fromRGBO(156, 245, 156, 1), // Color verde claro
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TextFormField(
+                controller: _valorBonoController,
+                decoration: InputDecoration(
+                  labelText: 'Valor del bono',
+                ),
+               keyboardType: TextInputType.number,
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Table(
-                  border: TableBorder.all(),
-                  columnWidths: {
-                    0: FlexColumnWidth(1), // Ancho de la primera columna
-                    1: FlexColumnWidth(2), // Ancho de la segunda columna
-                    2: FlexColumnWidth(2), // Ancho de la tercera columna (puntos requeridos)
+              TextFormField(
+                controller: _puntosRequeridosController,
+               keyboardType: TextInputType.number,
+                
+                decoration: InputDecoration(
+                  labelText: 'Puntos requeridos',
+                ),
+            
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    UserEntity user = (BlocProvider.of<ProfileBloc>(context).state as UserProfileState).user!;
+                    BlocProvider.of<BonoBloc>(context).add(UpdateBonoEvent(accessToken: user.accces_token!, bonoEntity: BonoEntity(
+                      puntosRequeridos: int.parse(_puntosRequeridosController.text.trim()),
+                      valorBono: int.parse(_valorBonoController.text.trim()),
+                      id: "${(ModalRoute.of(context)!.settings.arguments as int)}"
+                    )));
+                    BlocProvider.of<BonoBloc>(context).add(GetBonosEvent(accessToken: user.accces_token!, rol: user.rol!));
+                    Navigator.pop(context);
                   },
-                  children: [
-                    TableRow(
-                      children: [
-                        TableCell(
-                          child: Center(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 6.0),
-                              child: Text(
-                                'Id',
-                                style: TextStyle(fontWeight: FontWeight.normal),
-                              ),
-                            ),
-                          ),
-                        ),
-                        TableCell(
-                          child: Center(child: Text('Valor del bono')),
-                        ),
-                        TableCell(
-                          child: Center(child: Text('Puntos requeridos')),
-                        ),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        TableCell(
-                          child: Center(child: Text('1')),
-                        ),
-                        TableCell(
-                          child: Center(child: Text(valorBono)),
-                        ),
-                        TableCell(
-                          child: Center(child: Text(puntosRequeridos)),
-                        ),
-                      ],
-                    ),
-                  ],
+                  child: Text('Guardar'),
                 ),
               ),
-            ),
-            SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () async {
-                final result =
-                    await Navigator.pushReplacementNamed(context, "/editar-cafeteria");
-                if (result != null && result is Map<String, String>) {
-                  setState(() {
-                    valorBono = result['valorBono']!;
-                    puntosRequeridos = result['puntosRequeridos']!;
-                  });
-                }
-              },
-              style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 83, 177, 117),
-                onPrimary: Colors.white,
-              ),
-              child: Text('Editar bono'),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

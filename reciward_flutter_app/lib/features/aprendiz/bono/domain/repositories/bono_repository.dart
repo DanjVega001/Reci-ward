@@ -6,7 +6,7 @@ import 'package:reciward_flutter_app/features/cafeteria/models/get_bono_cafeteri
 
 abstract class BonoRepository {
 
-  Future<Either<DioException, List<BonoEntity>>> getBonos(String accessToken);
+  Future<Either<DioException, List<BonoEntity>>> getBonos(String accessToken, String rol);
 
   Future<Either<DioException, String>> saveBonoAprendiz(String accessToken, int bonoId);
 
@@ -15,4 +15,6 @@ abstract class BonoRepository {
   Future<Either<DioException, GetBonoCafeteriaDto>> getBonoCafeteria(String accessToken, String code);
 
   Future<Either<DioException, String>> validarBono(String accessToken, int idBono);
+
+  Future<Either<DioException, String>> updateBono(String accessToken, BonoEntity bono);
 }
