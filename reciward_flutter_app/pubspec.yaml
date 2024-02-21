@@ -33,6 +33,7 @@ flutter:
   assets:
     - assets/images/
     - assets/manual_images/
+    - assets/manualCafeteria/
   fonts:
     - family: Ubuntu
       fonts:

@@ -41,7 +41,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<SendVerificationEmailRequested>(onSendVerificationEmailRequested);
 
-
+    on<SendVerificationResetPasswordRequested>(onSendVerificationResetPasswordRequested);
   }
 
   void onResetPassword(
@@ -73,11 +73,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         return emit(SendMailFailed(error: validate.errorMessage));
       }
 
-      Either<DioException, String> either =
+      Either<DioException, Map<String, dynamic>> either =
           await sendMailResetPasswordUseCase.call(event.email);
       either.fold(
           (dioException) => emit(SendMailFailed(error: dioException.message!)),
-          (message) => emit(SendMailSuccess(message: message)));
+          (data) => emit(SendMailSuccess(message: data["message"], code: data["code"])));
     } catch (e) {
       emit(SendMailFailed(error: e.toString()));
     }
@@ -160,6 +160,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } on DioException catch (e) {
       print('Error en onSendVerificationEmailRequested: $e');
       return emit(SendVerificationEmailFailed(error: e.message!));
+    }
+  }
+
+  void onSendVerificationResetPasswordRequested(SendVerificationResetPasswordRequested event, Emitter<AuthState> emit) async {
+    try {
+      emit(AuthLoadingState());
+      final validateUser = event.validate();
+      if (validateUser != null) {
+        return emit(
+            SendVerificationResetPasswordFailed(error: validateUser.errorMessage));
+      }
+      return emit(SendVerificationResetPasswordSuccess(message: "Codigo correcto", code: event.code));
+    } catch (e) {
+      print('Error en onSendVerificationResetPasswordRequested: $e');
+      
     }
   }
 
