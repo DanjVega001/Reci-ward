@@ -158,7 +158,7 @@ class AuthController extends Controller
         $token = null;
         $unico = false;
         while (!$unico) {
-            $token = Str::random(6);
+            $token = rand(000000, 999999);
             $existeToken = DB::table('password_resets')->where(
                 'token',
                 $token
@@ -167,6 +167,7 @@ class AuthController extends Controller
                 $unico = true;
             }
         }
+
 
         // Eliminamos la anterior reseteo de contraseña sin terminar
         DB::table('password_resets')->where(['email' => $email])->delete();
@@ -181,7 +182,7 @@ class AuthController extends Controller
         // Se envia el correo electrónico
         Mail::to($email)->send(new PasswordReset($token));
 
-        return response()->json(['message' => 'Te hemos enviado un email con las instrucciones para que recuperes tu contraseña'], 200);
+        return response()->json(['message' => 'Te hemos enviado un email con las instrucciones para que recuperes tu contraseña', 'code' => $token], 200);
     }
 
     /**

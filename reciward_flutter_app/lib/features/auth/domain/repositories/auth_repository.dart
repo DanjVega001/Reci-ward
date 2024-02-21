@@ -12,10 +12,10 @@ abstract class AuthRepository {
 
   Future<Either<DioException, List<FichaEntity>>> getFichas();
 
-  Future<Either<DioException, String>> sendMailResetPassword(String email);
+  Future<Either<DioException, Map<String, dynamic>>> sendMailResetPassword(String email);
 
   Future<Either<DioException, String>> resetPassword(
-      String password, String token);
+      String password, int token);
 
   Future<Either<DioException, Map<String, dynamic>>> sendVerificationEmail(String email);
 }

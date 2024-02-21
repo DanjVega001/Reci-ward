@@ -7,7 +7,7 @@ class ResetPasswordUsecase {
 
   ResetPasswordUsecase({required this.userRepository});  
 
-  Future<Either<DioException, String>> call(String password, String token){
+  Future<Either<DioException, String>> call(String password, int token){
     return userRepository.resetPassword(password, token);
   }
 }

@@ -21,11 +21,10 @@ class SendMailResetPasswordPage extends StatelessWidget {
           if (state is SendMailFailed) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.error)));
-          } else if (state is SendMailSuccess) {
-            print(state.message);
+          } else if (state is SendMailSuccess) {            
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.message)));
-            Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
+            Navigator.pushNamed(context, "/verify-password", arguments: state.code);
           }
        },
         child: Padding(
