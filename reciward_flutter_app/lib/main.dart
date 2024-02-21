@@ -27,6 +27,7 @@ import 'package:reciward_flutter_app/features/auth/presentation/providers/ficha_
 import 'package:reciward_flutter_app/features/auth/util/setup_auth_dependencies.dart';
 import 'package:reciward_flutter_app/features/cafeteria/pages/home_bono.dart';
 import 'package:reciward_flutter_app/features/cafeteria/pages/home_editar.dart';
+import 'package:reciward_flutter_app/features/cafeteria/manual_cafeteria/pages/manual_caf.dart';
 import 'package:reciward_flutter_app/features/cafeteria/pages/home_page_cafeteria.dart';
 import 'package:reciward_flutter_app/features/cafeteria/pages/validar_bono_page.dart';
 import 'package:reciward_flutter_app/features/cafeteria/pages/validar_entrega_page.dart';
@@ -65,6 +66,7 @@ void main() {
         '/editar-cafeteria':(context) => EditarBonoPage(),
         
 
+        '/manualCafeteria': (context) => const ManualCafe(),
       },
       home: const LoginPage(),
     )

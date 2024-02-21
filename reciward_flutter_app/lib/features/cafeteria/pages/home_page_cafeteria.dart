@@ -89,7 +89,7 @@ class HomePageCafeteria extends StatelessWidget {
                             onPressed: () { 
                               String accces_token=(BlocProvider.of<ProfileBloc>(context).state as UserProfileState).user!.accces_token!;
                               BlocProvider.of<BonoBloc>(context).add(GetBonosEvent(accessToken: accces_token));
-                              Navigator.pushNamed(context, "/manual");
+                              Navigator.pushNamed(context, "/manualCafeteria");
                             },
                             child: const Text(
                               'Explorar',
