@@ -12,6 +12,7 @@ class ModalResumenEntrega extends StatelessWidget {
   late int puntosTotales;
   late List<int> cantidadTotal = [];
   late List<Map<String, int>> materialesId = [];
+  late bool vacio = true;
 
   ModalResumenEntrega({super.key, required this.materiales});
 
@@ -28,7 +29,9 @@ class ModalResumenEntrega extends StatelessWidget {
       });
       puntosTotalesLista.add(puntosTotales);
       }
-    
+      if (int.parse(material['cantidad']!) >= 1) {
+        vacio = false;
+      }
     }
   }
 
@@ -52,7 +55,9 @@ class ModalResumenEntrega extends StatelessWidget {
         if (state is SaveEntregaLoading) {
           return const Center(child: CircularProgressIndicator());
         }
-
+        if (vacio) {
+          return const Center(child: Text("No selecciono algun material"));
+        }
         return Padding(
           padding: const EdgeInsets.all(10),
           child: Column(

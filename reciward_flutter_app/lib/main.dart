@@ -23,6 +23,7 @@ import 'package:reciward_flutter_app/features/auth/presentation/pages/auth_pages
 import 'package:reciward_flutter_app/features/auth/presentation/pages/auth_pages/send_mail_reset_password_page.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/pages/auth_pages/signup_page.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/pages/auth_pages/verification_email_page.dart';
+import 'package:reciward_flutter_app/features/auth/presentation/pages/auth_pages/verification_reset_password.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/providers/ficha_provider.dart';
 import 'package:reciward_flutter_app/features/auth/util/setup_auth_dependencies.dart';
 import 'package:reciward_flutter_app/features/cafeteria/manual_cafeteria/pages/manual_caf.dart';
@@ -61,6 +62,7 @@ void main() {
         '/validar-entrega': (context) => ValidarEntregaPage(),
         '/validar-bono':(context) => ValidarBonoPage(),
         '/manualCafeteria': (context) => const ManualCafe(),
+        '/verify-password':(context) => VerificationReserPassword()
       },
       home: const LoginPage(),
     )

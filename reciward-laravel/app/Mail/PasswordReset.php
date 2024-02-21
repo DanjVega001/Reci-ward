@@ -30,12 +30,11 @@ class PasswordReset extends Mailable
      */
     public function build()
     {
-        $url = "http://reciward/password-reset/?token=".$this->token;
-        $greeting = '<html>Hola';
+        $greeting = '<html> Hola <br>';
 
         $content = "$greeting <br>";
         $content .= "Recibes este correo electrónico porque hemos recibido una solicitud de restablecimiento de contraseña para tu cuenta.<br>";
-        $content .= "Restablecer contraseña:<a href='$url'> <b>Restablecer contraseña</b></a> <br>";
+        $content .= "Restablecer contraseña con el siguiente codigo: <b> $this->token </b><br>";
         $content .= "Si no realizaste esta solicitud, puedes ignorar este correo.</html>";
 
         return $this
