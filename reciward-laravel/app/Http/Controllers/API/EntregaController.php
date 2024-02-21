@@ -165,40 +165,31 @@ class EntregaController extends Controller
 
         $aprendiz = Aprendiz::find($idAprendiz);
 
-        $query = DB::table('entregas AS e')
-                    ->join('material_has_entregas AS mhe', 'e.id','=','mhe.entrega_id')
-                    ->join('materiales AS m','m.id','=','mhe.material_id')
-                    ->select('e.id', 'e.cantidadMaterial','e.canjeada','e.puntosAcumulados','m.nombreMaterial')
-                    ->where('e.aprendiz_id','=',$aprendiz->id)
-                    ->get();
-        
-        $entregas = [];
-
-        foreach ($query as $row) {
-            $id = $row->id;
-
-            if (!isset($entregas[$id])) {
-                $entregas[$id] = [
-                    'id' => $row->id,
-                    'cantidadMaterial' => $row->cantidadMaterial,
-                    'canjeada' => $row->canjeada,
-                    'puntosAcumulados' => $row->puntosAcumulados,
-                    'nombreMaterial' => [$row->nombreMaterial]
-                ];
-            } else {
-
-                $entregas[$id]['nombreMaterial'][]= $row->nombreMaterial;
-
-            }
-            $entregas = array_values($entregas);
-
-
-
-        }
-
-        $entregas = array_values($entregas);
-
-        return response()->json($entregas, 200);
+        $entregasQuery = DB::table('entregas AS e')
+        ->join('material_has_entregas AS mhe', 'e.id', '=', 'mhe.entrega_id')
+        ->join('materiales AS m', 'm.id', '=', 'mhe.material_id')
+        ->select('e.id', 'e.cantidadMaterial', 'e.canjeada', 'e.puntosAcumulados', 'm.nombreMaterial')
+        ->where('e.aprendiz_id', '=', $aprendiz->id)-> orderBy('e.id', 'ASC')
+        ->get();
+    
+    $entregasGrouped = $entregasQuery->groupBy('id');
+    
+    $entregas = $entregasGrouped->map(function ($entregaGroup) {
+        $firstEntrega = $entregaGroup->first();
+    
+        $materiales = $entregaGroup->pluck('nombreMaterial')->unique()->implode(', ');
+    
+        return [
+            'id' => $firstEntrega->id,
+            'cantidadMaterial' => $firstEntrega->cantidadMaterial,
+            'canjeada' => $firstEntrega->canjeada,
+            'puntosAcumulados' => $firstEntrega->puntosAcumulados,
+            'nombreMaterial' => $materiales,
+        ];
+    })->values()->all();
+    
+    return response()->json($entregas, 200);
+    
         } catch (\Throwable $th) {
             return response()->json($th->getMessage(), 200);
         }

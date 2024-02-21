@@ -48,8 +48,9 @@ final class UpdateUserSuccess extends AuthState {
 
 final class SendMailSuccess extends AuthState {
   final String message;
+  final int code;
 
-  const SendMailSuccess({required this.message});
+  const SendMailSuccess({required this.message, required this.code});
 }
 
 final class SendMailFailed extends AuthState {
@@ -78,4 +79,18 @@ final class SendVerificationEmailFailed extends AuthState {
   const SendVerificationEmailFailed({
     required this.error
   });
+}
+
+
+final class SendVerificationResetPasswordSuccess extends AuthState {
+  final String message;
+  final int code;
+
+  const SendVerificationResetPasswordSuccess({required this.message, required this.code});
+}
+
+final class SendVerificationResetPasswordFailed extends AuthState {
+  final String error;
+
+  const SendVerificationResetPasswordFailed({required this.error});
 }

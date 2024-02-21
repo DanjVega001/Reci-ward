@@ -105,7 +105,7 @@ class AuthService {
     }
   }
 
-  Future<Either<DioException, String>> sendMailResetPassword(
+  Future<Either<DioException, Map<String, dynamic>>> sendMailResetPassword(
       String email) async {
     try {
       Options options = Options(
@@ -117,7 +117,7 @@ class AuthService {
       Map<String, dynamic> data = {"email": email};
       final response = await dio.post(urlApiSendMailResetPassword,
           data: data, options: options);
-      if (response.statusCode == 200) return right(response.data["message"]);
+      if (response.statusCode == 200) return right(response.data);
       return left(DioException(
           requestOptions: response.requestOptions,
           message: response.data["error"]));
@@ -127,7 +127,7 @@ class AuthService {
   }
 
   Future<Either<DioException, String>> resetPassword(
-      String password, String token) async {
+      String password, int token) async {
     try {
       Options options = Options(
         contentType: 'application/json',

@@ -1,12 +1,9 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/tips/presentation/bloc/tip_bloc.dart';
 import 'package:reciward_flutter_app/features/material/presentation/bloc/material_bloc.dart';
-import 'package:uni_links/uni_links.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/bloc/auth_bloc.dart';
@@ -25,53 +22,7 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController passwordController = TextEditingController();
 
-  String deepLink = "No se ha recibido ningún enlace profundo.";
-  StreamController<String> deepLinkController = StreamController<String>();
-  bool isResetPassword = false;
 
-  @override
-  void initState() {
-    super.initState();
-    //initUniLinks();
-  }
-
-  Future<void> initUniLinks() async {
-    String? initialLink;
-    try {
-      initialLink = await getInitialLink();
-    } on PlatformException {
-      // Manejar errores de plataforma
-    }
-
-    handleLink(initialLink);
-    listenToLinks();
-  }
-
-  void listenToLinks() {
-    // Escuchar eventos de enlaces profundos
-    linkStream.listen((link) {
-      handleLink(link);
-    });
-  }
-
-  void handleLink(String? link) {
-    deepLinkController.add(link ?? "No se ha recibido ningún enlace profundo.");
-    if (link != null) {
-      final argument = ModalRoute.of(context)?.settings.arguments;
-      if (argument == null) {
-        isResetPassword = true;
-      } else {
-        isResetPassword = false;
-      }
-
-      Uri uri = Uri.parse(link);
-      String? token = uri.queryParameters['token'];
-      if (uri.path == '/password-reset/' && token != null && isResetPassword) {
-        Navigator.pushReplacementNamed(context, '/reset-password',
-            arguments: token);
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

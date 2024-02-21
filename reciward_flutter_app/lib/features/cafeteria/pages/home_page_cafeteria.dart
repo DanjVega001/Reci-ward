@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
+import 'package:reciward_flutter_app/features/aprendiz/bono/presentation/bloc/bono_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/bloc/auth_bloc.dart';
 
@@ -15,6 +16,7 @@ class HomePageCafeteria extends StatelessWidget {
           BlocProvider.of<AuthBloc>(context)
               .add(AuthLogoutRequested(accessToken: state.accessToken));
           Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
+          
         }
       },
       builder: (context, state) {
@@ -85,8 +87,10 @@ class HomePageCafeteria extends StatelessWidget {
                               backgroundColor:
                                   MaterialStatePropertyAll(Pallete.colorGrey2),
                             ),
-                            onPressed: () {
-                              Navigator.pushNamed(context, "/manual");
+                            onPressed: () { 
+                              String accces_token=(BlocProvider.of<ProfileBloc>(context).state as UserProfileState).user!.accces_token!;
+                              BlocProvider.of<BonoBloc>(context).add(GetBonosEvent(accessToken: accces_token));
+                              Navigator.pushNamed(context, "/manualCafeteria");
                             },
                             child: const Text(
                               'Explorar',
@@ -119,7 +123,9 @@ class HomePageCafeteria extends StatelessWidget {
                           crossAxisCount: 3,
                           children: <Widget>[
                             TextButton.icon(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.pushNamed(context, "/bono-cafeteria");
+                              },
                               icon: const Icon(Icons.book_online_rounded),
                               label: const Text("Bonos"),
                               style: const ButtonStyle(
@@ -131,6 +137,7 @@ class HomePageCafeteria extends StatelessWidget {
                                     fontSize: 14, fontWeight: FontWeight.w600)),
                               ),
                             ),
+                        
                             TextButton.icon(
                               onPressed: () {
                                 Navigator.pushNamed(context, "/validar-bono");
@@ -143,7 +150,7 @@ class HomePageCafeteria extends StatelessWidget {
                                 textStyle: MaterialStatePropertyAll(TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w600)),
                                 foregroundColor:
-                                    MaterialStatePropertyAll(Pallete.color1),
+                                    MaterialStatePropertyAll(Color.fromARGB(255, 83, 177, 117)),
                               ),
                             ),
                             TextButton.icon(
@@ -158,7 +165,7 @@ class HomePageCafeteria extends StatelessWidget {
                                 textStyle: MaterialStatePropertyAll(TextStyle(
                                     fontSize: 14, fontWeight: FontWeight.w600)),
                                 foregroundColor:
-                                    MaterialStatePropertyAll(Pallete.color1),
+                                    MaterialStatePropertyAll(Color.fromARGB(255, 83, 177, 117)),
                               ),
                             ),
                           ],
