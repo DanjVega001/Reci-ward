@@ -64,8 +64,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                         0: FixedColumnWidth(50),
                       },
                       defaultColumnWidth: const FixedColumnWidth(100),
-                      children: _buildTableRows(
-                          bonos), 
+                      children: _buildTableRows(bonos),
                     );
                   }
 
@@ -84,7 +83,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
 
   List<TableRow> _buildTableRows(List<GetHistorialBono> bonos) {
     List<TableRow> rows = [];
-    
+
     rows.add(
       const TableRow(
         children: [
@@ -105,6 +104,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
 
     // Agrega las filas de datos
     for (GetHistorialBono bono in bonos) {
+      Duration remainingTime = bono.getRemainingTime();
       rows.add(
         TableRow(
           children: [
@@ -135,7 +135,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
             TableCell(
               child: Center(
                 child: Text(
-                  bono.fechaVencimiento!,
+                  '${remainingTime.inDays}D${remainingTime.inHours.remainder(24)}H${remainingTime.inMinutes.remainder(60)}M${remainingTime.inSeconds.remainder(60)}S',
                   style: TextStyle(fontSize: 14),
                 ),
               ),

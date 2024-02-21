@@ -1,8 +1,8 @@
 class GetHistorialBono {
-  final String ? id;
-  final String ? codigoValidante;
-  final bool ? estadoBono;
-  final String ? fechaVencimiento;
+  final String? id;
+  final String? codigoValidante;
+  final bool? estadoBono;
+  final DateTime? fechaVencimiento;
 
   const GetHistorialBono({
     required this.codigoValidante,
@@ -15,8 +15,12 @@ class GetHistorialBono {
     return GetHistorialBono(
       codigoValidante: json['codigoValidante'],
       estadoBono: json['estadoBono'] == 0 ? true : false,
-      fechaVencimiento: "${json['fechaVencimiento']}",
+      fechaVencimiento: DateTime.parse("${json['fechaVencimiento']}"),
       id: json['id'].toString(),
     );
+  }
+
+  Duration getRemainingTime() {
+    return fechaVencimiento!.difference(DateTime.now());
   }
 }
