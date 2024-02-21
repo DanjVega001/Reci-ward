@@ -1,7 +1,3 @@
-
-
-// ignore_for_file: unused_field
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
@@ -68,12 +64,11 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                         0: FixedColumnWidth(50),
                       },
                       defaultColumnWidth: const FixedColumnWidth(100),
-                      children: _buildTableRows(
-                          bonos), 
+                      children: _buildTableRows(bonos),
                     );
                   }
 
-                  return const Center(child: Text("Cargando..."));
+                  return Center(child: CircularProgressIndicator());
                 },
               ),
             ),
@@ -88,7 +83,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
 
   List<TableRow> _buildTableRows(List<GetHistorialBono> bonos) {
     List<TableRow> rows = [];
-    
+
     rows.add(
       const TableRow(
         children: [
@@ -109,6 +104,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
 
     // Agrega las filas de datos
     for (GetHistorialBono bono in bonos) {
+      Duration remainingTime = bono.getRemainingTime();
       rows.add(
         TableRow(
           children: [
@@ -132,14 +128,14 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               child: Center(
                 child: Text(
                   bono.estadoBono! ? "Activo" : "Inactivo",
-                  style: TextStyle(fontSize: 14, color: bono.estadoBono! ?Colors.green[800] : Pallete.colorBlack),
+                  style: TextStyle(fontSize: 14),
                 ),
               ),
             ),
             TableCell(
               child: Center(
                 child: Text(
-                  bono.fechaVencimiento!,
+                  '${remainingTime.inDays}D${remainingTime.inHours.remainder(24)}H${remainingTime.inMinutes.remainder(60)}M${remainingTime.inSeconds.remainder(60)}S',
                   style: TextStyle(fontSize: 14),
                 ),
               ),
