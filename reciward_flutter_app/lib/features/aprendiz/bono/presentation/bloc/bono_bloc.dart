@@ -9,6 +9,7 @@ import 'package:reciward_flutter_app/features/aprendiz/bono/domain/usecases/get_
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/usecases/get_bonos_historial.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/usecases/get_bonos_usecase.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/usecases/save_bono_aprendiz_usecase.dart';
+import 'package:reciward_flutter_app/features/aprendiz/bono/domain/usecases/update_bono_cafeteria_usecase.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/usecases/validar_bono_usecase.dart';
 import 'package:reciward_flutter_app/features/cafeteria/models/get_bono_cafeteria_dto.dart';
 
@@ -25,6 +26,8 @@ class BonoBloc extends Bloc<BonoEvent, BonoState> {
 
   ValidarBonoUsecase validarBonoUsecase = GetIt.instance<ValidarBonoUsecase>();
 
+  UpdateBonoCafeteriaUsecase updateBonoCafeteriaUsecase = GetIt.instance<UpdateBonoCafeteriaUsecase>();
+
   BonoBloc() : super(BonoInitial()) {
     on<GetBonosEvent>(onGetBonosEvent);
 
@@ -35,6 +38,8 @@ class BonoBloc extends Bloc<BonoEvent, BonoState> {
     on<GetBonoCafeteriaEvent>(onGetBonoCafeteriaEvent);
 
     on<ValidarBonoEvent>(onValidarBonoEvent);
+
+    on<UpdateBonoEvent>(onUpdateBonoEvent);
   }
 
   void onGetHistorialBonosEvent (GetHistorialBonosEvent event, Emitter<BonoState> emit) async {
@@ -51,7 +56,7 @@ class BonoBloc extends Bloc<BonoEvent, BonoState> {
   void onGetBonosEvent (GetBonosEvent event, Emitter<BonoState> emit) async{
     try {
       emit(GetBonosLoading());
-      Either<DioException, List<BonoEntity>> either = await usecase.call(event.accessToken);
+      Either<DioException, List<BonoEntity>> either = await usecase.call(event.accessToken, event.rol);
       return either.fold((dio) => 
         emit(GetBonoFailedState(error: dio.message!)), 
       (data) =>
@@ -101,6 +106,19 @@ class BonoBloc extends Bloc<BonoEvent, BonoState> {
     } catch (e) {
       print("Error en onValidarBonoEvent ${e.toString()}");
       return emit(ValidarBonoFailed(error: e.toString()));
+    }
+  }
+
+  void onUpdateBonoEvent (UpdateBonoEvent event, Emitter<BonoState> emit)async{
+    try {
+      Either<DioException, String> either = await updateBonoCafeteriaUsecase.call(event.accessToken, event.bonoEntity);
+      return either.fold((dio) => emit(UpdateBonoFailed(error: dio.message!)), 
+      (message) {
+        emit(UpdateBonoSuccess(message: message));
+      });
+    } catch (e) {
+      print("Error en onUpdateBonoEvent ${e.toString()}");
+      return emit(UpdateBonoFailed(error: e.toString()));
     }
   }
 

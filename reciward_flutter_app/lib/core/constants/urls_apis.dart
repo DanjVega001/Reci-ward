@@ -41,3 +41,5 @@ const String urlApiSaveBonoAp = "${urlApi}save-aprendiz-bono";
 
 const String urlApiGetHistorialBono = "${urlApi}aprendiz-bono";
 
+
+const urlApiGetBonosCafeteria = "${urlApi}bono";

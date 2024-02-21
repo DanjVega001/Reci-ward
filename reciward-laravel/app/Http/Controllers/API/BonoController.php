@@ -63,7 +63,7 @@ class BonoController extends Controller
                 $bonos->valorBono = $request->valorBono;
                 $bonos->puntosRequeridos = $request->puntosRequeridos;
                 $bonos->update();
-                return response()->json($bonos, 200);
+                return response()->json(["message" => "Bono actualizado"], 200);
         } 
           
     }
