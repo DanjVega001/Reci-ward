@@ -4,9 +4,11 @@ sealed class BonoEvent {}
 
 class GetBonosEvent extends BonoEvent {
   final String accessToken;
+  final String rol;
 
   GetBonosEvent({
-    required this.accessToken
+    required this.accessToken,
+    required this.rol
   });
 }
 
@@ -47,5 +49,15 @@ class ValidarBonoEvent extends BonoEvent {
   ValidarBonoEvent({
     required this.accessToken,
     required this.idBono
+  });
+}
+
+class UpdateBonoEvent extends BonoEvent {
+  final String accessToken;
+  final BonoEntity bonoEntity;
+
+  UpdateBonoEvent({
+    required this.accessToken,
+    required this.bonoEntity,
   });
 }

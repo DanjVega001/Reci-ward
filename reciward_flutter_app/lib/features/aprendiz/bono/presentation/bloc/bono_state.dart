@@ -73,3 +73,19 @@ final class ValidarBonoFailed extends BonoState {
     required this.error
   });
 }
+
+final class UpdateBonoSuccess extends BonoState {
+  final String message;
+
+  UpdateBonoSuccess({
+    required this.message
+  });
+}
+
+final class UpdateBonoFailed extends BonoState {
+  final String error;
+  
+  UpdateBonoFailed({
+    required this.error
+  });
+}

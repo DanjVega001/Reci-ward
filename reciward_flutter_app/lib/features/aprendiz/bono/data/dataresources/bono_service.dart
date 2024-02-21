@@ -13,7 +13,7 @@ class BonoService {
   }
 
   Future<Either<DioException, List<BonoModel>>> getBonos(
-      String accessToken) async {
+      String accessToken, String rol) async {
     Options options = Options(
       headers: {'Authorization': 'Bearer $accessToken'},
       contentType: 'application/json',
@@ -22,8 +22,14 @@ class BonoService {
       },
     );
     try {
-      final response = await dio.get(urlApiGetBonos, options: options);
-
+      String url;
+      if (rol=="aprendiz") {
+        url = urlApiGetBonos;
+      } else {
+        url = urlApiGetBonosCafeteria;
+      }
+      final response = await dio.get(url, options: options);
+      print(response);
       if (response.statusCode == 200) {
         final data = response.data;
         final bonos = (data as List).map((e) => BonoModel.fromJson(e)).toList();
@@ -149,6 +155,36 @@ class BonoService {
       ));
     } on DioException catch (e) {
       print("Error en validarBono $e");
+      return left(e);
+    }
+  }
+
+
+  Future<Either<DioException, String>> updateBono(String accessToken, BonoModel bono) async {
+
+    Options options = Options(
+      headers: {'Authorization': 'Bearer $accessToken'},
+      contentType: 'application/json',
+      validateStatus: (status) {
+        return status! < 500;
+      },
+      
+    );
+    
+    print(bono);
+    try {
+      final response = await dio.put("$urlApiGetBonosCafeteria/${bono.id!}", options: options, data: bono.toJson());
+      if (response.statusCode == 200) {
+        return right(
+          response.data["message"],
+        );
+      }
+      return left(DioException(
+        requestOptions: response.requestOptions,
+        message: response.data["error"],
+      ));
+    } on DioException catch (e) {
+      print("Error en onUpdateBono $e");
       return left(e);
     }
   }

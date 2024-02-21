@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/presentation/bloc/bono_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
+import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/bloc/auth_bloc.dart';
 
 class HomePageCafeteria extends StatelessWidget {
@@ -88,8 +89,7 @@ class HomePageCafeteria extends StatelessWidget {
                                   MaterialStatePropertyAll(Pallete.colorGrey2),
                             ),
                             onPressed: () { 
-                              String accces_token=(BlocProvider.of<ProfileBloc>(context).state as UserProfileState).user!.accces_token!;
-                              BlocProvider.of<BonoBloc>(context).add(GetBonosEvent(accessToken: accces_token));
+                            
                               Navigator.pushNamed(context, "/manualCafeteria");
                             },
                             child: const Text(
@@ -124,6 +124,8 @@ class HomePageCafeteria extends StatelessWidget {
                           children: <Widget>[
                             TextButton.icon(
                               onPressed: () {
+                                UserEntity user=(BlocProvider.of<ProfileBloc>(context).state as UserProfileState).user!;
+                                BlocProvider.of<BonoBloc>(context).add(GetBonosEvent(accessToken: user.accces_token!, rol: user.rol!));
                                 Navigator.pushNamed(context, "/bono-cafeteria");
                               },
                               icon: const Icon(Icons.book_online_rounded),
@@ -140,6 +142,7 @@ class HomePageCafeteria extends StatelessWidget {
                         
                             TextButton.icon(
                               onPressed: () {
+                                
                                 Navigator.pushNamed(context, "/validar-bono");
                               },
                               icon: const Icon(Icons.checklist_rounded),
