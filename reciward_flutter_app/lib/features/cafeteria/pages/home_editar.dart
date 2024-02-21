@@ -1,103 +1,94 @@
 import 'package:flutter/material.dart';
 
-class EditarBonoPage extends StatefulWidget {
+class HomeBonoPageCafeteria extends StatefulWidget {
   @override
-  _EditarBonoPageState createState() => _EditarBonoPageState();
+  _HomeBonoPageCafeteriaState createState() => _HomeBonoPageCafeteriaState();
 }
 
-class _EditarBonoPageState extends State<EditarBonoPage> {
-  TextEditingController valorBonoController = TextEditingController();
-  TextEditingController puntosRequeridosController = TextEditingController();
-
-  @override
-  void dispose() {
-    valorBonoController.dispose();
-    puntosRequeridosController.dispose();
-    super.dispose();
-  }
+class _HomeBonoPageCafeteriaState extends State<HomeBonoPageCafeteria> {
+  String valorBono = '';
+  String puntosRequeridos = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editar Bono'),
+        title: Text('Tus Bonos'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
+      body: Container(
+        padding: EdgeInsets.all(20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
-              controller: valorBonoController,
-              decoration: InputDecoration(
-                labelText: 'Valor del bono',
-                border: OutlineInputBorder(),
+            Card(
+              color: Color.fromRGBO(156, 245, 156, 1), // Color verde claro
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
               ),
-            ),
-            SizedBox(height: 20.0),
-            TextField(
-              controller: puntosRequeridosController,
-              decoration: InputDecoration(
-                labelText: 'Puntos requeridos',
-                border: OutlineInputBorder(),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Table(
+                  border: TableBorder.all(),
+                  columnWidths: {
+                    0: FlexColumnWidth(1), // Ancho de la primera columna
+                    1: FlexColumnWidth(2), // Ancho de la segunda columna
+                    2: FlexColumnWidth(2), // Ancho de la tercera columna (puntos requeridos)
+                  },
+                  children: [
+                    TableRow(
+                      children: [
+                        TableCell(
+                          child: Center(
+                            child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 6.0),
+                              child: Text(
+                                'Id',
+                                style: TextStyle(fontWeight: FontWeight.normal),
+                              ),
+                            ),
+                          ),
+                        ),
+                        TableCell(
+                          child: Center(child: Text('Valor del bono')),
+                        ),
+                        TableCell(
+                          child: Center(child: Text('Puntos requeridos')),
+                        ),
+                      ],
+                    ),
+                    TableRow(
+                      children: [
+                        TableCell(
+                          child: Center(child: Text('1')),
+                        ),
+                        TableCell(
+                          child: Center(child: Text(valorBono)),
+                        ),
+                        TableCell(
+                          child: Center(child: Text(puntosRequeridos)),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
-              onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Confirmación'),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Deseas actualizar los cambios:'),
-                          SizedBox(height: 20.0),
-                          Text('Valor del bono: ${valorBonoController.text}'),
-                          Text(
-                              'Puntos requeridos: ${puntosRequeridosController.text}'),
-                        ],
-                      ),
-                      actions: [
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            // Actualizar los valores en la página anterior
-                            Navigator.pop(context, {
-                              'valorBono': valorBonoController.text,
-                              'puntosRequeridos':
-                                  puntosRequeridosController.text,
-                            });
-                          },
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.green,
-                            onPrimary: Colors.white,
-                          ),
-                          child: Text('Confirmar'),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          style: ElevatedButton.styleFrom(
-                            primary: Colors.red,
-                            onPrimary: Colors.white,
-                          ),
-                          child: Text('Cancelar'),
-                        ),
-                      ],
-                    );
-                  },
-                );
+              onPressed: () async {
+                final result =
+                    await Navigator.pushReplacementNamed(context, "/editar-cafeteria");
+                if (result != null && result is Map<String, String>) {
+                  setState(() {
+                    valorBono = result['valorBono']!;
+                    puntosRequeridos = result['puntosRequeridos']!;
+                  });
+                }
               },
               style: ElevatedButton.styleFrom(
                 primary: Color.fromARGB(255, 83, 177, 117),
                 onPrimary: Colors.white,
               ),
-              child: Text('Guardar'),
+              child: Text('Editar bono'),
             ),
           ],
         ),

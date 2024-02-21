@@ -28,6 +28,11 @@ class _HomeBonoPageCafeteriaState extends State<HomeBonoPageCafeteria> {
                 padding: const EdgeInsets.all(8.0),
                 child: Table(
                   border: TableBorder.all(),
+                  columnWidths: {
+                    0: FlexColumnWidth(1), // Ancho de la primera columna
+                    1: FlexColumnWidth(2), // Ancho de la segunda columna
+                    2: FlexColumnWidth(2), // Ancho de la tercera columna (puntos requeridos)
+                  },
                   children: [
                     TableRow(
                       children: [
@@ -69,8 +74,15 @@ class _HomeBonoPageCafeteriaState extends State<HomeBonoPageCafeteria> {
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, "/editar-cafeteria");
+              onPressed: () async {
+                final result =
+                    await Navigator.pushNamed(context, "/editar-cafeteria");
+                if (result != null && result is Map<String, String>) {
+                  setState(() {
+                    valorBono = result['valorBono']!;
+                    puntosRequeridos = result['puntosRequeridos']!;
+                  });
+                }
               },
               style: ElevatedButton.styleFrom(
                 primary: Color.fromARGB(255, 83, 177, 117),

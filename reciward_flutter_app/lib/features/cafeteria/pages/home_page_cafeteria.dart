@@ -16,6 +16,7 @@ class HomePageCafeteria extends StatelessWidget {
           BlocProvider.of<AuthBloc>(context)
               .add(AuthLogoutRequested(accessToken: state.accessToken));
           Navigator.pushNamedAndRemoveUntil(context, "/", (route) => false);
+          
         }
       },
       builder: (context, state) {
