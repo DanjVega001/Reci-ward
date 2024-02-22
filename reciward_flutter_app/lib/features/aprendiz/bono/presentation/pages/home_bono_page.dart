@@ -1,7 +1,3 @@
-
-
-// ignore_for_file: unused_field
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
@@ -68,12 +64,11 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                         0: FixedColumnWidth(50),
                       },
                       defaultColumnWidth: const FixedColumnWidth(100),
-                      children: _buildTableRows(
-                          bonos), 
+                      children: _buildTableRows(bonos),
                     );
                   }
 
-                  return const Center(child: Text("Cargando..."));
+                  return Center(child: CircularProgressIndicator());
                 },
               ),
             ),
@@ -87,9 +82,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
   }
 
   List<TableRow> _buildTableRows(List<GetHistorialBono> bonos) {
-    List<TableRow> rows = [];
-    
-    rows.add(
+    return [
       const TableRow(
         children: [
           TableCell(
@@ -102,14 +95,10 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                   child: Text('Estado', style: TextStyle(fontSize: 16)))),
           TableCell(
               child: Center(
-                  child: Text('Caduca', style: TextStyle(fontSize: 16)))),
+                  child: Text('Tiempo', style: TextStyle(fontSize: 16)))),
         ],
       ),
-    );
-
-    // Agrega las filas de datos
-    for (GetHistorialBono bono in bonos) {
-      rows.add(
+      for (GetHistorialBono bono in bonos) ...[
         TableRow(
           children: [
             TableCell(
@@ -132,24 +121,41 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               child: Center(
                 child: Text(
                   bono.estadoBono! ? "Activo" : "Inactivo",
-                  style: TextStyle(fontSize: 14, color: bono.estadoBono! ?Colors.green[800] : Pallete.colorBlack),
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: bono.estadoBono! ? Colors.green : Colors.red),
                 ),
               ),
             ),
             TableCell(
-              child: Center(
-                child: Text(
-                  bono.fechaVencimiento!,
-                  style: TextStyle(fontSize: 14),
-                ),
+              child: StreamBuilder<Duration>(
+                stream: bono.isActive
+                    ? Stream.periodic(const Duration(seconds: 1), (count) {
+                        bono.calculateRemainingTime();
+                        return bono.remainingTime;
+                      })
+                    : null, // Detener el stream si el bono no está activo
+                builder: (context, snapshot) {
+                  if (!bono.isActive) {
+                    return Center(
+                        child: Text(
+                      'Bono inactivo',
+                      style: TextStyle(color: Colors.red),
+                    ));
+                  }
+                  return Center(
+                    child: Text(
+                      '${bono.remainingTime.inDays}D${bono.remainingTime.inHours.remainder(24)}H${bono.remainingTime.inMinutes.remainder(60)}M${bono.remainingTime.inSeconds.remainder(60)}S',
+                      style: TextStyle(fontSize: 14),
+                    ),
+                  );
+                },
               ),
             ),
           ],
         ),
-      );
-    }
-
-    return rows;
+      ],
+    ];
   }
 
   // Función para actualizar los datos de la tabla
