@@ -9,7 +9,6 @@ import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc
 import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_button.dart';
 import 'package:reciward_flutter_app/features/material/presentation/widgets/material_dropdown.dart';
 
-// ignore: must_be_immutable
 class HomeEntregaPage extends StatefulWidget {
   const HomeEntregaPage({super.key});
 
@@ -21,18 +20,28 @@ class _HomeEntregaPageState extends State<HomeEntregaPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Pallete.colorWhite,
       appBar: const AppBarReciward(),
-      body: Padding(
-        padding: const EdgeInsets.all(14),
-        child: SingleChildScrollView(
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(""), // Ruta de tu imagen de fondo
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(14),
+          child: SingleChildScrollView(
             child: Column(
-          children: [
-            MaterialDropdown(),
-            Container(
-                padding: const EdgeInsets.only(
-                    left: 15, right: 15, top: 15, bottom: 15),
-                child: AuthFormButton(
+              children: [
+                MaterialDropdown(),
+                Container(
+                  padding: const EdgeInsets.only(
+                    left: 15,
+                    right: 15,
+                    top: 15,
+                    bottom: 15,
+                  ),
+                  child: AuthFormButton(
                     onPressed: () {
                       String accessToken =
                           (BlocProvider.of<ProfileBloc>(context).state
@@ -42,14 +51,19 @@ class _HomeEntregaPageState extends State<HomeEntregaPage> {
                       BlocProvider.of<EntregaBloc>(context)
                           .add(HistorialEntrega(accessToken: accessToken));
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const HistorialEntregasPage()));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const HistorialEntregasPage(),
+                        ),
+                      );
                     },
-                    text: "Historial de Entregas"))
-          ],
-        )),
+                    text: "Historial de Entregas",
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
       bottomNavigationBar: const NavReciward(
         currentIndex: 1,

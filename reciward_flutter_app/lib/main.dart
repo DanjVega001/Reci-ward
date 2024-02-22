@@ -27,8 +27,6 @@ import 'package:reciward_flutter_app/features/auth/presentation/pages/auth_pages
 import 'package:reciward_flutter_app/features/auth/presentation/providers/ficha_provider.dart';
 import 'package:reciward_flutter_app/features/auth/util/setup_auth_dependencies.dart';
 import 'package:reciward_flutter_app/features/cafeteria/manual_cafeteria/pages/manual_caf.dart';
-import 'package:reciward_flutter_app/features/cafeteria/pages/home_bono.dart';
-import 'package:reciward_flutter_app/features/cafeteria/pages/home_editar.dart';
 import 'package:reciward_flutter_app/features/cafeteria/pages/home_page_cafeteria.dart';
 import 'package:reciward_flutter_app/features/cafeteria/pages/validar_bono_page.dart';
 import 'package:reciward_flutter_app/features/cafeteria/pages/validar_entrega_page.dart';
@@ -40,37 +38,36 @@ void main() {
   Provider.debugCheckInvalidValueType = null;
   runApp(MultiBlocProvider(
 
-      providers: [
-        Provider(create: (context) => FichaProvider()),
-        BlocProvider(create: (context) => AuthBloc()),
-        BlocProvider(create: (context) => ProfileBloc()),
-        BlocProvider(create: (context) => TipBloc()),
-        BlocProvider(create: (context) => MaterialBloc()),
-        BlocProvider(create: (context) => EntregaBloc()),
-        BlocProvider(create: (context) => PuntoBloc()),
-        BlocProvider(create: (context) => BonoBloc()),
-      ],
-      child: MaterialApp(
-        routes: {
-          '/signup': (context) => const SignupPage(),
-          '/home': (context) => HomePage(),
-          '/entrega': (context) => const HomeEntregaPage(),
-          '/bono': (context) => const HomeBonoPage(),
-          '/send-mail': (context) => const SendMailResetPasswordPage(),
-          '/reset-password': (context) => const ResetPasswordPage(),
-          '/profile': (context) => const ProfilePage(),
-          '/manual': (context) => const ManualUser(),
-          '/home-cafeteria': (context) => const HomePageCafeteria(),
-          '/verify-email': (context) => VerificationEmailPage(),
-          '/validar-entrega': (context) => ValidarEntregaPage(),
-          '/validar-bono': (context) => ValidarBonoPage(),
-          '/manualCafeteria': (context) => const ManualCafe(),
-          '/bono-cafeteria': (context) => HomeBonoPageCafeteria(),
-          '/editar-cafeteria': (context) => EditarBonoPageCafeteria(),
-          '/verify-password': (context) => VerificationReserPassword()
-        },
-        home: const LoginPage(),
-      )));
+    providers: [
+      Provider(create: (context) => FichaProvider()),
+      BlocProvider(create: (context) => AuthBloc()),
+      BlocProvider(create: (context) => ProfileBloc()),
+      BlocProvider(create: (context) => TipBloc()),
+      BlocProvider(create: (context) => MaterialBloc()),
+      BlocProvider(create: (context) => EntregaBloc()),
+      BlocProvider(create: (context) => PuntoBloc()),
+      BlocProvider(create: (context) => BonoBloc()),
+    ],
+    child: MaterialApp(
+      routes: {
+        '/signup': (context) => const SignupPage(),
+        '/home': (context) => HomePage(),
+        '/entrega': (context) => const HomeEntregaPage(),
+        '/bono': (context) => const HomeBonoPage(),
+        '/send-mail': (context) => const SendMailResetPasswordPage(),
+        '/reset-password': (context) => const ResetPasswordPage(),
+        '/profile': (context) => const ProfilePage(),
+        '/manual': (context) => const ManualUser(),
+        '/home-cafeteria':(context) => const HomePageCafeteria(),
+        '/verify-email':(context) => VerificationEmailPage(),
+        '/validar-entrega': (context) => ValidarEntregaPage(),
+        '/validar-bono':(context) => ValidarBonoPage(),
+        '/manualCafeteria': (context) => const ManualCafe(),
+        '/verify-password':(context) => VerificationReserPassword()
+      },
+      home: const LoginPage(),
+    )
+  ));
 
 }
 
