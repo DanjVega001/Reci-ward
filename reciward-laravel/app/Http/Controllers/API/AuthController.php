@@ -158,7 +158,7 @@ class AuthController extends Controller
         $token = null;
         $unico = false;
         while (!$unico) {
-            $token = rand(000000, 999999);
+            $token = rand(100000, 999999);
             $existeToken = DB::table('password_resets')->where(
                 'token',
                 $token
@@ -226,7 +226,7 @@ class AuthController extends Controller
             return response()->json(['error' => 'Existing email'], 400);
         }
 
-        $code = rand(000000, 999999);
+        $code = rand(100000, 999999);
         Mail::to($request->email)->send(new VerificationEmail($code));
 
         return response()->json([
