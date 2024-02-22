@@ -64,12 +64,9 @@ void main() {
         '/validar-entrega': (context) => ValidarEntregaPage(),
         '/validar-bono':(context) => ValidarBonoPage(),
         '/manualCafeteria': (context) => const ManualCafe(),
-
         '/bono-cafeteria': (context) => HomeBonoPageCafeteria(),
-        '/editar-cafeteria':(context) => EditarBonoPageCafeteria()
-
+        '/editar-cafeteria':(context) => EditarBonoPageCafeteria(),
         '/verify-password':(context) => VerificationReserPassword()
-
       },
       home: const LoginPage(),
     )
