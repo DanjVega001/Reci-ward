@@ -41,7 +41,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<SendVerificationEmailRequested>(onSendVerificationEmailRequested);
 
-    on<SendVerificationResetPasswordRequested>(onSendVerificationResetPasswordRequested);
+    on<SendVerificationResetPasswordRequested>(
+        onSendVerificationResetPasswordRequested);
+
+    on<RecoverInvalidUserData>(onRecoverInvalidUserData);
   }
 
   void onResetPassword(
@@ -77,7 +80,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           await sendMailResetPasswordUseCase.call(event.email);
       either.fold(
           (dioException) => emit(SendMailFailed(error: dioException.message!)),
-          (data) => emit(SendMailSuccess(message: data["message"], code: data["code"])));
+          (data) => emit(
+              SendMailSuccess(message: data["message"], code: data["code"])));
     } catch (e) {
       emit(SendMailFailed(error: e.toString()));
     }
@@ -123,7 +127,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       final validate = event.validate();
       if (validate != null) {
-        return emit(AuthErrorState(error: validate.errorMessage));
+        return emit(AuthErrorState(
+            error: validate.errorMessage,
+            code: event.code,
+            userEntity: event.userEntity));
       }
       late UserEntity user = event.userEntity;
 
@@ -163,21 +170,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  void onSendVerificationResetPasswordRequested(SendVerificationResetPasswordRequested event, Emitter<AuthState> emit) async {
+  void onSendVerificationResetPasswordRequested(
+      SendVerificationResetPasswordRequested event,
+      Emitter<AuthState> emit) async {
     try {
       emit(AuthLoadingState());
       final validateUser = event.validate();
       if (validateUser != null) {
-        return emit(
-            SendVerificationResetPasswordFailed(error: validateUser.errorMessage));
+        return emit(SendVerificationResetPasswordFailed(
+            error: validateUser.errorMessage));
       }
-      return emit(SendVerificationResetPasswordSuccess(message: "Codigo correcto", code: event.code));
+      return emit(SendVerificationResetPasswordSuccess(
+          message: "Codigo correcto", code: event.code));
     } catch (e) {
       print('Error en onSendVerificationResetPasswordRequested: $e');
-      
     }
   }
 
+  void onRecoverInvalidUserData(
+      RecoverInvalidUserData event, Emitter<AuthState> emit) {
+    return emit(SendVerificationEmailSuccess(
+        code: event.code,
+        userEntity: event.userEntity,
+        message: "Ingrese nuevamente el codigo"));
+  }
 
   @override
   void onChange(Change<AuthState> change) {
