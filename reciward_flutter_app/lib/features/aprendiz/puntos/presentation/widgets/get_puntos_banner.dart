@@ -6,6 +6,7 @@ import 'package:reciward_flutter_app/features/aprendiz/bono/presentation/widgets
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/puntos/domain/entities/get_puntos_dto.dart';
 import 'package:reciward_flutter_app/features/aprendiz/puntos/presentation/bloc/punto_bloc.dart';
+import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.dart';
 
 class GetPuntosBanner extends StatelessWidget {
   const GetPuntosBanner({super.key});
@@ -74,8 +75,8 @@ class GetPuntosBanner extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            String accessToken = (BlocProvider.of<ProfileBloc>(context).state as UserProfileState).user!.accces_token!;
-                            BlocProvider.of<BonoBloc>(context).add(GetBonosEvent(accessToken: accessToken));
+                            UserEntity user = (BlocProvider.of<ProfileBloc>(context).state as UserProfileState).user!;
+                            BlocProvider.of<BonoBloc>(context).add(GetBonosEvent(accessToken: user.accces_token!, rol: user.rol!));
                             showModalBottomSheet(
                               context: context,
                               builder: (context) {
