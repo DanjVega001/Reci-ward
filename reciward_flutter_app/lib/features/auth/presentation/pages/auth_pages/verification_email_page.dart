@@ -32,6 +32,9 @@ class VerificationEmailPage extends StatelessWidget {
           if (state is AuthErrorState) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.error)));
+            codeController.clear();
+            BlocProvider.of<AuthBloc>(context).add(RecoverInvalidUserData(
+                code: state.code!, userEntity: state.userEntity!));
           }
           if (state is AuthInitialLogin) {
             Navigator.popAndPushNamed(context, '/');

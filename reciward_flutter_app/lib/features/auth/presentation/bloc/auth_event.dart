@@ -60,7 +60,7 @@ class SendMailRequested extends AuthEvent {
 class ResetPasswordRequested extends AuthEvent {
   final String password;
   final String confirmPassword;
-  final String token;
+  final int token;
 
   const ResetPasswordRequested({
     required this.password,
@@ -76,10 +76,6 @@ class ResetPasswordRequested extends AuthEvent {
     if (password.length < 6) {
       return AuthException(
           errorMessage: "Passwords cannot be less than 6 characters");
-    }
-
-    if (token.trim().isEmpty) {
-      return AuthException(errorMessage: "Server error");
     }
 
     return null;
@@ -112,6 +108,35 @@ class SendVerificationEmailRequested extends AuthEvent{
 
     return null;
   }
+}
+
+class SendVerificationResetPasswordRequested extends AuthEvent{
+  final int code;
+  final int enterCode;
+
+  const SendVerificationResetPasswordRequested({
+    required this.code,
+    required this.enterCode
+  });
+
+   AuthException? validate() {
+    if (enterCode != code) {
+      return AuthException(errorMessage: "Incorrect code. Newly enter the sent code");
+    }
+
+    return null;
+  }
+}
+
+
+class RecoverInvalidUserData extends AuthEvent{
+  final UserEntity userEntity;
+  final int code;
+
+  const RecoverInvalidUserData({
+    required this.code,
+    required this.userEntity
+  });
 }
 
 

@@ -28,7 +28,8 @@ const String urlApiMaterialesCafeteria = "${urlApi}material-cafeteria";
 //URL API ENTREGAS
 const String urlApiSaveEntrega = "${urlApi}entrega";
 
-const String urlApiHistorialEntregasPage = "${urlApi}entrega/historial";
+const String urlApiHistorialEntregasPage =
+    "${urlApi}entrega/historial/aprendiz";
 
 //URL API PUNTOS
 const String urlApiGetPuntos = "${urlApi}punto/ver";
@@ -39,3 +40,6 @@ const String urlApiGetBonos = "${urlApi}bonos/ver";
 const String urlApiSaveBonoAp = "${urlApi}save-aprendiz-bono";
 
 const String urlApiGetHistorialBono = "${urlApi}aprendiz-bono";
+
+
+const urlApiGetBonosCafeteria = "${urlApi}bono";

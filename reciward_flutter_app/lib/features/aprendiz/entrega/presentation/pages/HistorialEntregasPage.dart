@@ -7,43 +7,89 @@ class HistorialEntregasPage extends StatefulWidget {
   const HistorialEntregasPage({Key? key}) : super(key: key);
 
   @override
-  _HistorialEntregaspage createState() => _HistorialEntregaspage();
+  _HistorialEntregaspageState createState() => _HistorialEntregaspageState();
 }
 
-class _HistorialEntregaspage extends State<HistorialEntregasPage> {
+class _HistorialEntregaspageState extends State<HistorialEntregasPage> {
   List<List<String>> _tableData = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Historial de Entregas')),
-      body: BlocBuilder<EntregaBloc, EntregaState>(
-        builder: (context, state) {
-          if (state is HistorialEntregaSuccess) {
-            final entregas = state.entregas;
-            return Table(
-              border: TableBorder.all(color: Colors.transparent),
-              columnWidths: const {
-                0: FixedColumnWidth(50),
-              },
-              defaultColumnWidth: const FixedColumnWidth(100),
-              children: _buildTableRows(entregas),
-            );
-          }
-          return Center(child: Text("Cargando..."));
-        },
+      appBar: AppBar(
+        title: const Text('Historial de Entregas', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+        centerTitle: true,
       ),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/manual_images/arrrr.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: BlocBuilder<EntregaBloc, EntregaState>(
+          builder: (context, state) {
+            if (state is HistorialEntregaSuccess) {
+              final entregas = state.entregas;
+              return _buildTable(entregas);
+            }
+            return Center(child: CircularProgressIndicator());
+          },
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTable(List<GetHistorialEntrega> entregas) {
+    return Table(
+      border: TableBorder.all(color: Color.fromARGB(244, 168, 168, 168), borderRadius: BorderRadius.circular(10)),
+      children: _buildTableRows(entregas),
     );
   }
 
   List<TableRow> _buildTableRows(List<GetHistorialEntrega> entregas) {
     List<TableRow> rows = [];
     rows.add(const TableRow(children: [
-      TableCell(child: Center(child: Text('Id'))),
-      TableCell(child: Center(child: Text('cantidad Material'))),
-      TableCell(child: Center(child: Text('nombre Material'))),
-      TableCell(child: Center(child: Text('puntosAcumulados'))),
-      TableCell(child: Center(child: Text('canjeada'))),
+      TableCell(
+        child: Center(
+          child: Text(
+            'Codigo',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+      TableCell(
+        child: Center(
+          child: Text(
+            'Cantidad Material',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+      TableCell(
+        child: Center(
+          child: Text(
+            'Nombre Material',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+      TableCell(
+        child: Center(
+          child: Text(
+            'Puntos Acumulados',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+      TableCell(
+        child: Center(
+          child: Text(
+            'Canjeada',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
     ]));
     for (GetHistorialEntrega entrega in entregas) {
       rows.add(TableRow(children: [
@@ -66,7 +112,7 @@ class _HistorialEntregaspage extends State<HistorialEntregasPage> {
         TableCell(
           child: Center(
             child: Text(
-              entrega.nombreMaterial!,
+              entrega.nombreMaterial!.reduce((value, element) => value + ' ' + element),
               style: TextStyle(fontSize: 14),
             ),
           ),
@@ -82,8 +128,8 @@ class _HistorialEntregaspage extends State<HistorialEntregasPage> {
         TableCell(
           child: Center(
             child: Text(
-              entrega.canjeada.toString(),
-              style: TextStyle(fontSize: 14),
+              entrega.canjeada! ? "Activo" : "Inactivo",
+              style: TextStyle(fontSize: 14, color: entrega.canjeada! ? Colors.green : Colors.red),
             ),
           ),
         ),

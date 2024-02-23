@@ -10,7 +10,7 @@ class GetBonosUsecase {
     required this.repository
   });
 
-  Future<Either<DioException, List<BonoEntity>>> call(String accessToken){
-    return repository.getBonos(accessToken);
+  Future<Either<DioException, List<BonoEntity>>> call(String accessToken, String rol){
+    return repository.getBonos(accessToken, rol);
   }
 }

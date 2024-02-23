@@ -27,4 +27,19 @@ class BonoModel {
       valorBono: valorBono
     );
   }
+
+  factory BonoModel.fromEntity(BonoEntity bonoEntity) {
+    return BonoModel(
+      id: bonoEntity.id,
+      valorBono: bonoEntity.valorBono,
+      puntosRequeridos: bonoEntity.puntosRequeridos
+    );
+  }
+
+  Map<String, dynamic> toJson(){
+    return {
+      "puntosRequeridos": puntosRequeridos,
+      "valorBono": valorBono
+    };
+  }
 }

@@ -7,7 +7,7 @@ class SendMailResetPasswordUseCase {
 
   SendMailResetPasswordUseCase({required this.userRepository});  
 
-  Future<Either<DioException, String>> call(String email){
+  Future<Either<DioException, Map<String, dynamic>>> call(String email){
     return userRepository.sendMailResetPassword(email);
   }
 }

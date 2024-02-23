@@ -54,8 +54,11 @@ class EntregaService {
     try {
       final response =
           await dio.get(urlApiHistorialEntregasPage, options: options);
+      print(response.statusCode);
       if (response.statusCode == 200) {
-        final data = (response.data["entregas"] as List)
+        print(response.data);
+
+        final data = (response.data as List)
             .map((e) => GetHistorialEntrega.fromJson(e))
             .toList();
         return right(data);
@@ -96,6 +99,7 @@ class EntregaService {
       return left(e);
     }
   }
+
 
   Future<Either<DioException, String>> validarEntrega(
       String accessToken, int idEntrega) async {

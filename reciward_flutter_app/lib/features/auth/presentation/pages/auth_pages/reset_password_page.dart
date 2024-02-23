@@ -10,7 +10,7 @@ class ResetPasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String token = ModalRoute.of(context)?.settings.arguments as String;
+    int token = ModalRoute.of(context)?.settings.arguments as int;
 
     TextEditingController passwordController = TextEditingController();
     TextEditingController confirmPassword = TextEditingController();
@@ -18,7 +18,6 @@ class ResetPasswordPage extends StatelessWidget {
       backgroundColor: Pallete.colorWhite,
       body: BlocListener<AuthBloc, AuthState>(
         listener: ((context, state) {
-          print("STATE $state");
 
           if (state is AuthErrorState) {
             ScaffoldMessenger.of(context)
