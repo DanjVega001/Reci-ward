@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               Card(
-                color: Color.fromARGB(255, 102, 148, 112),
+                color: Color.fromARGB(255, 107, 172, 121),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(25, 15, 25, 15),
                   child: Column(

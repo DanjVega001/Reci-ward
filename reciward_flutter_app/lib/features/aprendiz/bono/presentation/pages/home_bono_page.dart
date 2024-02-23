@@ -21,61 +21,66 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Pallete.colorWhite,
       appBar: const AppBarReciward(),
-      body: Column(
-        children: [
-          const GetPuntosBanner(),
-          const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              setState(() {
-                _showTable = !_showTable;
-              });
-            },
-            child: Text(_showTable
-                ? '  Ocultar historial de bonos  '
-                : '  Mostrar historial de bonos  '),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/manual_images/arrrr.png"),
+            fit: BoxFit.cover,
           ),
-          const SizedBox(height: 10),
-          if (_showTable) ...[
-            const Text(
-              'Historial',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+        ),
+        child: Column(
+          children: [
+            const GetPuntosBanner(),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _showTable = !_showTable;
+                });
+              },
+              child: Text(_showTable ? '  Ocultar historial de bonos  ' : '  Mostrar historial de bonos  '),
             ),
             const SizedBox(height: 10),
-            Container(
-              width: 360,
-              decoration: BoxDecoration(
-                border: Border.all(color: Color.fromARGB(255, 84, 104, 59)),
-                color: const Color.fromARGB(255, 221, 221, 220),
-                borderRadius: BorderRadius.circular(10),
+            if (_showTable) ...[
+              const Text(
+                'Historial',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              child: BlocBuilder<BonoBloc, BonoState>(
-                builder: (context, state) {
-                  if (state is GetHistorialBonosSuccess) {
-                    final bonos = state.bonos;
-                    return Table(
-                      border: TableBorder.all(color: Colors.transparent),
-                      columnWidths: const {
-                        0: FixedColumnWidth(50),
-                        2: FixedColumnWidth(80), // Ajuste para hacer la columna "Estado" más delgada
-                        3: FlexColumnWidth(2), // Ajuste para hacer la columna "Caduca" un poco más ancha
-                      },
-                      defaultColumnWidth: const FixedColumnWidth(100),
-                      children: _buildTableRows(bonos),
-                    );
-                  }
+
+              const SizedBox(height: 10),
+              Container(
+                width: 360,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color.fromARGB(255, 84, 104, 59)),
+                  color: const Color.fromARGB(255, 221, 221, 220),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: BlocBuilder<BonoBloc, BonoState>(
+                  builder: (context, state) {
+                    if (state is GetHistorialBonosSuccess) {
+                      final bonos = state.bonos;
+                      return Table(
+                        border: TableBorder.all(color: Colors.transparent),
+                        columnWidths: const {
+                          0: FixedColumnWidth(50),
+                          2: FixedColumnWidth(80), // Ajuste para hacer la columna "Estado" más delgada
+                          3: FlexColumnWidth(2), // Ajuste para hacer la columna "Caduca" un poco más ancha
+                        },
+                        defaultColumnWidth: const FixedColumnWidth(100),
+                        children: _buildTableRows(bonos),
+                      );
+                    }
+
+
 
                   return Center(child: Text("No tienes bonos"));
                 },
+
               ),
-            ),
+            ],
           ],
-        ],
+        ),
       ),
       bottomNavigationBar: const NavReciward(
         currentIndex: 2,
@@ -107,7 +112,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               child: Center(
                 child: Text(
                   bono.id!,
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 16),
                 ),
               ),
             ),
@@ -115,7 +120,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               child: Center(
                 child: Text(
                   bono.codigoValidante!,
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 16),
                 ),
               ),
             ),
@@ -123,9 +128,12 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               child: Center(
                 child: Text(
                   bono.estadoBono! ? "Activo" : "Inactivo",
-
-                  style: TextStyle(fontSize: 12), // Reducir el tamaño de fuente para hacer la fila "Estado" más delgada
-
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: bono.estadoBono!
+                          ? Colors.green
+                          : Colors
+                              .red), // Reducir el tamaño de fuente para hacer la fila "Estado" más delgada
                 ),
               ),
             ),
@@ -142,13 +150,13 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                     return Center(
                         child: Text(
                       'Bono inactivo',
-                      style: TextStyle(color: Colors.red),
+                      style: TextStyle(fontSize: 16, color: Colors.red),
                     ));
                   }
                   return Center(
                     child: Text(
                       '${bono.remainingTime.inDays}D${bono.remainingTime.inHours.remainder(24)}H${bono.remainingTime.inMinutes.remainder(60)}M${bono.remainingTime.inSeconds.remainder(60)}S',
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(fontSize: 15),
                     ),
                   );
                 },
