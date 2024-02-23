@@ -36,7 +36,7 @@ class AuthSignupRequested extends AuthEvent {
 
    AuthException? validate() {
     if (enterCode != code) {
-      return AuthException(errorMessage: "Incorrect code");
+      return AuthException(errorMessage: "Incorrect code. Newly enter the sent code");
     }
 
     return null;
@@ -130,13 +130,22 @@ class SendVerificationResetPasswordRequested extends AuthEvent{
 
 
 class RecoverInvalidUserData extends AuthEvent{
-  final UserEntity userEntity;
+  final UserEntity ? userEntity;
   final int code;
 
   const RecoverInvalidUserData({
     required this.code,
-    required this.userEntity
+    this.userEntity
   });
 }
 
+
+
+class RecoverInvalidCode extends AuthEvent {
+  final int code;
+
+  const RecoverInvalidCode({
+    required this.code
+  });
+}
 

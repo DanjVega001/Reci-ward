@@ -121,16 +121,13 @@ class _SignupPageState extends State<SignupPage> {
                   const SizedBox(
                     height: 10.0,
                   ),
-                  AuthFormField(
-                      label: 'Numero de documento del aprendiz',
-                      controller: numeroDocumentoController,
-                      type: TextInputType.number),
-                  const SizedBox(
-                    height: 10.0,
-                  ),
                   Container(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.only(top: 20, bottom: 15),
                     child: DropdownButton<String>(
+                      underline: Container(
+                        height: 2,
+                        color: const Color.fromARGB(221, 175, 175, 175),
+                      ),
                       dropdownColor: Pallete.colorWhite,
                       isExpanded: true,
                       value: selectedValueTipoDoc,
@@ -140,7 +137,7 @@ class _SignupPageState extends State<SignupPage> {
                           child: Text(
                             e,
                             style: const TextStyle(
-                                color: Pallete.colorBlack,
+                                color: Color.fromARGB(255, 73, 69, 69),
                                 fontSize: 16,
                                 fontFamily: 'Ubuntu'),
                           ),
@@ -154,6 +151,13 @@ class _SignupPageState extends State<SignupPage> {
                       style: const TextStyle(color: Pallete.colorBlack),
                     ),
                   ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  AuthFormField(
+                      label: 'Numero de documento del aprendiz',
+                      controller: numeroDocumentoController,
+                      type: TextInputType.number),
                   const SizedBox(
                     height: 10.0,
                   ),
@@ -176,12 +180,20 @@ class _SignupPageState extends State<SignupPage> {
                           },
                           (fichas) {
                             if (fichas.isNotEmpty) {
-                              selectedValueFicha =
-                                  '${fichas[0].id}. ${fichas[0].numeroFicha} - ${fichas[0].nombreFicha}';
+                              if (selectedValueFicha.isEmpty) {
+                                selectedValueFicha =
+                                    '${fichas[0].id}. ${fichas[0].numeroFicha} - ${fichas[0].nombreFicha}';
+                              }
                             }
                             return Container(
-                              padding: const EdgeInsets.all(16.0),
+                              padding:
+                                  const EdgeInsets.only(bottom: 15, top: 20),
                               child: DropdownButton<String>(
+                                underline: Container(
+                                  height: 2,
+                                  color:
+                                      const Color.fromARGB(221, 175, 175, 175),
+                                ),
                                 dropdownColor: Pallete.colorGrey2,
                                 isExpanded: true,
                                 value: selectedValueFicha,
@@ -193,7 +205,7 @@ class _SignupPageState extends State<SignupPage> {
                                     child: Text(
                                       '${e.numeroFicha} - ${e.nombreFicha}',
                                       style: const TextStyle(
-                                        color: Pallete.colorBlack,
+                                        color: Color.fromARGB(255, 73, 69, 69),
                                         fontSize: 16,
                                         fontFamily: 'Ubuntu',
                                       ),
@@ -203,6 +215,7 @@ class _SignupPageState extends State<SignupPage> {
                                 onChanged: (String? newValue) {
                                   if (newValue != selectedValueFicha) {
                                     setState(() {
+                                      print(newValue);
                                       selectedValueFicha = newValue!;
                                     });
                                   }

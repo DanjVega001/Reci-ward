@@ -45,6 +45,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         onSendVerificationResetPasswordRequested);
 
     on<RecoverInvalidUserData>(onRecoverInvalidUserData);
+
+    on<RecoverInvalidCode>(onRecoverInvalidCode);
   }
 
   void onResetPassword(
@@ -178,7 +180,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final validateUser = event.validate();
       if (validateUser != null) {
         return emit(SendVerificationResetPasswordFailed(
-            error: validateUser.errorMessage));
+            error: validateUser.errorMessage, code: event.code));
       }
       return emit(SendVerificationResetPasswordSuccess(
           message: "Codigo correcto", code: event.code));
@@ -191,7 +193,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       RecoverInvalidUserData event, Emitter<AuthState> emit) {
     return emit(SendVerificationEmailSuccess(
         code: event.code,
-        userEntity: event.userEntity,
+        userEntity: event.userEntity!,
+        message: "Ingrese nuevamente el codigo"));
+  }
+
+  void onRecoverInvalidCode(
+      RecoverInvalidCode event, Emitter<AuthState> emit) {
+    return emit(SendMailSuccess(
+        code: event.code,
         message: "Ingrese nuevamente el codigo"));
   }
 

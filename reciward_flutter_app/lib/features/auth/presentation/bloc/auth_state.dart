@@ -93,6 +93,7 @@ final class SendVerificationResetPasswordSuccess extends AuthState {
 
 final class SendVerificationResetPasswordFailed extends AuthState {
   final String error;
+  final int ? code;
 
-  const SendVerificationResetPasswordFailed({required this.error});
+  const SendVerificationResetPasswordFailed({required this.error, this.code});
 }
