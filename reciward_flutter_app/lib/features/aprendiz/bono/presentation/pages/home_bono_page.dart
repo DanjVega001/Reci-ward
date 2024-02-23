@@ -70,7 +70,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                     );
                   }
 
-                  return Center(child: CircularProgressIndicator());
+                  return Center(child: Text("No tienes bonos"));
                 },
               ),
             ),
