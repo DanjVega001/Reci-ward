@@ -25,5 +25,6 @@ class DatabaseSeeder extends Seeder
         $this->call(Material_has_entregaSeeder::class);
         $this->call(BonoSeeder::class);
         $this->call(Aprendiz_has_BonoSeeder::class);
+        $this->call(TipSeeder::class);
     }
 }

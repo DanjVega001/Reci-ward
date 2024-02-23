@@ -37,7 +37,6 @@ void main() {
   configDependencies();
   Provider.debugCheckInvalidValueType = null;
   runApp(MultiBlocProvider(
-
     providers: [
       Provider(create: (context) => FichaProvider()),
       BlocProvider(create: (context) => AuthBloc()),
