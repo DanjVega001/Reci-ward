@@ -10,7 +10,7 @@ import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_but
 import 'package:reciward_flutter_app/features/material/presentation/widgets/material_dropdown.dart';
 
 class HomeEntregaPage extends StatefulWidget {
-  const HomeEntregaPage({super.key});
+  const HomeEntregaPage({Key? key}) : super(key: key);
 
   @override
   State<HomeEntregaPage> createState() => _HomeEntregaPageState();
@@ -22,15 +22,17 @@ class _HomeEntregaPageState extends State<HomeEntregaPage> {
     return Scaffold(
       appBar: const AppBarReciward(),
       body: Container(
+        constraints: BoxConstraints.expand(), // Para que ocupe todo el espacio disponible
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(""), // Ruta de tu imagen de fondo
+            image: AssetImage("assets/manual_images/arrrr.png"),
             fit: BoxFit.cover,
           ),
         ),
         child: Padding(
           padding: const EdgeInsets.all(14),
           child: SingleChildScrollView(
+            physics: NeverScrollableScrollPhysics(), // Evita el desplazamiento
             child: Column(
               children: [
                 MaterialDropdown(),
