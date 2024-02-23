@@ -28,46 +28,52 @@ class _BonoFormState extends State<EditarBonoPageCafeteria> {
       appBar: AppBar(
         title: Text('Formulario de Bono'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              TextFormField(
-                controller: _valorBonoController,
-                decoration: InputDecoration(
-                  labelText: 'Valor del bono',
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/manual_images/cafff.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                TextFormField(
+                  controller: _valorBonoController,
+                  decoration: InputDecoration(
+                    labelText: 'Valor del bono',
+                  ),
+                  keyboardType: TextInputType.number,
                 ),
-               keyboardType: TextInputType.number,
-              ),
-              TextFormField(
-                controller: _puntosRequeridosController,
-               keyboardType: TextInputType.number,
-                
-                decoration: InputDecoration(
-                  labelText: 'Puntos requeridos',
+                TextFormField(
+                  controller: _puntosRequeridosController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: 'Puntos requeridos',
+                  ),
                 ),
-            
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    UserEntity user = (BlocProvider.of<ProfileBloc>(context).state as UserProfileState).user!;
-                    BlocProvider.of<BonoBloc>(context).add(UpdateBonoEvent(accessToken: user.accces_token!, bonoEntity: BonoEntity(
-                      puntosRequeridos: int.parse(_puntosRequeridosController.text.trim()),
-                      valorBono: int.parse(_valorBonoController.text.trim()),
-                      id: "${(ModalRoute.of(context)!.settings.arguments as int)}"
-                    )));
-                    BlocProvider.of<BonoBloc>(context).add(GetBonosEvent(accessToken: user.accces_token!, rol: user.rol!));
-                    Navigator.pop(context);
-                  },
-                  child: Text('Guardar'),
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      UserEntity user = (BlocProvider.of<ProfileBloc>(context).state as UserProfileState).user!;
+                      BlocProvider.of<BonoBloc>(context).add(UpdateBonoEvent(accessToken: user.accces_token!, bonoEntity: BonoEntity(
+                        puntosRequeridos: int.parse(_puntosRequeridosController.text.trim()),
+                        valorBono: int.parse(_valorBonoController.text.trim()),
+                        id: "${(ModalRoute.of(context)!.settings.arguments as int)}"
+                      )));
+                      BlocProvider.of<BonoBloc>(context).add(GetBonosEvent(accessToken: user.accces_token!, rol: user.rol!));
+                      Navigator.pop(context);
+                    },
+                    child: Text('Guardar'),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

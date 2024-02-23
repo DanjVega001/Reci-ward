@@ -47,7 +47,6 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                 'Historial',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-
               const SizedBox(height: 10),
               Container(
                 width: 360,
@@ -72,11 +71,9 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                       );
                     }
 
-
-
-                  return Center(child: Text("No tienes bonos"));
-                },
-
+                    return Center(child: CircularProgressIndicator());
+                  },
+                ),
               ),
             ],
           ],
@@ -112,7 +109,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               child: Center(
                 child: Text(
                   bono.id!,
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 14),
                 ),
               ),
             ),
@@ -120,7 +117,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               child: Center(
                 child: Text(
                   bono.codigoValidante!,
-                  style: TextStyle(fontSize: 16),
+                  style: TextStyle(fontSize: 14),
                 ),
               ),
             ),
@@ -128,12 +125,9 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               child: Center(
                 child: Text(
                   bono.estadoBono! ? "Activo" : "Inactivo",
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: bono.estadoBono!
-                          ? Colors.green
-                          : Colors
-                              .red), // Reducir el tamaño de fuente para hacer la fila "Estado" más delgada
+
+                  style: TextStyle(fontSize: 12), // Reducir el tamaño de fuente para hacer la fila "Estado" más delgada
+
                 ),
               ),
             ),
@@ -150,13 +144,13 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                     return Center(
                         child: Text(
                       'Bono inactivo',
-                      style: TextStyle(fontSize: 16, color: Colors.red),
+                      style: TextStyle(color: Colors.red),
                     ));
                   }
                   return Center(
                     child: Text(
                       '${bono.remainingTime.inDays}D${bono.remainingTime.inHours.remainder(24)}H${bono.remainingTime.inMinutes.remainder(60)}M${bono.remainingTime.inSeconds.remainder(60)}S',
-                      style: TextStyle(fontSize: 15),
+                      style: TextStyle(fontSize: 14),
                     ),
                   );
                 },
