@@ -115,8 +115,9 @@ class _HomeBonoPageCafeteriaState extends State<HomeBonoPageCafeteria> {
                 
               },
               style: ElevatedButton.styleFrom(
-                primary: Color.fromARGB(255, 83, 177, 117),
-                onPrimary: Colors.white,
+                //primary: Color.fromARGB(255, 83, 177, 117),
+                //onPrimary: Colors.white,
+
               ),
               child: Text('Editar bono'),
             ),
