@@ -29,8 +29,10 @@ final class UnauthenticatedState extends AuthState {}
 
 final class AuthErrorState extends AuthState {
   final String error;
+  final int ? code;
+  final UserEntity ? userEntity;
 
-  const AuthErrorState({required this.error});
+  const AuthErrorState({required this.error, this.code, this.userEntity});
 }
 
 final class AuthLoadingState extends AuthState {}

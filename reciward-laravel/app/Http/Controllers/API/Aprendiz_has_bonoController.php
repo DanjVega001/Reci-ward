@@ -92,9 +92,8 @@ class Aprendiz_has_bonoController extends Controller
         if ($bono->puntosRequeridos > $puntos->cantidadAcumulada) {
             return response()->json(["error"=>"No tienes puntos suficientes"], 404);
         }
-        // Crear codigo unico alfanumerico de 6 caracteres
         while (!$unico) {
-            $codigoValidante = Str::random(6);
+            $codigoValidante = strval(rand(100000, 999999));
             $existeCodigo = Aprendiz_has_bono::where('codigoValidante',
                 $codigoValidante)->exists();
             if (!$existeCodigo) {

@@ -44,6 +44,14 @@ return [
             'password' => env('MAIL_PASSWORD'),
             'timeout' => null,
             'auth_mode' => null,
+
+            'stream' => [
+                'ssl' => [
+                    'verify_peer' => false,
+                    'verify_peer_name' => false,
+                    'allow_self_signed' => true,
+                ],
+            ],
         ],
         
         'elasticemail' => [
@@ -75,6 +83,8 @@ return [
         'array' => [
             'transport' => 'array',
         ],
+
+        
     ],
 
     /*
@@ -111,5 +121,7 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
+
+    
 
 ];

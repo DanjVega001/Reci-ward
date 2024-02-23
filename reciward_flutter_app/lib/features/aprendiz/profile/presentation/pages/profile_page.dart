@@ -70,204 +70,212 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         centerTitle: true,
       ),
-      body: BlocConsumer<ProfileBloc, ProfileState>(
-        listener: (context, state) {
-          if (state is UpdateUserSuccess) {
-            UserEntity user = UserEntity(
-                email: state.userData.email!,
-                accces_token: state.accessToken,
-                name: state.userData.name,
-                aprendizEntity: AprendizEntity(
-                    apellido: state.userData.apellido,
-                    ficha: null,
-                    avatar: state.userData.avatar,
-                    descripcionPerfil: state.userData.descripcionPerfil));
-            BlocProvider.of<ProfileBloc>(context)
-                .add(RecoverUserProfile(user: user));
-            Navigator.pop(context);
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.message)));
-          }
-          if (state is UpdateUserFailed) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
-            BlocProvider.of<ProfileBloc>(context)
-                .add(RecoverUserProfile(user: state.user!));
-          }
-        },
-        builder: (context, state) {
-          return BlocBuilder<ProfileBloc, ProfileState>(
-            builder: (context, state) {
-              if (state is UserProfileState) {
-                UserEntity user = state.user!;
-                emailController.text = user.email;
-                nameController.text = user.name!;
-                apellidoController.text = user.aprendizEntity!.apellido!;
-                descripcionController.text =
-                    user.aprendizEntity!.descripcionPerfil ?? "Sin descripción";
-                _imagePath = user.aprendizEntity?.avatar;
-                return SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            CircleAvatar(
-                              radius: 80,
-                              backgroundImage: _image == null
-                                  ? _imagePath == null
-                                      ? const AssetImage(
-                                          'assets/images/img_ambiente.jpg')
-                                      : FileImage(File(_imagePath!))
-                                          as ImageProvider<Object>
-                                  : FileImage(File(_image!.path)),
-                            ),
-                            IconButton(
-                              onPressed: editar ? null : getImage,
-                              icon: const Icon(Icons.add_a_photo),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Divider(
-                          height: 10,
-                          color: Colors.black,
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        TextButton.icon(
-                          style: const ButtonStyle(
-                              backgroundColor:
-                                  MaterialStatePropertyAll(Pallete.color1),
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/your_background_image.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: BlocConsumer<ProfileBloc, ProfileState>(
+          listener: (context, state) {
+            if (state is UpdateUserSuccess) {
+              UserEntity user = UserEntity(
+                  email: state.userData.email!,
+                  accces_token: state.accessToken,
+                  name: state.userData.name,
+                  aprendizEntity: AprendizEntity(
+                      apellido: state.userData.apellido,
+                      ficha: null,
+                      avatar: state.userData.avatar,
+                      descripcionPerfil: state.userData.descripcionPerfil));
+              BlocProvider.of<ProfileBloc>(context)
+                  .add(RecoverUserProfile(user: user));
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(state.message)));
+            }
+            if (state is UpdateUserFailed) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(SnackBar(content: Text(state.error)));
+              BlocProvider.of<ProfileBloc>(context)
+                  .add(RecoverUserProfile(user: state.user!));
+            }
+          },
+          builder: (context, state) {
+            return BlocBuilder<ProfileBloc, ProfileState>(
+              builder: (context, state) {
+                if (state is UserProfileState) {
+                  UserEntity user = state.user!;
+                  emailController.text = user.email;
+                  nameController.text = user.name!;
+                  apellidoController.text = user.aprendizEntity!.apellido!;
+                  descripcionController.text =
+                      user.aprendizEntity!.descripcionPerfil ?? "Sin descripción";
+                  _imagePath = user.aprendizEntity?.avatar;
+                  return SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Column(
+                        children: <Widget>[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircleAvatar(
+                                radius: 80,
+                                backgroundImage: _image == null
+                                    ? _imagePath == null
+                                        ? const AssetImage(
+                                            'assets/manual_images/arrrr.png')
+                                        : FileImage(File(_imagePath!))
+                                            as ImageProvider<Object>
+                                    : FileImage(File(_image!.path)),
                               ),
-                          onPressed: () {
-                            setState(() {
-                              editar = !editar;
-                            });
-                          },
-                          label: const Text(
-                            "Editar datos",
-                            style: TextStyle(color: Pallete.colorWhite, fontFamily: 'Ubuntu'),
+                              IconButton(
+                                onPressed: editar ? null : getImage,
+                                icon: const Icon(Icons.add_a_photo),
+                              )
+                            ],
                           ),
-                          icon: const Icon(
-                            Icons.edit,
-                            color: Pallete.colorWhite,
+                          const SizedBox(
+                            height: 20,
                           ),
-                        ),
-                        UpdateUserFormField(
-                          controller: emailController,
-                          label: "Email",
-                          type: TextInputType.emailAddress,
-                          editar: editar,
-                        ),
-                        UpdateUserFormField(
-                          controller: nameController,
-                          label: "Name",
-                          type: TextInputType.text,
-                          editar: editar,
-                        ),
-                        UpdateUserFormField(
-                          controller: apellidoController,
-                          label: "Apellido",
-                          type: TextInputType.text,
-                          editar: editar,
-                        ),
-                        UpdateUserFormField(
-                          controller: descripcionController,
-                          label: "Descripión",
-                          type: TextInputType.multiline,
-                          editar: editar,
-                        ),
-                        const SizedBox(
-                          height: 25,
-                        ),
-                        Container(
-                          alignment: Alignment.bottomLeft,
-                          child: TextButton(
+                          const Divider(
+                            height: 10,
+                            color: Colors.black,
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          TextButton.icon(
                             style: const ButtonStyle(
                                 backgroundColor:
-                                    MaterialStatePropertyAll(Pallete.color1)),
+                                    MaterialStatePropertyAll(Pallete.color1),
+                                ),
                             onPressed: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (context) {
-                                  return ModalChangePassword(
-                                    onChangePassword: onChangePassword,
-                                    editar: editar,
-                                  );
-                                },
-                              );
-                            },
-                            child: const Text(
-                              "Cambiar contraseña",
-                              style: TextStyle(color: Pallete.colorWhite, fontFamily: 'Ubuntu'),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          alignment: Alignment.centerLeft,
-                          child: TextButton.icon(
-                            style: const ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Pallete.color1)),
-                            onPressed: () {
-                              BlocProvider.of<ProfileBloc>(
-                                      context)
-                                  .add(UpdatedUser(
-                                      userData: UpdatedUserData(
-                                          apellido: apellidoController.text
-                                              .trim(),
-                                          descripcionPerfil:
-                                              descripcionController.text.trim(),
-                                          email: emailController.text.trim(),
-                                          name: nameController.text.trim(),
-                                          oldPassword: oldPasswordController
-                                                  .text
-                                                  .trim()
-                                                  .isEmpty
-                                              ? null
-                                              : oldPasswordController.text
-                                                  .trim(),
-                                          password: passwordController
-                                                  .text
-                                                  .trim()
-                                                  .isEmpty
-                                              ? null
-                                              : passwordController.text.trim(),
-                                          avatar: _image?.path ?? _imagePath),
-                                      confirmPassword:
-                                          confirmPasswordController.text.trim(),
-                                      updatePassword: updatePassword,
-                                      accessToken: user.accces_token!,
-                                      user: user));
+                              setState(() {
+                                editar = !editar;
+                              });
                             },
                             label: const Text(
-                              "Guardar cambios",
+                              "Editar datos",
                               style: TextStyle(color: Pallete.colorWhite, fontFamily: 'Ubuntu'),
                             ),
                             icon: const Icon(
-                              Icons.save,
+                              Icons.edit,
                               color: Pallete.colorWhite,
                             ),
                           ),
-                        ),
-                      ],
+                          UpdateUserFormField(
+                            controller: emailController,
+                            label: "Email",
+                            type: TextInputType.emailAddress,
+                            editar: editar,
+                          ),
+                          UpdateUserFormField(
+                            controller: nameController,
+                            label: "Name",
+                            type: TextInputType.text,
+                            editar: editar,
+                          ),
+                          UpdateUserFormField(
+                            controller: apellidoController,
+                            label: "Apellido",
+                            type: TextInputType.text,
+                            editar: editar,
+                          ),
+                          UpdateUserFormField(
+                            controller: descripcionController,
+                            label: "Descripión",
+                            type: TextInputType.multiline,
+                            editar: editar,
+                          ),
+                          const SizedBox(
+                            height: 25,
+                          ),
+                          Container(
+                            alignment: Alignment.bottomLeft,
+                            child: TextButton(
+                              style: const ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStatePropertyAll(Pallete.color1)),
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return ModalChangePassword(
+                                      onChangePassword: onChangePassword,
+                                      editar: editar,
+                                    );
+                                  },
+                                );
+                              },
+                              child: const Text(
+                                "Cambiar contraseña",
+                                style: TextStyle(color: Pallete.colorWhite, fontFamily: 'Ubuntu'),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Container(
+                            alignment: Alignment.centerLeft,
+                            child: TextButton.icon(
+                              style: const ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStatePropertyAll(Pallete.color1)),
+                              onPressed: () {
+                                BlocProvider.of<ProfileBloc>(
+                                        context)
+                                    .add(UpdatedUser(
+                                        userData: UpdatedUserData(
+                                            apellido: apellidoController.text
+                                                .trim(),
+                                            descripcionPerfil:
+                                                descripcionController.text.trim(),
+                                            email: emailController.text.trim(),
+                                            name: nameController.text.trim(),
+                                            oldPassword: oldPasswordController
+                                                    .text
+                                                    .trim()
+                                                    .isEmpty
+                                                ? null
+                                                : oldPasswordController.text
+                                                    .trim(),
+                                            password: passwordController
+                                                    .text
+                                                    .trim()
+                                                    .isEmpty
+                                                ? null
+                                                : passwordController.text.trim(),
+                                            avatar: _image?.path ?? _imagePath),
+                                        confirmPassword:
+                                            confirmPasswordController.text.trim(),
+                                        updatePassword: updatePassword,
+                                        accessToken: user.accces_token!,
+                                        user: user));
+                              },
+                              label: const Text(
+                                "Guardar cambios",
+                                style: TextStyle(color: Pallete.colorWhite, fontFamily: 'Ubuntu'),
+                              ),
+                              icon: const Icon(
+                                Icons.save,
+                                color: Pallete.colorWhite,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              }
-              return Text("Problemas");
-            },
-          );
-        },
+                  );
+                }
+                return Text("Problemas");
+              },
+            );
+          },
+        ),
       ),
     );
   }

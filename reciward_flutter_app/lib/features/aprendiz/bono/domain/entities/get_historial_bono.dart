@@ -3,13 +3,18 @@ class GetHistorialBono {
   final String? codigoValidante;
   final bool? estadoBono;
   final DateTime? fechaVencimiento;
+  late Duration remainingTime;
+  bool isActive; // Nuevo campo
 
-  const GetHistorialBono({
+  GetHistorialBono({
     required this.codigoValidante,
     required this.estadoBono,
     required this.fechaVencimiento,
     required this.id,
-  });
+  })  : isActive = estadoBono == true,
+        remainingTime = Duration.zero {
+    calculateRemainingTime();
+  }
 
   factory GetHistorialBono.fromJson(Map<String, dynamic> json) {
     return GetHistorialBono(
@@ -20,7 +25,11 @@ class GetHistorialBono {
     );
   }
 
-  Duration getRemainingTime() {
-    return fechaVencimiento!.difference(DateTime.now());
+  void calculateRemainingTime() {
+    if (isActive) {
+      remainingTime = fechaVencimiento!.difference(DateTime.now());
+    } else {
+      remainingTime = Duration.zero;
+    }
   }
 }

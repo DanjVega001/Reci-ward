@@ -28,7 +28,6 @@ import 'package:reciward_flutter_app/features/auth/presentation/providers/ficha_
 import 'package:reciward_flutter_app/features/auth/util/setup_auth_dependencies.dart';
 import 'package:reciward_flutter_app/features/cafeteria/manual_cafeteria/pages/manual_caf.dart';
 import 'package:reciward_flutter_app/features/cafeteria/pages/home_bono.dart';
-import 'package:reciward_flutter_app/features/cafeteria/pages/home_editar.dart';
 import 'package:reciward_flutter_app/features/cafeteria/pages/home_page_cafeteria.dart';
 import 'package:reciward_flutter_app/features/cafeteria/pages/validar_bono_page.dart';
 import 'package:reciward_flutter_app/features/cafeteria/pages/validar_entrega_page.dart';
@@ -64,16 +63,13 @@ void main() {
         '/validar-entrega': (context) => ValidarEntregaPage(),
         '/validar-bono':(context) => ValidarBonoPage(),
         '/manualCafeteria': (context) => const ManualCafe(),
-
-        '/bono-cafeteria': (context) => HomeBonoPageCafeteria(),
-        '/editar-cafeteria':(context) => EditarBonoPageCafeteria()
-
-        '/verify-password':(context) => VerificationReserPassword()
-
+        '/verify-password':(context) => VerificationReserPassword(),
+        '/bono-cafeteria':(context) => HomeBonoPageCafeteria(),
       },
       home: const LoginPage(),
     )
   ));
+
 }
 
 void configDependencies() {
