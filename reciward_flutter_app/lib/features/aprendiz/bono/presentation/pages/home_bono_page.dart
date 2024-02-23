@@ -62,8 +62,10 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                       border: TableBorder.all(color: Colors.transparent),
                       columnWidths: const {
                         0: FixedColumnWidth(50),
-                        2: FixedColumnWidth(80), // Ajuste para hacer la columna "Estado" más delgada
-                        3: FlexColumnWidth(2), // Ajuste para hacer la columna "Caduca" un poco más ancha
+                        2: FixedColumnWidth(
+                            80), // Ajuste para hacer la columna "Estado" más delgada
+                        3: FlexColumnWidth(
+                            2), // Ajuste para hacer la columna "Caduca" un poco más ancha
                       },
                       defaultColumnWidth: const FixedColumnWidth(100),
                       children: _buildTableRows(bonos),
@@ -107,7 +109,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               child: Center(
                 child: Text(
                   bono.id!,
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 16),
                 ),
               ),
             ),
@@ -115,7 +117,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               child: Center(
                 child: Text(
                   bono.codigoValidante!,
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontSize: 16),
                 ),
               ),
             ),
@@ -123,9 +125,12 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               child: Center(
                 child: Text(
                   bono.estadoBono! ? "Activo" : "Inactivo",
-
-                  style: TextStyle(fontSize: 12), // Reducir el tamaño de fuente para hacer la fila "Estado" más delgada
-
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: bono.estadoBono!
+                          ? Colors.green
+                          : Colors
+                              .red), // Reducir el tamaño de fuente para hacer la fila "Estado" más delgada
                 ),
               ),
             ),
@@ -142,13 +147,13 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                     return Center(
                         child: Text(
                       'Bono inactivo',
-                      style: TextStyle(color: Colors.red),
+                      style: TextStyle(fontSize: 16, color: Colors.red),
                     ));
                   }
                   return Center(
                     child: Text(
                       '${bono.remainingTime.inDays}D${bono.remainingTime.inHours.remainder(24)}H${bono.remainingTime.inMinutes.remainder(60)}M${bono.remainingTime.inSeconds.remainder(60)}S',
-                      style: TextStyle(fontSize: 14),
+                      style: TextStyle(fontSize: 15),
                     ),
                   );
                 },
