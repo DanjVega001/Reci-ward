@@ -29,6 +29,7 @@ class VerificationReserPassword extends StatelessWidget {
           if (state is SendVerificationResetPasswordFailed) {
             ScaffoldMessenger.of(context)
                 .showSnackBar(SnackBar(content: Text(state.error)));
+            BlocProvider.of<AuthBloc>(context).add(RecoverInvalidCode(code: state.code!,));
           }
           if (state is SendVerificationResetPasswordSuccess) {
             Navigator.pushNamed(context, '/reset-password', arguments: state.code);
