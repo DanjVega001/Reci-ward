@@ -23,9 +23,10 @@ class _SignupPageState extends State<SignupPage> {
   final TextEditingController apellidoController = TextEditingController();
   final TextEditingController numeroDocumentoController =
       TextEditingController();
-  late String selectedValueFicha;
+  String selectedValueFicha = "";
   late String selectedValueTipoDoc;
   late List<String> itemsTipoDoc;
+  late String firstSelectedValueFicha;
 
   @override
   void initState() {
@@ -36,6 +37,7 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       backgroundColor: Pallete.colorWhite,
       body: BlocConsumer<AuthBloc, AuthState>(
@@ -180,10 +182,12 @@ class _SignupPageState extends State<SignupPage> {
                           },
                           (fichas) {
                             if (fichas.isNotEmpty) {
+
                               if (selectedValueFicha.isEmpty) {
                                 selectedValueFicha =
                                     '${fichas[0].id}. ${fichas[0].numeroFicha} - ${fichas[0].nombreFicha}';
-                              }
+                              } 
+                              
                             }
                             return Container(
                               padding:

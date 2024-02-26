@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 import 'package:reciward_flutter_app/core/widgets/app_bar_reciward.dart';
 import 'package:reciward_flutter_app/core/widgets/nav_reciward.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/entities/get_historial_bono.dart';

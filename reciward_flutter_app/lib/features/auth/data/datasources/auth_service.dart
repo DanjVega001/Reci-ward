@@ -22,6 +22,7 @@ class AuthService {
               validateStatus: (status) {
                 return status! < 500;
               }));
+      print(response);
       if (response.statusCode == 201) {
         return right(response.data['message']);
       } else {
