@@ -16,7 +16,7 @@ class SendMailResetPasswordPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(),
       backgroundColor: Pallete.colorWhite,
-      body: BlocListener<AuthBloc, AuthState>(
+      body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is SendMailFailed) {
             ScaffoldMessenger.of(context)
@@ -27,7 +27,11 @@ class SendMailResetPasswordPage extends StatelessWidget {
             Navigator.pushNamed(context, "/verify-password", arguments: state.code);
           }
        },
-        child: SingleChildScrollView(
+       builder: (context, state) {
+        if (state is SendMailInitialized) {
+          return Center(child: CircularProgressIndicator(),);
+        }
+         return SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(12.0),
             child: Column(
@@ -69,7 +73,9 @@ class SendMailResetPasswordPage extends StatelessWidget {
               ],
             ),
           ),
-        ),
+        );
+       },
+        
       ),
 
     );
