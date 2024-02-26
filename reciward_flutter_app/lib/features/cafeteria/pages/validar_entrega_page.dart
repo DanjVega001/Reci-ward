@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
+import 'package:reciward_flutter_app/core/widgets/snackbar_reciward.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/entrega_entity.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/get_entrega_material_entity.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/presentation/bloc/entrega_bloc.dart';
@@ -63,12 +64,12 @@ class ValidarEntregaPage extends StatelessWidget {
                 listener: (context, state) {
                   if (state is ValidarEntregaFailed) {
                     ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(state.error)));
+                      .showSnackBar(MySnackBar.showSnackBar(state.error, true));
                     Navigator.pop(context);
                   }
                   if (state is ValidarEntregaSuccess) {
                     ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text(state.message)));
+                      .showSnackBar(MySnackBar.showSnackBar(state.message, false));
                     Navigator.pop(context);
                     
                   }

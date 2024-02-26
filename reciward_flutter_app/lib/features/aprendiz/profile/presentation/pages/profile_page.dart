@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
+import 'package:reciward_flutter_app/core/widgets/snackbar_reciward.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/domain/entities/update_user_data_dto.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/widgets/modal_change_password.dart';
@@ -93,11 +94,11 @@ class _ProfilePageState extends State<ProfilePage> {
                   .add(RecoverUserProfile(user: user));
               Navigator.pop(context);
               ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(state.message)));
+                  .showSnackBar(MySnackBar.showSnackBar(state.message, false));
             }
             if (state is UpdateUserFailed) {
               ScaffoldMessenger.of(context)
-                  .showSnackBar(SnackBar(content: Text(state.error)));
+                  .showSnackBar(MySnackBar.showSnackBar(state.error, false));
               BlocProvider.of<ProfileBloc>(context)
                   .add(RecoverUserProfile(user: state.user!));
             }

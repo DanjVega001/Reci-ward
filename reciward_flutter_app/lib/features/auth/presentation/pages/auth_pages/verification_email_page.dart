@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
+import 'package:reciward_flutter_app/core/widgets/snackbar_reciward.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_button.dart';
 
@@ -31,7 +32,7 @@ class VerificationEmailPage extends StatelessWidget {
         listener: (context, state) {
           if (state is AuthErrorState) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
+                .showSnackBar(MySnackBar.showSnackBar(state.error, true));
             codeController.clear();
             BlocProvider.of<AuthBloc>(context).add(RecoverInvalidUserData(
                 code: state.code!, userEntity: state.userEntity!));
@@ -39,7 +40,7 @@ class VerificationEmailPage extends StatelessWidget {
           if (state is AuthInitialLogin) {
             Navigator.popAndPushNamed(context, '/');
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.message!)));
+                .showSnackBar(MySnackBar.showSnackBar(state.message!, false));
           }
         },
         builder: (context, state) {

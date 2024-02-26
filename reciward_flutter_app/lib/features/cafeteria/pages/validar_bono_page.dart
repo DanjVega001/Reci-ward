@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
+import 'package:reciward_flutter_app/core/widgets/snackbar_reciward.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/presentation/bloc/bono_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_button.dart';
@@ -60,12 +61,12 @@ class ValidarBonoPage extends StatelessWidget {
                 listener: (context, state) {
                   if (state is ValidarBonoSuccess) {
                     ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text(state.message)));
+                        .showSnackBar(MySnackBar.showSnackBar(state.message, false));
                     Navigator.pop(context);
                   }
                   if (state is ValidarBonoFailed) {
                     ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text(state.error)));
+                        .showSnackBar(MySnackBar.showSnackBar(state.error, true));
                     Navigator.pop(context);
                   }
                 },

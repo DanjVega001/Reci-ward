@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
+import 'package:reciward_flutter_app/core/widgets/snackbar_reciward.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_button.dart';
 
@@ -28,13 +29,13 @@ class VerificationReserPassword extends StatelessWidget {
         listener: (context, state) {
           if (state is SendVerificationResetPasswordFailed) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
+                .showSnackBar(MySnackBar.showSnackBar(state.error, true));
             BlocProvider.of<AuthBloc>(context).add(RecoverInvalidCode(code: state.code!,));
           }
           if (state is SendVerificationResetPasswordSuccess) {
             Navigator.pushNamed(context, '/reset-password', arguments: state.code);
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.message)));
+                .showSnackBar(MySnackBar.showSnackBar(state.message, false));
           }
         },
         builder: (context, state) {

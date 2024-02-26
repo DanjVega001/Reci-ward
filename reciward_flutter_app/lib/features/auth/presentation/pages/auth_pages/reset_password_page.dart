@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
+import 'package:reciward_flutter_app/core/widgets/snackbar_reciward.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_button.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_field.dart';
@@ -21,7 +22,7 @@ class ResetPasswordPage extends StatelessWidget {
 
           if (state is AuthErrorState) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
+                .showSnackBar(MySnackBar.showSnackBar(state.error, true));
           } else if (state is AuthInitialLogin) {
             Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false,
                 arguments: false);

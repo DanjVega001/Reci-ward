@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
+import 'package:reciward_flutter_app/core/widgets/snackbar_reciward.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/entities/bono_entity.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/presentation/bloc/bono_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
@@ -27,13 +28,13 @@ class _ShowModalBonosState extends State<ShowModalBonos> {
         if (state is SaveBonoAprendizFailed) {
           Navigator.pop(context);
           ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(state.error)));
+            .showSnackBar(MySnackBar.showSnackBar(state.error, true));
         }
 
         if (state is SaveBonoAprendizSuccess) {
           Navigator.pop(context);
           ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(state.message)));
+            .showSnackBar(MySnackBar.showSnackBar(state.message, false));
           BlocProvider.of<PuntoBloc>(context).add(GetPuntosEvent(accessToken: state.accessToken));
 
         }
