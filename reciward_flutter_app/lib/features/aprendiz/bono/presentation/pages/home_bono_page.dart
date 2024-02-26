@@ -39,7 +39,9 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                   _showTable = !_showTable;
                 });
               },
-              child: Text(_showTable ? '  Ocultar historial de bonos  ' : '  Mostrar historial de bonos  '),
+              child: Text(_showTable
+                  ? '  Ocultar historial de bonos  '
+                  : '  Mostrar historial de bonos  '),
             ),
             const SizedBox(height: 10),
             if (_showTable) ...[
@@ -47,7 +49,6 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                 'Historial',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-
               const SizedBox(height: 10),
               Container(
                 width: 360,
@@ -64,20 +65,20 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                         border: TableBorder.all(color: Colors.transparent),
                         columnWidths: const {
                           0: FixedColumnWidth(50),
-                          2: FixedColumnWidth(80), // Ajuste para hacer la columna "Estado" más delgada
-                          3: FlexColumnWidth(2), // Ajuste para hacer la columna "Caduca" un poco más ancha
+                          2: FixedColumnWidth(
+                              80), // Ajuste para hacer la columna "Estado" más delgada
+                          3: FlexColumnWidth(
+                              2), // Ajuste para hacer la columna "Caduca" un poco más ancha
                         },
                         defaultColumnWidth: const FixedColumnWidth(100),
                         children: _buildTableRows(bonos),
                       );
                     }
 
-
-
-                  return Center(child: Text("No tienes bonos"));
-                },
-
-              ),
+                    return Center(child: Text("No tienes bonos"));
+                  },
+                ),
+              )
             ],
           ],
         ),
