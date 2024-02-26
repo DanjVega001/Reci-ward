@@ -37,7 +37,6 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       backgroundColor: Pallete.colorWhite,
       body: BlocConsumer<AuthBloc, AuthState>(
@@ -182,12 +181,10 @@ class _SignupPageState extends State<SignupPage> {
                           },
                           (fichas) {
                             if (fichas.isNotEmpty) {
-
                               if (selectedValueFicha.isEmpty) {
                                 selectedValueFicha =
                                     '${fichas[0].id}. ${fichas[0].numeroFicha} - ${fichas[0].nombreFicha}';
-                              } 
-                              
+                              }
                             }
                             return Container(
                               padding:
