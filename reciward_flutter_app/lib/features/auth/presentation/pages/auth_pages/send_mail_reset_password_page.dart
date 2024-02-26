@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
+import 'package:reciward_flutter_app/core/widgets/snackbar_reciward.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_button.dart';
 import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_field.dart';
@@ -20,10 +21,10 @@ class SendMailResetPasswordPage extends StatelessWidget {
         listener: (context, state) {
           if (state is SendMailFailed) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
+                .showSnackBar(MySnackBar.showSnackBar(state.error, true));
           } else if (state is SendMailSuccess) {            
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.message)));
+                .showSnackBar(MySnackBar.showSnackBar(state.message, false));
             Navigator.pushNamed(context, "/verify-password", arguments: state.code);
           }
        },

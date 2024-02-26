@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
+import 'package:reciward_flutter_app/core/widgets/snackbar_reciward.dart';
 import 'package:reciward_flutter_app/features/auth/domain/entities/aprendiz_entity.dart';
 import 'package:reciward_flutter_app/features/auth/domain/entities/ficha_entity.dart';
 import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.dart';
@@ -46,13 +47,13 @@ class _SignupPageState extends State<SignupPage> {
           if (state is SendVerificationEmailFailed) {
             print(state.error);
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
+                .showSnackBar(MySnackBar.showSnackBar(state.error, true));
           }
           if (state is SendVerificationEmailSuccess) {
             print(state.message);
             Navigator.pushNamed(context, '/verify-email');
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.message)));
+                .showSnackBar(MySnackBar.showSnackBar(state.message, false));
           }
         },
         builder: (context, state) {

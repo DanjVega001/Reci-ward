@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
+import 'package:reciward_flutter_app/core/widgets/snackbar_reciward.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/save_entrega_dto.dart';
 import 'package:reciward_flutter_app/features/aprendiz/entrega/presentation/bloc/entrega_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
@@ -43,12 +44,12 @@ class ModalResumenEntrega extends StatelessWidget {
         if (state is SaveEntregaFailed) {
           Navigator.pop(context);
           ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.error)));
+              .showSnackBar(MySnackBar.showSnackBar(state.error, true));
         }
         if (state is SaveEntregaSuccess) {
           Navigator.pop(context);
           ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.message)));
+              .showSnackBar(MySnackBar.showSnackBar(state.message, false));
         }
       },
       builder: (context, state) {

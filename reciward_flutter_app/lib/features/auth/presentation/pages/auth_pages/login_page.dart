@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reciward_flutter_app/core/widgets/snackbar_reciward.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/tips/presentation/bloc/tip_bloc.dart';
 import 'package:reciward_flutter_app/features/material/presentation/bloc/material_bloc.dart';
@@ -22,8 +22,6 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController passwordController = TextEditingController();
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,8 +29,10 @@ class _LoginPageState extends State<LoginPage> {
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthErrorState) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.error)));
+            ScaffoldMessenger.of(context).showSnackBar(MySnackBar.showSnackBar(
+              state.error,
+              true,
+            ));
           }
           if (state is AuthenticatedState) {
             if (state.user.rol == "aprendiz") {
@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
           }
           if (state is AuthInitialLogin && state.message != null) {
             ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.message!)));
+                .showSnackBar(MySnackBar.showSnackBar(state.message!, false));
           }
         },
         builder: (context, state) {
@@ -174,3 +174,4 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
