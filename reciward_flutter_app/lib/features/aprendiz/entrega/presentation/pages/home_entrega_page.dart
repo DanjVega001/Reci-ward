@@ -22,7 +22,8 @@ class _HomeEntregaPageState extends State<HomeEntregaPage> {
     return Scaffold(
       appBar: const AppBarReciward(),
       body: Container(
-        constraints: BoxConstraints.expand(), // Para que ocupe todo el espacio disponible
+        constraints: BoxConstraints
+            .expand(), // Para que ocupe todo el espacio disponible
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/manual_images/arrrr.png"),
