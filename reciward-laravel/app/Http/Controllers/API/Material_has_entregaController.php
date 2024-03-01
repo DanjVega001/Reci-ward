@@ -88,8 +88,7 @@ class Material_has_entregaController extends Controller
                 array_push($materiales, [
                     'id' => $me->material->id,
                     'nombreMaterial' => $me->material->nombreMaterial,
-                    'numeroPuntos' => $me->material->numeroPuntos,
-                    'clasificacion' => $me->material->clasificacion->nombreClasificacion
+                    'numeroPuntos' => $me->material->numeroPuntos
                 ]);
             }
             return response()->json([

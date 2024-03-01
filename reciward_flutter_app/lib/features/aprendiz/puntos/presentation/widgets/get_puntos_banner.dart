@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
@@ -68,15 +69,21 @@ class GetPuntosBanner extends StatelessWidget {
                             alignment: Alignment.center,
                             shape: MaterialStatePropertyAll(
                               RoundedRectangleBorder(
-                                borderRadius:  BorderRadius.only(
+                                borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(12),
                                     bottomRight: Radius.circular(12)),
                               ),
                             ),
                           ),
                           onPressed: () {
-                            UserEntity user = (BlocProvider.of<ProfileBloc>(context).state as UserProfileState).user!;
-                            BlocProvider.of<BonoBloc>(context).add(GetBonosEvent(accessToken: user.accces_token!, rol: user.rol!));
+                            UserEntity user =
+                                (BlocProvider.of<ProfileBloc>(context).state
+                                        as UserProfileState)
+                                    .user!;
+                            BlocProvider.of<BonoBloc>(context).add(
+                                GetBonosEvent(
+                                    accessToken: user.accces_token!,
+                                    rol: user.rol!));
                             showModalBottomSheet(
                               context: context,
                               builder: (context) {
@@ -84,24 +91,26 @@ class GetPuntosBanner extends StatelessWidget {
                               },
                             );
                           },
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.payments,
-                                color: Pallete.color1,
-                              ),
-                              SizedBox(height: 8),
-                              Text(
-                                "Canjear puntos",
-                                style: TextStyle(
+                          child: ElasticIn(
+                            child: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.payments,
                                   color: Pallete.color1,
-                                  fontFamily: 'Ubuntu',
                                 ),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
+                                SizedBox(height: 8),
+                                Text(
+                                  "Canjear puntos",
+                                  style: TextStyle(
+                                    color: Pallete.color1,
+                                    fontFamily: 'Ubuntu',
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
