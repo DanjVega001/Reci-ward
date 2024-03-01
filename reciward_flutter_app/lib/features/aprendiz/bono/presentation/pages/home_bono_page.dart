@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 import 'package:reciward_flutter_app/core/widgets/app_bar_reciward.dart';
 import 'package:reciward_flutter_app/core/widgets/nav_reciward.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/domain/entities/get_historial_bono.dart';
@@ -23,7 +22,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
     return Scaffold(
       appBar: const AppBarReciward(),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/manual_images/arrrr.png"),
             fit: BoxFit.cover,
@@ -39,7 +38,9 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                   _showTable = !_showTable;
                 });
               },
-              child: Text(_showTable ? '  Ocultar historial de bonos  ' : '  Mostrar historial de bonos  '),
+              child: Text(_showTable
+                  ? '  Ocultar historial de bonos  '
+                  : '  Mostrar historial de bonos  '),
             ),
             const SizedBox(height: 10),
             if (_showTable) ...[
@@ -49,31 +50,36 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               ),
               const SizedBox(height: 10),
               Container(
-                width: 360,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Color.fromARGB(255, 84, 104, 59)),
-                  color: const Color.fromARGB(255, 221, 221, 220),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: BlocBuilder<BonoBloc, BonoState>(
-                  builder: (context, state) {
-                    if (state is GetHistorialBonosSuccess) {
-                      final bonos = state.bonos;
-                      return Table(
-                        border: TableBorder.all(color: Colors.transparent),
-                        columnWidths: const {
-                          0: FixedColumnWidth(50),
-                          2: FixedColumnWidth(80), // Ajuste para hacer la columna "Estado" más delgada
-                          3: FlexColumnWidth(2), // Ajuste para hacer la columna "Caduca" un poco más ancha
-                        },
-                        defaultColumnWidth: const FixedColumnWidth(100),
-                        children: _buildTableRows(bonos),
-                      );
-                    }
+                  width: 360,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color.fromARGB(255, 84, 104, 59)),
+                    color: const Color.fromARGB(255, 221, 221, 220),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: BlocBuilder<BonoBloc, BonoState>(
+                    builder: (context, state) {
+                      if (state is GetHistorialBonosSuccess) {
+                        final bonos = state.bonos;
+                        return Table(
+                          border: TableBorder.all(color: Colors.transparent),
+                          columnWidths: const {
+                            0: FixedColumnWidth(50),
+                            2: FixedColumnWidth(
+                                80), // Ajuste para hacer la columna "Estado" más delgada
+                            3: FlexColumnWidth(
+                                2), // Ajuste para hacer la columna "Caduca" un poco más ancha
+                          },
+                          defaultColumnWidth: const FixedColumnWidth(100),
+                          children: _buildTableRows(bonos),
+                        );
+                      }
 
-                    return Center(child: CircularProgressIndicator());
-                  },
-                ),
+
+
+                  return Center(child: Text("No tienes bonos"));
+                    
+                },
+                  )
               ),
             ],
           ],
