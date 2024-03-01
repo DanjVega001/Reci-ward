@@ -38,38 +38,38 @@ void main() {
   configDependencies();
   Provider.debugCheckInvalidValueType = null;
   runApp(MultiBlocProvider(
-    providers: [
-      Provider(create: (context) => FichaProvider()),
-      BlocProvider(create: (context) => AuthBloc()),
-      BlocProvider(create: (context) => ProfileBloc()),
-      BlocProvider(create: (context) => TipBloc()),
-      BlocProvider(create: (context) => MaterialBloc()),
-      BlocProvider(create: (context) => EntregaBloc()),
-      BlocProvider(create: (context) => PuntoBloc()),
-      BlocProvider(create: (context) => BonoBloc()),
-    ],
-    child: MaterialApp(
-      routes: {
-        '/signup': (context) => const SignupPage(),
-        '/home': (context) => HomePage(),
-        '/entrega': (context) => const HomeEntregaPage(),
-        '/bono': (context) => const HomeBonoPage(),
-        '/send-mail': (context) => const SendMailResetPasswordPage(),
-        '/reset-password': (context) => const ResetPasswordPage(),
-        '/profile': (context) => const ProfilePage(),
-        '/manual': (context) => const ManualUser(),
-        '/home-cafeteria':(context) => const HomePageCafeteria(),
-        '/verify-email':(context) => VerificationEmailPage(),
-        '/validar-entrega': (context) => ValidarEntregaPage(),
-        '/validar-bono':(context) => ValidarBonoPage(),
-        '/manualCafeteria': (context) => const ManualCafe(),
-        '/verify-password':(context) => VerificationReserPassword(),
-        '/bono-cafeteria':(context) => HomeBonoPageCafeteria(),
-      },
-      home: const LoginPage(),
-    )
-  ));
-
+      providers: [
+        Provider(create: (context) => FichaProvider()),
+        BlocProvider(create: (context) => AuthBloc()),
+        BlocProvider(create: (context) => ProfileBloc()),
+        BlocProvider(create: (context) => TipBloc()),
+        BlocProvider(create: (context) => MaterialBloc()),
+        BlocProvider(create: (context) => EntregaBloc()),
+        BlocProvider(create: (context) => PuntoBloc()),
+        BlocProvider(create: (context) => BonoBloc()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        routes: {
+          '/signup': (context) => const SignupPage(),
+          '/home': (context) => HomePage(),
+          '/entrega': (context) => const HomeEntregaPage(),
+          '/bono': (context) => const HomeBonoPage(),
+          '/send-mail': (context) => const SendMailResetPasswordPage(),
+          '/reset-password': (context) => const ResetPasswordPage(),
+          '/profile': (context) => const ProfilePage(),
+          '/manual': (context) => const ManualUser(),
+          '/home-cafeteria': (context) => const HomePageCafeteria(),
+          '/verify-email': (context) => VerificationEmailPage(),
+          '/validar-entrega': (context) => ValidarEntregaPage(),
+          '/validar-bono': (context) => ValidarBonoPage(),
+          '/manualCafeteria': (context) => const ManualCafe(),
+          '/verify-password': (context) => VerificationReserPassword(),
+          '/bono-cafeteria': (context) => HomeBonoPageCafeteria(),
+          '/editar-cafeteria': (context) => EditarBonoPageCafeteria(),
+        },
+        home: const LoginPage(),
+      )));
 }
 
 void configDependencies() {

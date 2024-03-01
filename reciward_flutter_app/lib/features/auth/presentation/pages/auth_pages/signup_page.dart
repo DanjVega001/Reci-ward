@@ -176,8 +176,10 @@ class _SignupPageState extends State<SignupPage> {
                           },
                           (fichas) {
                             if (fichas.isNotEmpty) {
-                              selectedValueFicha =
-                                  '${fichas[0].id}. ${fichas[0].numeroFicha} - ${fichas[0].nombreFicha}';
+                              if (selectedValueFicha.isEmpty) {
+                                selectedValueFicha =
+                                    '${fichas[0].id}. ${fichas[0].numeroFicha} - ${fichas[0].nombreFicha}';
+                              }
                             }
                             return Container(
                               padding: const EdgeInsets.all(16.0),

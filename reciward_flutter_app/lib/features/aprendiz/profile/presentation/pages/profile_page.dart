@@ -64,19 +64,17 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         title: const Text(
           "Perfil del usuario",
-          style: TextStyle(
-            fontFamily: 'Ubuntu'
-          ),
+          style: TextStyle(fontFamily: 'Ubuntu'),
         ),
         centerTitle: true,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        /*decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/your_background_image.png"),
             fit: BoxFit.cover,
           ),
-        ),
+        ),*/
         child: BlocConsumer<ProfileBloc, ProfileState>(
           listener: (context, state) {
             if (state is UpdateUserSuccess) {
@@ -111,7 +109,8 @@ class _ProfilePageState extends State<ProfilePage> {
                   nameController.text = user.name!;
                   apellidoController.text = user.aprendizEntity!.apellido!;
                   descripcionController.text =
-                      user.aprendizEntity!.descripcionPerfil ?? "Sin descripción";
+                      user.aprendizEntity!.descripcionPerfil ??
+                          "Sin descripción";
                   _imagePath = user.aprendizEntity?.avatar;
                   return SingleChildScrollView(
                     child: Padding(
@@ -149,9 +148,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           TextButton.icon(
                             style: const ButtonStyle(
-                                backgroundColor:
-                                    MaterialStatePropertyAll(Pallete.color1),
-                                ),
+                              backgroundColor:
+                                  MaterialStatePropertyAll(Pallete.color1),
+                            ),
                             onPressed: () {
                               setState(() {
                                 editar = !editar;
@@ -159,7 +158,9 @@ class _ProfilePageState extends State<ProfilePage> {
                             },
                             label: const Text(
                               "Editar datos",
-                              style: TextStyle(color: Pallete.colorWhite, fontFamily: 'Ubuntu'),
+                              style: TextStyle(
+                                  color: Pallete.colorWhite,
+                                  fontFamily: 'Ubuntu'),
                             ),
                             icon: const Icon(
                               Icons.edit,
@@ -212,7 +213,9 @@ class _ProfilePageState extends State<ProfilePage> {
                               },
                               child: const Text(
                                 "Cambiar contraseña",
-                                style: TextStyle(color: Pallete.colorWhite, fontFamily: 'Ubuntu'),
+                                style: TextStyle(
+                                    color: Pallete.colorWhite,
+                                    fontFamily: 'Ubuntu'),
                               ),
                             ),
                           ),
@@ -226,14 +229,14 @@ class _ProfilePageState extends State<ProfilePage> {
                                   backgroundColor:
                                       MaterialStatePropertyAll(Pallete.color1)),
                               onPressed: () {
-                                BlocProvider.of<ProfileBloc>(
-                                        context)
-                                    .add(UpdatedUser(
+                                BlocProvider.of<ProfileBloc>(context).add(
+                                    UpdatedUser(
                                         userData: UpdatedUserData(
-                                            apellido: apellidoController.text
-                                                .trim(),
+                                            apellido:
+                                                apellidoController.text.trim(),
                                             descripcionPerfil:
-                                                descripcionController.text.trim(),
+                                                descripcionController.text
+                                                    .trim(),
                                             email: emailController.text.trim(),
                                             name: nameController.text.trim(),
                                             oldPassword: oldPasswordController
@@ -243,22 +246,25 @@ class _ProfilePageState extends State<ProfilePage> {
                                                 ? null
                                                 : oldPasswordController.text
                                                     .trim(),
-                                            password: passwordController
-                                                    .text
+                                            password: passwordController.text
                                                     .trim()
                                                     .isEmpty
                                                 ? null
-                                                : passwordController.text.trim(),
+                                                : passwordController.text
+                                                    .trim(),
                                             avatar: _image?.path ?? _imagePath),
                                         confirmPassword:
-                                            confirmPasswordController.text.trim(),
+                                            confirmPasswordController.text
+                                                .trim(),
                                         updatePassword: updatePassword,
                                         accessToken: user.accces_token!,
                                         user: user));
                               },
                               label: const Text(
                                 "Guardar cambios",
-                                style: TextStyle(color: Pallete.colorWhite, fontFamily: 'Ubuntu'),
+                                style: TextStyle(
+                                    color: Pallete.colorWhite,
+                                    fontFamily: 'Ubuntu'),
                               ),
                               icon: const Icon(
                                 Icons.save,

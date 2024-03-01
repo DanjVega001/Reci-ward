@@ -21,6 +21,7 @@ dependencies:
   uni_links: ^0.5.1
   image_picker: ^1.0.7
   path_provider: ^2.1.2
+  animate_do: ^3.3.3
 
 dev_dependencies:
   flutter_test:
