@@ -15,10 +15,10 @@
                 <td>{{ ap.nombreMaterial }}</td>
                 <td>{{ ap.numeroPuntos }}</td> 
                 <td>
-                    <button type="button" (click)="eliminarMaterial(ap.id)">Eliminar</button>           
+                    <button type="button" class="btn btn-outline-danger " (click)="eliminarMaterial(ap.id)">Eliminar</button>           
                 </td>
                 <td>
-                    <button type="button" (click)="editarMaterial(ap.id)">Editar</button>           
+                    <button type="button" class="btn btn-outline-primary" (click)="editarMaterial(ap.id)">Editar</button>           
                 </td>
             </tr>
         </tbody>

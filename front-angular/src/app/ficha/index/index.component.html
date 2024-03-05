@@ -20,10 +20,10 @@
                 <td>{{ap.fechaCreacion}}</td>
                 <td>{{ap.fechaFin}}</td>
                 <td>
-                    <button type="button" (click)="eliminarFicha(ap.id)">Eliminar</button>
+                    <button type="button" class="btn btn-outline-danger " (click)="eliminarFicha(ap.id)">Eliminar</button>
                 </td>
                 <td>
-                    <button type="button" (click)="editarFicha(ap.id)">Editar</button> 
+                    <button type="button" class="btn btn-outline-primary" (click)="editarFicha(ap.id)">Editar</button> 
                 </td>
             </tr>
         </tbody>
