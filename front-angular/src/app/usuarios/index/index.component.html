@@ -17,10 +17,10 @@
                 <td>{{ caf.nombreCafeteria }}</td>
                 <td>{{ caf.correoCafeteria }}</td>
                 <td>
-                    <button type="button" (click)="eliminarCafeteria(caf.id)">Eliminar</button>
+                    <button type="button" class="btn btn-outline-danger"   (click)="eliminarCafeteria(caf.id)">Eliminar</button>
                 </td>
                 <td>
-                    <button type="button" (click)="editarCafeteria(caf.id)">Editar</button> 
+                    <button type="button" class="btn btn-outline-primary"  (click)="editarCafeteria(caf.id)">Editar</button> 
                 </td>
             </tr>
         </tbody>
@@ -44,10 +44,10 @@
                 <td>{{ ad.nombreAdmin }}</td>
                 <td>{{ ad.correoAdmin }}</td>
                 <td>
-                    <button type="button" (click)="eliminarAdmin(ad.id)">Eliminar</button>
+                    <button type="button" class="btn btn-outline-danger" (click)="eliminarAdmin(ad.id)">Eliminar</button>
                 </td>
                 <td>
-                    <button type="button" (click)="editarAdmin(ad.id)">Editar</button> 
+                    <button type="button" class="btn btn-outline-primary"  (click)="editarAdmin(ad.id)">Editar</button> 
                 </td>
             </tr>
         </tbody>
