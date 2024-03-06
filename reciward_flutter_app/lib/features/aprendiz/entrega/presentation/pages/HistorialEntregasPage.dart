@@ -17,24 +17,27 @@ class _HistorialEntregaspageState extends State<HistorialEntregasPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Historial de Entregas', style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
+        title: const Text('Historial de Entregas',
+            style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold)),
         centerTitle: true,
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/manual_images/arrrr.png"),
-            fit: BoxFit.cover,
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/manual_images/arrrr.png"),
+              fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: BlocBuilder<EntregaBloc, EntregaState>(
-          builder: (context, state) {
-            if (state is HistorialEntregaSuccess) {
-              final entregas = state.entregas;
-              return _buildTable(entregas);
-            }
-            return Center(child: CircularProgressIndicator());
-          },
+          child: BlocBuilder<EntregaBloc, EntregaState>(
+            builder: (context, state) {
+              if (state is HistorialEntregaSuccess) {
+                final entregas = state.entregas;
+                return _buildTable(entregas);
+              }
+              return Center(child: CircularProgressIndicator());
+            },
+          ),
         ),
       ),
     );
@@ -42,7 +45,9 @@ class _HistorialEntregaspageState extends State<HistorialEntregasPage> {
 
   Widget _buildTable(List<GetHistorialEntrega> entregas) {
     return Table(
-      border: TableBorder.all(color: Color.fromARGB(244, 168, 168, 168), borderRadius: BorderRadius.circular(10)),
+      border: TableBorder.all(
+          color: Color.fromARGB(244, 168, 168, 168),
+          borderRadius: BorderRadius.circular(10)),
       children: _buildTableRows(entregas),
     );
   }
@@ -112,7 +117,8 @@ class _HistorialEntregaspageState extends State<HistorialEntregasPage> {
         TableCell(
           child: Center(
             child: Text(
-              entrega.nombreMaterial!.reduce((value, element) => value + ' ' + element),
+              entrega.nombreMaterial!
+                  .reduce((value, element) => value + ' ' + element),
               style: TextStyle(fontSize: 14),
             ),
           ),
@@ -129,7 +135,9 @@ class _HistorialEntregaspageState extends State<HistorialEntregasPage> {
           child: Center(
             child: Text(
               entrega.canjeada! ? "Activo" : "Inactivo",
-              style: TextStyle(fontSize: 14, color: entrega.canjeada! ? Colors.green : Colors.red),
+              style: TextStyle(
+                  fontSize: 14,
+                  color: entrega.canjeada! ? Colors.green : Colors.red),
             ),
           ),
         ),
