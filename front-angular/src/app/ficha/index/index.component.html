@@ -5,11 +5,11 @@
     <table class="table">
         <thead>
             <tr>
-                <td>id</td>
-                <td>Nombre de la ficha</td>
-                <td>Fecha de Creacion</td>
-                <td>Fecha Fin</td>
-                <td></td>
+                <th>id</th>
+                <th>Nombre de la ficha</th>
+                <th>Fecha de Creacion</th>
+                <th>Fecha Fin</th>
+                <th>Acciones</th>
             </tr>
         </thead>
 
@@ -20,11 +20,12 @@
                 <td>{{ap.fechaCreacion}}</td>
                 <td>{{ap.fechaFin}}</td>
                 <td>
-                    <button type="button" class="btn btn-outline-danger " (click)="eliminarFicha(ap.id)">Eliminar</button>
-                </td>
-                <td>
                     <button type="button" class="btn btn-outline-primary" (click)="editarFicha(ap.id)">Editar</button> 
                 </td>
+                <td>
+                    <button type="button" class="btn btn-outline-danger " (click)="eliminarFicha(ap.id)">Eliminar</button>
+                </td>
+               
             </tr>
         </tbody>
     </table>

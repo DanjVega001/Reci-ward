@@ -4,9 +4,10 @@
     <table class="table">
         <thead>
             <tr>
-                <td>id</td>
-                <td>Nombre del tip</td>
-                <td>Descripcion Tip</td>
+                <th>id</th>
+                <th>Nombre del tip</th>
+                <th>Descripcion Tip</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -15,10 +16,10 @@
                 <td>{{ap.nombre_tips}}</td>
                 <td>{{ap.descripcion}}</td>
                 <td>
-                    <button type="button" class="btn btn-outline-danger "  (click)="eliminarTip(ap.id)">Eliminar</button>
+                    <button type="button" class="btn btn-outline-primary" (click)="editarTip(ap.id)">Editar</button> 
                 </td>
                 <td>
-                    <button type="button" class="btn btn-outline-primary" (click)="editarTip(ap.id)">Editar</button> 
+                    <button type="button" class="btn btn-outline-danger "  (click)="eliminarTip(ap.id)">Eliminar</button>
                 </td>
             </tr>
         </tbody>
