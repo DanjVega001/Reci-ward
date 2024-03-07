@@ -26,6 +26,7 @@ class UserModel extends Equatable {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
 
+    print(json['rol']);
     return UserModel(
         email: json['email'],
         id: json['id'].toString(),

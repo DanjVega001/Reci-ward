@@ -50,6 +50,7 @@ void main() {
         BlocProvider(create: (context) => BonoBloc()),
       ],
       child: MaterialApp(
+        title: "Reciward",
         debugShowCheckedModeBanner: false,
         routes: {
           '/signup': (context) => const SignupPage(),

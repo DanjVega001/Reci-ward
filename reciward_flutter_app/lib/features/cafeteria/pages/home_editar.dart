@@ -15,6 +15,8 @@ class _BonoFormState extends State<EditarBonoPageCafeteria> {
   TextEditingController _valorBonoController = TextEditingController();
   TextEditingController _puntosRequeridosController = TextEditingController();
 
+
+
   @override
   void dispose() {
     _valorBonoController.dispose();
@@ -22,8 +24,16 @@ class _BonoFormState extends State<EditarBonoPageCafeteria> {
     super.dispose();
   }
 
+
+ 
+
   @override
   Widget build(BuildContext context) {
+    final bono = (ModalRoute.of(context)!.settings.arguments as Map);
+    _valorBonoController.text = "${bono["valorBono"]}";
+    _puntosRequeridosController.text = "${bono["puntosRequeridos"]}";
+
+    print(bono["id"]);
     return Scaffold(
       appBar: AppBar(
         title: Text('Formulario de Bono'),
@@ -59,7 +69,7 @@ class _BonoFormState extends State<EditarBonoPageCafeteria> {
                     BlocProvider.of<BonoBloc>(context).add(UpdateBonoEvent(accessToken: user.accces_token!, bonoEntity: BonoEntity(
                       puntosRequeridos: int.parse(_puntosRequeridosController.text.trim()),
                       valorBono: int.parse(_valorBonoController.text.trim()),
-                      id: "${(ModalRoute.of(context)!.settings.arguments as int)}"
+                      id: "${bono["id"]}"
                     )));
                     BlocProvider.of<BonoBloc>(context).add(GetBonosEvent(accessToken: user.accces_token!, rol: user.rol!));
                     Navigator.pop(context);

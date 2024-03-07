@@ -116,6 +116,7 @@ class BonoService {
     try {
       final response =
           await dio.get("$urlApiGetHistorialBono/$code", options: options);
+      print("bonos"+response.data);
       if (response.statusCode == 200) {
         final data = GetBonoCafeteriaDto.fromJson(response.data);
         return right(data);
