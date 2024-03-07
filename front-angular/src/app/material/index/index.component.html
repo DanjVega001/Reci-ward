@@ -4,9 +4,10 @@
     <table class="table">
         <thead>
             <tr>
-                <td>id</td>
-                <td>Nombre de Material</td>
-                <td>Numero de Puntos</td>
+                <th>id</th>
+                <th>Nombre de Material</th>
+                <th>Numero de Puntos</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -15,11 +16,12 @@
                 <td>{{ ap.nombreMaterial }}</td>
                 <td>{{ ap.numeroPuntos }}</td> 
                 <td>
-                    <button type="button" class="btn btn-outline-danger " (click)="eliminarMaterial(ap.id)">Eliminar</button>           
-                </td>
-                <td>
                     <button type="button" class="btn btn-outline-primary" (click)="editarMaterial(ap.id)">Editar</button>           
                 </td>
+                <td>
+                    <button type="button" class="btn btn-outline-danger " (click)="eliminarMaterial(ap.id)">Eliminar</button>           
+                </td>
+               
             </tr>
         </tbody>
     </table>
