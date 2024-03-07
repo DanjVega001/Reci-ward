@@ -35,6 +35,7 @@ class CafeteriaController extends Controller
             'email' => $request->correoCafeteria,
             'password' => Hash::make($request->contrasenaCafeteria)
         ]);
+        $user->assignRole('cafeteria');
         $cafeteria = Cafeteria::create([
             'nombreCafeteria' => $request->nombreCafeteria,
             'correoCafeteria' => $request->correoCafeteria,
