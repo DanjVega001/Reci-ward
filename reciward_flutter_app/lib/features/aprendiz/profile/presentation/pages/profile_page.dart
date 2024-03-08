@@ -175,7 +175,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           UpdateUserFormField(
                             controller: nameController,
-                            label: "Name",
+                            label: "Nombre",
                             type: TextInputType.text,
                             editar: editar,
                           ),

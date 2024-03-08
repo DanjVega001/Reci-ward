@@ -5,9 +5,10 @@
     <table class="table">
         <thead>
             <tr>
-                <td>ID</td>
-                <td>Valor del Bono</td>
-                <td>Puntos requridos</td>
+                <th>ID</th>
+                <th>Valor del Bono</th>
+                <th>Puntos requridos</th>
+                <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -16,11 +17,12 @@
                 <td>{{ ap.valorBono }}</td>
                 <td>{{ ap.puntosRequeridos }}</td>
                 <td>
-                    <button type="button" class="btn btn-outline-danger " (click)="eliminarBono(ap.id)">Eliminar</button>           
-                </td>
-                <td>
                     <button type="button" class="btn btn-outline-primary" (click)="editarBono(ap.id)">Editar</button>           
                 </td>
+                <td>
+                    <button type="button" class="btn btn-outline-danger " (click)="eliminarBono(ap.id)">Eliminar</button>           
+                </td>
+                
             </tr>
         </tbody>
     </table>

@@ -92,21 +92,21 @@ class _SignupPageState extends State<SignupPage> {
                     height: 15,
                   ),
                   AuthFormField(
-                      label: 'Nombre del aprendiz',
+                      label: 'Name',
                       controller: nameController,
                       type: TextInputType.text),
                   const SizedBox(
                     height: 10.0,
                   ),
                   AuthFormField(
-                      label: 'Apellido del aprendiz',
+                      label: 'Last name',
                       controller: apellidoController,
                       type: TextInputType.text),
                   const SizedBox(
                     height: 10.0,
                   ),
                   AuthFormField(
-                      label: 'Email del aprendiz',
+                      label: 'Email',
                       controller: emailController,
                       type: TextInputType.emailAddress),
                   const SizedBox(
@@ -164,7 +164,7 @@ class _SignupPageState extends State<SignupPage> {
                         return const CircularProgressIndicator();
                       } else if (snapshot.hasError) {
                         return Text(
-                            '-Error al cargar datos: ${snapshot.error}');
+                            '-Error: ${snapshot.error}');
                       } else if (!snapshot.hasData) {
                         return const Text('No hay datos disponibles');
                       } else {
@@ -172,7 +172,7 @@ class _SignupPageState extends State<SignupPage> {
                         return either!.fold(
                           (dioException) {
                             return Text(
-                                'Error al cargar datos: ${dioException.message}');
+                                'Error: ${dioException.message}');
                           },
                           (fichas) {
                             if (fichas.isNotEmpty) {

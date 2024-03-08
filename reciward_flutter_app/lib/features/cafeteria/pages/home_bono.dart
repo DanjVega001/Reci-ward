@@ -34,94 +34,95 @@ class _HomeBonoPageCafeteriaState extends State<HomeBonoPageCafeteria> {
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Table(
-                  border: TableBorder.all(),
-                  columnWidths: {
-                    0: FlexColumnWidth(1), // Ancho de la primera columna
-                    1: FlexColumnWidth(2), // Ancho de la segunda columna
-                    2: FlexColumnWidth(
-                        2), // Ancho de la tercera columna (puntos requeridos)
-                  },
-                  children: [
-                    TableRow(
-                      children: [
-                        TableCell(
-                          child: Center(
-                            child: Container(
-                              padding: EdgeInsets.symmetric(vertical: 6.0),
-                              child: Text(
-                                'Id',
-                                style: TextStyle(fontWeight: FontWeight.normal),
+                child: BlocBuilder<BonoBloc, BonoState>(
+                  builder: (context, state) {
+                    if (state is GetBonoSuccessState) {
+                      return Table(
+                        border: TableBorder.all(),
+                        columnWidths: {
+                          0: FlexColumnWidth(1), // Ancho de la primera columna
+                          1: FlexColumnWidth(2), // Ancho de la segunda columna
+                          2: FlexColumnWidth(
+                              2), // Ancho de la tercera columna (puntos requeridos)
+                          3: FlexColumnWidth(2),
+                        },
+                        children: [
+                          TableRow(
+                            children: [
+                              TableCell(
+                                child: Center(
+                                  child: Container(
+                                    padding:
+                                        EdgeInsets.symmetric(vertical: 6.0),
+                                    child: Text(
+                                      'Id',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.normal),
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
+                              TableCell(
+                                child: Center(child: Text('Valor del bono')),
+                              ),
+                              TableCell(
+                                child: Center(child: Text('Puntos requeridos')),
+                              ),
+                              TableCell(
+                                child: Center(child: Text('Editar Bono')),
+                              ),
+                            ],
                           ),
-                        ),
-                        TableCell(
-                          child: Center(child: Text('Valor del bono')),
-                        ),
-                        TableCell(
-                          child: Center(child: Text('Puntos requeridos')),
-                        ),
-                      ],
-                    ),
-                    TableRow(
-                      children: [
-                        TableCell(
-                          child: Center(
-                            child: BlocBuilder<BonoBloc, BonoState>(
-                              builder: (context, state) {
-                                if (state is GetBonoSuccessState) {
-                                  for (var bono in state.bonos) {
-                                    return Text("${bono.id}");
-                                  }
-                                }
-                                return Text("No hay valor del bono");
-                              },
-                            ),
-                          ),
-                        ),
-                        TableCell(
-                          child: Center(
-                            child: BlocBuilder<BonoBloc, BonoState>(
-                              builder: (context, state) {
-                                if (state is GetBonoSuccessState) {
-                                  for (var bono in state.bonos) {
-                                    return Text("${bono.valorBono}");
-                                  }
-                                }
-                                return Text("No hay valor del bono");
-                              },
-                            ),
-                          ),
-                        ),
-                        TableCell(
-                          child: Center(
-                            child: BlocBuilder<BonoBloc, BonoState>(
-                              builder: (context, state) {
-                                if (state is GetBonoSuccessState) {
-                                  for (var bono in state.bonos) {
-                                    return Text("${bono.puntosRequeridos} "); 
-                                  }
-                                }
-                                return Text("No hay puntos requeridos del bono");
-                              },
-                            )
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                          for (var bono in state.bonos)
+                            TableRow(children: [
+                              TableCell(
+                                child: Center(child: Text(bono.id!)),
+                              ),
+                              TableCell(
+                                child: Center(child: Text("${bono.valorBono}")),
+                              ),
+                              TableCell(
+                                child: Center(
+                                    child: Text("${bono.puntosRequeridos}")),
+                              ),
+                              TableCell(
+                                  child: IconButton(
+                                icon: Icon(Icons.edit),
+                                onPressed: () {
+                                  Navigator.pushNamed(
+                                    context, "/editar-cafeteria",
+                                    arguments: {
+                                      "id" : bono.id,
+                                      "valorBono" : bono.valorBono,
+                                      "puntosRequeridos" : bono.puntosRequeridos
+                                    });
+                                },
+                              ))
+                            ]),
+                        ],
+                      );
+                    }
+                    return Center(child: Text("Cargando Bonos..."),);
+                  },
                 ),
               ),
             ),
             SizedBox(height: 20.0),
-            ElevatedButton(
+            /*ElevatedButton(
               onPressed: () async {
                 Navigator.pushNamed(context, "/editar-cafeteria", arguments: 1);
               },
+<<<<<<< HEAD
               style: ElevatedButton.styleFrom(),
+=======
+              style: ElevatedButton.styleFrom(
+                  //primary: Color.fromARGB(255, 83, 177, 117),
+                  //onPrimary: Colors.white,
+
+                  ),
+>>>>>>> 99c4fd940e2d148095a9503b65e01c7e3e305278
               child: Text('Editar bono'),
-            ),
+            ),*/
           ],
         ),
       ),

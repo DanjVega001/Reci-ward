@@ -5,9 +5,8 @@ import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_but
 import 'package:reciward_flutter_app/features/material/domain/entities/material_entity.dart';
 import 'package:reciward_flutter_app/features/material/presentation/bloc/material_bloc.dart';
 
-// ignore: must_be_immutable
 class MaterialDropdown extends StatefulWidget {
-  MaterialDropdown({super.key});
+  MaterialDropdown({Key? key}) : super(key: key);
 
   @override
   State<MaterialDropdown> createState() => _MaterialDropdownState();
@@ -33,7 +32,7 @@ class _MaterialDropdownState extends State<MaterialDropdown> {
                 "id": material.id!,
                 "nombre": material.nombreMaterial!,
                 "puntos": "${material.numeroPuntos!}",
-                "cantidad": "${contadores[material.id!]}"
+                "cantidad": "${contadores[material.id!]}",
               };
 
               materialesList.add(materialMap);
@@ -46,9 +45,10 @@ class _MaterialDropdownState extends State<MaterialDropdown> {
               const Text(
                 "Realizar una entrega",
                 style: TextStyle(
-                    fontFamily: 'Ubuntu',
-                    fontSize: 19,
-                    fontWeight: FontWeight.w700),
+                  fontFamily: 'Ubuntu',
+                  fontSize: 19,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
               const SizedBox(
                 height: 20,
@@ -75,7 +75,9 @@ class _MaterialDropdownState extends State<MaterialDropdown> {
                               Text(
                                 "${material.nombreMaterial} Puntos: ${material.numeroPuntos}",
                                 style: const TextStyle(
-                                    fontWeight: FontWeight.w600),
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 18.0,
+                                ),
                               ),
                               IconButton(
                                 onPressed: () {
@@ -98,9 +100,26 @@ class _MaterialDropdownState extends State<MaterialDropdown> {
                             ],
                           ),
                           const SizedBox(height: 8),
-                          Text(
-                            'Cantidad: ${contadores[id]}',
-                            style: const TextStyle(color: Colors.grey),
+                          Row(
+                            children: [
+                              Text(
+                                'Cantidad: ',
+                                style: const TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 18.5, // Ajusta este valor
+                                ),
+                              ),
+                              Text(
+                                '${contadores[id]}',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: contadores[id] == 0
+                                      ? Colors.grey
+                                      : Color.fromARGB(210, 238, 1, 1),
+                                  fontSize: 18.5,
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -123,12 +142,13 @@ class _MaterialDropdownState extends State<MaterialDropdown> {
                     });
 
                     showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return ModalResumenEntrega(
-                            materiales: materialesList,
-                          );
-                        });
+                      context: context,
+                      builder: (context) {
+                        return ModalResumenEntrega(
+                          materiales: materialesList,
+                        );
+                      },
+                    );
                   },
                   text: "Hacer entrega",
                 ),
