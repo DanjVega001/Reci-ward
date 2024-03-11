@@ -21,11 +21,12 @@ class EntregaModel {
   });
 
   factory EntregaModel.fromJson(Map<String, dynamic> json){
+    print("object");
     return EntregaModel(
       id: json["id"].toString(),
-      cantidadMaterial: json["cantidadMaterial"],
+      cantidadMaterial: int.parse(json["cantidadMaterial"]),
       canjeada: json["canjeada"]==1 ? true : false,
-      puntosAcumulados: json["puntosAcumulados"],
+      puntosAcumulados: int.parse(json["puntosAcumulados"]),
       aprendizId: json["aprendiz_id"].toString(),
       materiales: (json["materiales"] as List).map((e) => GetEntregaMaterialModel.fromJson(e)).toList()
     );

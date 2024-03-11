@@ -8,7 +8,9 @@ import { Aprendiz } from '../modelos/aprendiz.model';
 })
 export class AprendizService {
 
-  url = 'http://127.0.0.1:8000/api/auth/aprendiz/';
+  //url = 'http://127.0.0.1:8000/api/auth/aprendiz/';
+  url:string = 'http://reciward.api.adsocidm.com/api/auth/aprendiz';
+
   
   obtenerOptions(access_token:any):Object{
     const headers = new HttpHeaders({
@@ -31,15 +33,15 @@ export class AprendizService {
   }
 
   getAprendiz(id:any, access_token:any):Observable<any>{
-    return this.http.get(this.url+id, this.obtenerOptions(access_token));
+    return this.http.get(this.url+"/"+id, this.obtenerOptions(access_token));
   }
 
   updateAprendiz(aprendiz:Aprendiz, id:string, access_token:any): Observable<any>{
-    return this.http.put(this.url+id, aprendiz, this.obtenerOptions(access_token));
+    return this.http.put(this.url+"/"+id, aprendiz, this.obtenerOptions(access_token));
   }
   
   deleteAprendiz(id:string, access_token:any):Observable<any>{
-    return this.http.delete(this.url+id, this.obtenerOptions(access_token));
+    return this.http.delete(this.url+"/"+id, this.obtenerOptions(access_token));
   }
 
   

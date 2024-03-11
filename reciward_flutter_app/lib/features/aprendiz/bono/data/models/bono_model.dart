@@ -15,8 +15,8 @@ class BonoModel {
   factory BonoModel.fromJson(Map<String, dynamic> json){
     return BonoModel(
       id: json['id'].toString(),
-      valorBono: json['valorBono'],
-      puntosRequeridos: json['puntosRequeridos']
+      valorBono: int.parse(json['valorBono']),
+      puntosRequeridos: int.parse(json['puntosRequeridos'])
     );
   }
 

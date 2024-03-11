@@ -30,7 +30,7 @@ class AprendizModel extends Equatable {
     return AprendizModel(
         id: aprendiz['id'].toString(),
         tipoDocumento: aprendiz['tipoDocumento'],
-        numeroDocumento: aprendiz['numeroDocumento'],
+        numeroDocumento: int.parse(aprendiz['numeroDocumento']),
         apellido: perfil['apellido'],
         descripcionPerfil: perfil['descripcionPerfil'],
         avatar: perfil['avatar'],

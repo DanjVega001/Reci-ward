@@ -158,6 +158,7 @@ class AuthService {
 
     try {
       final response = await dio.post(urlApiSendVerificationEmail, data:  {'email' : email}, options: options);
+      print(response);
       if (response.statusCode == 200) {
         return right({
           "message" : response.data["message"],

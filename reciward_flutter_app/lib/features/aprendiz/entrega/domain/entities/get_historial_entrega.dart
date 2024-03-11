@@ -14,11 +14,11 @@ class GetHistorialEntrega {
   });
 
   factory GetHistorialEntrega.fromJson(Map<String, dynamic> json) {
-    // print(json["nombreMaterial"]);
+    print(json["canjeada"]);
     return GetHistorialEntrega(
-      cantidadMaterial: json['cantidadMaterial'],
-      canjeada: json['canjeada'] == 0 ? true : false,
-      puntosAcumulados: json['puntosAcumulados'],
+      cantidadMaterial: int.parse(json['cantidadMaterial']),
+      canjeada: int.parse(json['canjeada']) == 0 ? true : false,
+      puntosAcumulados: int.parse(json['puntosAcumulados']),
       nombreMaterial: (json['nombreMaterial'] as String).split(', '),
       id: json['id'].toString(),
     );

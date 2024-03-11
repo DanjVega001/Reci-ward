@@ -14,8 +14,8 @@ class GetEntregaMaterialModel {
   factory GetEntregaMaterialModel.fromJson(Map<String, dynamic> json){
     return GetEntregaMaterialModel(
       nombreMaterial: json["nombreMaterial"],
-      numeroPuntos: json["numeroPuntos"],
-      numeroMaterial: json["numeroMaterial"]
+      numeroPuntos: int.parse(json["numeroPuntos"]),
+      numeroMaterial: int.parse(json["numeroMaterial"])
     );
   }
 

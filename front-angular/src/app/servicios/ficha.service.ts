@@ -6,7 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FichaService {
-  url = 'http://127.0.0.1:8000/api/auth/ficha/';
+  //url = 'http://127.0.0.1:8000/api/auth/ficha/';
+  url:string = 'http://reciward.api.adsocidm.com/api/auth/ficha';
+
   
   obtenerOptions(access_token:any):Object{
     const headers = new HttpHeaders({
@@ -29,14 +31,14 @@ export class FichaService {
   }
   
   getFicha(id: any, access_token: any): Observable<any>{
-    return this.http.get(this.url + id, this.obtenerOptions(access_token));
+    return this.http.get(this.url+"/"+id, this.obtenerOptions(access_token));
   }
   
   updateFicha(ficha: any, id: string, access_token: any): Observable<any>{
-    return this.http.put(this.url + id, ficha, this.obtenerOptions(access_token));
+    return this.http.put(this.url+"/"+id, ficha, this.obtenerOptions(access_token));
   }
   
   deleteFicha(id: string, access_token: any): Observable<any>{
-    return this.http.delete(this.url + id, this.obtenerOptions(access_token));
+    return this.http.delete(this.url+"/"+id, this.obtenerOptions(access_token));
   }
 }

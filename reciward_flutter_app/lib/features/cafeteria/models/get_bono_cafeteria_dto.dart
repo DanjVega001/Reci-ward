@@ -16,14 +16,14 @@ class GetBonoCafeteriaDto {
   });
 
   factory GetBonoCafeteriaDto.fromJson(Map<String, dynamic> json){
-    print(json);
+
     return GetBonoCafeteriaDto(
       id: json['id'].toString(),
       nombreAprendiz: json['nombreAprendiz'],
       apellidoAprendiz: json['apellidoAprendiz'],
-      documento: json['documento'],
+      documento: int.parse(json['documento']),
       fechaVencimiento: json['fechaVencimiento'],
-      valorBono: json['valorBono']
+      valorBono: int.parse(json['valorBono'])
     );
   }
 }

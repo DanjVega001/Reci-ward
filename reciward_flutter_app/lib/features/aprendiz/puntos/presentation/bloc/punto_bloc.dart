@@ -17,6 +17,7 @@ class PuntoBloc extends Bloc<PuntoEvent, PuntoState> {
 
   void onGetPuntosEvent(GetPuntosEvent event, Emitter<PuntoState> emit) async {
     try {
+      emit(GetPutosLoadingState());
       Either<DioException, GetPuntoDto> either =
           await usecase.call(event.accessToken);
       return either.fold(

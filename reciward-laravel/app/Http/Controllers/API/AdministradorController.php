@@ -55,7 +55,7 @@ class AdministradorController extends Controller
 
             $user->assignRole('admin');
 
-            return response()->json($administrador, 201);
+            return response()->json(["message" => "Admin creado"], 201);
         } catch (\Throwable $th) {
             return response()->json($th->getMessage(), 400);
             

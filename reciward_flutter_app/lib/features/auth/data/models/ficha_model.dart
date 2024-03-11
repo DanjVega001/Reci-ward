@@ -19,9 +19,9 @@ class FichaModel extends Equatable{
 
   factory FichaModel.fromJson(Map<String, dynamic> json){
     return FichaModel(
-      id: json['id'].toString(),
+      id: json['id']?.toString(),
       nombreFicha: json['nombreFicha'],
-      numeroFicha: json['codigoFicha']
+      numeroFicha: int.parse(json['codigoFicha'])
     );
   }
 

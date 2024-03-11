@@ -13,8 +13,8 @@ class GetPuntoDto {
   factory GetPuntoDto.fromJson(Map<String, dynamic> json) {
     return GetPuntoDto(
         id: json["id"].toString(),
-        cantidadAcumulada: json["cantidadAcumulada"],
-        puntosUtilizados: json["puntosUtilizados"],
+        cantidadAcumulada: int.parse(json["cantidadAcumulada"]),
+        puntosUtilizados: int.parse(json["puntosUtilizados"]),
         aprendizId: json["aprendiz_id"].toString());
   }
 }
