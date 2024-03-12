@@ -7,7 +7,9 @@ import { Bono } from '../modelos/bono.model';
     providedIn: 'root'
   })
   export class BonoService {
-    url = 'http://127.0.0.1:8000/api/auth/bono-admin/';
+    //url = 'http://127.0.0.1:8000/api/auth/bono-admin/';
+    url:string = 'http://reciward.api.adsocidm.com/api/auth/bono-admin';
+
     
     obtenerOptions(access_token:any):Object{
       const headers = new HttpHeaders({
@@ -31,15 +33,15 @@ getBonos(access_token: any): Observable<any> {
   }
   
   getBono(id: any, access_token: any): Observable<any> {
-    return this.http.get(this.url + id, this.obtenerOptions(access_token));
+    return this.http.get(this.url+"/"+id, this.obtenerOptions(access_token));
   }
   
   updateBono(bono: Bono, id: string, access_token: any): Observable<any> {
-    return this.http.put(this.url + id, bono, this.obtenerOptions(access_token));
+    return this.http.put(this.url+"/"+id, bono, this.obtenerOptions(access_token));
   }
   
   deleteBono(id: string, access_token: any): Observable<any> {
-    return this.http.delete(this.url + id, this.obtenerOptions(access_token));
+    return this.http.delete(this.url+"/"+id, this.obtenerOptions(access_token));
   }
   
 }

@@ -16,7 +16,7 @@ class GetEntregaCafeteriaDto {
 
   factory GetEntregaCafeteriaDto.fromJson(Map<String, dynamic> json){
     return GetEntregaCafeteriaDto(  
-      documento: json["documento"],
+      documento: int.parse(json["documento"]),
       nombre: json["nombre"],
       apellido: json["apellido"],
       entrega: EntregaModel.fromJson(json["entrega"]).toEntity()

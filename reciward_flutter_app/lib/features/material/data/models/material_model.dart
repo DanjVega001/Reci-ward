@@ -12,10 +12,11 @@ class MaterialModel {
   const MaterialModel({this.id, this.clasificacion, this.nombreMaterial, this.numeroPuntos});
 
   factory MaterialModel.fromJson(Map<String, dynamic> json){
+    print("object");
     return MaterialModel(
       id: json['id'].toString(),
       nombreMaterial: json['nombreMaterial'],
-      numeroPuntos: json['numeroPuntos'],
+      numeroPuntos: int.parse(json['numeroPuntos']),
       clasificacion: json['clasificacion']
     );
   }

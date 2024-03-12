@@ -7,7 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class AdminService {
 
-  url = 'http://127.0.0.1:8000/api/auth/';
+  //url = 'http://127.0.0.1:8000/api/auth/';
+  url:string = 'http://reciward.api.adsocidm.com/api/auth';
+
 
   obtenerOptions(access_token:any):Object{
     const headers = new HttpHeaders({
@@ -22,17 +24,17 @@ export class AdminService {
   constructor(private http: HttpClient) { }
 
   getEntregas(documento:any, access_token:any):Observable<any>{ 
-    return this.http.get(this.url+'entrega/historial-admin/'+documento,
+    return this.http.get(this.url+"/"+'entrega/historial-admin/'+documento,
       this.obtenerOptions(access_token));
   }
 
   getBonos(documento:any, access_token:any):Observable<any>{
-    return this.http.get(this.url+'aprendiz-bono/admin/'+documento,
+    return this.http.get(this.url+"/"+'aprendiz-bono/admin/'+documento,
       this.obtenerOptions(access_token));
   }
 
   getDetallesEntrega(id:any, access_token:any):Observable<any>{
-    return this.http.get(this.url+'material-entrega/admin/'+id, 
+    return this.http.get(this.url+"/"+'material-entrega/admin/'+id, 
       this.obtenerOptions(access_token));
   }
 }

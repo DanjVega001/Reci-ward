@@ -54,9 +54,7 @@ class EntregaService {
     try {
       final response =
           await dio.get(urlApiHistorialEntregasPage, options: options);
-      print(response.statusCode);
       if (response.statusCode == 200) {
-        print(response.data);
 
         final data = (response.data as List)
             .map((e) => GetHistorialEntrega.fromJson(e))

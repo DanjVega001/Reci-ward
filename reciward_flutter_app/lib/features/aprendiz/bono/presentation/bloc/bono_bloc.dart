@@ -91,7 +91,7 @@ class BonoBloc extends Bloc<BonoEvent, BonoState> {
         emit(GetBonoCafeteriaSuccess(data: data));
       });
     } catch (e) {
-      print("Error en onSaveBonoAprendizEvent ${e.toString()}");
+      print("Error en onGetBonoCafeteriaEvent ${e.toString()}");
       return emit(GetBonoCafeteriaFailed(error: e.toString()));
     }
   }

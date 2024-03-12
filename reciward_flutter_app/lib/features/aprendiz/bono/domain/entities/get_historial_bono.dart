@@ -19,7 +19,7 @@ class GetHistorialBono {
   factory GetHistorialBono.fromJson(Map<String, dynamic> json) {
     return GetHistorialBono(
       codigoValidante: json['codigoValidante'],
-      estadoBono: json['estadoBono'] == 0 ? true : false,
+      estadoBono: int.parse(json['estadoBono']) == 0 ? true : false,
       fechaVencimiento: DateTime.parse("${json['fechaVencimiento']}"),
       id: json['id'].toString(),
     );

@@ -121,7 +121,7 @@ class GetPuntosBanner extends StatelessWidget {
             ],
           );
         }
-        return Text("fallo123");
+        return Center( child: Text("Cargando Puntos..."));
       },
     );
   }

@@ -19,3 +19,6 @@ final class GetPuntosSuccessState extends PuntoState {
     required this.getPuntoDto
   });
 }
+
+
+final class GetPutosLoadingState extends PuntoState {}

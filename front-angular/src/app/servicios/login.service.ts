@@ -7,7 +7,9 @@ import { Observable } from 'rxjs';
 })
 export class LoginService {
 
-  url:string = 'http://127.0.0.1:8000/api/auth/';
+  //url:string = 'http://127.0.0.1:8000/api/auth/';
+  url:string = 'http://reciward.api.adsocidm.com/api/auth';
+
 
   constructor(private http : HttpClient) { }
 
@@ -22,12 +24,12 @@ export class LoginService {
   }
 
   login(email:any, password:any):Observable<any>{
-    return this.http.post(this.url+"login", {email:email, password:password});
+    return this.http.post(this.url+"/"+"login", {email:email, password:password});
   }
 
   logout(access_token:any): Observable<any> {
     localStorage.removeItem('access_token');
-    return this.http.get(`${this.url}logout`, this.obtenerOptions(access_token));
+    return this.http.get(`${this.url}/logout`, this.obtenerOptions(access_token));
   }
 
 }
