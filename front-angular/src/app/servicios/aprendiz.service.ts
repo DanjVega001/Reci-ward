@@ -9,7 +9,7 @@ import { Aprendiz } from '../modelos/aprendiz.model';
 export class AprendizService {
 
   //url = 'http://127.0.0.1:8000/api/auth/aprendiz/';
-  url:string = 'http://reciward.api.adsocidm.com/api/auth/aprendiz';
+  url:string = 'https://reciward.api.adsocidm.com/api/auth/aprendiz';
 
   
   obtenerOptions(access_token:any):Object{
