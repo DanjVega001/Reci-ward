@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class MaterialService {
   //url = 'http://127.0.0.1:8000/api/auth/material/';
-  url:string = 'http://reciward.api.adsocidm.com/api/auth/material';
+  url:string = 'https://reciward.api.adsocidm.com/api/auth/material';
 
 
   obtenerOptions(access_token:any):Object{

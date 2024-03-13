@@ -8,7 +8,7 @@ import { Bono } from '../modelos/bono.model';
   })
   export class BonoService {
     //url = 'http://127.0.0.1:8000/api/auth/bono-admin/';
-    url:string = 'http://reciward.api.adsocidm.com/api/auth/bono-admin';
+    url:string = 'https://reciward.api.adsocidm.com/api/auth/bono-admin';
 
     
     obtenerOptions(access_token:any):Object{

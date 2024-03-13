@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class TipService {
   //url = 'http://127.0.0.1:8000/api/auth/tip/';
-  url:string = 'http://reciward.api.adsocidm.com/api/auth/tip';
+  url:string = 'https://reciward.api.adsocidm.com/api/auth/tip';
 
 
   obtenerOptions(access_token:any):Object{

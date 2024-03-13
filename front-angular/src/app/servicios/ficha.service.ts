@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class FichaService {
   //url = 'http://127.0.0.1:8000/api/auth/ficha/';
-  url:string = 'http://reciward.api.adsocidm.com/api/auth/ficha';
+  url:string = 'https://reciward.api.adsocidm.com/api/auth/ficha';
 
   
   obtenerOptions(access_token:any):Object{

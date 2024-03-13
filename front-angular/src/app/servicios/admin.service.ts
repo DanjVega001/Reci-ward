@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class AdminService {
 
   //url = 'http://127.0.0.1:8000/api/auth/';
-  url:string = 'http://reciward.api.adsocidm.com/api/auth';
+  url:string = 'https://reciward.api.adsocidm.com/api/auth';
 
 
   obtenerOptions(access_token:any):Object{
