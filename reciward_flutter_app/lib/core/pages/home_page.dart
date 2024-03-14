@@ -1,6 +1,8 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
+import 'package:reciward_flutter_app/core/widgets/connectivity_result.dart';
 import 'package:reciward_flutter_app/features/aprendiz/tips/domain/entities/tip_entity.dart';
 import 'package:reciward_flutter_app/features/aprendiz/tips/presentation/bloc/tip_bloc.dart';
 
@@ -17,6 +19,19 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    
+    
+    Future<void> _initializeConnectivity() async {
+      final connectivityResult = await MyConnectivity.getConnectivity();
+      if (connectivityResult == ConnectivityResult.none) {
+        Navigator.popUntil(context, (route) => false);
+        Navigator.pushNamed(context, "/");
+      }
+    }
+
+    _initializeConnectivity();
+    
+    
     return Scaffold(
       appBar: const AppBarReciward(),
       body: Container(

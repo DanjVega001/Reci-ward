@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
+import 'package:reciward_flutter_app/core/widgets/connectivity_result.dart';
 import 'package:reciward_flutter_app/core/widgets/snackbar_reciward.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/domain/entities/update_user_data_dto.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
@@ -61,6 +63,19 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+
+    
+    Future<void> _initializeConnectivity() async {
+      final connectivityResult = await MyConnectivity.getConnectivity();
+      if (connectivityResult == ConnectivityResult.none) {
+        Navigator.popUntil(context, (route) => false);
+        Navigator.pushNamed(context, "/");
+      }
+    }
+
+    _initializeConnectivity();
+
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
