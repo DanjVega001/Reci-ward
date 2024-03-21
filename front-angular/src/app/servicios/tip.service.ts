@@ -30,7 +30,7 @@ export class TipService {
   }
   
   getTip(id: any, access_token: any): Observable<any>{
-    return this.http.get(this.url + id, this.obtenerOptions(access_token));
+    return this.http.get(this.url +"/"+ id, this.obtenerOptions(access_token));
   }
   
   updateTip(tip: any, id: string, access_token: any): Observable<any>{
