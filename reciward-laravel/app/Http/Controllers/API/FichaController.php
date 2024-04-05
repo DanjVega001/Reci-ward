@@ -15,9 +15,9 @@ class FichaController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
      * @return \Illuminate\Http\Response
+     * 
+     * Muestra todas las fichas disponibles
      */
     public function index()
     {
@@ -26,9 +26,10 @@ class FichaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * 
+     * Crea una ficha, esto solo lo puede hacer el ADMIN 
      */
     public function store(Request $request)
     {
@@ -47,10 +48,11 @@ class FichaController extends Controller
     }
 
     /**
-     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * Muestra solo una ficha por su id
      */
     public function show($id)
     {
@@ -62,11 +64,12 @@ class FichaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * Actualiza la ficha. Solo por el ADMIN
      */
     public function update(Request $request, $id)
     {
@@ -90,10 +93,11 @@ class FichaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * Elimina la ficha en caso de ser necesario
      */
     public function destroy($id)
     {

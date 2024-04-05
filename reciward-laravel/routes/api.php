@@ -108,9 +108,6 @@ Route::group([
         /** Actualiza el estado del bono cuando el aprendiz lo haya redimido */
         Route::put("/aprendiz-bono/{id}", [Aprendiz_has_bonoController::class, 'update']);
 
-        /** Materiales
-         * Muestra los materiales que tiene la entrega */
-        //Route::get("/entrega-materiales/{idEntrega}", [Material_has_entregaController::class, 'show']);
     });
 
     Route::middleware(['auth:api', 'role:aprendiz'])->group(function () {

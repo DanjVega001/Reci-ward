@@ -25,10 +25,11 @@ class AdministradorController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
+     * 
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * 
+     * Crea un usuario con perfil administrador
      */
     public function store(Request $request)
     {
@@ -64,7 +65,7 @@ class AdministradorController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -79,11 +80,13 @@ class AdministradorController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * 
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * Actualiza los datos del usuario con perfil administrador
      */
     public function update(Request $request, $id)
     {
@@ -121,10 +124,13 @@ class AdministradorController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * 
+     * Elimina el usuario con perfil administrador
      */
     public function destroy($id)
     {
@@ -136,6 +142,12 @@ class AdministradorController extends Controller
         }
         return response()->json(["error"=>"Administrador no encontrado"], 404);
     }
+
+
+    /**
+     *  Muestra el historial de bonos del aprendiz por su numero de documento
+     *
+     */
 
     public function bonosPorAprendiz($documento)
     {

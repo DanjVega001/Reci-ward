@@ -23,9 +23,11 @@ class AprendizController extends Controller
         $this->service = $service;
     }
     /**
-     * Display a listing of the resource.
+     * 
      *
      * @return \Illuminate\Http\Response
+     * 
+     * Muestra los datos de un aprendiz, incluyendo datos que estan dentro de la entidad Perfil
      */
     public function index()
     {
@@ -47,7 +49,7 @@ class AprendizController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -66,7 +68,7 @@ class AprendizController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -91,11 +93,11 @@ class AprendizController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * 
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
+     * Actualiza los datos del aprendiz
      */
     public function update(Request $request)
     {
@@ -147,7 +149,7 @@ class AprendizController extends Controller
 
     /**
      *
-     * Actualizar el aprendiz por parte del aprendiz
+     * Actualizar el aprendiz por parte del admin
      */
     public function updateAprendizByAdmin(Request $request, $id)
     {
@@ -171,10 +173,12 @@ class AprendizController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * Elimina por completo al aprendiz y sus entidades o tablas relacionadas
      */
     public function destroy($id)
     {

@@ -16,12 +16,25 @@ class PuntoController extends Controller
         $this->service = $service;
     }
 
+    /**
+     *
+     * @return \Illuminate\Http\Response
+     * 
+     * Muestra los puntos
+     */
     public function index()
     {
         $puntos = Punto::all();
         return response()->json($puntos, 200);
     }
     
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     * 
+     * Inicializa los puntos para un aprendiz
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -33,6 +46,16 @@ class PuntoController extends Controller
         $punto = Punto::create($request->all());
         return response()->json($punto, 201);
     }
+
+
+    
+    /**
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     * 
+     * Muestra los puntos de un aprendiz
+     */
 
     public function show()
     {
@@ -46,6 +69,14 @@ class PuntoController extends Controller
         }return response()->json($punto, 200);
     }
 
+
+    /**
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     * 
+     * Actualiza los puntos del aprendiz
+     */
     public function update(Request $request, $id)
     {
         $punto = Punto::find($id);
@@ -63,6 +94,14 @@ class PuntoController extends Controller
         return response()->json($punto, 200);
     }
 
+    
+    /** 
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     * 
+     * Elimina los puntos del aprendiz
+     */
     public function destroy($id)
     {
         $punto = Punto::find($id);

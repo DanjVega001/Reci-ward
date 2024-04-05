@@ -8,9 +8,11 @@ use App\Models\Bono;
 class BonoController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 
      *
      * @return \Illuminate\Http\Response
+     * 
+     * Obtiene todos los bonos disponibles para canjear por puntos
      */
     public function index()
     {
@@ -19,9 +21,11 @@ class BonoController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * 
+     * Crea un bono. Esto solo lo puede hacer el admin
      */
     public function store(Request $request)
     {
@@ -33,7 +37,7 @@ class BonoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -48,11 +52,13 @@ class BonoController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * 
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * Actualiza el bono. Esto lo puede hacer tanto el admin como el de cafetería 
      */
     public function update(Request $request, $id)
     {
@@ -69,10 +75,12 @@ class BonoController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * Elimina. Esto solo lo puede hacer el admin
      */
     public function destroy($id)
     {
