@@ -15,9 +15,11 @@ class PerfilController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * 
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * 
+     * Crea un nuevo pefil para un usuario
      */
     public function store(Request $request)
     {
@@ -31,10 +33,11 @@ class PerfilController extends Controller
     }
 
     /**
-     * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * Este metodo devuelve el perfil del aprendiz autenticado
      */
     public function verPerfil()
     {
@@ -50,11 +53,12 @@ class PerfilController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * Actualiza el perfil del usuario
      */
     public function update(Request $request)
     {
@@ -76,11 +80,12 @@ class PerfilController extends Controller
         } 
     }
 
-    /**
-     * Remove the specified resource from storage.
+    /** 
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * Elimina el perfil del usuario
      */
     public function destroy($id)
     {

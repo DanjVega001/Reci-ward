@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\Hash;
 class CafeteriaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * 
      *
      * @return \Illuminate\Http\Response
+     * 
+     * Muestra la cafetría disponible
      */
     public function index()
     {
@@ -23,10 +25,12 @@ class CafeteriaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * 
+     * Crea un nuevo perfil de cafetería
      */
     public function store(Request $request)
     {
@@ -46,6 +50,14 @@ class CafeteriaController extends Controller
     }
 
 
+     /**
+     * .
+     *
+     * @param  $id 
+     * @return \Illuminate\Http\Response
+     * 
+     * Muestra un perfil de cafetería
+     */
     public function show($id){
         $cafeteria = Cafeteria::find($id);
         if ($cafeteria) {
@@ -54,6 +66,16 @@ class CafeteriaController extends Controller
         return response()->json(["error"=>"Cafeteria no encontrado"], 404);
     }
 
+
+    /**
+     *
+     *
+     * @param  $id 
+     * @param  \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     * 
+     * Muestra un perfil de cafetería
+     */
 
     public function update(Request $request, $id)
     {
@@ -88,10 +110,12 @@ class CafeteriaController extends Controller
 
 
     /**
-     * Remove the specified resource from storage.
+     * 
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * Elimina el perfil de cafetería
      */
     public function destroy($id)
     {

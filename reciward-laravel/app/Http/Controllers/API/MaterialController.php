@@ -9,6 +9,13 @@ use Illuminate\Support\Facades\Hash;
 
 class MaterialController extends Controller
 {
+
+    /**
+     * 
+     * @return \Illuminate\Http\Response
+     * 
+     * Muestra todas los materiales disponibles
+     */
     public function index()
     {
         $materiales = Material::all();
@@ -23,6 +30,13 @@ class MaterialController extends Controller
         return response()->json($materiales_data, 200);
     }
 
+    /**
+     * @param  Request $request
+     * @return \Illuminate\Http\Response
+     * 
+     * Crear un nuevo material. SOLO EL ADMIN
+     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -33,6 +47,14 @@ class MaterialController extends Controller
         $material = Material::create($request->all());
         return response()->json($material, 201);
     }
+
+
+     /**
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     * 
+     * Muestra un material por su id
+     */
 
     public function show($id)
     {
@@ -49,6 +71,14 @@ class MaterialController extends Controller
         return response()->json($materiales_data, 200);
     }
 
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     * 
+     * Actualiza el material
+     */
+
     public function update(Request $request, $id)
     {
         $material = Material::find($id);
@@ -64,6 +94,12 @@ class MaterialController extends Controller
         return response()->json($material, 200);
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\Response
+     * 
+     * Elimina el material
+     */
     public function destroy($id)
     {
         try {

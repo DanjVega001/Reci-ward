@@ -1,5 +1,8 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reciward_flutter_app/core/widgets/alert_dialog_error_network.dart';
+import 'package:reciward_flutter_app/core/widgets/connectivity_result.dart';
 import 'package:reciward_flutter_app/core/widgets/snackbar_reciward.dart';
 import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc/profile_bloc.dart';
 import 'package:reciward_flutter_app/features/aprendiz/tips/presentation/bloc/tip_bloc.dart';
@@ -22,17 +25,54 @@ class _LoginPageState extends State<LoginPage> {
 
   final TextEditingController passwordController = TextEditingController();
 
+  bool isConnected = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    late ConnectivityResult result;
+    Future<void> _initializeConnectivity() async {
+      final connectivityResult = await MyConnectivity.getConnectivity();
+      result = connectivityResult;
+      if (connectivityResult == ConnectivityResult.none) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialogErrorNetwork(
+              context: context,
+              onRetry: () {
+                setState(() {});
+              },
+            ).alert;
+          },
+        );
+      }
+    }
+
+    _initializeConnectivity();
+
     return Scaffold(
       backgroundColor: Pallete.colorWhite,
       body: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
           if (state is AuthErrorState) {
-            ScaffoldMessenger.of(context).showSnackBar(MySnackBar.showSnackBar(
-              state.error,
-              true,
-            ));
+            if (result == ConnectivityResult.none) {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(MySnackBar.showSnackBar(
+                "You do not have an internet connection",
+                true,
+              ));
+            } else {
+              ScaffoldMessenger.of(context)
+                  .showSnackBar(MySnackBar.showSnackBar(
+                state.error,
+                true,
+              ));
+            }
           }
           if (state is AuthenticatedState) {
             if (state.user.rol == "aprendiz") {
@@ -174,4 +214,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-

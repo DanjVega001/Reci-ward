@@ -17,7 +17,7 @@ class CafeteriaSeeder extends Seeder
     public function run()
     {
         $user = User::create([
-            'name' => 'Cafeteria Vega',
+            'name' => 'Cafeteria SENA',
             'email' => 'cafe@gmail.com',
             'password' => Hash::make('123456')
         ]);

@@ -19,8 +19,9 @@ class Aprendiz_has_bonoController extends Controller
         $this->service = $service;
     }
     /**
-     * @param $idAprendiz
      * @return Response 
+     * 
+     * Muestra los bonos no redmidos del aprendiz
      * 
      */
     public function bonosPorAprendiz()
@@ -146,6 +147,13 @@ class Aprendiz_has_bonoController extends Controller
         ], 200);
     }
 
+    /**
+     * @param $id
+     * @return Response
+     * 
+     * Actualiza el estado del bono cuando el aprendiz lo haya redimido (Cafetería)
+     */
+
     public function update($id)
     {
         $aprendiz_has_bono = Aprendiz_has_bono::find($id);
@@ -158,6 +166,11 @@ class Aprendiz_has_bonoController extends Controller
         ]);
         return response()->json(['message' => 'Bono validado'], 200);
     }
+
+    /***
+     * 
+     * Elimina un registro de la relación de Aprendiz y bono
+     */
 
     public function destroy($id)
     {

@@ -18,22 +18,14 @@ class EntregaController extends Controller
     public function __construct(FuncionesService $service){
         $this->service = $service;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     *//*
-    public function index($documento)
-    {
-        $entregas = Entrega::all();
-        return response()->json($entregas, 200);
-    }*/
+
 
     /**
-     * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * 
+     * Guarda la entrega del aprendiz 
      */
     public function store(Request $request)
     {
@@ -66,7 +58,7 @@ class EntregaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * 
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -110,11 +102,12 @@ class EntregaController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * Actualiza la entrega en caso de algun cambio 
      */
     public function update(Request $request, $id)
     {
@@ -131,10 +124,11 @@ class EntregaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * Elimina la entrega del aprendiz
      */
     public function destroy($id)
     {
@@ -197,14 +191,25 @@ class EntregaController extends Controller
         
     }
 
-
-
-
+    /** 
+    * @param int $documento
+     * @return Illuminate\Http\Response
+     * 
+     * Muestra el historial de entregas que ha tenido el aprendiz para el Administador
+     *
+     */
 
     public function historialPorAdmin($documento) {
         $aprendiz = Aprendiz::where('numeroDocumento', $documento)->first();
         return $this->historial($aprendiz);
     }
+
+    /** 
+    * @param int $aprendiz(documento)
+     * @return Illuminate\Http\Response
+     *
+     * Es Llamado por el historialPorAdmin.
+     */
 
     private function historial ($aprendiz) {
         if (!$aprendiz) {

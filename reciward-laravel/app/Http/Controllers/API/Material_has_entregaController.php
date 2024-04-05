@@ -21,6 +21,8 @@ class Material_has_entregaController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * 
+     * Guarda los materiales dentro de la entrega
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -56,8 +58,7 @@ class Material_has_entregaController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
+    /** 
      *
      * @param  int  $id = idEntrega
      * @return \Illuminate\Http\Response
@@ -106,10 +107,11 @@ class Material_has_entregaController extends Controller
 
 
     /**
-     * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
+     * 
+     * Elimina el registro de la relacíón entre entregas y materiales
      */
     public function destroy($id)
     {
