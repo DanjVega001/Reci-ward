@@ -65,7 +65,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
 
     
-    Future<void> _initializeConnectivity() async {
+    Future<void> initializeConnectivity() async {
       final connectivityResult = await MyConnectivity.getConnectivity();
       if (connectivityResult == ConnectivityResult.none) {
         Navigator.popUntil(context, (route) => false);
@@ -73,7 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
       }
     }
 
-    _initializeConnectivity();
+    initializeConnectivity();
 
 
     return Scaffold(
@@ -293,7 +293,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     ),
                   );
                 }
-                return Text("Problemas");
+                return const Text("Problemas");
               },
             );
           },

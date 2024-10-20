@@ -6,14 +6,16 @@ import 'package:reciward_flutter_app/features/aprendiz/profile/presentation/bloc
 import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.dart';
 
 class EditarBonoPageCafeteria extends StatefulWidget {
+  const EditarBonoPageCafeteria({super.key});
+
   @override
   _BonoFormState createState() => _BonoFormState();
 }
 
 class _BonoFormState extends State<EditarBonoPageCafeteria> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _valorBonoController = TextEditingController();
-  TextEditingController _puntosRequeridosController = TextEditingController();
+  final TextEditingController _valorBonoController = TextEditingController();
+  final TextEditingController _puntosRequeridosController = TextEditingController();
 
 
 
@@ -36,10 +38,10 @@ class _BonoFormState extends State<EditarBonoPageCafeteria> {
     print(bono["id"]);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Formulario de Bono'),
+        title: const Text('Formulario de Bono'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Form(
           key: _formKey,
           child: Column(
@@ -47,7 +49,7 @@ class _BonoFormState extends State<EditarBonoPageCafeteria> {
             children: <Widget>[
               TextFormField(
                 controller: _valorBonoController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Valor del bono',
                 ),
                keyboardType: TextInputType.number,
@@ -56,13 +58,13 @@ class _BonoFormState extends State<EditarBonoPageCafeteria> {
                 controller: _puntosRequeridosController,
                keyboardType: TextInputType.number,
                 
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Puntos requeridos',
                 ),
             
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
                   onPressed: () {
                     UserEntity user = (BlocProvider.of<ProfileBloc>(context).state as UserProfileState).user!;
@@ -74,7 +76,7 @@ class _BonoFormState extends State<EditarBonoPageCafeteria> {
                     BlocProvider.of<BonoBloc>(context).add(GetBonosEvent(accessToken: user.accces_token!, rol: user.rol!));
                     Navigator.pop(context);
                   },
-                  child: Text('Guardar'),
+                  child: const Text('Guardar'),
                 ),
               ),
             ],

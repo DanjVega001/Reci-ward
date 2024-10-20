@@ -10,7 +10,7 @@ import '../widgets/app_bar_reciward.dart';
 import '../widgets/nav_reciward.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key});
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     
     
-    Future<void> _initializeConnectivity() async {
+    Future<void> initializeConnectivity() async {
       final connectivityResult = await MyConnectivity.getConnectivity();
       if (connectivityResult == ConnectivityResult.none) {
         Navigator.popUntil(context, (route) => false);
@@ -29,13 +29,13 @@ class _HomePageState extends State<HomePage> {
       }
     }
 
-    _initializeConnectivity();
+    initializeConnectivity();
     
     
     return Scaffold(
       appBar: const AppBarReciward(),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/manual_images/arrrr.png"), // Ruta de tu imagen de fondo
             fit: BoxFit.cover,
@@ -46,7 +46,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               Card(
-                color: Color.fromARGB(255, 107, 172, 121),
+                color: const Color.fromARGB(255, 107, 172, 121),
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(25, 15, 25, 15),
                   child: Column(
@@ -125,9 +125,6 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (context, index) {
                             TipEntity tip = tips[index];
                             return ExpansionTile(
-                              children: <Widget>[
-                                ListTile(title: Text(tip.descripcion!))
-                              ],
                               leading: const Icon(Icons.recycling,
                                   color: Colors.green),
                               title: Text(
@@ -135,6 +132,9 @@ class _HomePageState extends State<HomePage> {
                                 style:
                                     const TextStyle(fontWeight: FontWeight.w600),
                               ),
+                              children: <Widget>[
+                                ListTile(title: Text(tip.descripcion!))
+                              ],
                             );
                           },
                         ),

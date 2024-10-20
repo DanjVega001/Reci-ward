@@ -9,13 +9,13 @@ import 'package:reciward_flutter_app/features/auth/domain/entities/user_entity.d
 import 'package:reciward_flutter_app/features/auth/presentation/bloc/auth_bloc.dart';
 
 class HomePageCafeteria extends StatelessWidget {
-  const HomePageCafeteria({Key? key}) : super(key: key);
+  const HomePageCafeteria({super.key});
 
   @override
   Widget build(BuildContext context) {
 
     
-    Future<void> _initializeConnectivity() async {
+    Future<void> initializeConnectivity() async {
       final connectivityResult = await MyConnectivity.getConnectivity();
       if (connectivityResult == ConnectivityResult.none) {
         Navigator.popUntil(context, (route) => false);
@@ -23,7 +23,7 @@ class HomePageCafeteria extends StatelessWidget {
       }
     }
 
-    _initializeConnectivity();
+    initializeConnectivity();
 
     return BlocConsumer<ProfileBloc, ProfileState>(
       listener: (context, state) {
@@ -61,7 +61,7 @@ class HomePageCafeteria extends StatelessWidget {
               ),
             ),
             body: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 image: DecorationImage(
                   image: AssetImage("assets/manual_images/cafff.png"),
                   fit: BoxFit.cover,
@@ -101,7 +101,7 @@ class HomePageCafeteria extends StatelessWidget {
                               height: 5,
                             ),
                             TextButton(
-                              style: ButtonStyle(
+                              style: const ButtonStyle(
                                 backgroundColor:
                                     MaterialStatePropertyAll(Pallete.colorGrey2),
                               ),
@@ -146,7 +146,7 @@ class HomePageCafeteria extends StatelessWidget {
                                 },
                                 icon: const Icon(Icons.book_online_rounded),
                                 label: const Text("Bonos"),
-                                style: ButtonStyle(
+                                style: const ButtonStyle(
                                   alignment: Alignment.centerLeft,
                                   iconSize: MaterialStatePropertyAll(30),
                                   foregroundColor:
@@ -161,7 +161,7 @@ class HomePageCafeteria extends StatelessWidget {
                                 },
                                 icon: const Icon(Icons.checklist_rounded),
                                 label: const Text("Validar Bonos"),
-                                style: ButtonStyle(
+                                style: const ButtonStyle(
                                   alignment: Alignment.center,
                                   iconSize: MaterialStatePropertyAll(30),
                                   textStyle: MaterialStatePropertyAll(TextStyle(
@@ -176,7 +176,7 @@ class HomePageCafeteria extends StatelessWidget {
                                 },
                                 icon: const Icon(Icons.delivery_dining_rounded),
                                 label: const Text("Validar Entrega"),
-                                style: ButtonStyle(
+                                style: const ButtonStyle(
                                   alignment: Alignment.centerRight,
                                   iconSize: MaterialStatePropertyAll(30),
                                   textStyle: MaterialStatePropertyAll(TextStyle(
@@ -196,7 +196,7 @@ class HomePageCafeteria extends StatelessWidget {
             ),
           );
         }
-        return Text("Fallo en el servidor");
+        return const Text("Fallo en el servidor");
       },
     );
   }

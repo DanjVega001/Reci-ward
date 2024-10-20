@@ -30,7 +30,7 @@ class SendMailResetPasswordPage extends StatelessWidget {
        },
        builder: (context, state) {
         if (state is SendMailInitialized) {
-          return Center(child: CircularProgressIndicator(),);
+          return const Center(child: CircularProgressIndicator(),);
         }
          return SingleChildScrollView(
           child: Padding(

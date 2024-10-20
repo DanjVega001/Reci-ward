@@ -54,7 +54,7 @@ void main() {
         debugShowCheckedModeBanner: false,
         routes: {
           '/signup': (context) => const SignupPage(),
-          '/home': (context) => HomePage(),
+          '/home': (context) => const HomePage(),
           '/entrega': (context) => const HomeEntregaPage(),
           '/bono': (context) => const HomeBonoPage(),
           '/send-mail': (context) => const SendMailResetPasswordPage(),
@@ -67,8 +67,8 @@ void main() {
           '/validar-bono': (context) => ValidarBonoPage(),
           '/manualCafeteria': (context) => const ManualCafe(),
           '/verify-password': (context) => VerificationReserPassword(),
-          '/bono-cafeteria': (context) => HomeBonoPageCafeteria(),
-          '/editar-cafeteria': (context) => EditarBonoPageCafeteria(),
+          '/bono-cafeteria': (context) => const HomeBonoPageCafeteria(),
+          '/editar-cafeteria': (context) => const EditarBonoPageCafeteria(),
         },
         home: const LoginPage(),
       )));

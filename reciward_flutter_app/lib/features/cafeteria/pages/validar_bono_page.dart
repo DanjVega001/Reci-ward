@@ -10,7 +10,7 @@ import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_but
 import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_field.dart';
 
 class ValidarBonoPage extends StatelessWidget {
-  ValidarBonoPage({Key? key});
+  ValidarBonoPage({super.key});
 
   final TextEditingController searchController = TextEditingController();
   int idBono = 0;
@@ -19,7 +19,7 @@ class ValidarBonoPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     
-    Future<void> _initializeConnectivity() async {
+    Future<void> initializeConnectivity() async {
       final connectivityResult = await MyConnectivity.getConnectivity();
       if (connectivityResult == ConnectivityResult.none) {
         Navigator.popUntil(context, (route) => false);
@@ -27,7 +27,7 @@ class ValidarBonoPage extends StatelessWidget {
       }
     }
 
-    _initializeConnectivity();
+    initializeConnectivity();
 
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +38,7 @@ class ValidarBonoPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/manual_images/cafff.png"),
             fit: BoxFit.cover,

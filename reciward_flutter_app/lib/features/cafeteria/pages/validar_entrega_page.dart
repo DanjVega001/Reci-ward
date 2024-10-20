@@ -12,7 +12,7 @@ import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_but
 import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_field.dart';
 
 class ValidarEntregaPage extends StatelessWidget {
-  ValidarEntregaPage({Key? key});
+  ValidarEntregaPage({super.key});
 
   final TextEditingController searchController = TextEditingController();
   int idEntrega = 0;
@@ -21,7 +21,7 @@ class ValidarEntregaPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     
-    Future<void> _initializeConnectivity() async {
+    Future<void> initializeConnectivity() async {
       final connectivityResult = await MyConnectivity.getConnectivity();
       if (connectivityResult == ConnectivityResult.none) {
         Navigator.popUntil(context, (route) => false);
@@ -29,7 +29,7 @@ class ValidarEntregaPage extends StatelessWidget {
       }
     }
 
-    _initializeConnectivity();
+    initializeConnectivity();
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -39,7 +39,7 @@ class ValidarEntregaPage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/manual_images/cafff.png"),
             fit: BoxFit.cover,

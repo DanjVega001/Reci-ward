@@ -35,7 +35,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     late ConnectivityResult result;
-    Future<void> _initializeConnectivity() async {
+    Future<void> initializeConnectivity() async {
       final connectivityResult = await MyConnectivity.getConnectivity();
       result = connectivityResult;
       if (connectivityResult == ConnectivityResult.none) {
@@ -53,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
       }
     }
 
-    _initializeConnectivity();
+    initializeConnectivity();
 
     return Scaffold(
       backgroundColor: Pallete.colorWhite,

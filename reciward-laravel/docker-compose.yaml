@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  reciward:
+    container_name: reciward
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./:/var/www
+    networks:
+      - reciward-network
+    depends_on:
+      - db
+
+  db:
+    container_name: reciward_db
+    image: mysql:8.2.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+    ports:
+      - '3306:3306'
+    volumes:
+      - reciward_db_data:/var/lib/mysql
+    networks:
+      - reciward-network
+
+  nginx:
+    container_name: reciward_nginx
+    image: nginx:alpine
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./:/var/www
+    depends_on:
+      - reciward
+      - db
+    networks:
+      - reciward-network
+
+
+networks:
+  reciward-network:
+    driver: bridge
+
+volumes:
+  reciward_db_data:
+    driver: local

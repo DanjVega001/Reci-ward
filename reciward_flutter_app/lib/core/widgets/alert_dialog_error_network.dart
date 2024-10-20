@@ -9,7 +9,7 @@ class AlertDialogErrorNetwork {
   AlertDialogErrorNetwork({required this.context, required this.onRetry}) {
 
     cerrar = TextButton(
-      child: Text("Cerrar App"),
+      child: const Text("Cerrar App"),
       onPressed: () {
         SystemNavigator.pop();
       },
@@ -17,7 +17,7 @@ class AlertDialogErrorNetwork {
 
 
     reintentar = TextButton(
-      child: Text("Reintentar"),
+      child: const Text("Reintentar"),
       onPressed: () {
         Navigator.pop(context); 
         onRetry();
@@ -29,8 +29,8 @@ class AlertDialogErrorNetwork {
         
       },
       child: AlertDialog(
-        title: Text("Tienes un problema de conexión a internet"),
-        content: Text("Revisa tu wifi. Todas las opciones de la app serán limitadas"),
+        title: const Text("Tienes un problema de conexión a internet"),
+        content: const Text("Revisa tu wifi. Todas las opciones de la app serán limitadas"),
         actions: [
           reintentar,
           cerrar

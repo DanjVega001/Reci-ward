@@ -87,7 +87,7 @@ class GetPuntosBanner extends StatelessWidget {
                             showModalBottomSheet(
                               context: context,
                               builder: (context) {
-                                return ShowModalBonos();
+                                return const ShowModalBonos();
                               },
                             );
                           },
@@ -121,7 +121,7 @@ class GetPuntosBanner extends StatelessWidget {
             ],
           );
         }
-        return Center( child: Text("Cargando Puntos..."));
+        return const Center( child: Text("Cargando Puntos..."));
       },
     );
   }

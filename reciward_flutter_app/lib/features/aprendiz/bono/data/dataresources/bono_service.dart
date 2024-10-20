@@ -145,7 +145,7 @@ class BonoService {
       final response =
           await dio.put("$urlApiGetHistorialBono/$idBono", options: options);
       print(response);
-      if (response.statusCode == 200) {;
+      if (response.statusCode == 200) {
         return right(response.data["message"]);
       }
 

@@ -42,7 +42,7 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
 
     
-    Future<void> _initializeConnectivity() async {
+    Future<void> initializeConnectivity() async {
       final connectivityResult = await MyConnectivity.getConnectivity();
       if (connectivityResult == ConnectivityResult.none) {
         Navigator.popUntil(context, (route) => false);
@@ -50,7 +50,7 @@ class _SignupPageState extends State<SignupPage> {
       }
     }
 
-    _initializeConnectivity();
+    initializeConnectivity();
     return Scaffold(
       backgroundColor: Pallete.colorWhite,
       body: BlocConsumer<AuthBloc, AuthState>(

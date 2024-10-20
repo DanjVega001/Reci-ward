@@ -9,7 +9,7 @@ import 'package:reciward_flutter_app/features/aprendiz/bono/presentation/bloc/bo
 import 'package:reciward_flutter_app/features/aprendiz/puntos/presentation/widgets/get_puntos_banner.dart';
 
 class HomeBonoPage extends StatefulWidget {
-  const HomeBonoPage({Key? key}) : super(key: key);
+  const HomeBonoPage({super.key});
 
   @override
   _HomeBonoPageState createState() => _HomeBonoPageState();
@@ -28,7 +28,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
 
 
     
-    Future<void> _initializeConnectivity() async {
+    Future<void> initializeConnectivity() async {
       final connectivityResult = await MyConnectivity.getConnectivity();
       if (connectivityResult == ConnectivityResult.none) {
         Navigator.popUntil(context, (route) => false);
@@ -36,7 +36,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
       }
     }
 
-    _initializeConnectivity();
+    initializeConnectivity();
     return Scaffold(
       appBar: const AppBarReciward(),
       body: Container(
@@ -70,7 +70,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               Container(
                   width: 360,
                   decoration: BoxDecoration(
-                    border: Border.all(color: Color.fromARGB(255, 84, 104, 59)),
+                    border: Border.all(color: const Color.fromARGB(255, 84, 104, 59)),
                     color: const Color.fromARGB(255, 221, 221, 220),
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -92,7 +92,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                         );
                       }
 
-                      return Center(child: Text("No tienes bonos"));
+                      return const Center(child: Text("No tienes bonos"));
                     },
                   )),
             ],
@@ -129,7 +129,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               child: Center(
                 child: Text(
                   bono.id!,
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
             ),
@@ -137,7 +137,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
               child: Center(
                 child: Text(
                   bono.codigoValidante!,
-                  style: TextStyle(fontSize: 16),
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
             ),
@@ -164,7 +164,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                     : null, // Detener el stream si el bono no está activo
                 builder: (context, snapshot) {
                   if (!bono.isActive) {
-                    return Center(
+                    return const Center(
                         child: Text(
                       'Bono inactivo',
                       style: TextStyle(fontSize: 16, color: Colors.red),
@@ -173,7 +173,7 @@ class _HomeBonoPageState extends State<HomeBonoPage> {
                   return Center(
                     child: Text(
                       '${bono.remainingTime.inDays}D${bono.remainingTime.inHours.remainder(24)}H${bono.remainingTime.inMinutes.remainder(60)}M${bono.remainingTime.inSeconds.remainder(60)}S',
-                      style: TextStyle(fontSize: 15),
+                      style: const TextStyle(fontSize: 15),
                     ),
                   );
                 },

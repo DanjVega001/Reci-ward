@@ -6,7 +6,7 @@ import 'package:reciward_flutter_app/features/material/domain/entities/material_
 import 'package:reciward_flutter_app/features/material/presentation/bloc/material_bloc.dart';
 
 class MaterialDropdown extends StatefulWidget {
-  MaterialDropdown({Key? key}) : super(key: key);
+  const MaterialDropdown({super.key});
 
   @override
   State<MaterialDropdown> createState() => _MaterialDropdownState();
@@ -102,9 +102,9 @@ class _MaterialDropdownState extends State<MaterialDropdown> {
                           const SizedBox(height: 8),
                           Row(
                             children: [
-                              Text(
+                              const Text(
                                 'Cantidad: ',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: Colors.grey,
                                   fontSize: 18.5, // Ajusta este valor
                                 ),
@@ -115,7 +115,7 @@ class _MaterialDropdownState extends State<MaterialDropdown> {
                                   fontWeight: FontWeight.bold,
                                   color: contadores[id] == 0
                                       ? Colors.grey
-                                      : Color.fromARGB(210, 7, 104, 15),
+                                      : const Color.fromARGB(210, 7, 104, 15),
                                   fontSize: 18.5,
                                 ),
                               ),
@@ -157,7 +157,7 @@ class _MaterialDropdownState extends State<MaterialDropdown> {
           );
         }
 
-        return Text("");
+        return const Text("");
       },
     );
   }

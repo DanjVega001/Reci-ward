@@ -4,7 +4,7 @@ import 'package:reciward_flutter_app/features/aprendiz/entrega/domain/entities/g
 import 'package:reciward_flutter_app/features/aprendiz/entrega/presentation/bloc/entrega_bloc.dart';
 
 class HistorialEntregasPage extends StatefulWidget {
-  const HistorialEntregasPage({Key? key}) : super(key: key);
+  const HistorialEntregasPage({super.key});
 
   @override
   _HistorialEntregaspageState createState() => _HistorialEntregaspageState();
@@ -23,7 +23,7 @@ class _HistorialEntregaspageState extends State<HistorialEntregasPage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/manual_images/arrrr.png"),
               fit: BoxFit.cover,
@@ -35,7 +35,7 @@ class _HistorialEntregaspageState extends State<HistorialEntregasPage> {
                 final entregas = state.entregas;
                 return _buildTable(entregas);
               }
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             },
           ),
         ),
@@ -46,7 +46,7 @@ class _HistorialEntregaspageState extends State<HistorialEntregasPage> {
   Widget _buildTable(List<GetHistorialEntrega> entregas) {
     return Table(
       border: TableBorder.all(
-          color: Color.fromARGB(244, 168, 168, 168),
+          color: const Color.fromARGB(244, 168, 168, 168),
           borderRadius: BorderRadius.circular(10)),
       children: _buildTableRows(entregas),
     );
@@ -102,7 +102,7 @@ class _HistorialEntregaspageState extends State<HistorialEntregasPage> {
           child: Center(
             child: Text(
               entrega.id!,
-              style: TextStyle(fontSize: 14),
+              style: const TextStyle(fontSize: 14),
             ),
           ),
         ),
@@ -110,7 +110,7 @@ class _HistorialEntregaspageState extends State<HistorialEntregasPage> {
           child: Center(
             child: Text(
               entrega.cantidadMaterial.toString(),
-              style: TextStyle(fontSize: 14),
+              style: const TextStyle(fontSize: 14),
             ),
           ),
         ),
@@ -118,8 +118,8 @@ class _HistorialEntregaspageState extends State<HistorialEntregasPage> {
           child: Center(
             child: Text(
               entrega.nombreMaterial!
-                  .reduce((value, element) => value + ' ' + element),
-              style: TextStyle(fontSize: 14),
+                  .reduce((value, element) => '$value $element'),
+              style: const TextStyle(fontSize: 14),
             ),
           ),
         ),
@@ -127,7 +127,7 @@ class _HistorialEntregaspageState extends State<HistorialEntregasPage> {
           child: Center(
             child: Text(
               entrega.puntosAcumulados.toString(),
-              style: TextStyle(fontSize: 14),
+              style: const TextStyle(fontSize: 14),
             ),
           ),
         ),

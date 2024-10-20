@@ -15,7 +15,7 @@ class MySnackBar {
 
     return SnackBar(
       content: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Row(
           children: [
             Icon(icon, color: color),

@@ -1,7 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:reciward_flutter_app/core/constants/pallete_colors.dart';
 import 'package:reciward_flutter_app/core/widgets/app_bar_reciward.dart';
 import 'package:reciward_flutter_app/core/widgets/connectivity_result.dart';
 import 'package:reciward_flutter_app/core/widgets/nav_reciward.dart';
@@ -12,7 +11,7 @@ import 'package:reciward_flutter_app/features/auth/presentation/widgets/form_but
 import 'package:reciward_flutter_app/features/material/presentation/widgets/material_dropdown.dart';
 
 class HomeEntregaPage extends StatefulWidget {
-  const HomeEntregaPage({Key? key}) : super(key: key);
+  const HomeEntregaPage({super.key});
 
   @override
   State<HomeEntregaPage> createState() => _HomeEntregaPageState();
@@ -23,7 +22,7 @@ class _HomeEntregaPageState extends State<HomeEntregaPage> {
   Widget build(BuildContext context) {
 
 
-    Future<void> _initializeConnectivity() async {
+    Future<void> initializeConnectivity() async {
       final connectivityResult = await MyConnectivity.getConnectivity();
       if (connectivityResult == ConnectivityResult.none) {
         Navigator.popUntil(context, (route) => false);
@@ -31,13 +30,13 @@ class _HomeEntregaPageState extends State<HomeEntregaPage> {
       }
     }
 
-    _initializeConnectivity();
+    initializeConnectivity();
     return Scaffold(
       appBar: const AppBarReciward(),
       body: Container(
-        constraints: BoxConstraints
+        constraints: const BoxConstraints
             .expand(), // Para que ocupe todo el espacio disponible
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/manual_images/arrrr.png"),
             fit: BoxFit.cover,
@@ -46,10 +45,10 @@ class _HomeEntregaPageState extends State<HomeEntregaPage> {
         child: Padding(
           padding: const EdgeInsets.all(14),
           child: SingleChildScrollView(
-            physics: NeverScrollableScrollPhysics(), // Evita el desplazamiento
+            physics: const NeverScrollableScrollPhysics(), // Evita el desplazamiento
             child: Column(
               children: [
-                MaterialDropdown(),
+                const MaterialDropdown(),
                 Container(
                   padding: const EdgeInsets.only(
                     left: 15,

@@ -5,6 +5,8 @@ import 'package:reciward_flutter_app/core/widgets/connectivity_result.dart';
 import 'package:reciward_flutter_app/features/aprendiz/bono/presentation/bloc/bono_bloc.dart';
 
 class HomeBonoPageCafeteria extends StatefulWidget {
+  const HomeBonoPageCafeteria({super.key});
+
   @override
   _HomeBonoPageCafeteriaState createState() => _HomeBonoPageCafeteriaState();
 }
@@ -17,7 +19,7 @@ class _HomeBonoPageCafeteriaState extends State<HomeBonoPageCafeteria> {
   Widget build(BuildContext context) {
 
     
-    Future<void> _initializeConnectivity() async {
+    Future<void> initializeConnectivity() async {
       final connectivityResult = await MyConnectivity.getConnectivity();
       if (connectivityResult == ConnectivityResult.none) {
         Navigator.popUntil(context, (route) => false);
@@ -25,18 +27,18 @@ class _HomeBonoPageCafeteriaState extends State<HomeBonoPageCafeteria> {
       }
     }
 
-    _initializeConnectivity();
+    initializeConnectivity();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tus Bonos'),
+        title: const Text('Tus Bonos'),
       ),
       body: Container(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             Card(
-              color: Color.fromRGBO(156, 245, 156, 1), // Color verde claro
+              color: const Color.fromRGBO(156, 245, 156, 1), // Color verde claro
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0),
               ),
@@ -47,7 +49,7 @@ class _HomeBonoPageCafeteriaState extends State<HomeBonoPageCafeteria> {
                     if (state is GetBonoSuccessState) {
                       return Table(
                         border: TableBorder.all(),
-                        columnWidths: {
+                        columnWidths: const {
                           0: FlexColumnWidth(1), // Ancho de la primera columna
                           1: FlexColumnWidth(2), // Ancho de la segunda columna
                           2: FlexColumnWidth(
@@ -61,8 +63,8 @@ class _HomeBonoPageCafeteriaState extends State<HomeBonoPageCafeteria> {
                                 child: Center(
                                   child: Container(
                                     padding:
-                                        EdgeInsets.symmetric(vertical: 6.0),
-                                    child: Text(
+                                        const EdgeInsets.symmetric(vertical: 6.0),
+                                    child: const Text(
                                       'Id',
                                       style: TextStyle(
                                           fontWeight: FontWeight.normal),
@@ -70,13 +72,13 @@ class _HomeBonoPageCafeteriaState extends State<HomeBonoPageCafeteria> {
                                   ),
                                 ),
                               ),
-                              TableCell(
+                              const TableCell(
                                 child: Center(child: Text('Valor del bono')),
                               ),
-                              TableCell(
+                              const TableCell(
                                 child: Center(child: Text('Puntos requeridos')),
                               ),
-                              TableCell(
+                              const TableCell(
                                 child: Center(child: Text('Editar Bono')),
                               ),
                             ],
@@ -95,7 +97,7 @@ class _HomeBonoPageCafeteriaState extends State<HomeBonoPageCafeteria> {
                               ),
                               TableCell(
                                   child: IconButton(
-                                icon: Icon(Icons.edit),
+                                icon: const Icon(Icons.edit),
                                 onPressed: () {
                                   Navigator.pushNamed(
                                     context, "/editar-cafeteria",
@@ -110,12 +112,12 @@ class _HomeBonoPageCafeteriaState extends State<HomeBonoPageCafeteria> {
                         ],
                       );
                     }
-                    return Center(child: Text("Cargando Bonos..."),);
+                    return const Center(child: Text("Cargando Bonos..."),);
                   },
                 ),
               ),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             /*ElevatedButton(
               onPressed: () async {
                 Navigator.pushNamed(context, "/editar-cafeteria", arguments: 1);
