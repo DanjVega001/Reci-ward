@@ -1,8 +1,8 @@
-FROM php:7.3-fpm-alpine AS php
+FROM php:7.3-fpm AS php
 
 WORKDIR /var/www
 
-RUN apt-get update && apt-get install unzip
+RUN apt update && apt install unzip
 
 RUN docker-php-ext-install pdo pdo_mysql
 

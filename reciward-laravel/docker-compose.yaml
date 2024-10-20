@@ -12,25 +12,34 @@ services:
       - reciward-network
     depends_on:
       - db
+    ports:
+      - "8000:8000"
 
   db:
     container_name: reciward_db
     image: mysql:8.2.0
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     ports:
-      - '3306:3306'
+      - '3307:3306'
     volumes:
       - reciward_db_data:/var/lib/mysql
     networks:
       - reciward-network
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+          cpus: '0.5' 
 
   nginx:
     container_name: reciward_nginx
     image: nginx:alpine
     ports:
-      - '80:80'
+      - '81:80'
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
       - ./:/var/www
