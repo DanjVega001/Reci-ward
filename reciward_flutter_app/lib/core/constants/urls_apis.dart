@@ -1,4 +1,4 @@
-const String urlApi = "http://reciward.api.adsocidm.com/api/auth/";
+const String urlApi = "http://24.199.96.203/api/auth/";
 
 /// URLS API AUTH
 const String urlApiAuthLogin = "${urlApi}login";

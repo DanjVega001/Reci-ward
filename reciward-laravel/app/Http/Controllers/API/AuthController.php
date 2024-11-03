@@ -179,8 +179,9 @@ class AuthController extends Controller
             'created_at' => Carbon::now()
         ]);
 
-        // Se envia el correo electrónico
-        Mail::to($email)->send(new PasswordReset($token));
+        $clientEmail = new PasswordReset($token, $email);
+        $res = $clientEmail->build();
+        if(!$res->success()) throw new \Exception("Error en el servidor email");
 
         return response()->json(['message' => 'Te hemos enviado un email con las instrucciones para que recuperes tu contraseña', 'code' => $token], 200);
     }
@@ -215,7 +216,7 @@ class AuthController extends Controller
 
     /**
      * Metodo para enviar el correo de verificacion de la cuenta email
-     * 
+     *
      */
     public function sendVerificationEmail(Request $request){
         $request->validate([
@@ -227,7 +228,9 @@ class AuthController extends Controller
         }
 
         $code = rand(100000, 999999);
-        Mail::to($request->email)->send(new VerificationEmail($code));
+        $clientEmail = new VerificationEmail($request->email, $code);
+        $res = $clientEmail->build();
+        if(!$res->success()) throw new \Exception("Error en el servidor email");
 
         return response()->json([
             'message' => 'Mail sent',

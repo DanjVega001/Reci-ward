@@ -17,6 +17,7 @@
         "laravel/passport": "*",
         "laravel/socialite": "^5.10",
         "laravel/tinker": "^2.0",
+        "mailjet/laravel-mailjet": "^3.0",
         "spatie/laravel-permission": "^5.11"
     },
     "require-dev": {

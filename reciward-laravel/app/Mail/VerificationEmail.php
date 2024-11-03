@@ -2,41 +2,47 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Mailjet\Response;
 
-class VerificationEmail extends Mailable
+class VerificationEmail extends BaseEmail
 {
-    use Queueable, SerializesModels;
-
+    protected $email;
     private $code;
-
-    /**
-     * Create a new message instance.
-     *
-     * @return void
-     */
-    public function __construct($code)
+    public function __construct(string $email, int $code)
     {
-        $this->code = $code;
+        $this->email = $email;
+        $this->$code = $code;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
-    public function build()
+    protected function generateHtml(): void
     {
-        $content = "<html> Hola <br>";
-        $content .= "Recibes este correo electrónico porque hemos recibido una solicitud de una creación de una cuenta en Reciward.<br>";
-        $content .= "Debes digitar el siguiente codigo de 6 digitos para verificar tu cuenta. <br>";
-        $content .= "Codigo: <b>".$this->code."</b> <br>";
-        $content .= "Si no realizaste esta solicitud, puedes ignorar este correo.</html>";
-        return $this
-            ->subject('Verificacion del email')
-            ->html($content);
+        $this->html = '
+            <div>
+                <h1>¡Bienvenido a ' . config('app.name') . '!</h1>
+                <p>Hola</p>
+                <p>Recibes este correo electrónico porque hemos recibido una solicitud de una creación de una cuenta en Reciward.</p>
+                <p>Debes digitar el siguiente codigo de 6 digitos para verificar tu cuenta. <br></p>
+                <p>Codigo :' .$this->code. '</b> <br></p>
+                <p>Si no realizaste esta solicitud, puedes ignorar este correo.</p>
+            </div>
+        ';
+    }
+
+    protected function generateSubject(string $subject): void
+    {
+        $this->subject = $subject;
+    }
+
+    public function build() : Response
+    {
+        $this->generateMailjetClient();
+        $this->generateHtml();
+        $this->generateSubject('Activación de cuenta en ' . config('app.name'));
+        return $this->sendEmail();
     }
 }
